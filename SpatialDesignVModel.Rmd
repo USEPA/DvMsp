@@ -1,0 +1,54 @@
+---
+title: 'Spatial Analysis: Design-Based vs Model-Based'
+author: "Michael Dumelle and Matthew Higham"
+output: 
+  html_document:
+    theme: flatly
+    number_sections: true
+    highlighted: default 
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  collapse = TRUE,
+  comment = "#>", 
+  warning = FALSE, 
+  message = FALSE
+)
+```
+
+Insert Overview
+
+# Outline
+
+Here is an outline
+
+## Introduction
+
+Few sentences about the goal of the introduction
+
+## Literature Review
+
+Few sentences about the goal of the literature review
+
+## Numerical Analysis
+
+Few sentences about the goal of the data analysis
+
+### Simulation Based
+
+Few sentences about the goal of the simulations
+
+### Data Based
+
+Few sentences about the goal of the data analysis
+
+## Discussion
+
+Few sentences about the most important takeaways
