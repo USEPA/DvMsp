@@ -1,0 +1,122 @@
+% preamble
+
+% setting the document font and class
+\documentclass[12pt]{article}
+
+%ams math packages
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+
+%jay ver hoef's macros
+\usepackage{jvhmacros}
+
+% uncomment the line below if you want 2 cm margins instead of wide margins - wide margins are 1in
+%2 cm are smaller than 1in, so see what works after final version ready
+\usepackage[margin=1in,heightrounded=true,centering]{geometry}
+
+
+% forcing figure placement
+\usepackage{float}
+
+% putting in code from computing languages
+\usepackage{listings}
+
+% adding certain math scripts
+\usepackage{mathrsfs}
+
+% adding in R code
+\usepackage{verbatim}
+
+% adding certain math scripts
+\usepackage{euscript}
+
+% setting space between lines
+\usepackage{setspace}
+
+% provides striking out text
+\usepackage{soul}
+
+% adding line numbers
+\usepackage{lineno}
+
+% arguments to \includegraphics
+\usepackage{graphicx}
+
+% customize captions in floating environments (figure and table)
+\usepackage{caption}
+
+% envrionment for subfigures
+\usepackage{subcaption}
+
+% customization over enumerate, itemize, description
+\usepackage[shortlabels]{enumitem}
+
+% typesetting of \maketitle
+\usepackage{titling}
+% redefining \thanks
+\makeatletter
+\def\thanks#1{\protected@xdef\@thanks{\@thanks
+        \protect\footnotetext{#1}}}
+\makeatother
+
+% implements citations \cite
+\usepackage{natbib}
+\setlength{\bibsep}{0.0pt}
+
+% additional equation typesetting
+\usepackage{mathtools}
+% only show references used in equation numbers
+\mathtoolsset{showonlyrefs=true}
+
+% tables spanning multiple rows
+\usepackage{multirow}
+
+% make certain math fonts bold
+\usepackage{bm, bbm}
+
+% adding color customization
+\usepackage[usenames, dvipsnames]{color}
+
+% wrapping figures around text
+\usepackage{wrapfig}
+
+% table quality of life enhancements
+\usepackage{booktabs}
+% making table entries bold without making them larger
+\newcommand{\bftab}{\fontseries{b}\selectfont}
+
+% indents first paragraph after section header
+\usepackage{indentfirst}
+
+% allows for tables across successive pages
+\usepackage{longtable}
+
+% adding keywords
+\providecommand{\keywords}[1]{\textbf{\text{Keywords---}} #1}
+
+%JASA requirements for section numbering
+\renewcommand\thesection{\arabic{section}.} \renewcommand\thesubsection{\thesection\arabic{subsection}}
+
+% Inserts \clearpage before \begin{appendices}
+\usepackage{etoolbox}
+\usepackage{appendix}
+\BeforeBeginEnvironment{appendices}{\clearpage}
+
+% Colored References
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+% double spaced
+\doublespacing
+% influences line breaking
+\tolerance=2000 
+% used if TeX can't set the paragraph below the \tolerance badness
+\emergencystretch=20pt
+
+
+% adding author information
+\title{\large \textbf{A Comparison of Design-Based and Model-Based Approaches for Spatial Data}}
+\author{\small (in alphabetical order) Michael Dumelle and Matthew Higham and Others \thanks{Dumelle, Olsen, Kincaid, Weber}}
+\date{\vspace{-2cm}}

@@ -1,0 +1,82 @@
+\begin{thebibliography}{}
+
+\bibitem[Brus and De~Gruijter, 1997]{Brus1997random}
+Brus, D. and De~Gruijter, J. (1997).
+\newblock Random sampling or geostatistical modelling? choosing between
+  design-based and model-based sampling strategies for soil (with discussion).
+\newblock {\em Geoderma}, 80(1-2):1--44.
+
+\bibitem[Brus, 2020]{Brus2020statistical}
+Brus, D.~J. (2020).
+\newblock Statistical approaches for spatial sample survey: Persistent
+  misconceptions and new developments.
+\newblock {\em European Journal of Soil Science}.
+
+\bibitem[Chan-Golston et~al., 2020]{Chan2020bayesian}
+Chan-Golston, A.~M., Banerjee, S., and Handcock, M.~S. (2020).
+\newblock Bayesian inference for finite populations under spatial process
+  settings.
+\newblock {\em Environmetrics}, 31(3):e2606.
+
+\bibitem[Cooper, 2006]{Cooper2006sampling}
+Cooper, C. (2006).
+\newblock Sampling and variance estimation on continuous domains.
+\newblock {\em Environmetrics: The official journal of the International
+  Environmetrics Society}, 17(6):539--553.
+
+\bibitem[Cressie, 2015]{Cressie2015statistics}
+Cressie, N. (2015).
+\newblock {\em Statistics for spatial data}.
+\newblock John Wiley \& Sons.
+
+\bibitem[Hansen et~al., 1983]{Hansen1983evaluation}
+Hansen, M.~H., Madow, W.~G., and Tepping, B.~J. (1983).
+\newblock An evaluation of model-dependent and probability-sampling inferences
+  in sample surveys.
+\newblock {\em Journal of the American Statistical Association},
+  78(384):776--793.
+
+\bibitem[Lohr, 2009]{Lohr2009sampling}
+Lohr, S.~L. (2009).
+\newblock {\em Sampling: design and analysis}.
+\newblock Nelson Education.
+
+\bibitem[S{\"a}rndal et~al., 2003]{Sarndal2003model}
+S{\"a}rndal, C.-E., Swensson, B., and Wretman, J. (2003).
+\newblock {\em Model assisted survey sampling}.
+\newblock Springer Science \& Business Media.
+
+\bibitem[Schabenberger and Gotway, 2017]{Schabenberger2017statistical}
+Schabenberger, O. and Gotway, C.~A. (2017).
+\newblock {\em Statistical methods for spatial data analysis}.
+\newblock CRC press.
+
+\bibitem[Sterba, 2009]{sterba2009alternative}
+Sterba, S.~K. (2009).
+\newblock Alternative model-based and design-based frameworks for inference
+  from samples to populations: From polarization to integration.
+\newblock {\em Multivariate behavioral research}, 44(6):711--740.
+
+\bibitem[Stevens~Jr and Olsen, 2003]{StevensOlsen2003VarianceEstimation}
+Stevens~Jr, D.~L. and Olsen, A.~R. (2003).
+\newblock Variance estimation for spatially balanced samples of environmental
+  resources.
+\newblock {\em Environmetrics}, 14(6):593--610.
+
+\bibitem[Stevens~Jr and Olsen, 2004]{StevensOlsen2004GRTS}
+Stevens~Jr, D.~L. and Olsen, A.~R. (2004).
+\newblock Spatially balanced sampling of natural resources.
+\newblock {\em Journal of the american Statistical association},
+  99(465):262--278.
+
+\bibitem[Ver~Hoef, 2002]{VerHoef2002sampling}
+Ver~Hoef, J. (2002).
+\newblock Sampling and geostatistics for spatial data.
+\newblock {\em Ecoscience}, 9(2):152--161.
+
+\bibitem[Ver~Hoef, 2008]{VerHoef2008spatial}
+Ver~Hoef, J.~M. (2008).
+\newblock Spatial methods for plot-based sampling of wildlife populations.
+\newblock {\em Environmental and Ecological Statistics}, 15(1):3--13.
+
+\end{thebibliography}
