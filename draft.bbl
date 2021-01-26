@@ -36,6 +36,12 @@ Hansen, M.~H., Madow, W.~G., and Tepping, B.~J. (1983).
 \newblock {\em Journal of the American Statistical Association},
   78(384):776--793.
 
+\bibitem[Higham et~al., 2020]{Higham2020adjusting}
+Higham, M., Ver~Hoef, J., Madsen, L., and Aderman, A. (2020).
+\newblock Adjusting a finite population block kriging estimator for imperfect
+  detection.
+\newblock {\em Environmetrics}, page e2654.
+
 \bibitem[Lohr, 2009]{Lohr2009sampling}
 Lohr, S.~L. (2009).
 \newblock {\em Sampling: design and analysis}.
