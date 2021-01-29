@@ -78,6 +78,13 @@ We believe the distinction between these approaches is often misunderstood and t
 
 \subsection{Simulation-Based}
 
+__MH Thoughts:__ I'd like to keep this section manageable. Perhaps we start with the following examples \begin{itemize}
+  \item simulate via correct model (model outperforms sampling)
+   \item simulate via slightly misspecified model (model still outperforms sampling)
+  \item simulate via very misspecified model (sampling outperforms model)
+  \item simulate via extremely misspecified model (e.g. counts with lots of zeroes and a lot of overdispersion) (neither does well)
+\end{itemize}
+
 \subsection{Data-Based}
 
 \subsection{Software}
