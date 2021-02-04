@@ -28,20 +28,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{\centering {Overview}}
 
-This paper would be a comparison of design-based and model-based frameworks for spatial data with an emphasis on pragmatic considerations when choosing among the frameworks and using them to solve applied problems using open-source software.
+This paper would be a comparison of design-based and model-based frameworks for spatial data with an emphasis on pragmatic applications, like how to choose among the frameworks and how to use them to solve applied problems using open-source software.
 
-This paper could be organized as follows. In Section \ref{sec:introduction}, we outline the design-based and model-based frameworks and then describe each framework in the context of spatial data. In Section \ref{sec:background}, we thoroughly describe and contextualize the assumptions, goals, benefits, and drawbacks of each approach. In Section \ref{sec:numerical}, we compare the two methods by estimating means and variances of spatial data in several simulation scenarios as well as real data. We also provide reliable software through the use of \texttt{spsurvey} and \texttt{sptotal}. In Section \ref{sec:discussion}, we end with a discussion wrapping up loose ends and providing directions for future research.
+This paper could be organized as follows. In Section \ref{sec:introduction}, we outline the design-based and model-based frameworks and then we describe each framework in the context of spatial data. In Section \ref{sec:background}, we thoroughly describe and contextualize the assumptions, goals, benefits, and drawbacks of each approach. In Section \ref{sec:numerical}, we compare the two methods by comparing means and variances of spatial data in several simulation scenarios as well as in real data. We also provide reliable software through the use of \texttt{spsurvey} and \texttt{sptotal}. In Section \ref{sec:discussion}, we end with a discussion and provide directions for future research.
 
 \subsection*{Why This Paper?}
 
 We believe the distinction between these approaches is often misunderstood, and there are several ways we could enhance the literature surrounding this topic:
 
 \begin{enumerate}
-  \item Spatial design-based vs spatial model-based: There are no comparisons in the literature between spatial model-based approaches and *spatially balanced* design approaches. From what we have seen, these comparisons are between spatial model-based approaches and independent random sample designs. While important to study this behavior, this comparison is no longer fair nor modern. Spatially balanced sampling has exploded in popularity throughout the last decade, and the design-based vs model-based literature needs to reflect this trend.
-  \item A ``fair'' comparison: We feel that literature in this area has considered scenarios that are more well-suited for the model-based scenario. For example, if you simulate a Gaussian error with an exponential covariance and then then compare design-based estimates to model-based estimates assuming an exponential covariance, of course the model-based approach will outperform design-based approaches. And these are the types of comparisons in the literature, which find model-based approaches generally yield more precise variance estimates. A challenge lies in creating a comparison scenario that is reasonable and intuitive. One this to consider would be exploring the comparison after estimating a misspecified covariance function using model-based approaches. 
-  \item Finite AND infinite populations: Literature in the area focuses specifically on finite populations or infinite populations; we want to discuss both in detail.
-  \item Pragmatic Focus: We see papers in this area tend to be fairly technical. We want the focus to be less on details, more on discussing the pragmatic questions practitioners will be faced with. For example, a thorough discussion of benefits and drawbacks of each method written for practitioners is warranted.
-  \item Provide reliable software and code: Current literature presents the ideas but do not provide adequate access to user-friendly software and code. We would clearly explain how to use \texttt{spsurvey} to design and analyze spatial probability samples and \texttt{sptotal} for FBPK. We would make a GitHub repository / package for the paper walking through code used and containing all manuscript-related documents.
+  \item Spatial design-based vs spatial model-based: There are no comparisons in the literature between spatial model-based approaches and *spatially balanced* design approaches. These comparisons are typically between spatial model-based approaches and independent or stratified random sample designs. While important to study this behavior, this comparison is no longer fair nor modern. Spatially balanced sampling has exploded in popularity throughout the last decade, and the design-based vs model-based literature needs to reflect this trend.
+  \item A ``fair'' comparison: We feel that literature in this area has considered scenarios that are more well-suited for the model-based scenario. For example, if you simulate a Gaussian error with an exponential covariance and then then compare design-based estimates to model-based estimates assuming an exponential covariance, of course the model-based approach will outperform design-based approaches. These types of comparisons in the literature find model-based approaches generally yield more precise variance estimates. A challenge lies in creating a comparison scenario that is reasonable and intuitive. One thing to consider would be exploring the comparison after estimating a misspecified covariance function using model-based approaches. 
+  \item Finite AND infinite populations: Literature in the area focuses specifically on finite populations or infinite populations; we want to discuss both, with a focus on finite populations.
+  \item Pragmatic Focus: We see papers in this area tend to be fairly technical. We want the focus to be less on mathematical details and more on discussing the pragmatic questions practitioners will be faced with. For example, a thorough discussion of benefits and drawbacks of each method written for practitioners is warranted.
+  \item Provide reliable software and code: Much of the current literature presents the ideas but does not provide adequate access to user-friendly software and code. We would clearly explain how to use \texttt{spsurvey} to design and analyze spatial probability samples and \texttt{sptotal} for FBPK. We would make a GitHub repository / package for the paper walking through code used and containing all manuscript-related documents. Because our code for the simulation study would be easily accessible, practitioners would be able to conduct a small simulation study with parameters that reflect their particular context to compare the two approaches.
 
 \end{enumerate}
 
@@ -83,14 +83,14 @@ A brief introduction introducing the design-based and model-based frameworks and
 %----------------------
 \section{\centering BACKGROUND}\label{sec:background}
 
-A thorough dive into the assumptions, goals, benefits, and drawbacks of the approaches as they relate to \emph{spatial} data. A special focus will be given to pragmatic considerations; we want this paper to be especially for practitioners.
+A thorough dive into the assumptions, goals, benefits, and drawbacks of the approaches as they relate to \emph{spatial} data. A special focus will be given to pragmatic considerations; we want this paper to be especially useful for practitioners.
 
 %----------------------
 % Numerical Analysis
 %----------------------
 \section{\centering NUMERICAL ANALYSIS}\label{sec:numerical}
 
-We plan to focus on finite populations but also want to accommodate infinite populations
+We plan to focus on finite populations but also want to accommodate infinite populations.
 
 \subsection{Simulation-Based}
 
@@ -101,6 +101,8 @@ We would like to keep this section manageable but useful and realistic. Perhaps 
   \item simulate via very misspecified model (sampling outperforms model)
   \item simulate via extremely misspecified model (e.g. counts with lots of zeroes and a lot of overdispersion) (neither does well)
 \end{itemize}
+
+We may consider providing an `R` script that would let practitioners adjust parameters in simulations freely, requiring only that the practitioner know basic `R` syntax.
 
 \subsection{Data-Based}
 
