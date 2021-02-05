@@ -37,7 +37,7 @@ This paper could be organized as follows. In Section \ref{sec:introduction}, we 
 We believe the distinction between these approaches is often misunderstood, and there are several ways we could enhance the literature surrounding this topic:
 
 \begin{enumerate}
-  \item Spatial design-based vs spatial model-based: There are no comparisons in the literature between spatial model-based approaches and *spatially balanced* design approaches. These comparisons are typically between spatial model-based approaches and independent or stratified random sample designs. While important to study this behavior, this comparison is no longer fair nor modern. Spatially balanced sampling has exploded in popularity throughout the last decade, and the design-based vs model-based literature needs to reflect this trend.
+  \item Spatial design-based vs spatial model-based: There are no comparisons in the literature between spatial model-based approaches and \emph{spatially balanced} design approaches. These comparisons are typically between spatial model-based approaches and independent or stratified random sample designs. While important to study this behavior, this comparison is no longer fair nor modern. Spatially balanced sampling has exploded in popularity throughout the last decade, and the design-based vs model-based literature needs to reflect this trend.
   \item A ``fair'' comparison: We feel that literature in this area has considered scenarios that are more well-suited for the model-based scenario. For example, if you simulate a Gaussian error with an exponential covariance and then then compare design-based estimates to model-based estimates assuming an exponential covariance, of course the model-based approach will outperform design-based approaches. These types of comparisons in the literature find model-based approaches generally yield more precise variance estimates. A challenge lies in creating a comparison scenario that is reasonable and intuitive. One thing to consider would be exploring the comparison after estimating a misspecified covariance function using model-based approaches. 
   \item Finite AND infinite populations: Literature in the area focuses specifically on finite populations or infinite populations; we want to discuss both, with a focus on finite populations.
   \item Pragmatic Focus: We see papers in this area tend to be fairly technical. We want the focus to be less on mathematical details and more on discussing the pragmatic questions practitioners will be faced with. For example, a thorough discussion of benefits and drawbacks of each method written for practitioners is warranted.
@@ -112,7 +112,7 @@ We may consider providing an `R` script that would let practitioners adjust para
 
 \subsection{Software}
 
-\texttt{spsurvey} ($>$ 5.0; we are wrapping up a major update now to 5.0) and \texttt{sptotal} ($>$ 0.1.0)
+\texttt{spsurvey} ($>=$ 5.0; we are wrapping up a major update now to 5.0) and \texttt{sptotal} ($>=$ 0.1.0)
 
 
 %----------------------
