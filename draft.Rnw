@@ -55,8 +55,6 @@ We believe the distinction between these approaches is often misunderstood, and 
   \item Finite Population Block Kriging \citep{VerHoef2002sampling, VerHoef2008spatial, Higham2020adjusting}
 \end{itemize}
 
-Test MH personal access token.
-
 \subsection*{Potential Journals}
 \begin{itemize}
   \item Ecological Applications
