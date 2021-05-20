@@ -1,31 +1,32 @@
 ---
-title: Short Paper
+title: A comparison of model-based and design-based approaches for spatial data.
 author:
-  - name: Alice Anonymous
-    email: alice@example.com
-    affiliation: Some Institute of Technology
+  - name: Michael Dumelle
+    email: Dumelle.Michael@epa.gov
+    affiliation: USEPA
     footnote: 1
-  - name: Bob Security
-    email: bob@example.com
-    affiliation: Another University
-  - name: Cat Memes
-    email: cat@example.com
-    affiliation: Another University
-    footnote: 2
-  - name: Derek Zoolander
-    email: derek@example.com
-    affiliation: Some Institute of Technology
-    footnote: 2
+  - name: Matthew Higham
+    email: mhigham@stlaw.edu
+    affiliation: STLAW
+    footnote: 1
+  - name: Lisa Madsen
+    affiliation: OSU
+  - name: Anthony R. Olsen
+    affiliation: USEPA
+  - name: Jay M. Ver Hoef
+    affiliation: NOAA
 address:
-  - code: Some Institute of Technology
-    address: Department, Street, City, State, Zip
-  - code: Another University
-    address: Department, Street, City, State, Zip
+  - code: USEPA
+    address: United States Environmental Protection Agency, 200 SW 35th St, Corvallis, Oregon, 97333
+  - code: STLAW
+    address: Saint Lawrence University Department of Math, Computer Science, and Statistics, 23 Romoda Drive, Canton, New York, 13617
+  - code: OSU
+    address: Oregon State University Department of Statistics, 239 Weniger Hall, Corvallis, Oregon, 97331
+  - code: NOAA
+    address: Marine Mammal Laboratory, Alaska Fisheries Science Center, National Oceanic and Atmospheric Administration, Seattle, Washington, 98115
 footnote:
   - code: 1
     text: "Corresponding Author"
-  - code: 2
-    text: "Equal contribution"
 abstract: |
   This is the abstract.
 
@@ -39,6 +40,8 @@ numbersections: true
 csl: elsevier-harvard.csl
 preamble: >
   \usepackage{bm}
+  \usepackage{bbm}
+  \usepackage{color}
   \DeclareMathOperator{\var}{{var}}
   \DeclareMathOperator{\cov}{{cov}}
 output: rticles::elsevier_article
@@ -47,18 +50,25 @@ output: rticles::elsevier_article
 _Text based on elsarticle sample manuscript, see [http://www.elsevier.com/author-schemas/latex-instructions#elsarticle](http://www.elsevier.com/author-schemas/latex-instructions#elsarticle)_
 
 
-Introduction
-==========
+# Introduction
+ 
+Please leave comments in your \textcolor{blue}{c}\textcolor{magenta}{o}\textcolor{green}{l}\textcolor{red}{o}\textcolor{cyan}{r}: \textcolor{blue}{Michael}, \textcolor{magenta}{Matt}, \textcolor{green}{Lisa}, \textcolor{red}{Tony}, \textcolor{cyan}{Jay}.
+
+# Background
 
 ## Design-Based Philosphy
 
-Design-Based Overview \citep{Sarndal2003model, Lohr2009sampling}
+Design-Based Overview 
+
+<!-- \citep{Sarndal2003model, Lohr2009sampling} -->
 
 Design-based inference uses characteristics of the sampling design to to estimate parameters of interest Typically, there are few assumptions involved because intervals are derived using the sampling design itself...........
 
 ## Model-Based Philosphy
 
-Model-Based Overview \citep{Cressie2015statistics, Schabenberger2017statistical}
+Model-Based Overview 
+
+<!-- \citep{Cressie2015statistics, Schabenberger2017statistical} -->
 
 On the other hand, model-based inference imposes additional assumptions on the data with a potential to provide more precise estimates if the additional assumptions hold. Instead of estimating true but unknown parameters, the goal of model-based inference in the spatial context is often _prediction_ of an unknown quantity. This is a fundamental philosophical difference between sampling-based and model-based approaches. Instead of _estimating_ a fixed unknown mean, we are _predicting_ the value of the mean, a random variable. We know that if we sampled all sites, we would have an exact prediction for the mean of our one realized spatial surface, without any uncertainty. But, the true mean of the spatial process that generated our realized data is still not known, and, in the prediction context, we typically do not care much about what value the mean of the underlying process takes.
 
@@ -68,21 +78,34 @@ Figure 1b. Spatial process is fixed. In a finite population example, show 10 3d 
 
 ## Comparing Design-Based vs. Model-Based
 
-Design-Based and Model-Based Comparisons \citep{Hansen1983evaluation, Brus1997random, VerHoef2002sampling, Cooper2006sampling, sterba2009alternative, Brus2020statistical, Chan2020bayesian}
+Design-Based and Model-Based Comparisons 
+
+<!-- \citep{Hansen1983evaluation, Brus1997random, VerHoef2002sampling, Cooper2006sampling, sterba2009alternative, Brus2020statistical, Chan2020bayesian} -->
 
 There have been many comparisons between the two paradigms.......
 
 ## Spatially Balanced Design and Analysis
 
-\citep{StevensOlsen2003VarianceEstimation, StevensOlsen2004GRTS}
+Spatially balanced sampling algorithms use spatial information to obtain samples spread out in space. Spatially balanced samples are useful because they tend to yield estimators that are more precise than estimators constructed from an sampling algorithm that is not spatially balanced ([@stevens2004spatially; @barabesi2011sampling; @grafstrom2013well; @robertson2013bas; @benedetti2017spatiallyreview; @wang2013design]). Many spatially balanced sampling algorithms exist, including the Generalized Random Tessellation Stratified [@stevens2004spatially], the Local Pivotal Method [@grafstrom2012spatially; @grafstrom2018spatially], Spatially Correlated Poisson Sampling [@grafstrom2012spatiallypoisson], Balanced Acceptance Sampling [@robertson2013bas], Within-Sample-Distance [@benedetti2017spatially], and Halton Iterative Partitioning [@robertson2018halton] algorithms. Here we focus on the Generalized Random Tessellation Stratified (GRTS) algorithm, which has several attractive properties that we discuss next. 
+
+The GRTS algorithm is used to sample from finite and infinite sample frames. A finite sample frames contains a finite number of sampling units and is related to a point geometry. An infinite sample frame contains an infinite number of sampling units and is related to linear and polygon geometries. Examples of point, linear, and polygon resources include lake centroids, stream networks, and wetland areas, respectively. In addition to its applicability for finite and infinite sample frames, the GRTS algorithm naturally accommodates stratified designs and designs with unequal selection probabilities. The algorithm has also been used to select replacement sites using reverse hierarchical ordering [@stevens2004spatially]. Replacement sites are used to replace sites in the original sample that cannot be sampled, often as a result of physical difficulty in reaching the site or landowner denial of access to the sites. More recently, the GRTS algorithm also accommodates legacy (historical) sites, minimum distance between sites, and nearest neighbor replacement sites. The GRTS algorithm is implemented in the \textbf{\textsf{R}} package \texttt{spsurvey} [@dumelle2021spsurvey]. 
+
+describe grts
+
+discuss spatial balance
+
+describe estimation and local neighborhood variance
+
+
+<!-- \citep{StevensOlsen2003VarianceEstimation, StevensOlsen2004GRTS} -->
 
 ## Finite Population Block Kriging
 
-\citep{VerHoef2002sampling, VerHoef2008spatial, Higham2020adjusting}
+<!-- \citep{VerHoef2002sampling, VerHoef2008spatial, Higham2020adjusting} -->
 
-Finite Population Block Kriging (FPBK) is an alternative to samipling-based methods [@VerHoef2008spatial]. FPBK expands the geostatistical kriging framework to the finite population setting. Instead of basing inference off of a specific sampling design, we assume the data were generated by a spatial process with parameters that can be estimated using the framework of a model. 
+Finite Population Block Kriging (FPBK) is an alternative to samipling-based methods [@verhoef2008spatial]. FPBK expands the geostatistical kriging framework to the finite population setting. Instead of basing inference off of a specific sampling design, we assume the data were generated by a spatial process with parameters that can be estimated using the framework of a model. 
 
-@VerHoef2008spatial gives details on the theory of FPBK, but some of the basic principles are summarized below. For a response variable $\mathbf{z}$ that can be measured on a finite number of $N$ sites, we want to predict some linear function of the response variable, $\tau(\mathbf{z}) = \mathbf{b}^\prime \mathbf{z}$, where $\mathbf{b}$ is a vector of weights. For example, if we want to predict the total abundance across all sites, then we would use a vector of 1's for the weights. 
+@verhoef2008spatial gives details on the theory of FPBK, but some of the basic principles are summarized below. For a response variable $\mathbf{z}$ that can be measured on a finite number of $N$ sites, we want to predict some linear function of the response variable, $\tau(\mathbf{z}) = \mathbf{b}^\prime \mathbf{z}$, where $\mathbf{b}$ is a vector of weights. For example, if we want to predict the total abundance across all sites, then we would use a vector of 1's for the weights. 
 
 Typically, however, we only have a sample of the $N$ sites. Denoting quantities that are part of the sampled sites with a subscript \emph{s} and quantities that are part of the unsampled sites with a subscript \emph{u}, 
 
@@ -106,90 +129,23 @@ where $\mathbf{X}_s$ and $\mathbf{X}_u$ are the design matrices for the sampled 
 
 We also typically assume that there is spatial correlation in $\bm{\delta}$, which can be modeled using a covariance function. Many common choices for this function assume that spatial covariance decreases with increasing Euclidean distance between sites. The primary function used throughout the simulations and applications of this manuscript is the Exponential covariance function: the $i,j^{th}$ entry for $\var(\bm{\delta})$ is
 \mbox{}
-\begin{equation}
-\cov(\delta_i, \delta_j) = \theta_3 + \theta_1\exp(-h_{i,j}/\theta_2), \label{equation:expcov}
-\end{equation}
-where $h_{i,j}$ is the distance between sites $i$ and $j$, and $\bm{\theta}$ is a vector of spatial covariance parameters of the partial sill $\theta_1$, the range $\theta_2$, and the nugget $\theta_3$. However, any spatial covariance function could be used in the place of the Exponential, including functions that allow for anisotropy [pg. 80 - 93][@ChilesEtAl1999GeostatisticsModelingSpatial].
+\begin{align}\label{equation:expcov}
+\cov(\delta_i, \delta_j) = \theta_3 + \theta_1\exp(-h_{i,j}/\theta_2), \\
+\textcolor{blue}{\sigma^2[(1 - v)\exp(-3\mathbf{h}_{i,j}/\phi) + v\mathbbm{1}\{\mathbf{h}_{i,j} = 0\}]}, 
+\end{align}
+where $h_{i,j}$ is the distance between sites $i$ and $j$, and $\bm{\theta}$ is a vector of spatial covariance parameters of the partial sill $\theta_1$, the range $\theta_2$, and the nugget $\theta_3$. However, any spatial covariance function could be used in the place of the Exponential, including functions that allow for anisotropy [pg. 80 - 93][@chiles1999geostatistics].
 
-With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for $\tau(\mathbf{b}'\mathbf{z})$ and its prediction variance can be computed. While details of the derivation are in [@VerHoef2008spatial], we note here that the predictor and its variance are both moment-based. Neither require a particular distribution for $\mathbf{z}$.
+With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for $\tau(\mathbf{b}'\mathbf{z})$ \textcolor{blue}{Did you mean to give the form of the BLUP here? $\tau(\mathbf{b}'\mathbf{z})$ is vague} and its prediction variance can be computed. While details of the derivation are in [@verhoef2008spatial], we note here that the predictor and its variance are both moment-based. Neither require a particular distribution for $\mathbf{z}$.
 
-__Software Implementation__: This probably goes in a different spot (right before simulations?), but putting it here while it's on my mind.
+# Numerical Study
 
-FPBK can be readily performed in `R` with the `sptotal` package [@sptotal2020]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
+## Software
 
-__Extra Stuff__
+FPBK can be readily performed in `R` with the `sptotal` package [@higham2020sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
 
-References from Brus2020statistical
+# Discussion
 
-* de Gruijter, J. J., & ter Braak, C. J. F. (1990). Model-free estimation from spatial samples: A reappraisal of classical sampling theory. Mathematical Geology, 22, 407–415
-    * contains info on why classical sampling works with spatially correlated data.
-    
-* Brus, D. J., & de Gruijter, J. J. (1997). Random sampling or
-geostatistical modelling? Choosing between design-based and
-model-based sampling strategies for soil (with discussion). Geoderma, 80, 1–59
-    * more comparison between the two appraoches
-    
-* I stopped at 2.3 
+<!-- References from Brus2020statistical, de1990model, Brus1997random -->
 
+# References {#references .unnumbered}
 
-#### Installation
-
-If the document class *elsarticle* is not available on your computer,
-you can download and install the system package *texlive-publishers*
-(Linux) or install the LaTeX package *elsarticle* using the package
-manager of your TeX installation, which is typically TeX Live or MikTeX.
-
-#### Usage
-
-Once the package is properly installed, you can use the document class
-*elsarticle* to create a manuscript. Please make sure that your
-manuscript follows the guidelines in the Guide for Authors of the
-relevant journal. It is not necessary to typeset your manuscript in
-exactly the same way as an article, unless you are submitting to a
-camera-ready copy (CRC) journal.
-
-#### Functionality
-
-The Elsevier article class is based on the standard article class and
-supports almost all of the functionality of that class. In addition, it
-features commands and options to format the
-
--   document style
-
--   baselineskip
-
--   front matter
-
--   keywords and MSC codes
-
--   theorems, definitions and proofs
-
--   lables of enumerations
-
--   citation style and labeling.
-
-Front matter
-============
-
-The author names and affiliations could be formatted in two ways:
-
-(1) Group the authors per affiliation.
-
-(2) Use footnotes to indicate the affiliations.
-
-See the front matter of this document for examples. You are recommended
-to conform your choice to the journal you are submitting to.
-
-Bibliography styles
-===================
-
-There are various bibliography styles available. You can select the
-style of your choice in the preamble of this document. These styles are
-Elsevier styles based on standard styles like Harvard and Vancouver.
-Please use BibTeX to generate your bibliography and include DOIs
-whenever available.
-
-Here are two sample references: @Feynman1963118 [@Dirac1953888].
-
-References {#references .unnumbered}
-==========

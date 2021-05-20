@@ -43,7 +43,7 @@
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={Short Paper},
+            pdftitle={A comparison of model-based and design-based approaches for spatial data.},
             colorlinks=false,
             urlcolor=blue,
             linkcolor=magenta,
@@ -54,57 +54,39 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 
 % Pandoc citation processing
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-% for Pandoc 2.8 to 2.10.1
-\newenvironment{cslreferences}%
-  {}%
-  {\par}
-% For Pandoc 2.11+
-\newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc} % for calculating minipage widths
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Pandoc header
 
-\usepackage{bm} \DeclareMathOperator{\var}{{var}} \DeclareMathOperator{\cov}{{cov}}
+\usepackage{bm} \usepackage{bbm} \usepackage{color} \DeclareMathOperator{\var}{{var}} \DeclareMathOperator{\cov}{{cov}}
 
 \begin{document}
 \begin{frontmatter}
 
-  \title{Short Paper}
-    \author[Some Institute of Technology]{Alice Anonymous\corref{1}}
-   \ead{alice@example.com} 
-    \author[Another University]{Bob Security}
-   \ead{bob@example.com} 
-    \author[Another University]{Cat Memes\corref{2}}
-   \ead{cat@example.com} 
-    \author[Some Institute of Technology]{Derek Zoolander\corref{2}}
-   \ead{derek@example.com} 
-      \address[Some Institute of Technology]{Department, Street, City,
-State, Zip}
-    \address[Another University]{Department, Street, City, State, Zip}
+  \title{A comparison of model-based and design-based approaches for spatial
+data.}
+    \author[USEPA]{Michael Dumelle\corref{1}}
+   \ead{Dumelle.Michael@epa.gov} 
+    \author[STLAW]{Matthew Higham\corref{1}}
+   \ead{mhigham@stlaw.edu} 
+    \author[OSU]{Lisa Madsen}
+  
+    \author[USEPA]{Anthony R. Olsen}
+  
+    \author[NOAA]{Jay M. Ver Hoef}
+  
+      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
+Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Math, Computer Science, and
+Statistics, 23 Romoda Drive, Canton, New York, 13617}
+    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
+Corvallis, Oregon, 97331}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
+Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
       \cortext[1]{Corresponding Author}
-    \cortext[2]{Equal contribution}
   
   \begin{abstract}
   This is the abstract.
-
+  
   It consists of two paragraphs.
   \end{abstract}
   
@@ -116,11 +98,28 @@ State, Zip}
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
+Please leave comments in your
+\textcolor{blue}{c}\textcolor{magenta}{o}\textcolor{green}{l}\textcolor{red}{o}\textcolor{cyan}{r}:
+\textcolor{blue}{Michael}, \textcolor{magenta}{Matt},
+\textcolor{green}{Lisa}, \textcolor{red}{Tony}, \textcolor{cyan}{Jay}.
+
+\hypertarget{background}{%
+\section{Background}\label{background}}
+
 \hypertarget{design-based-philosphy}{%
 \subsection{Design-Based Philosphy}\label{design-based-philosphy}}
 
+Design-Based Overview
+
+Design-based inference uses characteristics of the sampling design to to
+estimate parameters of interest Typically, there are few assumptions
+involved because intervals are derived using the sampling design
+itself\ldots\ldots\ldots..
+
 \hypertarget{model-based-philosphy}{%
 \subsection{Model-Based Philosphy}\label{model-based-philosphy}}
+
+Model-Based Overview
 
 On the other hand, model-based inference imposes additional assumptions
 on the data with a potential to provide more precise estimates if the
@@ -128,7 +127,7 @@ additional assumptions hold. Instead of estimating true but unknown
 parameters, the goal of model-based inference in the spatial context is
 often \emph{prediction} of an unknown quantity. This is a fundamental
 philosophical difference between sampling-based and model-based
-approaches. Instead of \emph{estimating} an fixed unknown mean, we are
+approaches. Instead of \emph{estimating} a fixed unknown mean, we are
 \emph{predicting} the value of the mean, a random variable. We know that
 if we sampled all sites, we would have an exact prediction for the mean
 of our one realized spatial surface, without any uncertainty. But, the
@@ -152,11 +151,54 @@ contain the true, underlying mean.
 \subsection{Comparing Design-Based
 vs.~Model-Based}\label{comparing-design-based-vs.-model-based}}
 
+Design-Based and Model-Based Comparisons
+
 There have been many comparisons between the two paradigms\ldots\ldots.
 
 \hypertarget{spatially-balanced-design-and-analysis}{%
 \subsection{Spatially Balanced Design and
 Analysis}\label{spatially-balanced-design-and-analysis}}
+
+Spatially balanced sampling algorithms use spatial information to obtain
+samples spread out in space. Spatially balanced samples are useful
+because they tend to yield estimators that are more precise than
+estimators constructed from an sampling algorithm that is not spatially
+balanced ((Barabesi and Franceschi, 2011; Benedetti et al., 2017;
+Grafström and Lundström, 2013; Robertson et al., 2013; Stevens Jr and
+Olsen, 2004; Wang et al., 2013)). Many spatially balanced sampling
+algorithms exist, including the Generalized Random Tessellation
+Stratified (Stevens Jr and Olsen, 2004), the Local Pivotal Method
+(Grafström et al., 2012; Grafström and Matei, 2018), Spatially
+Correlated Poisson Sampling (Grafström, 2012), Balanced Acceptance
+Sampling (Robertson et al., 2013), Within-Sample-Distance (Benedetti and
+Piersimoni, 2017), and Halton Iterative Partitioning (Robertson et al.,
+2018) algorithms. Here we focus on the Generalized Random Tessellation
+Stratified (GRTS) algorithm, which has several attractive properties
+that we discuss next.
+
+The GRTS algorithm is used to sample from finite and infinite sample
+frames. A finite sample frames contains a finite number of sampling
+units and is related to a point geometry. An infinite sample frame
+contains an infinite number of sampling units and is related to linear
+and polygon geometries. Examples of point, linear, and polygon resources
+include lake centroids, stream networks, and wetland areas,
+respectively. In addition to its applicability for finite and infinite
+sample frames, the GRTS algorithm naturally accommodates stratified
+designs and designs with unequal selection probabilities. The algorithm
+has also been used to select replacement sites using reverse
+hierarchical ordering (Stevens Jr and Olsen, 2004). Replacement sites
+are used to replace sites in the original sample that cannot be sampled,
+often as a result of physical difficulty in reaching the site or
+landowner denial of access to the sites. More recently, the GRTS
+algorithm also accommodates legacy (historical) sites, minimum distance
+between sites, and nearest neighbor replacement sites. The GRTS
+algorithm is implemented in the \textbf{\textsf{R}} package
+\texttt{spsurvey} (Dumelle et al., 2021).
+
+accomodates stratification, unequal selection probabilities, oversample
+sites It has also recently been updated to accommodate legacy
+(historical) sites, minimum distance between sites, and a nearest
+neighbor replacement sites comp efficient software
 
 \hypertarget{finite-population-block-kriging}{%
 \subsection{Finite Population Block
@@ -165,17 +207,18 @@ Kriging}\label{finite-population-block-kriging}}
 Finite Population Block Kriging (FPBK) is an alternative to
 samipling-based methods (Ver Hoef, 2008). FPBK expands the
 geostatistical kriging framework to the finite population setting.
-Instead of relying on a specific sampling design, we assume the data
-were produced by a spatial stochastic process with spatial parameters
-that can be estimated.
+Instead of basing inference off of a specific sampling design, we assume
+the data were generated by a spatial process with parameters that can be
+estimated using the framework of a model.
 
 Ver Hoef (2008) gives details on the theory of FPBK, but some of the
 basic principles are summarized below. For a response variable
 \(\mathbf{z}\) that can be measured on a finite number of \(N\) sites,
-our goal is to predict some linear function of all of the sample units,
+we want to predict some linear function of the response variable,
 \(\tau(\mathbf{z}) = \mathbf{b}^\prime \mathbf{z}\), where
-\(\mathbf{b}\) is a vector of weights. One common vector of weights is a
-vector of 1's to predict the total abundance in the region.
+\(\mathbf{b}\) is a vector of weights. For example, if we want to
+predict the total abundance across all sites, then we would use a vector
+of 1's for the weights.
 
 Typically, however, we only have a sample of the \(N\) sites. Denoting
 quantities that are part of the sampled sites with a subscript \emph{s}
@@ -199,10 +242,10 @@ and quantities that are part of the unsampled sites with a subscript
 \end{pmatrix},
 \end{equation} where \(\mathbf{X}_s\) and \(\mathbf{X}_u\) are the
 design matrices for the sampled and unsampled sites, respectively, and
-\(\bm{\delta}_s\) and \(\bm{\delta}_u\) are zero-mean random errors for
-the sampled and unsampled sites. Denoting
-\(\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'\), then we
-assume that \(E(\bm{\delta})\) = \(\mathbf{0}\).
+\(\bm{\delta}_s\) and \(\bm{\delta}_u\) are random errors for the
+sampled and unsampled sites. Denoting
+\(\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'\), we assume
+that \(E(\bm{\delta})\) = \(\mathbf{0}\).
 
 We also typically assume that there is spatial correlation in
 \(\bm{\delta}\), which can be modeled using a covariance function. Many
@@ -211,9 +254,10 @@ decreases with increasing Euclidean distance between sites. The primary
 function used throughout the simulations and applications of this
 manuscript is the Exponential covariance function: the \(i,j^{th}\)
 entry for \(\mathop{\mathrm{{var}}}(\bm{\delta})\) is \mbox{}
-\begin{equation}
-\mathop{\mathrm{{cov}}}(\delta_i, \delta_j) = \theta_3 + \theta_1\exp(-h_{i,j}/\theta_2), \label{equation:expcov}
-\end{equation} where \(h_{i,j}\) is the distance between sites \(i\) and
+\begin{align}\label{equation:expcov}
+\mathop{\mathrm{{cov}}}(\delta_i, \delta_j) = \theta_3 + \theta_1\exp(-h_{i,j}/\theta_2), \\
+\textcolor{blue}{\sigma^2[(1 - v)\exp(-3\mathbf{h}_{i,j}/\phi) + v\mathbbm{1}\{\mathbf{h}_{i,j} = 0\}]}, 
+\end{align} where \(h_{i,j}\) is the distance between sites \(i\) and
 \(j\), and \(\bm{\theta}\) is a vector of spatial covariance parameters
 of the partial sill \(\theta_1\), the range \(\theta_2\), and the nugget
 \(\theta_3\). However, any spatial covariance function could be used in
@@ -221,111 +265,100 @@ the place of the Exponential, including functions that allow for
 anisotropy {[}pg. 80 - 93{]}(Chiles and Delfiner, 1999).
 
 With the above model formulation, the Best Linear Unbiased Predictor
-(BLUP) for \(\tau(\mathbf{b}'\mathbf{z})\) and its prediction variance
-can be computed. While details of the derivation are in (Ver Hoef,
-2008), we note here that the predictor and its variance are both
-moment-based. Neither require a particular distribution for
-\(\mathbf{z}\).
+(BLUP) for \(\tau(\mathbf{b}'\mathbf{z})\)
+\textcolor{blue}{Did you mean to give the form of the BLUP here? $\tau(\mathbf{b}'\mathbf{z})$ is vague}
+and its prediction variance can be computed. While details of the
+derivation are in (Ver Hoef, 2008), we note here that the predictor and
+its variance are both moment-based. Neither require a particular
+distribution for \(\mathbf{z}\).
 
-\textbf{Software Implementation}: This probably goes in a different spot
-(right before simulations?), but putting it here while it's on my mind.
+\hypertarget{numerical-study}{%
+\section{Numerical Study}\label{numerical-study}}
+
+\hypertarget{software}{%
+\subsection{Software}\label{software}}
 
 FPBK can be readily performed in \texttt{R} with the \texttt{sptotal}
-package (Matt et al., 2020). We use \texttt{sptotal} for both the
+package (Higham et al., 2020). We use \texttt{sptotal} for both the
 simulation analysis and the application, estimating parameters with
 Restricted Maximum Likelihood (REML).
 
-\hypertarget{installation}{%
-\paragraph{Installation}\label{installation}}
-
-If the document class \emph{elsarticle} is not available on your
-computer, you can download and install the system package
-\emph{texlive-publishers} (Linux) or install the LaTeX package
-\emph{elsarticle} using the package manager of your TeX installation,
-which is typically TeX Live or MikTeX.
-
-\hypertarget{usage}{%
-\paragraph{Usage}\label{usage}}
-
-Once the package is properly installed, you can use the document class
-\emph{elsarticle} to create a manuscript. Please make sure that your
-manuscript follows the guidelines in the Guide for Authors of the
-relevant journal. It is not necessary to typeset your manuscript in
-exactly the same way as an article, unless you are submitting to a
-camera-ready copy (CRC) journal.
-
-\hypertarget{functionality}{%
-\paragraph{Functionality}\label{functionality}}
-
-The Elsevier article class is based on the standard article class and
-supports almost all of the functionality of that class. In addition, it
-features commands and options to format the
-
-\begin{itemize}
-\item
-  document style
-\item
-  baselineskip
-\item
-  front matter
-\item
-  keywords and MSC codes
-\item
-  theorems, definitions and proofs
-\item
-  lables of enumerations
-\item
-  citation style and labeling.
-\end{itemize}
-
-\hypertarget{front-matter}{%
-\section{Front matter}\label{front-matter}}
-
-The author names and affiliations could be formatted in two ways:
-
-\begin{enumerate}
-\def\labelenumi{(\arabic{enumi})}
-\item
-  Group the authors per affiliation.
-\item
-  Use footnotes to indicate the affiliations.
-\end{enumerate}
-
-See the front matter of this document for examples. You are recommended
-to conform your choice to the journal you are submitting to.
-
-\hypertarget{bibliography-styles}{%
-\section{Bibliography styles}\label{bibliography-styles}}
-
-There are various bibliography styles available. You can select the
-style of your choice in the preamble of this document. These styles are
-Elsevier styles based on standard styles like Harvard and Vancouver.
-Please use BibTeX~to generate your bibliography and include DOIs
-whenever available.
-
-Here are two sample references: (\textbf{Feynman1963118?};
-\textbf{Dirac1953888?}).
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
-\leavevmode\hypertarget{ref-ChilesEtAl1999GeostatisticsModelingSpatial}{}%
-Chiles, J.-P., Delfiner, P., 1999. Geostatistics: {Modeling Spatial
-Uncertainty}. {John Wiley \& Sons}, New York.
+\leavevmode\hypertarget{ref-barabesi2011sampling}{}%
+Barabesi, L., Franceschi, S., 2011. Sampling properties of spatial total
+estimators under tessellation stratified designs. Environmetrics 22,
+271--278.
 
-\leavevmode\hypertarget{ref-sptotal2020}{}%
-Matt, H., Jay, V.H., Bryce, F., 2020. Sptotal: Predicting totals and
-weighted sums from spatial data.
+\leavevmode\hypertarget{ref-benedetti2017spatially}{}%
+Benedetti, R., Piersimoni, F., 2017. A spatially balanced design with
+probability function proportional to the within sample distance.
+Biometrical Journal 59, 1067--1084.
 
-\leavevmode\hypertarget{ref-VerHoef2008spatial}{}%
+\leavevmode\hypertarget{ref-benedetti2017spatiallyreview}{}%
+Benedetti, R., Piersimoni, F., Postiglione, P., 2017. Spatially balanced
+sampling: A review and a reappraisal. International Statistical Review
+85, 439--454.
+
+\leavevmode\hypertarget{ref-chiles1999geostatistics}{}%
+Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
+Uncertainty. John Wiley \& Sons, New York.
+
+\leavevmode\hypertarget{ref-dumelle2021spsurvey}{}%
+Dumelle, M., Olsen, A.R., Kincaid, T., Weber, M., 2021. Selecting and
+analyzing spatial probability samples in r using spsurvey. Manuscript
+Submitted for Publication.
+
+\leavevmode\hypertarget{ref-grafstrom2012spatiallypoisson}{}%
+Grafström, A., 2012. Spatially correlated poisson sampling. Journal of
+Statistical Planning and Inference 142, 139--147.
+
+\leavevmode\hypertarget{ref-grafstrom2013well}{}%
+Grafström, A., Lundström, N.L., 2013. Why well spread probability
+samples are balanced. Open Journal of Statistics 3, 36--41.
+
+\leavevmode\hypertarget{ref-grafstrom2012spatially}{}%
+Grafström, A., Lundström, N.L., Schelin, L., 2012. Spatially balanced
+sampling through the pivotal method. Biometrics 68, 514--520.
+
+\leavevmode\hypertarget{ref-grafstrom2018spatially}{}%
+Grafström, A., Matei, A., 2018. Spatially balanced sampling of
+continuous populations. Scandinavian Journal of Statistics 45, 792--805.
+
+\leavevmode\hypertarget{ref-higham2020sptotal}{}%
+Higham, M., Ver Hoef, J., Bryce, F., 2020. Sptotal: Predicting totals
+and weighted sums from spatial data.
+
+\leavevmode\hypertarget{ref-robertson2013bas}{}%
+Robertson, B., Brown, J., McDonald, T., Jaksons, P., 2013. BAS: Balanced
+acceptance sampling of natural resources. Biometrics 69, 776--784.
+
+\leavevmode\hypertarget{ref-robertson2018halton}{}%
+Robertson, B., McDonald, T., Price, C., Brown, J., 2018. Halton
+iterative partitioning: Spatially balanced sampling via partitioning.
+Environmental and Ecological Statistics 25, 305--323.
+
+\leavevmode\hypertarget{ref-stevens2004spatially}{}%
+Stevens Jr, D.L., Olsen, A.R., 2004. Spatially balanced sampling of
+natural resources. Journal of the american Statistical association 99,
+262--278.
+
+\leavevmode\hypertarget{ref-verhoef2008spatial}{}%
 Ver Hoef, J.M., 2008. Spatial methods for plot-based sampling of
 wildlife populations. Environmental and Ecological Statistics 15, 3--13.
 
-\end{CSLReferences}
+\leavevmode\hypertarget{ref-wang2013design}{}%
+Wang, J.-F., Jiang, C.-S., Hu, M.-G., Cao, Z.-D., Guo, Y.-S., Li, L.-F.,
+Liu, T.-J., Meng, B., 2013. Design-based spatial sampling: Theory and
+implementation. Environmental modelling \& software 40, 280--288.
 
 
 \end{document}
+
 
