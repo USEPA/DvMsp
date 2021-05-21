@@ -15,6 +15,8 @@ sim1 <- function(seed, ...) { # dots are placeholders for other arguments
 }
 
 # parallel
+n_trials <- 2000
+seed <- seq_len(n_trials)
 library(parallel) # load parallel
 n_cluster <- detectCores() # find cores (48 on mine)
 cluster <- makeCluster(n_cluster) # make cluster
@@ -27,3 +29,5 @@ stopCluster(cluster) # stop cluster
 library(tidyverse)
 
 # do summaries
+
+# write summaries
