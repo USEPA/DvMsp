@@ -103,6 +103,11 @@ Please leave comments in your
 \textcolor{blue}{Michael}, \textcolor{magenta}{Matt},
 \textcolor{green}{Lisa}, \textcolor{red}{Tony}, \textcolor{cyan}{Jay}.
 
+Several comparisons between model-based and design-based for spatial
+data have been considered, but they tend to compare spatial models to
+IRS or SIRS (stratified IRS). No comparison has been made between
+spatial models and spatially balanced design-based approaches.
+
 \hypertarget{background}{%
 \section{Background}\label{background}}
 
@@ -163,18 +168,19 @@ Spatially balanced sampling algorithms use spatial information to obtain
 samples spread out in space. Spatially balanced samples are useful
 because they tend to yield estimators that are more precise than
 estimators constructed from an sampling algorithm that is not spatially
-balanced ((Barabesi and Franceschi, 2011; Benedetti et al., 2017;
+balanced (Barabesi and Franceschi, 2011; Benedetti et al., 2017;
 Grafström and Lundström, 2013; Robertson et al., 2013; Stevens Jr and
-Olsen, 2004; Wang et al., 2013)). Many spatially balanced sampling
-algorithms exist, including the Generalized Random Tessellation
-Stratified (Stevens Jr and Olsen, 2004), the Local Pivotal Method
-(Grafström et al., 2012; Grafström and Matei, 2018), Spatially
-Correlated Poisson Sampling (Grafström, 2012), Balanced Acceptance
-Sampling (Robertson et al., 2013), Within-Sample-Distance (Benedetti and
-Piersimoni, 2017), and Halton Iterative Partitioning (Robertson et al.,
-2018) algorithms. Here we focus on the Generalized Random Tessellation
-Stratified (GRTS) algorithm, which has several attractive properties
-that we discuss next.
+Olsen, 2004; Wang et al., 2013). To quantify spatial balance, Stevens Jr
+and Olsen (2004) proposed statistics based on Voroni polygons. Many
+spatially balanced sampling algorithms exist, including the Generalized
+Random Tessellation Stratified (Stevens Jr and Olsen, 2004), the Local
+Pivotal Method (Grafström et al., 2012; Grafström and Matei, 2018),
+Spatially Correlated Poisson Sampling (Grafström, 2012), Balanced
+Acceptance Sampling (Robertson et al., 2013), Within-Sample-Distance
+(Benedetti and Piersimoni, 2017), and Halton Iterative Partitioning
+(Robertson et al., 2018) algorithms. Here we focus on the Generalized
+Random Tessellation Stratified (GRTS) algorithm, which has several
+attractive properties that we discuss next.
 
 The GRTS algorithm is used to sample from finite and infinite sample
 frames. A finite sample frames contains a finite number of sampling
@@ -195,10 +201,50 @@ between sites, and nearest neighbor replacement sites. The GRTS
 algorithm is implemented in the \textbf{\textsf{R}} package
 \texttt{spsurvey} (Dumelle et al., 2021).
 
-accomodates stratification, unequal selection probabilities, oversample
-sites It has also recently been updated to accommodate legacy
-(historical) sites, minimum distance between sites, and a nearest
-neighbor replacement sites comp efficient software
+The GRTS algorithm works by mapping two-dimensional space into
+one-dimensional space while incorporating some elements of randomness.
+First a square bounding box is placed over the sample frame and divided
+into four equally sized squares randomly given an level-one address of
+0, 1, 2, or 3. Then the inclusion probabilities of the sampling units in
+each square are summed. If this sum is at least one in any of the cells,
+a set of four sub-squares are placed within each square. Each set of
+four sub-squares are randomly given a second address (a level-two
+address) of 0, 1, 2, 3. Then the inclusion probabilities in each
+sub-square are summed, and if any of these sums are at least one, a
+third level of squares are added in the same manner. This hierarchical
+addressing continues until the inclusion probabilities in the smallest
+squares are all less than 1. The squares are then mapped to the
+one-dimensional line in order of their addresses. The length of this
+line equals \(n\), the desired sample size (the sum of the inclusion
+probabilities). A uniform random variable, denoted by \(u_1\) is
+simulated in \([0, 1]\) and placed on this line. The location of \(u_1\)
+on the line can be linked to a sampling unit, denoted by \(s_1\). Then
+\(u_2 \equiv u_1 + 1\), which can be linked to another sampling unit,
+denoted by \(s_2\). Because the GRTS algorithm requires the inclusion
+probabilities of the smallest sub-cells to be less than one, \(s_1\) and
+\(s_2\) must be distinct. This process continues until the \(n\)
+sampling units have been selected as part of the sample. Further details
+are provided by (Stevens Jr and Olsen, 2004) and (Dumelle et al., 2021).
+
+The Horvitz-Thompson estimator (Horvitz and Thompson, 1952) and its
+continuous analog (Cordy, 1993) yield unbiased estimates of population
+totals (and means). If \(\tau\) is a population total, then the
+Horvitz-Thompson estimator of \(\tau\), denoted by \(\hat{\tau}_{HT}\),
+is given by \begin{align}\label{eq:htest}
+  \hat{\tau}_{HT} = \sum_{i = 1}^n Y_i \pi_i^{-1},
+\end{align} where \(Y_i\) is the observed value of the \(i\)th sampling
+unit, and \(\pi_i\) is the inclusion probability of the \(i\)th sampling
+unit. Estimating the variance of \(\hat{\tau}_{HT}\) directly relies on
+knowing the probability that \(s_i\) and \(s_j\) are both included in
+the sample (second-order inclusion probability), which can be unfeasible
+to compute. Furthermore, this variance estimator does incorporate
+spatial locations. To address these challenges, (Stevens Jr and Olsen,
+2003) proposed an alternative variance estimator: the local neighborhood
+variance estimator. The local neighborhood variance estimator does not
+require second-order inclusion probabilities. It also incorporates
+spatial locations, which tends to reduce the estimated variance of
+compared \(\hat{\tau}_{HT}\) to a variance estimator ignoring spatial
+location (Stevens Jr and Olsen, 2003).
 
 \hypertarget{finite-population-block-kriging}{%
 \subsection{Finite Population Block
@@ -310,6 +356,11 @@ sampling: A review and a reappraisal. International Statistical Review
 Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
 Uncertainty. John Wiley \& Sons, New York.
 
+\leavevmode\hypertarget{ref-cordy1993extension}{}%
+Cordy, C.B., 1993. An extension of the horvitz---thompson theorem to
+point sampling from a continuous universe. Statistics \& Probability
+Letters 18, 353--362.
+
 \leavevmode\hypertarget{ref-dumelle2021spsurvey}{}%
 Dumelle, M., Olsen, A.R., Kincaid, T., Weber, M., 2021. Selecting and
 analyzing spatial probability samples in r using spsurvey. Manuscript
@@ -335,6 +386,11 @@ continuous populations. Scandinavian Journal of Statistics 45, 792--805.
 Higham, M., Ver Hoef, J., Bryce, F., 2020. Sptotal: Predicting totals
 and weighted sums from spatial data.
 
+\leavevmode\hypertarget{ref-horvitz1952generalization}{}%
+Horvitz, D.G., Thompson, D.J., 1952. A generalization of sampling
+without replacement from a finite universe. Journal of the American
+statistical Association 47, 663--685.
+
 \leavevmode\hypertarget{ref-robertson2013bas}{}%
 Robertson, B., Brown, J., McDonald, T., Jaksons, P., 2013. BAS: Balanced
 acceptance sampling of natural resources. Biometrics 69, 776--784.
@@ -343,6 +399,11 @@ acceptance sampling of natural resources. Biometrics 69, 776--784.
 Robertson, B., McDonald, T., Price, C., Brown, J., 2018. Halton
 iterative partitioning: Spatially balanced sampling via partitioning.
 Environmental and Ecological Statistics 25, 305--323.
+
+\leavevmode\hypertarget{ref-stevens2003variance}{}%
+Stevens Jr, D.L., Olsen, A.R., 2003. Variance estimation for spatially
+balanced samples of environmental resources. Environmetrics 14,
+593--610.
 
 \leavevmode\hypertarget{ref-stevens2004spatially}{}%
 Stevens Jr, D.L., Olsen, A.R., 2004. Spatially balanced sampling of
