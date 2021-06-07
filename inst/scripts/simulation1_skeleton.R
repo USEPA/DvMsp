@@ -5,6 +5,12 @@ library(sptotal)
 # create simulation function 1
 sim1 <- function(seed, ...) { # dots are placeholders for other arguments
 
+  ## sim 1 model specified correctly
+  ##     - grts gets grts sample
+  ##     - model gets srs
+  ##         - one range, one sample size, for now
+  ##         - predict/estimate total
+  ##
   # simulate data
 
   # fit models
