@@ -21,7 +21,7 @@ sim_pop <- function(N = 100, n = 50, gridded = TRUE, cortype, psill, erange, nug
   distmx <- as.matrix(dist(data, ...))
   ## make covariance matrix
   covmx <- switch(cortype,
-                  exponential = covmx_exp(distmx, psill, erange, nugget)
+                  Exponential = covmx_exp(distmx, psill, erange, nugget)
                   )
   ## simulate response
   chol_covmx <- chol(covmx)

@@ -1,18 +1,19 @@
 ## get one simulation
-sim_one <- function(data, xcoord = "x", ycoord = "y", response = "response", cortype_est = "exponential", ...) {
+sim_one <- function(N = 100, n = 50, gridded = TRUE, cortype = "Exponential", psill, erange, nugget, cortype_est = "Exponential", ...) {
+  data <- sim_pop(N, n, gridded, cortype, psill, erange, nugget, ...)
   irs_samp <- sample_n(data, n)
   irs_unsamp <- anti_join(data, irs_samp)
   irs_unsamp$response <- NA
   full_df <- bind_rows(irs_samp, irs_unsamp)
-  browser()
-  mod <- slmfit(formula = response ~ 1, data = full_df, xcoordcol = "x",
-                ycoordcol = "y")
   full_df$wts <- 1 / nrow(full_df)
+  mod <- slmfit(formula = response ~ 1, data = full_df, xcoordcol = "x",
+                ycoordcol = "y", CorModel = cortype_est)
+
   pred_mod <- predict(mod, wtscol = "wts")
   model_mean <- pred_mod$FPBK_Prediction
   model_se <- sqrt(pred_mod$PredVar)
-  model_lb <- model_mean + -1 * 1.96 * se
-  model_ub <- model_mean + 1 * 1.96 * se
+  model_lb <- model_mean + -1 * 1.96 * model_se
+  model_ub <- model_mean + 1 * 1.96 * model_se
 
   # browser()
   # take a sample
@@ -63,7 +64,7 @@ sim_one <- function(data, xcoord = "x", ycoord = "y", response = "response", cor
   output <- data.frame(
     approach = c("Design", "Model"),
     estimate = c(design_mean$Estimate, as.vector(model_mean)),
-    sd = c(design_mean$StdError, as.vector(se_mean)),
+    sd = c(design_mean$StdError, as.vector(model_se)),
     lb = c(design_mean$LCB95Pct, as.vector(model_lb)),
     ub = c(design_mean$UCB95Pct, as.vector(model_ub))
   )
