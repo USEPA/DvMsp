@@ -68,13 +68,15 @@ brus2020statistical: most similar to what this paper will be, directly comparing
 
 de1990model: early comparison of design v model in spatial context
 
-Several comparisons between model-based and design-based for spatial data have been considered, but they tend to compare spatial models to IRS (Independent Random Sampling) or SIRS (stratified IRS). No comparison has been made between spatial models and spatially balanced design-based approaches.
+Several comparisons between modegitl-based and design-based for spatial data have been considered, but they tend to compare spatial models to IRS (Independent Random Sampling) or SIRS (stratified IRS). No comparison has been made between spatial models and spatially balanced design-based approaches.
 
 * hansen1983evaluation - general overview (in non spatial context), talk about population vs superpopulation give a set of guiding principles in the discussion
 
 * brus1997random - design and model based explanation and simulation study for spatial means, make a decision tree for choosing among approaches
 
 * verhoef2002sampling - strictly defines classical sampling, compares FPBK to classical, BK to classical
+
+* wang2012spatial - sampling and inference steps, thorough overview in terms of spatial context, lots of references
 
 # Background
 
@@ -160,12 +162,11 @@ where $\mathbf{X}_s$ and $\mathbf{X}_u$ are the design matrices for the sampled 
 We also typically assume that there is spatial correlation in $\bm{\delta}$, which can be modeled using a covariance function. Many common choices for this function assume that spatial covariance decreases with increasing Euclidean distance between sites. The primary function used throughout the simulations and applications of this manuscript is the Exponential covariance function: the $i,j^{th}$ entry for $\var(\bm{\delta})$ is
 \mbox{}
 \begin{align}\label{equation:expcov}
-\cov(\delta_i, \delta_j) = \theta_3 + \theta_1\exp(-h_{i,j}/\theta_2), \\
-\textcolor{blue}{\sigma^2[(1 - v)\exp(-3\mathbf{h}_{i,j}/\phi) + v\mathbbm{1}\{\mathbf{h}_{i,j} = 0\}]}, 
+\cov(\delta_i, \delta_j) = \theta_1\exp(-3h_{i,j}/\theta_2) + \theta_3\mathbbm{1}\{\mathbf{h}_{i,j} = 0\}, 
 \end{align}
 where $h_{i,j}$ is the distance between sites $i$ and $j$, and $\bm{\theta}$ is a vector of spatial covariance parameters of the partial sill $\theta_1$, the range $\theta_2$, and the nugget $\theta_3$. However, any spatial covariance function could be used in the place of the Exponential, including functions that allow for anisotropy [pg. 80 - 93][@chiles1999geostatistics].
 
-With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for $\tau(\mathbf{b}'\mathbf{z})$ \textcolor{blue}{Did you mean to give the form of the BLUP here? $\tau(\mathbf{b}'\mathbf{z})$ is vague} and its prediction variance can be computed. While details of the derivation are in [@verhoef2008spatial], we note here that the predictor and its variance are both moment-based. Neither require a particular distribution for $\mathbf{z}$.
+With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for $\tau(\mathbf{b}'\mathbf{z})$ $\tau(\mathbf{b}'\mathbf{z})$ is vague} and its prediction variance can be computed. While details of the derivation are in [@verhoef2008spatial], we note here that the predictor and its variance are both moment-based. Neither require a particular distribution for $\mathbf{z}$.
 
 # Numerical Study
 
