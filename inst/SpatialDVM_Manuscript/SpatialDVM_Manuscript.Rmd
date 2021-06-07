@@ -54,6 +54,16 @@ _Text based on elsarticle sample manuscript, see [http://www.elsevier.com/author
  
 Please leave comments in your \textcolor{blue}{c}\textcolor{magenta}{o}\textcolor{green}{l}\textcolor{red}{o}\textcolor{cyan}{r}: \textcolor{blue}{Michael}, \textcolor{magenta}{Matt}, \textcolor{green}{Lisa}, \textcolor{red}{Tony}, \textcolor{cyan}{Jay}.
 
+define sampling design, define parameters, define model-based, etc.
+
+introduction of spatial data / definition of spatial and maybe general background?
+
+2-3 sentences about each design
+
+goals and outline of paper
+
+
+
 Several comparisons between model-based and design-based for spatial data have been considered, but they tend to compare spatial models to IRS (Independent Random Sampling) or SIRS (stratified IRS). No comparison has been made between spatial models and spatially balanced design-based approaches.
 
 # Background
