@@ -107,15 +107,15 @@ Figure 1b. Spatial process is fixed. In a finite population example, show 10 3d 
 
 ## Comparing Design-Based vs. Model-Based
 
+Several comparisons between the two paradigms have been made in many different contexts. @sterba2009alternative give psych context, old history fisher / Neyman
+
+Many new methods have been constructed that combine aspects of both design-based and model-based approaches. Our goal is not to expand upon these methods nor is it to develop a novel method that combines the two approaches.  
+
 Design-Based and Model-Based Comparisons 
 
-<!-- \citep{Hansen1983evaluation, Brus1997random, VerHoef2002sampling, Cooper2006sampling, sterba2009alternative, Brus2020statistical, Chan2020bayesian} -->
-
-sterba2009alternative: psychological context comparison, has a lot of the older background (e.g. Fisher, Neyman, etc.)
+: psychological context comparison, has a lot of the older background (e.g. Fisher, Neyman, etc.)
 
 Cooper2006sampling: ecological context, also has a nice very general background comparing two approaches, introduces a "model-assisted" variance estimator.
-
-There have been many comparisons between the two paradigms.......
 
 ## Spatially Balanced Design and Analysis
 
