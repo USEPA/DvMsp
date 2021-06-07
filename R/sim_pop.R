@@ -26,6 +26,21 @@ sim_pop <- function(N = 100, n = 50, gridded = TRUE, cortype, psill, erange, nug
   ## simulate response
   chol_covmx <- chol(covmx)
   data$response <- t(chol_covmx) %*% rnorm(N)
+
+  irs_samp <- sample_n(data, n)
+  irs_unsamp <- anti_join(data, irs_samp)
+  irs_unsamp$response <- NA
+  full_df <- bind_rows(irs_samp, irs_unsamp)
+
+  mod <- slmfit(formula = response ~ 1, data = full_df, xcoordcol = "x",
+                ycoordcol = "y")
+  full_df$wts <- 1 / nrow(full_df)
+  pred_mod <- predict(mod, wtscol = "wts")
+  model_mean <- pred_mod$FPBK_Prediction
+  model_se <- sqrt(pred_mod$PredVar)
+  model_lb <- model_mean + -1 * 1.645 * se
+  model_ub <- model_mean + 1 * 1.645 * se
+
   # browser()
   # take a sample
   ## convert data to sf object (for spsurvey)
@@ -70,14 +85,19 @@ sim_pop <- function(N = 100, n = 50, gridded = TRUE, cortype, psill, erange, nug
   ## just return the mean info
   design_mean <- subset(design_analysis$Pct, Statistic == "Mean")
 
+
   # store output
   # output <- data.frame(
   #   approach = c("Design", "Model"),
-  #   estimate = c(design_mean$Estimate, )
-  #   sd = c(design_mean$StdError, )
+  #   estimate = c(design_mean$Estimate, as.vector(model_mean))
+  #   sd = c(design_mean$StdError, as.vector(se_mean),
+  #   lb = c( , as.vector(model_lb)),
+  #   ub = c( , as.vector(model_ub)))
   # )
 }
 
 covmx_exp <- function(distmx, psill, erange, nugget) {
   psill * exp(-3 * distmx / erange) + nugget * (distmx == 0)
 }
+
+sim_pop(N = 100, n = 50, gridded = TRUE, psill = 1, erange = 1, nugget = 0.2)
