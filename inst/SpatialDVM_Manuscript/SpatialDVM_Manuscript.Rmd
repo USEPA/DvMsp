@@ -68,13 +68,15 @@ brus2020statistical: most similar to what this paper will be, directly comparing
 
 de1990model: early comparison of design v model in spatial context
 
-Several comparisons between model-based and design-based for spatial data have been considered, but they tend to compare spatial models to IRS (Independent Random Sampling) or SIRS (stratified IRS). No comparison has been made between spatial models and spatially balanced design-based approaches.
+Several comparisons between modegitl-based and design-based for spatial data have been considered, but they tend to compare spatial models to IRS (Independent Random Sampling) or SIRS (stratified IRS). No comparison has been made between spatial models and spatially balanced design-based approaches.
 
 * hansen1983evaluation - general overview (in non spatial context), talk about population vs superpopulation give a set of guiding principles in the discussion
 
 * brus1997random - design and model based explanation and simulation study for spatial means, make a decision tree for choosing among approaches
 
 * verhoef2002sampling - strictly defines classical sampling, compares FPBK to classical, BK to classical
+
+* wang2012spatial - sampling and inference steps, thorough overview in terms of spatial context, lots of references
 
 # Background
 
