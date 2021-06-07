@@ -105,8 +105,9 @@ Please leave comments in your
 
 Several comparisons between model-based and design-based for spatial
 data have been considered, but they tend to compare spatial models to
-IRS or SIRS (stratified IRS). No comparison has been made between
-spatial models and spatially balanced design-based approaches.
+IRS (Independent Random Sampling) or SIRS (stratified IRS). No
+comparison has been made between spatial models and spatially balanced
+design-based approaches.
 
 \hypertarget{background}{%
 \section{Background}\label{background}}
@@ -136,7 +137,7 @@ approach.
 Model-Based Overview
 
 On the other hand, model-based inference imposes additional assumptions
-on the data with a potential to provide more precise estimates if the
+on the data with a potential to provide more precise estimators if the
 additional assumptions hold. Instead of estimating true but unknown
 parameters, the goal of model-based inference in the spatial context is
 often \emph{prediction} of an unknown quantity. This is a fundamental
@@ -176,7 +177,7 @@ Analysis}\label{spatially-balanced-design-and-analysis}}
 Spatially balanced sampling algorithms use spatial information to obtain
 samples spread out in space. Spatially balanced samples are useful
 because they tend to yield estimators that are more precise than
-estimators constructed from an sampling algorithm that is not spatially
+estimators constructed from a sampling algorithm that is not spatially
 balanced (Barabesi and Franceschi, 2011; Benedetti et al., 2017;
 Grafström and Lundström, 2013; Robertson et al., 2013; Stevens Jr and
 Olsen, 2004; Wang et al., 2013). To quantify spatial balance, Stevens Jr
@@ -192,23 +193,22 @@ Random Tessellation Stratified (GRTS) algorithm, which has several
 attractive properties that we discuss next.
 
 The GRTS algorithm is used to sample from finite and infinite sample
-frames. A finite sample frames contains a finite number of sampling
-units and is related to a point geometry. An infinite sample frame
-contains an infinite number of sampling units and is related to linear
-and polygon geometries. Examples of point, linear, and polygon resources
-include lake centroids, stream networks, and wetland areas,
-respectively. In addition to its applicability for finite and infinite
-sample frames, the GRTS algorithm naturally accommodates stratified
-designs and designs with unequal selection probabilities. The algorithm
-has also been used to select replacement sites using reverse
-hierarchical ordering (Stevens Jr and Olsen, 2004). Replacement sites
-are used to replace sites in the original sample that cannot be sampled,
-often as a result of physical difficulty in reaching the site or
-landowner denial of access to the sites. More recently, the GRTS
-algorithm also accommodates legacy (historical) sites, minimum distance
-between sites, and nearest neighbor replacement sites. The GRTS
-algorithm is implemented in the \textbf{\textsf{R}} package
-\texttt{spsurvey} (Dumelle et al., 2021).
+frames. A finite sample frame contains a finite number of sampling units
+and is related to a point geometry. An infinite sample frame contains an
+infinite number of sampling units and is related to linear and polygon
+geometries. Examples of point, linear, and polygon resources include
+lake centroids, stream networks, and wetland areas, respectively. In
+addition to its applicability for finite and infinite sample frames, the
+GRTS algorithm naturally accommodates stratified designs and designs
+with unequal selection probabilities. The algorithm has also been used
+to select replacement sites using reverse hierarchical ordering (Stevens
+Jr and Olsen, 2004). Replacement sites are used to replace sites in the
+original sample that cannot be sampled, often as a result of physical
+difficulty in reaching the site or landowner denial of access to the
+sites. More recently, the GRTS algorithm also accommodates legacy
+(historical) sites, minimum distance between sites, and nearest neighbor
+replacement sites. The GRTS algorithm is implemented in the
+\textbf{\textsf{R}} package \texttt{spsurvey} (Dumelle et al., 2021).
 
 The GRTS algorithm works by mapping two-dimensional space into
 one-dimensional space while incorporating some elements of randomness.
@@ -246,7 +246,7 @@ unit, and \(\pi_i\) is the inclusion probability of the \(i\)th sampling
 unit. Estimating the variance of \(\hat{\tau}_{HT}\) directly relies on
 knowing the probability that \(s_i\) and \(s_j\) are both included in
 the sample (second-order inclusion probability), which can be unfeasible
-to compute. Furthermore, this variance estimator does incorporate
+to compute. Furthermore, this variance estimator does not incorporate
 spatial locations. To address these challenges, (Stevens Jr and Olsen,
 2003) proposed an alternative variance estimator: the local neighborhood
 variance estimator. The local neighborhood variance estimator does not
@@ -310,8 +310,7 @@ function used throughout the simulations and applications of this
 manuscript is the Exponential covariance function: the \(i,j^{th}\)
 entry for \(\mathop{\mathrm{{var}}}(\bm{\delta})\) is \mbox{}
 \begin{align}\label{equation:expcov}
-\mathop{\mathrm{{cov}}}(\delta_i, \delta_j) = \theta_3 + \theta_1\exp(-h_{i,j}/\theta_2), \\
-\textcolor{blue}{\sigma^2[(1 - v)\exp(-3\mathbf{h}_{i,j}/\phi) + v\mathbbm{1}\{\mathbf{h}_{i,j} = 0\}]}, 
+\mathop{\mathrm{{cov}}}(\delta_i, \delta_j) = \theta_1\exp(-3h_{i,j}/\theta_2) + \theta_3\mathbbm{1}\{\mathbf{h}_{i,j} = 0\}, 
 \end{align} where \(h_{i,j}\) is the distance between sites \(i\) and
 \(j\), and \(\bm{\theta}\) is a vector of spatial covariance parameters
 of the partial sill \(\theta_1\), the range \(\theta_2\), and the nugget
@@ -321,11 +320,11 @@ anisotropy {[}pg. 80 - 93{]}(Chiles and Delfiner, 1999).
 
 With the above model formulation, the Best Linear Unbiased Predictor
 (BLUP) for \(\tau(\mathbf{b}'\mathbf{z})\)
-\textcolor{blue}{Did you mean to give the form of the BLUP here? $\tau(\mathbf{b}'\mathbf{z})$ is vague}
-and its prediction variance can be computed. While details of the
-derivation are in (Ver Hoef, 2008), we note here that the predictor and
-its variance are both moment-based. Neither require a particular
-distribution for \(\mathbf{z}\).
+\(\tau(\mathbf{b}'\mathbf{z})\) is vague\} and its prediction variance
+can be computed. While details of the derivation are in (Ver Hoef,
+2008), we note here that the predictor and its variance are both
+moment-based. Neither require a particular distribution for
+\(\mathbf{z}\).
 
 \hypertarget{numerical-study}{%
 \section{Numerical Study}\label{numerical-study}}
