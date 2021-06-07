@@ -66,6 +66,12 @@ goals and outline of paper
 
 Several comparisons between model-based and design-based for spatial data have been considered, but they tend to compare spatial models to IRS (Independent Random Sampling) or SIRS (stratified IRS). No comparison has been made between spatial models and spatially balanced design-based approaches.
 
+* hansen1983evaluation - general overview (in non spatial context), talk about population vs superpopulation give a set of guiding principles in the discussion
+
+* brus1997random - design and model based explanation and simulation study for spatial means, make a decision tree for choosing among approaches
+
+* verhoef2002sampling - strictly defines classical sampling, compares FPBK to classical, BK to classical
+
 # Background
 
 ## Design-Based Philosphy
