@@ -54,15 +54,19 @@ _Text based on elsarticle sample manuscript, see [http://www.elsevier.com/author
  
 Please leave comments in your \textcolor{blue}{c}\textcolor{magenta}{o}\textcolor{green}{l}\textcolor{red}{o}\textcolor{cyan}{r}: \textcolor{blue}{Michael}, \textcolor{magenta}{Matt}, \textcolor{green}{Lisa}, \textcolor{red}{Tony}, \textcolor{cyan}{Jay}.
 
-define sampling design, define parameters, define model-based, etc.
+define sampling design, define parameters, define model-based, sample, population, super-population?, etc.
 
 introduction of spatial data / definition of spatial and maybe general background?
+
+give some examples of possible spatial data
 
 2-3 sentences about each design
 
 goals and outline of paper
 
+brus2020statistical: most similar to what this paper will be, directly comparing the two approaches. This has a lot of other potentially useful references to go back to. (published in 2021 so likely doesn't have many that have cited it yet).
 
+de1990model: early comparison of design v model in spatial context
 
 Several comparisons between model-based and design-based for spatial data have been considered, but they tend to compare spatial models to IRS (Independent Random Sampling) or SIRS (stratified IRS). No comparison has been made between spatial models and spatially balanced design-based approaches.
 
@@ -86,6 +90,11 @@ The design-based approach to inference uses characteristics of the sampling desi
 
 Model-Based Overview 
 
+Other model based stuff:
+chan2020bayesian: Bayesian model-based approach.
+Based on splines: 
+Cicchitelli, G. and Montanari, G. E. (2012). “Model-Assisted Estimation of a Spatial Population
+Mean.” International Statistical Review, 80(1): 111–126.
 <!-- \citep{Cressie2015statistics, Schabenberger2017statistical} -->
 
 On the other hand, model-based inference imposes additional assumptions on the data with a potential to provide more precise estimators if the additional assumptions hold. Instead of estimating true but unknown parameters, the goal of model-based inference in the spatial context is often \emph{prediction} of an unknown quantity. This is a fundamental philosophical difference between sampling-based and model-based approaches. Instead of \emph{estimating} a fixed unknown mean, we are \emph{predicting} the value of the mean, a random variable. We know that if we sampled all sites, we would have an exact prediction for the mean of our one realized spatial surface, without any uncertainty. But, the true mean of the spatial process that generated our realized data is still not known, and, in the prediction context, we typically do not care much about what value the mean of the underlying process takes.
@@ -99,6 +108,10 @@ Figure 1b. Spatial process is fixed. In a finite population example, show 10 3d 
 Design-Based and Model-Based Comparisons 
 
 <!-- \citep{Hansen1983evaluation, Brus1997random, VerHoef2002sampling, Cooper2006sampling, sterba2009alternative, Brus2020statistical, Chan2020bayesian} -->
+
+sterba2009alternative: psychological context comparison, has a lot of the older background (e.g. Fisher, Neyman, etc.)
+
+Cooper2006sampling: ecological context, also has a nice very general background comparing two approaches, introduces a "model-assisted" variance estimator.
 
 There have been many comparisons between the two paradigms.......
 
