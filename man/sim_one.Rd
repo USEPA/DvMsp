@@ -63,5 +63,7 @@ using \enumerate{
 }
 }
 \examples{
-sim_one(seed = sample.int(1e7, size = 1), N = 100, n = 50, gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1, nugget = 0.2, cortype_est = "Exponential")
+sim_one(seed = sample.int(1e7, size = 1), N = 100, n = 50,
+gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1,
+nugget = 0.2, cortype_est = "Exponential")
 }

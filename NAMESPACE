@@ -2,3 +2,4 @@
 
 export(sim_one)
 export(sim_pop)
+import(stats)

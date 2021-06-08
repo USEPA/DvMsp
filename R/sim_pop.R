@@ -80,7 +80,7 @@ covmx_exp <- function(distmx, psill, erange, nugget) {
 
 #' @describeIn covmx_exp Gaussian Covariance
 covmx_gauss <- function(distmx, psill, erange, nugget) {
-  psill * exp(-sqrt(3) * distance.matrix ^ 2 / erange) +
+  psill * exp(-sqrt(3) * distmx ^ 2 / erange) +
     nugget * (distmx == 0)
 }
 

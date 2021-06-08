@@ -32,7 +32,10 @@
 #'   \item \code{ub}, an upper 95% confidence bound.
 #' }
 #' @examples
-#' sim_one(seed = sample.int(1e7, size = 1), N = 100, n = 50, gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1, nugget = 0.2, cortype_est = "Exponential")
+#' sim_one(seed = sample.int(1e7, size = 1), N = 100, n = 50,
+#' gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1,
+#' nugget = 0.2, cortype_est = "Exponential")
+#' @import stats
 #' @export
 
 sim_one <- function(seed = sample.int(1e7, size = 1),
@@ -44,12 +47,13 @@ sim_one <- function(seed = sample.int(1e7, size = 1),
   irs_samp <- dplyr::sample_n(data, n)
   irs_unsamp <- dplyr::anti_join(data, irs_samp)
   irs_unsamp$response <- NA
-  full_df <- bind_rows(irs_samp, irs_unsamp)
+  full_df <- dplyr::bind_rows(irs_samp, irs_unsamp)
   full_df$wts <- 1 / nrow(full_df)
-  mod <- slmfit(formula = response ~ 1, data = full_df, xcoordcol = "x",
-                ycoordcol = "y", CorModel = cortype_est)
+  mod <- sptotal::slmfit(formula = response ~ 1,
+                         data = full_df, xcoordcol = "x",
+                         ycoordcol = "y", CorModel = cortype_est)
 
-  pred_mod <- predict(mod, wtscol = "wts")
+  pred_mod <- sptotal::predict(mod, wtscol = "wts")
   model_mean <- pred_mod$FPBK_Prediction
   model_se <- sqrt(pred_mod$PredVar)
   model_lb <- model_mean + -1 * 1.96 * model_se
@@ -58,13 +62,13 @@ sim_one <- function(seed = sample.int(1e7, size = 1),
   # browser()
   # take a sample
   ## convert data to sf object (for spsurvey)
-  data <- st_as_sf(data, coords = c("x", "y"), crs = 5070)
+  data <- sf::st_as_sf(data, coords = c("x", "y"), crs = 5070)
   ## select grts sample
-  grts_samp <- grts(data, n_base = n, ...)
+  grts_samp <- spsurvey::grts(data, n_base = n, ...)
   ## convert to usable
-  grts_bind <- sprbind(grts_samp, ...)
+  grts_bind <- spsurvey::sprbind(grts_samp, ...)
   ## get coordinates
-  grts_coords <- st_coordinates(grts_bind)
+  grts_coords <- df::st_coordinates(grts_bind)
   ## make data frame
   grts_df <- data.frame(
     response = grts_bind$response,
@@ -74,11 +78,11 @@ sim_one <- function(seed = sample.int(1e7, size = 1),
     wgt = grts_bind$wgt
   )
   ## select irs sample
-  irs_samp <- irs(data, n_base = n, ...)
+  irs_samp <- spsurvey::irs(data, n_base = n, ...)
   ## convert to usable
-  irs_bind <- sprbind(irs_samp, ...)
+  irs_bind <- spsurvey::sprbind(irs_samp, ...)
   ## get coordinates
-  irs_coords <- st_coordinates(irs_bind)
+  irs_coords <- sf::st_coordinates(irs_bind)
   ## make data frame
   irs_df <- data.frame(
     response = irs_bind$response,
@@ -88,7 +92,7 @@ sim_one <- function(seed = sample.int(1e7, size = 1),
 
   # analyze the sample
   ## design based
-  design_analysis <- cont_analysis(
+  design_analysis <- spsurvey::cont_analysis(
     grts_df,
     siteID = "siteID",
     vars = "response",
