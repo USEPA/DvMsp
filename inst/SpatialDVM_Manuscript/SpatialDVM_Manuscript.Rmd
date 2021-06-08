@@ -64,15 +64,11 @@ give some examples of possible spatial data
 
 goals and outline of paper
 
+@de1990model give an early comparison of the paradigms for spatial data, quashing the belief that classical sampling-based methods could not be used for spatially correlated data. Thereafter, several comparisons between model-based and design-based for spatial data have been considered, but they tend to compare spatial models to IRS (Independent Random Sampling) or SIRS (stratified IRS) [@brus1997random]. No comparison has been made between spatial models and spatially balanced design-based approaches.
+
 brus2020statistical: most similar to what this paper will be, directly comparing the two approaches. This has a lot of other potentially useful references to go back to. (published in 2021 so likely doesn't have many that have cited it yet).
 
-de1990model: early comparison of design v model in spatial context
-
-Several comparisons between modegitl-based and design-based for spatial data have been considered, but they tend to compare spatial models to IRS (Independent Random Sampling) or SIRS (stratified IRS). No comparison has been made between spatial models and spatially balanced design-based approaches.
-
 * hansen1983evaluation - general overview (in non spatial context), talk about population vs superpopulation give a set of guiding principles in the discussion
-
-* brus1997random - design and model based explanation and simulation study for spatial means, make a decision tree for choosing among approaches
 
 * verhoef2002sampling - strictly defines classical sampling, compares FPBK to classical, BK to classical
 
@@ -86,20 +82,17 @@ Design-Based Overview
 
 <!-- \citep{Sarndal2003model, Lohr2009sampling} -->
 
-The design-based approach to inference uses characteristics of the sampling design to estimate parameters of interest. The design-based approach assumes the data, $\mathbf{Y}$, are fixed. Randomness is incorporated through the random selection of sampling units based on probabilities derived using the sampling design itself. Some examples of commonly used sampling designs include independent random sampling (IRS), stratified random sampling, and cluster sampling. Viewing the data as fixed and incorporating randomness through the sampling design yields estimators having very few assumptions. Asymptotic properties of these types of estimators are derived using limiting arguments. Means and totals, for example, are asymptotically Gaussian. @sarndal2003model and @lohr2009sampling provide thorough reviews of the design-based approach.
+The design-based approach to inference uses characteristics of the sampling design to estimate parameters of interest. The design-based approach assumes the data, $\mathbf{Z}$, are fixed. Randomness is incorporated through the random selection of sampling units based on probabilities derived using the sampling design itself. Some examples of commonly used sampling designs include independent random sampling (IRS), stratified random sampling, and cluster sampling. Viewing the data as fixed and incorporating randomness through the sampling design yields estimators having very few assumptions. Asymptotic properties of these types of estimators are derived using limiting arguments. Means and totals, for example, are asymptotically Gaussian. @sarndal2003model and @lohr2009sampling provide thorough reviews of the design-based approach.
 
 ## Model-Based Philosphy
 
-Model-Based Overview 
+Model-Based Overview
 
-Other model based stuff:
-chan2020bayesian: Bayesian model-based approach.
-Based on splines: 
-Cicchitelli, G. and Montanari, G. E. (2012). “Model-Assisted Estimation of a Spatial Population
-Mean.” International Statistical Review, 80(1): 111–126.
 <!-- \citep{Cressie2015statistics, Schabenberger2017statistical} -->
 
 On the other hand, model-based inference imposes additional assumptions on the data with a potential to provide more precise estimators if the additional assumptions hold. Instead of estimating true but unknown parameters, the goal of model-based inference in the spatial context is often \emph{prediction} of an unknown quantity. This is a fundamental philosophical difference between sampling-based and model-based approaches. Instead of \emph{estimating} a fixed unknown mean, we are \emph{predicting} the value of the mean, a random variable. We know that if we sampled all sites, we would have an exact prediction for the mean of our one realized spatial surface, without any uncertainty. But, the true mean of the spatial process that generated our realized data is still not known, and, in the prediction context, we typically do not care much about what value the mean of the underlying process takes.
+
+We only use FPBK in this paper in order to focus more on comparing the design-based and model-based approaches. However, k-nearest-neighbors [@fix1951discriminatory; @ver2013comparison], random forest [@breiman2001random], Bayesian models [@chan2020bayesian], among others, can also be used to obtain predictions for a mean or total from spatially correlated responses in a finite population setting.
 
 Figure 1a. Data is fixed. In a finite population example, show a 3d surface that can be generated by anything. If we repeatedly sample the surface, then 95% of all 95% CIs will contain the true mean, which never changes.
 
@@ -107,7 +100,7 @@ Figure 1b. Spatial process is fixed. In a finite population example, show 10 3d 
 
 ## Comparing Design-Based vs. Model-Based
 
-Several comparisons between the two paradigms have been made in many different contexts. @sterba2009alternative give some history of the two paradigms as well as some applications in psychological contexts. @cooper2006sampling review the two approaches in an ecological context before introducing a "model-assisted" variance estimator that combines aspects from each approach. We note that while there has been substantial research and development into estimators that use both design and model-based principles (see e.g. CITE some more f these), our goal is not to expand upon or improve these methods.
+Several comparisons between the two paradigms have been made in many different contexts. @sterba2009alternative give some history of the two paradigms as well as some applications in psychological contexts. @cooper2006sampling review the two approaches in an ecological context before introducing a "model-assisted" variance estimator that combines aspects from each approach. We note that while there has been substantial research and development into estimators that use both design and model-based principles (see e.g. @cicchitelli2012model, @chan2020bayesian for a Bayesian approach, CITE some more of these), our goal is not to expand upon or improve these methods.
 
 ## Spatially Balanced Design and Analysis
 
@@ -119,9 +112,9 @@ The GRTS algorithm works by mapping two-dimensional space into one-dimensional s
 
 The Horvitz-Thompson estimator [@horvitz1952generalization] and its continuous analog [@cordy1993extension] yield unbiased estimates of population totals (and means). If $\tau$ is a population total, then the Horvitz-Thompson estimator of $\tau$, denoted by $\hat{\tau}_{HT}$, is given by
 \begin{align}\label{eq:htest}
-  \hat{\tau}_{HT} = \sum_{i = 1}^n Y_i \pi_i^{-1},
+  \hat{\tau}_{HT} = \sum_{i = 1}^n Z_i \pi_i^{-1},
 \end{align}
-where $Y_i$ is the observed value of the $i$th sampling unit, and $\pi_i$ is the inclusion probability of the $i$th sampling unit. Estimating the variance of $\hat{\tau}_{HT}$ directly relies on knowing the probability that $s_i$ and $s_j$ are both included in the sample (second-order inclusion probability), which can be unfeasible to compute. Furthermore, this variance estimator does not incorporate spatial locations. To address these challenges, [@stevens2003variance] proposed an alternative variance estimator: the local neighborhood variance estimator. The local neighborhood variance estimator does not require second-order inclusion probabilities. It also incorporates spatial locations, which tends to reduce the estimated variance of compared $\hat{\tau}_{HT}$ to a variance estimator ignoring spatial location [@stevens2003variance]. 
+where $Z_i$ is the observed value of the $i$th sampling unit, and $\pi_i$ is the inclusion probability of the $i$th sampling unit. Estimating the variance of $\hat{\tau}_{HT}$ directly relies on knowing the probability that $s_i$ and $s_j$ are both included in the sample (second-order inclusion probability), which can be unfeasible to compute. Furthermore, this variance estimator does not incorporate spatial locations. To address these challenges, [@stevens2003variance] proposed an alternative variance estimator: the local neighborhood variance estimator. The local neighborhood variance estimator does not require second-order inclusion probabilities. It also incorporates spatial locations, which tends to reduce the estimated variance of compared $\hat{\tau}_{HT}$ to a variance estimator ignoring spatial location [@stevens2003variance]. 
 
 ## Finite Population Block Kriging
 
