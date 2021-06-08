@@ -5,10 +5,11 @@ sim_pop <- function(N = 100, n = 50, gridded = TRUE, cortype, psill, erange, nug
   # simulating the locations
   if (gridded) {
     if (ceiling(sqrt(N)) != floor(sqrt(N))) {
-      warning("N is not a perfect square")
+      warning("N is not a perfect square - rounding N up to nearest perfect square")
     }
     ## simulate grid
     sqrN <- ceiling(sqrt(N))
+    N <- sqrN^2
     x <- seq(from = 0, to = 1, length.out = sqrN)
     y <- seq(from = 0, to = 1, length.out = sqrN)
     data <- expand.grid(x = x, y = y)
