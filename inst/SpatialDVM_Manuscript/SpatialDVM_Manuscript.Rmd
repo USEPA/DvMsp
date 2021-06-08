@@ -155,6 +155,21 @@ With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for 
 
 # Numerical Study
 
+cases
+
+__Base Simulations__
+
+* both good: correctly specified model with high correlation
+* break model: non-gaussian errors
+* break design: small area estimation
+
+* both good?: misspecified covariance model with high correlation
+* break both? non-gaussian areas with smaller sample size
+
+* change n or sampling fraction
+
+* model-based: how should sample be drawn?
+
 ## Software
 
 FPBK can be readily performed in `R` with the `sptotal` package [@higham2020sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
