@@ -21,6 +21,7 @@
 #' }
 #' @examples
 #' sim_pop(N = 100, gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1, nugget = 0.2)
+#' @import stats
 #' @export
 
 ## simulate population
@@ -49,7 +50,12 @@ sim_pop <- function(N = 100, gridded = TRUE,
 
   # simulate the population
   ## make distance matrix
-  distmx <- as.matrix(dist(data, ...))
+  distmx <- as.matrix(stats::dist(data))
+  distmx <- matrix(0, nrow = N, ncol = N)
+  distmx[lower.tri(distmx)] <- stats::dist(as.matrix(data))
+  distmx <- distmx + t(distmx)
+
+
   ## make covariance matrix
   covmx <- switch(cortype,
                   Exponential = covmx_exp(distmx, psill, erange, nugget)

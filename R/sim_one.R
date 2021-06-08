@@ -43,7 +43,7 @@ sim_one <- function(seed = sample.int(1e7, size = 1),
                     cortype = "Exponential", psill, erange,
                     nugget, cortype_est = "Exponential", ...) {
   set.seed(seed)
-  data <- sim_pop(N, n, gridded, cortype, psill, erange, nugget, ...)
+  data <- sim_pop(N, gridded, cortype, psill, erange, nugget, ...)
   irs_samp <- dplyr::sample_n(data, n)
   irs_unsamp <- dplyr::anti_join(data, irs_samp)
   irs_unsamp$response <- NA

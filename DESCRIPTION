@@ -19,4 +19,6 @@ RoxygenNote: 7.1.1
 Imports: dplyr,
          spsurvey,
          sptotal,
-         sf
+         sf,
+         stats
+Remotes: github::highamm/sptotal
