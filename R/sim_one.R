@@ -59,10 +59,14 @@ sim_one <- function(N = 100, n = 50, gridded = TRUE, cortype = "Exponential", ps
   ## just return the mean info
   design_mean <- subset(design_analysis$Pct, Statistic == "Mean")
 
+  realized_mean <- mean(data$response)
+  realized_var <- var(data$response)
 
   # store output
   output <- data.frame(
     approach = c("Design", "Model"),
+    true_mean = c(realized_mean, realized_mean),
+    true_var = c(realized_var, realized_var),
     estimate = c(design_mean$Estimate, as.vector(model_mean)),
     sd = c(design_mean$StdError, as.vector(model_se)),
     lb = c(design_mean$LCB95Pct, as.vector(model_lb)),
@@ -71,3 +75,12 @@ sim_one <- function(N = 100, n = 50, gridded = TRUE, cortype = "Exponential", ps
 
   output
 }
+
+
+
+## example
+# df <- sim_pop(N = 100, n = 50, gridded = TRUE, cortype = "exponential",
+#               psill = 1.1, erange = 1.01, nugget = 0.3)
+# library(dplyr)
+# sim_one(data = df, xcoord = "x", ycoord = "y", response = "response",
+#         cortype_est = "exponential")
