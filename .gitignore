@@ -2,3 +2,4 @@
 .Rhistory
 .RData
 .Ruserdata
+inst/output/sim_one/all_output.csv

@@ -1,5 +1,6 @@
 ## get one simulation
-sim_one <- function(N = 100, n = 50, gridded = TRUE, cortype = "Exponential", psill, erange, nugget, cortype_est = "Exponential", ...) {
+sim_one <- function(seed, N = 100, n = 50, gridded = TRUE, cortype = "Exponential", psill, erange, nugget, cortype_est = "Exponential", ...) {
+  set.seed(seed)
   data <- sim_pop(N, n, gridded, cortype, psill, erange, nugget, ...)
   irs_samp <- sample_n(data, n)
   irs_unsamp <- anti_join(data, irs_samp)
@@ -65,6 +66,7 @@ sim_one <- function(N = 100, n = 50, gridded = TRUE, cortype = "Exponential", ps
   # store output
   output <- data.frame(
     approach = c("Design", "Model"),
+    seed = c(seed, seed),
     true_mean = c(realized_mean, realized_mean),
     true_var = c(realized_var, realized_var),
     estimate = c(design_mean$Estimate, as.vector(model_mean)),
@@ -79,8 +81,4 @@ sim_one <- function(N = 100, n = 50, gridded = TRUE, cortype = "Exponential", ps
 
 
 ## example
-# df <- sim_pop(N = 100, n = 50, gridded = TRUE, cortype = "exponential",
-#               psill = 1.1, erange = 1.01, nugget = 0.3)
-# library(dplyr)
-# sim_one(data = df, xcoord = "x", ycoord = "y", response = "response",
-#         cortype_est = "exponential")
+## data <- sim_one(psill = 1, erange = 1, nugget = 1)

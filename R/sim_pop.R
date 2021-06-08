@@ -1,5 +1,5 @@
 ## simulate population
-# need spsurvey and sptotal
+# need spsurvey and sptotal and dplyr
 sim_pop <- function(N = 100, n = 50, gridded = TRUE, cortype, psill, erange, nugget, ...) {
 
   # simulating the locations
