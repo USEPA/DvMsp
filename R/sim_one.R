@@ -1,9 +1,48 @@
-## get one simulation
-sim_one <- function(seed, N = 100, n = 50, gridded = TRUE, cortype = "Exponential", psill, erange, nugget, cortype_est = "Exponential", ...) {
+#' Simulate spatially correlated data
+#'
+#' Take a sample from and subsequently analyze spatially correlated data
+#' using \enumerate{
+#'          \item GRTS with a spatially balanced sample
+#'          \item FPBK with a simple random sample
+#' }
+#'
+#' @param seed is a random seed, by default a random integer.
+#' @param N is the total number of data points.
+#'  For \code{gridded = TRUE}, this must be a perfect square.
+#' @param n is the number of data points sampled.
+#' @param gridded \code{TRUE} for gridded sites and \code{FALSE} for
+#' points with random locations.
+#' @param cortype is the true correlation function, which is
+#' \code{"Exponential"} by default.
+#' @param psill is the partial sill.
+#' @param erange is the effective range.
+#' @param nugget is the nugget.
+#' @param cortype_est is the (possibly misspecified) correlation
+#' function used to estimate/predict the mean, total, or other quantity.
+#' @param ... further arguments passed to or from other methods.
+#' @return a data frame with \itemize{
+#'   \item \code{approach}, the name of th approach (\code{"Degign"}
+#'   or \code{"Model"}).
+#'   \item \code{seed}, a non-random integer seed.
+#'   \item \code{true_mean}, the realized mean from the entire population.
+#'   \item \code{true_var}, the realized variance from the entire population.
+#'   \item \code{estimate}, the estimated/predicted mean.
+#'   \item \code{sd}, the standard error of the estimated/predicted mean.
+#'   \item \code{lb}, a lower 95% confidence bound
+#'   \item \code{ub}, an upper 95% confidence bound.
+#' }
+#' @examples
+#' sim_one(seed = sample.int(1e7, size = 1), N = 100, n = 50, gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1, nugget = 0.2, cortype_est = "Exponential")
+#' @export
+
+sim_one <- function(seed = sample.int(1e7, size = 1),
+                    N = 100, n = 50, gridded = TRUE,
+                    cortype = "Exponential", psill, erange,
+                    nugget, cortype_est = "Exponential", ...) {
   set.seed(seed)
   data <- sim_pop(N, n, gridded, cortype, psill, erange, nugget, ...)
-  irs_samp <- sample_n(data, n)
-  irs_unsamp <- anti_join(data, irs_samp)
+  irs_samp <- dplyr::sample_n(data, n)
+  irs_unsamp <- dplyr::anti_join(data, irs_samp)
   irs_unsamp$response <- NA
   full_df <- bind_rows(irs_samp, irs_unsamp)
   full_df$wts <- 1 / nrow(full_df)

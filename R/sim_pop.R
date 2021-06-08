@@ -6,11 +6,10 @@
 #'
 #' @param N is the total number of data points. For \code{gridded = TRUE},
 #' this must be a perfect square.
-#' @param n is number of data points sampled.
 #' @param gridded \code{TRUE} for gridded sites and \code{FALSE} for
 #' points with random locations.
 #' @param cortype is the correlation function, which is
-#' \code{"Exponential"}
+#' \code{"Exponential"} by default.
 #' @param psill is the partial sill.
 #' @param erange is the effective range.
 #' @param nugget is the nugget.
@@ -21,12 +20,14 @@
 #'   \item \code{response}, a column with the response variable.
 #' }
 #' @examples
-#' sim_pop(N = 100, n = 50, gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1, nugget = 0.2)
+#' sim_pop(N = 100, gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1, nugget = 0.2)
 #' @export
 
 ## simulate population
 # need spsurvey and sptotal and dplyr
-sim_pop <- function(N = 100, n = 50, gridded = TRUE, cortype, psill, erange, nugget, ...) {
+sim_pop <- function(N = 100, gridded = TRUE,
+                    cortype = "Exponential", psill, erange,
+                    nugget, ...) {
 
   # simulating the locations
   if (gridded) {
