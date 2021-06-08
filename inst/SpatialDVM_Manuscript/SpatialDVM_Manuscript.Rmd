@@ -52,44 +52,30 @@ _Text based on elsarticle sample manuscript, see [http://www.elsevier.com/author
 
 # Introduction {#sec:introduction}
  
+finish spatial introduction
+revise section 2
+reread brus and wang
+write down potential data sets
+
 Please leave comments in your \textcolor{blue}{c}\textcolor{magenta}{o}\textcolor{green}{l}\textcolor{red}{o}\textcolor{cyan}{r}: \textcolor{blue}{Michael}, \textcolor{magenta}{Matt}, \textcolor{green}{Lisa}, \textcolor{red}{Tony}, \textcolor{cyan}{Jay}.
 
 <!-- Brief introduction to model based and design based -->
 
-There are two approaches to statistical inference: design-based and model-based. Both approaches aim to study a population. Because data generally cannot be sampled at all units in the population (known as population units), the population units must be sampled. In the design-based approach, the samples are often used to estimate parameters of a population. Properties of these estimators are derived through random selection of the samples. In the model-based approach, the samples are often used to predict random variables of a population. Properties of these predictions are derived through a set of distributional assumptions that specify the population's structure. Randomness is crucial to both approaches but for different reasons; the design-based approach uses randomness when selecting a sample of population units, and the model-based approach uses randomness when specifying distributional assumptions. @sterba2009alternative provides historical context for each approach, and @hansen1983evaluation discusses the advantages of each approach [@hansen1983evaluation].
+There are two general approaches for using data to make statistical inferences about a population: design-based approaches and model-based approaches. When data cannot be obtained for all units in a population (known as population units), data on a subset of the population units is collected in a  sample. In the design-based approach, inferences about the underlying population are informed from a probabilistic process in which population units are selected to be in the sample. Alternatively, in the model-based approach, inferences are made from specific assumptions made about the underlying process that generated the data. Each paradigm has a deep historical context [@sterba2009alternative] and its own set of general advantages [@hansen1983evaluation].
 
 <!-- Shift focus to spatial data -->
 
-Though the design-based and model-based approaches apply to statistical inference in a broad sense, we focus comparing these approaches for spatial data. @de1990model gave an early comparison of these approaches, quashing the belief that design-based approaches could not be used for spatially correlated data. Thereafter, several comparisons between design-based and model-based for spatial data have been considered, but they tend to compare design-based approaches that ignore spatial location in sampling to model-based approaches [@brus1997random, @verhoef2002sampling, @verhoef2008spatial]. No comparison has been made design-based approaches that incorporate spatial location in sampling and model-based approaches.
+Though the design-based and model-based approaches apply to statistical inference in a broad sense, we focus on comparing these approaches for spatial data. 
 
+<!-- ????????? -->
+We define spatial data as [blah blah blah, any data collected at specific locations blah blah blah blah]. Examples include [do we want to give a list of general examples?]. 
+<!-- ???????????? -->
 
-
-
-
-
-
-
-
-
-
-
-define sampling design, define parameters, define model-based, sample, population, super-population?, etc.
-
-introduction of spatial data / definition of spatial and maybe general background?
-
-give some examples of possible spatial data
-
-2-3 sentences about each design
-
-goals and outline of paper
-
-brus2020statistical: most similar to what this paper will be, directly comparing the two approaches. This has a lot of other potentially useful references to go back to. (published in 2021 so likely doesn't have many that have cited it yet).
-
-wang2012spatial - sampling and inference steps, thorough overview in terms of spatial context, lots of references
+@de1990model give an early comparison of these approaches, quashing the belief that design-based approaches could not be used for spatially correlated data. Thereafter, several comparisons between design-based and model-based for spatial data have been considered, but they tend to compare design-based approaches that ignore spatial location in sampling to model-based approaches [@brus1997random; @verhoef2002sampling; @verhoef2008spatial]. More recent overviews include @brus2020statistical and @wang2012spatial, but no numerical comparison has been made between design-based approaches that incorporate spatial location in sampling and model-based approaches.
 
 <!-- Outline for the rest of the paper -->
 
-In Section \ref{sec:background}, we compare sampling and estimation procedures between the design-based approach and the model-based approach. In Section \ref{sec:numstudy}, we use simulated and real data to compare the properties of parameter estimates from both aproaches. And in Section \ref{sec:discussion}, we end with a discussion and provide directions for future research. 
+The rest of this paper is organized as follows. In Section \ref{sec:background}, we compare sampling and estimation procedures between the design-based approach and the model-based approach. In Section \ref{sec:numstudy}, we use simulated and real data to compare the properties of parameter estimates from both aproaches. And in Section \ref{sec:discussion}, we end with a discussion and provide directions for future research. 
 
 # Background {#sec:background}
 
@@ -190,6 +176,8 @@ __Base Simulations__
 ## Software
 
 FPBK can be readily performed in `R` with the `sptotal` package [@higham2020sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
+
+## Applied Example
 
 # Discussion {#sec:discussion}
 

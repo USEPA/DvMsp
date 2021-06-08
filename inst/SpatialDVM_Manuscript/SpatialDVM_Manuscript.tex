@@ -54,6 +54,31 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 
 % Pandoc citation processing
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+% for Pandoc 2.8 to 2.10.1
+\newenvironment{cslreferences}%
+  {}%
+  {\par}
+% For Pandoc 2.11+
+\newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc} % for calculating minipage widths
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Pandoc header
 
@@ -62,8 +87,8 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{A comparison of model-based and design-based approaches for spatial
-data.}
+  \title{A comparison of model-based and design-based approaches for
+spatial data.}
     \author[USEPA]{Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
     \author[STLAW]{Matthew Higham\corref{1}}
@@ -74,19 +99,21 @@ data.}
   
     \author[NOAA]{Jay M. Ver Hoef}
   
-      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
-Corvallis, Oregon, 97333}
-    \address[STLAW]{Saint Lawrence University Department of Math, Computer Science, and
-Statistics, 23 Romoda Drive, Canton, New York, 13617}
-    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
-Corvallis, Oregon, 97331}
-    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
-Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
+      \address[USEPA]{United States Environmental Protection Agency, 200
+SW 35th St, Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Math,
+Computer Science, and Statistics, 23 Romoda Drive, Canton, New York,
+13617}
+    \address[OSU]{Oregon State University Department of Statistics, 239
+Weniger Hall, Corvallis, Oregon, 97331}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science
+Center, National Oceanic and Atmospheric Administration, Seattle,
+Washington, 98115}
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
   This is the abstract.
-  
+
   It consists of two paragraphs.
   \end{abstract}
   
@@ -103,60 +130,45 @@ Please leave comments in your
 \textcolor{blue}{Michael}, \textcolor{magenta}{Matt},
 \textcolor{green}{Lisa}, \textcolor{red}{Tony}, \textcolor{cyan}{Jay}.
 
-There are two approaches to statistical inference for spatial data:
-design-based and model-based. In the design-based approach, statistical
-inference is based on random sampling. In the model-based approach,
-statistical inference is based on a set of distributional assumptions
-for the data.
+There are two general approaches for using data to make statistical
+inferences about a population: design-based approaches and model-based
+approaches. When data cannot be obtained for all units in a population
+(known as population units), data on a subset of the population units is
+collected in a sample. In the design-based approach, inferences about
+the underlying population are informed from a probabilistic process in
+which population units are selected to be in the sample. Alternatively,
+in the model-based approach, inferences are made from specific
+assumptions made about the underlying process that generated the data.
+Each paradigm has a deep historical context (Sterba, 2009) and its own
+set of general advantages (Hansen et al., 1983).
 
-In either approach, statistical inference requires estimating parameters
-of interest. Often, these parameters are means or totals. In the
-design-based approach, parameters correspond to some population. In the
-model-based approach, parameters correspond to some statistical process,
-sometimes called a superpopulation.
+Though the design-based and model-based approaches apply to statistical
+inference in a broad sense, we focus on comparing these approaches for
+spatial data.
 
-Spatial data paragraph
+We define spatial data as {[}blah blah blah, any data collected at
+specific locations blah blah blah blah{]}. Examples include {[}do we
+want to give a list of general examples?{]}.
 
-define sampling design, define parameters, define model-based, sample,
-population, super-population?, etc.
+De Gruijter and Ter Braak (1990) give an early comparison of these
+approaches, quashing the belief that design-based approaches could not
+be used for spatially correlated data. Thereafter, several comparisons
+between design-based and model-based for spatial data have been
+considered, but they tend to compare design-based approaches that ignore
+spatial location in sampling to model-based approaches (Brus and De
+Gruijter, 1997; Brus, 2020; Ver Hoef, 2002; Ver Hoef, 2008). No
+comparison has been made between design-based approaches that
+incorporate spatial location in sampling and model-based approaches.
 
-introduction of spatial data / definition of spatial and maybe general
-background?
+wang2012spatial - sampling and inference steps, thorough overview in
+terms of spatial context, lots of references
 
-give some examples of possible spatial data
-
-2-3 sentences about each design
-
-goals and outline of paper
-
-De Gruijter and Ter Braak (1990) give an early comparison of the
-paradigms for spatial data, quashing the belief that classical
-sampling-based methods could not be used for spatially correlated data.
-Thereafter, several comparisons between model-based and design-based for
-spatial data have been considered, but they tend to compare spatial
-models to IRS (Independent Random Sampling) or SIRS (stratified IRS)
-(Brus and De Gruijter, 1997). No comparison has been made between
-spatial models and spatially balanced design-based approaches.
-
-brus2020statistical: most similar to what this paper will be, directly
-comparing the two approaches. This has a lot of other potentially useful
-references to go back to. (published in 2021 so likely doesn't have many
-that have cited it yet).
-
-\begin{itemize}
-\item
-  hansen1983evaluation - general overview (in non spatial context), talk
-  about population vs superpopulation give a set of guiding principles
-  in the discussion
-\item
-  verhoef2002sampling - strictly defines classical sampling, compares
-  FPBK to classical, BK to classical
-\item
-  wang2012spatial - sampling and inference steps, thorough overview in
-  terms of spatial context, lots of references
-\end{itemize}
-
-In Section \ref{sec:background}
+In Section \ref{sec:background}, we compare sampling and estimation
+procedures between the design-based approach and the model-based
+approach. In Section \ref{sec:numstudy}, we use simulated and real data
+to compare the properties of parameter estimates from both aproaches.
+And in Section \ref{sec:discussion}, we end with a discussion and
+provide directions for future research.
 
 \hypertarget{sec:background}{%
 \section{Background}\label{sec:background}}
@@ -229,7 +241,7 @@ review the two approaches in an ecological context before introducing a
 ``model-assisted'' variance estimator that combines aspects from each
 approach. We note that while there has been substantial research and
 development into estimators that use both design and model-based
-principles (see e.g.~Cicchitelli and Montanari (2012), Chan-Golston et
+principles (see e.g. Cicchitelli and Montanari (2012), Chan-Golston et
 al. (2020) for a Bayesian approach, CITE some more of these), our goal
 is not to expand upon or improve these methods.
 
@@ -389,8 +401,8 @@ can be computed. While details of the derivation are in (Ver Hoef,
 moment-based. Neither require a particular distribution for
 \(\mathbf{z}\).
 
-\hypertarget{numerical-study}{%
-\section{Numerical Study}\label{numerical-study}}
+\hypertarget{sec:numstudy}{%
+\section{Numerical Study}\label{sec:numstudy}}
 
 cases
 
@@ -421,14 +433,15 @@ package (Higham et al., 2020). We use \texttt{sptotal} for both the
 simulation analysis and the application, estimating parameters with
 Restricted Maximum Likelihood (REML).
 
-\hypertarget{discussion}{%
-\section{Discussion}\label{discussion}}
+\hypertarget{sec:discussion}{%
+\section{Discussion}\label{sec:discussion}}
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-barabesi2011sampling}{}%
 Barabesi, L., Franceschi, S., 2011. Sampling properties of spatial total
 estimators under tessellation stratified designs. Environmetrics 22,
@@ -452,14 +465,19 @@ Brus, D., De Gruijter, J., 1997. Random sampling or geostatistical
 modelling? Choosing between design-based and model-based sampling
 strategies for soil (with discussion). Geoderma 80, 1--44.
 
+\leavevmode\hypertarget{ref-brus2020statistical}{}%
+Brus, D.J., 2020. Statistical approaches for spatial sample survey:
+Persistent misconceptions and new developments. European Journal of Soil
+Science.
+
 \leavevmode\hypertarget{ref-chan2020bayesian}{}%
 Chan-Golston, A.M., Banerjee, S., Handcock, M.S., 2020. Bayesian
 inference for finite populations under spatial process settings.
 Environmetrics 31, e2606.
 
 \leavevmode\hypertarget{ref-chiles1999geostatistics}{}%
-Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
-Uncertainty. John Wiley \& Sons, New York.
+Chiles, J.-P., Delfiner, P., 1999. Geostatistics: {Modeling Spatial
+Uncertainty}. {John Wiley \& Sons}, New York.
 
 \leavevmode\hypertarget{ref-cicchitelli2012model}{}%
 Cicchitelli, G., Montanari, G.E., 2012. Model-assisted estimation of a
@@ -506,6 +524,11 @@ sampling through the pivotal method. Biometrics 68, 514--520.
 Grafström, A., Matei, A., 2018. Spatially balanced sampling of
 continuous populations. Scandinavian Journal of Statistics 45, 792--805.
 
+\leavevmode\hypertarget{ref-hansen1983evaluation}{}%
+Hansen, M.H., Madow, W.G., Tepping, B.J., 1983. An evaluation of
+model-dependent and probability-sampling inferences in sample surveys.
+Journal of the American Statistical Association 78, 776--793.
+
 \leavevmode\hypertarget{ref-higham2020sptotal}{}%
 Higham, M., Ver Hoef, J., Bryce, F., 2020. Sptotal: Predicting totals
 and weighted sums from spatial data.
@@ -546,13 +569,17 @@ Stevens Jr, D.L., Olsen, A.R., 2004. Spatially balanced sampling of
 natural resources. Journal of the american Statistical association 99,
 262--278.
 
+\leavevmode\hypertarget{ref-verhoef2002sampling}{}%
+Ver Hoef, J., 2002. Sampling and geostatistics for spatial data.
+Ecoscience 9, 152--161.
+
 \leavevmode\hypertarget{ref-verhoef2008spatial}{}%
 Ver Hoef, J.M., 2008. Spatial methods for plot-based sampling of
 wildlife populations. Environmental and Ecological Statistics 15, 3--13.
 
 \leavevmode\hypertarget{ref-ver2013comparison}{}%
 Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
-model to nearest neighbor (k-nn) methods for forestry applications. PloS
+model to nearest neighbor (k-NN) methods for forestry applications. PloS
 one 8, e59129.
 
 \leavevmode\hypertarget{ref-wang2013design}{}%
@@ -560,7 +587,8 @@ Wang, J.-F., Jiang, C.-S., Hu, M.-G., Cao, Z.-D., Guo, Y.-S., Li, L.-F.,
 Liu, T.-J., Meng, B., 2013. Design-based spatial sampling: Theory and
 implementation. Environmental modelling \& software 40, 280--288.
 
+\end{CSLReferences}
+
 
 \end{document}
-
 
