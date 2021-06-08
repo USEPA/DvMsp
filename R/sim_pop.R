@@ -4,6 +4,9 @@ sim_pop <- function(N = 100, n = 50, gridded = TRUE, cortype, psill, erange, nug
 
   # simulating the locations
   if (gridded) {
+    if (ceiling(sqrt(N)) != floor(sqrt(N))) {
+      warning("N is not a perfect square")
+    }
     ## simulate grid
     sqrN <- ceiling(sqrt(N))
     x <- seq(from = 0, to = 1, length.out = sqrN)
