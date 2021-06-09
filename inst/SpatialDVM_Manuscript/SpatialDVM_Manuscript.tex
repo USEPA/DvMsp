@@ -43,7 +43,7 @@
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={A comparison of model-based and design-based approaches for spatial data.},
+            pdftitle={A comparison of design-based and model-based approaches for spatial data.},
             colorlinks=false,
             urlcolor=blue,
             linkcolor=magenta,
@@ -54,6 +54,31 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 
 % Pandoc citation processing
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+% for Pandoc 2.8 to 2.10.1
+\newenvironment{cslreferences}%
+  {}%
+  {\par}
+% For Pandoc 2.11+
+\newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc} % for calculating minipage widths
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Pandoc header
 
@@ -62,8 +87,8 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{A comparison of model-based and design-based approaches for spatial
-data.}
+  \title{A comparison of design-based and model-based approaches for
+spatial data.}
     \author[USEPA]{Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
     \author[STLAW]{Matthew Higham\corref{1}}
@@ -74,19 +99,21 @@ data.}
   
     \author[NOAA]{Jay M. Ver Hoef}
   
-      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
-Corvallis, Oregon, 97333}
-    \address[STLAW]{Saint Lawrence University Department of Math, Computer Science, and
-Statistics, 23 Romoda Drive, Canton, New York, 13617}
-    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
-Corvallis, Oregon, 97331}
-    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
-Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
+      \address[USEPA]{United States Environmental Protection Agency, 200
+SW 35th St, Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Math,
+Computer Science, and Statistics, 23 Romoda Drive, Canton, New York,
+13617}
+    \address[OSU]{Oregon State University Department of Statistics, 239
+Weniger Hall, Corvallis, Oregon, 97331}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science
+Center, National Oceanic and Atmospheric Administration, Seattle,
+Washington, 98115}
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
   This is the abstract.
-  
+
   It consists of two paragraphs.
   \end{abstract}
   
@@ -128,10 +155,10 @@ spatially correlated data. Thereafter, several comparisons between
 design-based and model-based for spatial data have been considered, but
 they tend to compare design-based approaches that ignore spatial
 location in sampling to model-based approaches (Brus and De Gruijter,
-1997; Ver Hoef, 2002, 2008). More recent overviews include Brus (2020)
-and ({\textbf{???}}), but no numerical comparison has been made between
-design-based approaches that incorporate spatial location in sampling
-and model-based approaches.
+1997; Ver Hoef, 2002; Ver Hoef, 2008). More recent overviews include
+Brus (2020) and Wang et al. (2012), but no numerical comparison has been
+made between design-based approaches that incorporate spatial location
+in sampling and model-based approaches.
 
 The rest of this paper is organized as follows. In Section
 \ref{sec:background}, we compare sampling and estimation procedures
@@ -144,55 +171,81 @@ for future research.
 \hypertarget{sec:background}{%
 \section{Background}\label{sec:background}}
 
+The design-based and model-based approaches incorporate randomness in
+fundamentally different ways. In this section, we describe the role of
+randomness and its effects on subsequent inferences. We then discuss
+specific inference methods for the design-based and model-based
+approaches for spatial data.
+
+\hypertarget{comparing-design-based-vs.-model-based}{%
+\subsection{Comparing Design-Based
+vs.~Model-Based}\label{comparing-design-based-vs.-model-based}}
+
 \hypertarget{design-based-philosphy}{%
-\subsection{Design-Based Philosphy}\label{design-based-philosphy}}
+\subsubsection{Design-Based Philosphy}\label{design-based-philosphy}}
 
-Design-Based Overview
+The design-based approach assumes the data are fixed. Randomness is
+incorporated in the selection of population units according to a
+sampling design. A sampling design assigns a positive probability of
+inclusion in the sample (inclusion probability) to each population unit.
+Some examples of commonly used sampling designs include independent
+random sampling (IRS), stratified random sampling, and cluster sampling.
+The goal is to use the sampling design and the sampled data to estimate
+population parameters like means and totals. These population parameters
+are typically assumed to be fixed but unknown.
 
-The design-based approach to inference uses characteristics of the
-sampling design to estimate parameters of interest. The design-based
-approach assumes the data, \(\mathbf{Z}\), are fixed. Randomness is
-incorporated through the random selection of sampling units based on
-probabilities derived using the sampling design itself. Some examples of
-commonly used sampling designs include independent random sampling
-(IRS), stratified random sampling, and cluster sampling. Viewing the
-data as fixed and incorporating randomness through the sampling design
-yields estimators having very few assumptions. Asymptotic properties of
-these types of estimators are derived using limiting arguments. Means
-and totals, for example, are asymptotically Gaussian. Särndal et al.
-(2003) and Lohr (2009) provide thorough reviews of the design-based
-approach.
+Treating the data as fixed and incorporating randomness through the
+sampling design yields estimators having very few other assumptions.
+Confidence intervals for these types of estimators are typically derived
+using limiting arguments. Means and totals, for example, are
+asymptotically normally distributed by the Central Limit Theorem.
+Särndal et al. (2003) and Lohr (2009) provide thorough reviews of the
+design-based approach.
 
 \hypertarget{model-based-philosphy}{%
-\subsection{Model-Based Philosphy}\label{model-based-philosphy}}
+\subsubsection{Model-Based Philosphy}\label{model-based-philosphy}}
 
-Model-Based Overview
+The model-based approach assumes the data are a random realization of a
+process. Randomness is often incorporated through distributional
+assumptions on the data-generating process. Instead of estimating fixed
+but unknown parameters (as in the design-based approach), the goal of
+model-based inference in the spatial context is often \emph{prediction}
+of an unknown quantity. For example, suppose the realized mean of all
+population units is the quantity of interest. Instead of
+\emph{estimating} a fixed unknown mean, we are \emph{predicting} the
+value of the mean, a random variable. We know that if we sampled all
+population units, we would have an exact prediction for the mean of our
+one realized process, without any uncertainty. But the true mean of the
+spatial process that generated our realized data is still not known.
+When predicting the realized mean, we typically are not interested in
+the underlying process' true mean.
 
-On the other hand, model-based inference imposes additional assumptions
-on the data with a potential to provide more precise estimators if the
-additional assumptions hold. Instead of estimating true but unknown
-parameters, the goal of model-based inference in the spatial context is
-often \emph{prediction} of an unknown quantity. This is a fundamental
-philosophical difference between sampling-based and model-based
-approaches. Instead of \emph{estimating} a fixed unknown mean, we are
-\emph{predicting} the value of the mean, a random variable. We know that
-if we sampled all sites, we would have an exact prediction for the mean
-of our one realized spatial surface, without any uncertainty. But, the
-true mean of the spatial process that generated our realized data is
-still not known, and, in the prediction context, we typically do not
-care much about what value the mean of the underlying process takes.
+Assuming the data is a realization of a specific data-generating process
+yields predictors that are linked to distributional assumptions. These
+distributional assumptions are used to derive prediction intervals. The
+distributional assumptions allow the prediction intervals can be more
+precise. (\textbf{Cressie2015statistics?}) and
+(\textbf{Schabenberger2017statistical?}) provide reviews of model-based
+approaches for spatial data.
 
-We only use FPBK in this paper in order to focus more on comparing the
-design-based and model-based approaches. However, k-nearest-neighbors
-(Fix and Hodges, 1951; Ver Hoef and Temesgen, 2013), random forest
-(Breiman, 2001), Bayesian models (Chan-Golston et al., 2020), among
-others, can also be used to obtain predictions for a mean or total from
-spatially correlated responses in a finite population setting.
+Several comparisons between the model-based paradigm and the
+design-based paradigm have been made in many different contexts. Sterba
+(2009) give some history of the two paradigms as well as some
+applications in psychological contexts. Cooper (2006) review the two
+approaches in an ecological context before introducing a
+``model-assisted'' variance estimator that combines aspects from each
+approach. We note that while there has been substantial research and
+development into estimators that use both design and model-based
+principles (see e.g. Cicchitelli and Montanari (2012), Chan-Golston et
+al. (2020) for a Bayesian approach, CITE some more of these), our goal
+is not to expand upon or improve these methods.
 
-Figure 1a. Data is fixed. In a finite population example, show a 3d
-surface that can be generated by anything. If we repeatedly sample the
-surface, then 95\% of all 95\% CIs will contain the true mean, which
-never changes.
+Figure 1a. Brus (2020): Data is fixed. In a finite population example,
+show a 3d surface that can be generated by anything. If we repeatedly
+sample the surface, then 95\% of all 95\% CIs will contain the true
+mean, which never changes.
+
+\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-1-1}
 
 Figure 1b. Spatial process is fixed. In a finite population example,
 show 10 3d surfaces that are generated from some model. If we repeatedly
@@ -200,21 +253,6 @@ generate the surface and obtain a sample, then 95\% of all 95\% PIs will
 contain the realized means. The realized mean changes from surface to
 surface and it's not necessarily the case that 95\% of all 95\% PIs will
 contain the true, underlying mean.
-
-\hypertarget{comparing-design-based-vs.-model-based}{%
-\subsection{Comparing Design-Based
-vs.~Model-Based}\label{comparing-design-based-vs.-model-based}}
-
-Several comparisons between the two paradigms have been made in many
-different contexts. Sterba (2009) give some history of the two paradigms
-as well as some applications in psychological contexts. Cooper (2006)
-review the two approaches in an ecological context before introducing a
-``model-assisted'' variance estimator that combines aspects from each
-approach. We note that while there has been substantial research and
-development into estimators that use both design and model-based
-principles (see e.g.~Cicchitelli and Montanari (2012), Chan-Golston et
-al. (2020) for a Bayesian approach, CITE some more of these), our goal
-is not to expand upon or improve these methods.
 
 \hypertarget{spatially-balanced-design-and-analysis}{%
 \subsection{Spatially Balanced Design and
@@ -305,6 +343,13 @@ location (Stevens Jr and Olsen, 2003).
 \subsection{Finite Population Block
 Kriging}\label{finite-population-block-kriging}}
 
+We only use FPBK in this paper in order to focus more on comparing the
+design-based and model-based approaches. However, k-nearest-neighbors
+(Fix and Hodges, 1951; Ver Hoef and Temesgen, 2013), random forest
+(Breiman, 2001), Bayesian models (Chan-Golston et al., 2020), among
+others, can also be used to obtain predictions for a mean or total from
+spatially correlated responses in a finite population setting.
+
 Finite Population Block Kriging (FPBK) is an alternative to
 samipling-based methods (Ver Hoef, 2008). FPBK expands the
 geostatistical kriging framework to the finite population setting.
@@ -393,7 +438,7 @@ cases
 \item
   change n or sampling fraction
 \item
-  model-based: how should sample be drawn?
+  model-based: how should sample be drawn? should locations be fixed?
 \end{itemize}
 
 \hypertarget{software}{%
@@ -415,6 +460,7 @@ Restricted Maximum Likelihood (REML).
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-barabesi2011sampling}{}%
 Barabesi, L., Franceschi, S., 2011. Sampling properties of spatial total
 estimators under tessellation stratified designs. Environmetrics 22,
@@ -449,8 +495,8 @@ inference for finite populations under spatial process settings.
 Environmetrics 31, e2606.
 
 \leavevmode\hypertarget{ref-chiles1999geostatistics}{}%
-Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
-Uncertainty. John Wiley \& Sons, New York.
+Chiles, J.-P., Delfiner, P., 1999. Geostatistics: {Modeling Spatial
+Uncertainty}. {John Wiley \& Sons}, New York.
 
 \leavevmode\hypertarget{ref-cicchitelli2012model}{}%
 Cicchitelli, G., Montanari, G.E., 2012. Model-assisted estimation of a
@@ -552,7 +598,7 @@ wildlife populations. Environmental and Ecological Statistics 15, 3--13.
 
 \leavevmode\hypertarget{ref-ver2013comparison}{}%
 Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
-model to nearest neighbor (k-nn) methods for forestry applications. PloS
+model to nearest neighbor (k-NN) methods for forestry applications. PloS
 one 8, e59129.
 
 \leavevmode\hypertarget{ref-wang2013design}{}%
@@ -560,7 +606,12 @@ Wang, J.-F., Jiang, C.-S., Hu, M.-G., Cao, Z.-D., Guo, Y.-S., Li, L.-F.,
 Liu, T.-J., Meng, B., 2013. Design-based spatial sampling: Theory and
 implementation. Environmental modelling \& software 40, 280--288.
 
+\leavevmode\hypertarget{ref-wang2012review}{}%
+Wang, J.-F., Stein, A., Gao, B.-B., Ge, Y., 2012. A review of spatial
+sampling. Spatial Statistics 2, 1--14.
+
+\end{CSLReferences}
+
 
 \end{document}
-
 
