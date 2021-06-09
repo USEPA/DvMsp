@@ -73,21 +73,21 @@ The rest of this paper is organized as follows. In Section \ref{sec:background},
 
 # Background {#sec:background}
 
-Filler sentences 
+The design-based and model-based approaches incorporate randomness in fundamentally different ways. In this section, we describe the role of randomness and its effects on subsequent inferences. We then discuss specific inference methods for the design-based and model-based approaches for spatial data. 
 
 ## Comparing Design-Based vs. Model-Based
 
 ### Design-Based Philosphy
 
-<!-- \citep{Sarndal2003model, Lohr2009sampling} -->
+The design-based approach assumes the data are fixed. Randomness is incorporated in the selection of population units according to a sampling design. A sampling design assigns a positive probability of inclusion in the sample (inclusion probability) to each population unit. Some examples of commonly used sampling designs include independent random sampling (IRS), stratified random sampling, and cluster sampling. The goal is to use the sampling design and the sampled data to estimate population parameters like means and totals. These population parameters are typically assumed to be fixed but unknown. 
 
-The design-based approach to inference uses characteristics of the sampling design to estimate parameters of interest. The design-based approach assumes the data, $\mathbf{Z}$, are fixed. Randomness is incorporated through the random selection of sampling units based on probabilities derived using the sampling design itself. Some examples of commonly used sampling designs include independent random sampling (IRS), stratified random sampling, and cluster sampling. Viewing the data as fixed and incorporating randomness through the sampling design yields estimators having very few assumptions. Asymptotic properties of these types of estimators are derived using limiting arguments. Means and totals, for example, are asymptotically Gaussian. @sarndal2003model and @lohr2009sampling provide thorough reviews of the design-based approach.
+Treating the data as fixed and incorporating randomness through the sampling design yields estimators having very few other assumptions. Confidence intervals for these types of estimators are typically derived using limiting arguments. Means and totals, for example, are asymptotically normally distributed by the Central Limit Theorem. @sarndal2003model and @lohr2009sampling provide thorough reviews of the design-based approach.
 
 ### Model-Based Philosphy
 
 <!-- \citep{Cressie2015statistics, Schabenberger2017statistical} -->
 
-On the other hand, model-based inference imposes additional assumptions on the data with a potential to provide more precise estimators if the additional assumptions hold. Instead of estimating true but unknown parameters, the goal of model-based inference in the spatial context is often \emph{prediction} of an unknown quantity. This is a fundamental philosophical difference between sampling-based and model-based approaches. Instead of \emph{estimating} a fixed unknown mean, we are \emph{predicting} the value of the mean, a random variable. We know that if we sampled all sites, we would have an exact prediction for the mean of our one realized spatial surface, without any uncertainty. But, the true mean of the spatial process that generated our realized data is still not known, and, in the prediction context, we typically do not care much about what value the mean of the underlying process takes.
+On the other hand, model-based inference imposes additional assumptions on the data with a potential to provide more precise estimators if the additional assumptions hold. Instead of estimating fixed but unknown parameters, the goal of model-based inference in the spatial context is often \emph{prediction} of an unknown quantity. This is a fundamental philosophical difference between sampling-based and model-based approaches. Instead of \emph{estimating} a fixed unknown mean, we are \emph{predicting} the value of the mean, a random variable. We know that if we sampled all sites, we would have an exact prediction for the mean of our one realized spatial surface, without any uncertainty. But, the true mean of the spatial process that generated our realized data is still not known, and, in the prediction context, we typically do not care much about what value the mean of the underlying process takes.
 
 Several comparisons between the two paradigms have been made in many different contexts. @sterba2009alternative give some history of the two paradigms as well as some applications in psychological contexts. @cooper2006sampling review the two approaches in an ecological context before introducing a "model-assisted" variance estimator that combines aspects from each approach. We note that while there has been substantial research and development into estimators that use both design and model-based principles (see e.g. @cicchitelli2012model, @chan2020bayesian for a Bayesian approach, CITE some more of these), our goal is not to expand upon or improve these methods.
 
