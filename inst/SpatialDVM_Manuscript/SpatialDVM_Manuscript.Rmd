@@ -69,7 +69,7 @@ Though the design-based and model-based approaches apply to statistical inferenc
 
 <!-- Outline for the rest of the paper -->
 
-The rest of this paper is organized as follows. In Section \ref{sec:background}, we compare sampling and estimation procedures between the design-based approach and the model-based approach. In Section \ref{sec:numstudy}, we use simulated and real data to compare the properties of parameter estimates from both aproaches. And in Section \ref{sec:discussion}, we end with a discussion and provide directions for future research. 
+The rest of this paper is organized as follows. In Section \ref{sec:background}, we compare sampling and estimation procedures between the design-based approach and the model-based approach. In Section \ref{sec:numstudy}, we use simulated and real data to study the properties of parameter estimates from both approaches. And in Section \ref{sec:discussion}, we end with a discussion and provide directions for future research. 
 
 # Background {#sec:background}
 
