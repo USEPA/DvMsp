@@ -1,5 +1,5 @@
 ---
-title: A comparison of model-based and design-based approaches for spatial data.
+title: A comparison of design-based and model-based approaches for spatial data.
 author:
   - name: Michael Dumelle
     email: Dumelle.Michael@epa.gov
