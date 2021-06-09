@@ -229,6 +229,10 @@ With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for 
 
 # Numerical Study {#sec:numstudy}
 
+For the following simulation results, we simulated 1040 different gridded populations, each of size 900 with sample size 150. For the model-based approach (FPBK), sites were selected via Independent Random Sample. For GRTS, the local mean variance was used. 
+
+The response was normally distributed with an exponential covariance function with partial sill of 0.9, effective range of $\sqrt{2}$, and a nugget of 0.1. For model-based, we assumed the correct form of the covariance function (Exponential), but estimated the spatial parameters with REML.
+
 ```{r, results = "asis"}
 sim_one <- read_csv(here("inst", "output", "sim_one", "summ_output.csv"))
 colnames(sim_one) <- c("Approach", "Bias", "RMSE", "MedAE", "Coverage", "PClose", "MedIL")

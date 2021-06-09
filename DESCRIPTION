@@ -16,9 +16,11 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Imports: dplyr,
-         spsurvey,
-         sptotal,
-         sf,
-         stats
-Remotes: github::highamm/sptotal
+Imports: 
+    dplyr,
+    spsurvey,
+    sptotal (>= 0.2.0),
+    sf,
+    stats
+Remotes:  
+    highamm/sptotal
