@@ -43,8 +43,8 @@ sim_pop <- function(N = 100, gridded = TRUE,
     data <- expand.grid(x = x, y = y)
   } else {
     ## simulate square
-    x <- rnorm(N)
-    y <- rnorm(N)
+    x <- runif(N)
+    y <- runif(N)
     data <- data.frame(x = x, y = y)
   }
 
