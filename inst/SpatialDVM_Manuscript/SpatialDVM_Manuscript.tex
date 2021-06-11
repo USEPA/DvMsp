@@ -65,7 +65,7 @@
 
   \title{A comparison of design-based and model-based approaches for spatial
 data.}
-    \author[USEPA]{Michael Dumelle\corref{1}}
+    \author[USEPA]{In alphabetical order Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
     \author[STLAW]{Matt Higham\corref{1}}
    \ead{mhigham@stlaw.edu} 
@@ -194,10 +194,8 @@ population units is the quantity of interest. Instead of
 \emph{estimating} a fixed unknown mean, we are \emph{predicting} the
 value of the mean, a random variable. We know that if we sampled all
 population units, we would have an exact prediction for the mean of our
-one realized process, without any uncertainty. But the true mean of the
-spatial process that generated our realized data is still not known.
-When predicting the realized mean, we typically are not interested in
-the underlying process's true mean.
+one realized process, without any uncertainty. But we are typically not
+interested in the true, unknown mean of the underlying process.
 
 Assuming the data is a realization of a specific data-generating process
 yields predictors that are linked to distributional assumptions. These
@@ -210,24 +208,25 @@ reviews of model-based approaches for spatial data.
 \includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/fig1-1} \caption{A comparison of sampling under the design-based and model-based frameworks. In the top row, we have one fixed population, and two random samples. In the bottom row, we have two realizations of the same spatial process sampled at the same locations.}\label{fig:fig1}
 \end{figure}
 
-Figure \ref{fig:fig1} shows
+Description of Figure \ref{fig:fig1} goes here.
 
 \hypertarget{spatially-balanced-design-and-analysis}{%
 \subsection{Spatially Balanced Design and
 Analysis}\label{spatially-balanced-design-and-analysis}}
 
-Sampling designs can incorporate spatial locations to obtain samples
-that are spatially balanced with respect to the population (Stevens Jr
-and Olsen, 2004). A sample is spatially balanced with respect to the
-population if the sampled population units are a miniature of the
-population units. A sample is a miniature of the population if the
-distribution of the sampled population units mirrors the density of all
-population units. Spatial balance with respect to the population is
-different than spatial balance with respect to geography. A sample that
-is spatially balanced with respect to geography is spread out in some
-type of equidistant manner over geographical space and is not meant to
-be miniatures of the population. When we refer to spatial balance
-henceforth, we mean spatial balance with respect to the population.
+The design-based approach can use spatial locations to obtain spatially
+balanced samples. First we discuss spatial balance with respect to the
+population (Stevens Jr and Olsen, 2004). A sample is spatially balanced
+with respect to the population if the sampled population units are a
+miniature of the population units. A sample is a miniature of the
+population if the distribution of the sampled population units mirrors
+the density of all population units. Spatial balance with respect to the
+population is different than spatial balance with respect to geography.
+A sample that is spatially balanced with respect to geography is spread
+out in some type of equidistant manner over geographical space and is
+not meant to be miniatures of the population. When we refer to spatial
+balance henceforth, we mean spatial balance with respect to the
+population.
 
 Spatially balanced samples are useful because they tend to yield
 estimates that have lower variance than estimates constructed from
@@ -243,11 +242,10 @@ emerged, including the Local Pivotal Method (Grafström et al., 2012;
 Grafström and Matei, 2018), Spatially Correlated Poisson Sampling
 (Grafström, 2012), Balanced Acceptance Sampling (Robertson et al.,
 2013), Within-Sample-Distance (Benedetti and Piersimoni, 2017), and
-Halton Iterative Partitioning (Robertson et al., 2018) algorithms. We
-focus on the Generalized Random Tessellation Stratified (GRTS) algorithm
-to select spatially balanced sampling because the algorithm has several
-attractive properties detailed by Stevens Jr and Olsen (2004) and
-Dumelle et al. (2021).
+Halton Iterative Partitioning (Robertson et al., 2018). We focus on the
+Generalized Random Tessellation Stratified (GRTS) algorithm to select
+spatially balanced sampling because it has several attractive properties
+detailed by Stevens Jr and Olsen (2004) and Dumelle et al. (2021).
 
 The GRTS algorithm is used to sample from finite and infinite
 populations and works by utilizing a mapping between two-dimensional and
@@ -257,59 +255,55 @@ mapped to a one-dimensional line via the hierarchical indexing. The line
 length of each population unit equals its inclusion probability. A
 systematic sample is conducted on the line and these samples are linked
 to a population unit in two-dimensional space, which results in the
-desired sample size. Stevens Jr and Olsen (2004) provide and Dumelle et
-al. (2021) provide further details. The GRTS algorithm is available in
-the \textbf{\textsf{R}} package \texttt{spsurvey} (Dumelle et al.,
-2021).
+desired sample. Stevens Jr and Olsen (2004) provide and Dumelle et al.
+(2021) provide further details.
 
-After collecting a sample, the data are used to estimate population
-parameters. The Horvitz-Thompson estimator (Horvitz and Thompson, 1952)
-and its continuous analog (Cordy, 1993) yield unbiased estimates of
-population means and totals. For example, if \(\tau\) is a population
-total, then the Horvitz-Thompson estimator of \(\tau\) (denoted by
-\(\hat{\tau}_{ht}\)), is given by \begin{align}\label{eq:ht}
+After collecting a sample using the GRTS algorithm, the data are used to
+estimate population parameters. The Horvitz-Thompson estimator (Horvitz
+and Thompson, 1952) yields unbiased estimates of population means and
+totals. For example, if \(\tau\) is a population total, then the
+Horvitz-Thompson estimator of \(\tau\) (denoted by \(\hat{\tau}_{ht}\)),
+is given by \begin{align}\label{eq:ht}
   \hat{\tau}_{ht} = \sum_{i = 1}^n Z_i \pi_i^{-1},
 \end{align} where \(Z_i\) and \(\pi_i\) are the observed value and
 inclusion probability of the \(i\)th population unit selected in the
-sample. Horvitz and Thompson (1952) and Sen (1953) provide variance
-estimators for \(\hat{\tau}_{ht}\), but they have two drawbacks. First,
-they rely on calculating \(\pi_{ij}\), the probability that population
-unit \(i\) and population unit \(j\) are included in the sample, which
-can be very difficult to calculate. Second, they ignore the spatial
-locations of the population units. To address these drawbacks, Stevens
-Jr and Olsen (2003) proposed a local neighborhood variance estimator.
-The local neighborhood variance estimator does not rely on \(\pi_{ij}\),
-and it incorporates spatial locations by assigning higher weights to
-nearby observations. Stevens Jr and Olsen (2003) show this variance
-estimators tends to reduce the variability associated with estimating
-\(\tau\). This yields confidence intervals for \(\tau\) that are
-narrower than confidence intervals constructed from variance estimators
-ignoring spatial locations.
+sample. A similar formula exists for estimating the mean, \(\mu\).
+Horvitz and Thompson (1952) and Sen (1953) provide variance estimators
+for \(\hat{\tau}_{ht}\), but they have two drawbacks. First, they rely
+on calculating \(\pi_{ij}\), the probability that population unit \(i\)
+and population unit \(j\) are included in the sample, and this can be
+very difficult to calculate. Second, they ignore the spatial locations
+of the population units. To address these drawbacks, Stevens Jr and
+Olsen (2003) proposed a local neighborhood variance estimator. The local
+neighborhood variance estimator does not rely on \(\pi_{ij}\), and it
+incorporates spatial locations by assigning higher weights to nearby
+observations. Stevens Jr and Olsen (2003) show this variance estimators
+tends to reduce the estimated standard error of \(\hat{\tau}\), yielding
+narrower confidence confidence intervals for \(\tau\).
 
 \hypertarget{finite-population-block-kriging}{%
 \subsection{Finite Population Block
 Kriging}\label{finite-population-block-kriging}}
 
-Finite Population Block Kriging (FPBK) is an alternative to
-sampling-based methods (Ver Hoef, 2008). FPBK expands the geostatistical
-kriging framework to the finite population setting. Instead of basing
-inference off of a specific sampling design, we assume the data are
-generated by a spatial process with parameters that can be estimated
-using the framework of a model.
-
+Finite Population Block Kriging (FPBK) is a model-based approach that
+expands the geostatistical Kriging framework to the finite population
+setting (Ver Hoef, 2008). Instead of basing inference off of a specific
+sampling design, we assume the data are generated by a spatial process.
 Ver Hoef (2008) gives details on the theory of FPBK, but some of the
-basic principles are summarized below. For a response variable
-\(\mathbf{z}\) that can be measured on a finite number of \(N\) sites,
-we want to predict some linear function of the response variable,
-\(\tau(\mathbf{z}) = \mathbf{b}^\prime \mathbf{z}\), where
-\(\mathbf{b}\) is a vector of weights. For example, if we want to
-predict the population total across all sites, then we would use a
-vector of 1's for the weights.
+basic principles are summarized below. Let
+\(\mathbf{z} \equiv \{\text{z}(s_1), \text{z}(s_2), . . . , \text{z}(s_N) \}\)
+be a response variable that can be measured at the \(N\) population
+units and is represented as an \(N \times 1\) vector. Suppose we want to
+predict some linear function of the response variable,
+\(f(\mathbf{z}) = \mathbf{b}^\prime \mathbf{z}\), where \(\mathbf{b}\)
+is a \(1 \times N\) vector of weights. For example, if we want to
+predict the population total across all population units, then we would
+use a vector of 1's for the weights.
 
-Typically, however, we only have a sample of the \(N\) sites. Denoting
-quantities that are part of the sampled sites with a subscript \emph{s}
-and quantities that are part of the unsampled sites with a subscript
-\emph{u},
+Typically, however, we only have a sample of the \(N\) population units.
+Denoting quantities that are part of the sampled population units with a
+subscript \emph{s} and quantities that are part of the unsampled
+population units with a subscript \emph{u},
 
 \begin{equation}
 \begin{pmatrix} \label{equation:Zmarginal}
@@ -327,34 +321,36 @@ and quantities that are part of the unsampled sites with a subscript
 \bm{\delta}_u
 \end{pmatrix},
 \end{equation} where \(\mathbf{X}_s\) and \(\mathbf{X}_u\) are the
-design matrices for the sampled and unsampled sites, respectively, and
+design matrices for the sampled and unsampled population units,
+respectively; \(\beta\) is the parameter vector of fixed effects; and
 \(\bm{\delta}_s\) and \(\bm{\delta}_u\) are random errors for the
-sampled and unsampled sites. Denoting
+sampled and unsampled population units, respectively. Denoting
 \(\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'\), we assume
-that \(E(\bm{\delta})\) = \(\mathbf{0}\).
+the expectation of \(\bm{\delta}\) equals \(\mathbf{0}\).
 
 We also typically assume that there is spatial correlation in
-\(\bm{\delta}\), which can be modeled using a covariance function. Many
-common choices for this function assume that spatial covariance
-decreases with increasing Euclidean distance between sites. The primary
-function used throughout the simulations and applications of this
-manuscript is the Exponential covariance function: the \(i,j^{th}\)
-entry for \(\mathop{\mathrm{{var}}}(\bm{\delta})\) is \mbox{}
+\(\bm{\delta}\), which can be modeled using a covariance function. It is
+common to assume the covariance function is second-order stationary and
+isotropic (Cressie, 1993), and that the spatial covariance decreases as
+the separation between population units increases. Many spatial
+covariance functions exist, but the primary function we use throughout
+the simulations and applications in this manuscript is the exponential
+covariance function: the \(i,j^{th}\) entry for
+\(\mathop{\mathrm{{cov}}}(\bm{\delta})\) is \mbox{}
 \begin{align}\label{equation:expcov}
 \mathop{\mathrm{{cov}}}(\delta_i, \delta_j) = \theta_1\exp(-3h_{i,j}/\theta_2) + \theta_3\mathbbm{1}\{\mathbf{h}_{i,j} = 0\}, 
-\end{align} where \(h_{i,j}\) is the distance between sites \(i\) and
-\(j\), and \(\bm{\theta}\) is a vector of spatial covariance parameters
-of the partial sill \(\theta_1\), the range \(\theta_2\), and the nugget
-\(\theta_3\). However, any spatial covariance function could be used in
-the place of the Exponential, including functions that allow for
-anisotropy {[}pg. 80 - 93{]}(Chiles and Delfiner, 1999).
+\end{align} where \(h_{i,j}\) is the distance between population units
+\(i\) and \(j\), and \(\bm{\theta}\) is a vector of spatial covariance
+parameters of the partial sill \(\theta_1\), the range \(\theta_2\), and
+the nugget \(\theta_3\), and \(\mathbbm{1}\) is an indicator function.
+However, any spatial covariance function could be used in the place of
+the exponential, including functions that allow for non-stationarity or
+anisotropy (Chiles and Delfiner, 1999, pp. 80--93).
 
 With the above model formulation, the Best Linear Unbiased Predictor
-(BLUP) for \(\tau(\mathbf{b}'\mathbf{z})\) and its prediction variance
-can be computed. While details of the derivation are in (Ver Hoef,
-2008), we note here that the predictor and its variance are both
-moment-based. Neither require a particular distribution for
-\(\mathbf{z}\).
+(BLUP) for \(f(\mathbf{b}'\mathbf{z})\) and its prediction variance can
+be computed. While details of the derivation are in (Ver Hoef, 2008), we
+note here that the predictor and its variance are both moment-based.
 
 We note that we only use FPBK in this paper in order to focus more on
 comparing the design-based and model-based approaches. However,
@@ -370,14 +366,17 @@ setting.
 \textbf{Sample Simulation}
 
 For the following simulation results, we simulated 1040 different
-gridded populations, each of size 900 with sample size 150. For the
-model-based approach (FPBK), sites were selected via Independent Random
-Sample. For GRTS, the local mean variance was used.
+gridded populations, each of size 900 (on the unit square) with sample
+size 150. For the design-based approach, population units were selected
+via GRTS, the Horvitz-Thompson estimator was used,and the local mean
+variance was used. For the model-based approach (FPBK), population units
+were selected via Independent Random Sampling (IRS) and the appropriate
+prediction and prediction variance formulas were used.
 
 The response was normally distributed with an exponential covariance
 function with partial sill of 0.9, effective range of \(\sqrt{2}\), and
 a nugget of 0.1. For model-based, we assumed the correct form of the
-covariance function (Exponential), but estimated the spatial parameters
+covariance function (exponential), but estimated the spatial parameters
 with REML.
 
 \begin{table}[ht]
@@ -399,7 +398,8 @@ Design & 0.0003 & 0.0353 & 0.0251 & 0.9461 & 0.4889 & 0.1362 \\
 \begin{itemize}
 \tightlist
 \item
-  both good: correctly specified model with high correlation
+  both good: correctly specified model with high correlation (we did
+  this in Table \ref{tab:sim_one})
 \item
   break model: highly non-normal errors with small sample size
 \item
@@ -429,10 +429,12 @@ Design & 0.0003 & 0.0353 & 0.0251 & 0.9461 & 0.4889 & 0.1362 \\
 \hypertarget{software}{%
 \subsection{Software}\label{software}}
 
-FPBK can be readily performed in \texttt{R} with the \texttt{sptotal}
-package (Higham et al., 2020). We use \texttt{sptotal} for both the
-simulation analysis and the application, estimating parameters with
-Restricted Maximum Likelihood (REML).
+The GRTS algorithm and the local neighborhood variance estimator are
+available in the \textbf{\textsf{R}} package \texttt{spsurvey} (Dumelle
+et al., 2021). FPBK can be readily performed in \texttt{R} with the
+\texttt{sptotal} package (Higham et al., 2020). We use \texttt{sptotal}
+for both the simulation analysis and the application, estimating
+parameters with Restricted Maximum Likelihood (REML).
 
 \hypertarget{applied-example}{%
 \subsection{Applied Example}\label{applied-example}}
@@ -502,11 +504,6 @@ spatial population mean. International Statistical Review 80, 111--126.
 Cooper, C., 2006. Sampling and variance estimation on continuous
 domains. Environmetrics: The official journal of the International
 Environmetrics Society 17, 539--553.
-
-\leavevmode\hypertarget{ref-cordy1993extension}{}%
-Cordy, C.B., 1993. An extension of the horvitz---thompson theorem to
-point sampling from a continuous universe. Statistics \& Probability
-Letters 18, 353--362.
 
 \leavevmode\hypertarget{ref-cressie1993statistics}{}%
 Cressie, N., 1993. Statistics for spatial data. John Wiley \& Sons.

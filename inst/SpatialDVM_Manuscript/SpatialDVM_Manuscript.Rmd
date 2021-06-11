@@ -1,7 +1,7 @@
 ---
 title: A comparison of design-based and model-based approaches for spatial data.
 author:
-  - name: Michael Dumelle
+  - name: In alphabetical order Michael Dumelle
     email: Dumelle.Michael@epa.gov
     affiliation: USEPA
     footnote: 1
@@ -215,16 +215,14 @@ Typically, however, we only have a sample of the $N$ population units. Denoting 
 \end{equation}
 where $\mathbf{X}_s$ and $\mathbf{X}_u$ are the design matrices for the sampled and unsampled population units, respectively; $\beta$ is the parameter vector of fixed effects; and $\bm{\delta}_s$ and $\bm{\delta}_u$ are random errors for the sampled and unsampled population units, respectively. Denoting $\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'$, we assume the expectation of $\bm{\delta}$ equals $\mathbf{0}$.
 
-We also typically assume that there is spatial correlation in $\bm{\delta}$, which can be modeled using a covariance function. Many common choices for this function assume stationarity and isotropy (CITE Cressie?) with spatial covariance that decreases with increasing Euclidean distance between population units. The primary function used throughout the simulations and applications of this manuscript is the exponential covariance function: the $i,j^{th}$ entry for $\var(\bm{\delta})$ is
+We also typically assume that there is spatial correlation in $\bm{\delta}$, which can be modeled using a covariance function. It is common to assume the covariance function is second-order stationary and isotropic [@cressie1993statistics], and that the spatial covariance decreases as the separation between population units increases. Many spatial covariance functions exist, but the primary function we use throughout the simulations and applications in this manuscript is the exponential covariance function: the $i,j^{th}$ entry for $\cov(\bm{\delta})$ is
 \mbox{}
 \begin{align}\label{equation:expcov}
 \cov(\delta_i, \delta_j) = \theta_1\exp(-3h_{i,j}/\theta_2) + \theta_3\mathbbm{1}\{\mathbf{h}_{i,j} = 0\}, 
 \end{align}
-where $h_{i,j}$ is the distance between population units $i$ and $j$, and $\bm{\theta}$ is a vector of spatial covariance parameters of the partial sill $\theta_1$, the range $\theta_2$, and the nugget $\theta_3$, and $\mathbbm{1}$ is an indicator function. However, any spatial covariance function could be used in the place of the exponential, including functions that allow for non-stationarity or anisotropy [pg. 80 - 93][@chiles1999geostatistics].
+where $h_{i,j}$ is the distance between population units $i$ and $j$, and $\bm{\theta}$ is a vector of spatial covariance parameters of the partial sill $\theta_1$, the range $\theta_2$, and the nugget $\theta_3$, and $\mathbbm{1}$ is an indicator function. However, any spatial covariance function could be used in the place of the exponential, including functions that allow for non-stationarity or anisotropy [@chiles1999geostatistics, pp. 80-93].
 
-With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for $\tau(\mathbf{b}'\mathbf{z})$ and its prediction variance can be computed. While details of the derivation are in [@verhoef2008spatial], we note here that the predictor and its variance are both moment-based. Neither require a particular distribution for $\mathbf{z}$.
-
-<!-- a little weird to talk about inference being based on distributional assumptions and then throw in this sentence about not assuming a distribution for z. -->
+With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for $f(\mathbf{b}'\mathbf{z})$ and its prediction variance can be computed. While details of the derivation are in [@verhoef2008spatial], we note here that the predictor and its variance are both moment-based.
 
 We note that we only use FPBK in this paper in order to focus more on comparing the design-based and model-based approaches. However, k-nearest-neighbors [@fix1951discriminatory; @ver2013comparison], random forest [@breiman2001random], Bayesian models [@chan2020bayesian], among others, can also be used to obtain predictions for a mean or total from spatially correlated responses in a finite population setting.
 
@@ -232,9 +230,9 @@ We note that we only use FPBK in this paper in order to focus more on comparing 
 
 __Sample Simulation__
 
-For the following simulation results, we simulated 1040 different gridded populations, each of size 900 with sample size 150. For the model-based approach (FPBK), population units were selected via Independent Random Sample. For GRTS, the local mean variance was used. 
+For the following simulation results, we simulated 1040 different gridded populations, each of size 900 (on the unit square) with sample size 150. For the design-based approach, population units were selected via GRTS, the Horvitz-Thompson estimator was used,and the local mean variance was used. For the model-based approach (FPBK), population units were selected via Independent Random Sampling (IRS) and the appropriate prediction and prediction variance formulas were used. 
 
-The response was normally distributed with an exponential covariance function with partial sill of 0.9, effective range of $\sqrt{2}$, and a nugget of 0.1. For model-based, we assumed the correct form of the covariance function (Exponential), but estimated the spatial parameters with REML.
+The response was normally distributed with an exponential covariance function with partial sill of 0.9, effective range of $\sqrt{2}$, and a nugget of 0.1. For model-based, we assumed the correct form of the covariance function (exponential), but estimated the spatial parameters with REML.
 
 ```{r, results = "asis"}
 sim_one <- read_csv(here("inst", "output", "sim_one", "summ_output.csv"))
@@ -245,7 +243,7 @@ print(sim_one_table, include.rownames = FALSE, comment = FALSE)
 
 __Base Simulations__
 
-* both good: correctly specified model with high correlation
+* both good: correctly specified model with high correlation (we did this in Table \ref{tab:sim_one})
 * break model: highly non-normal errors with small sample size
 * break design: small area estimation
 
@@ -261,8 +259,6 @@ __Other Base Settings?__
 
 ## Software
 
-<!-- spsurvey is talked about in GRTS. so either move that down here or move this to FPBK. -->
-
 The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package \texttt{spsurvey} [@dumelle2021spsurvey]. FPBK can be readily performed in `R` with the `sptotal` package [@higham2020sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
 
 ## Applied Example
@@ -274,8 +270,6 @@ Potential Data Sets:
 * Temperature Data from NOAA
 
 # Discussion {#sec:discussion}
-
-<!-- References from Brus2020statistical, de1990model, Brus1997random -->
 
 # References {#references .unnumbered}
 
