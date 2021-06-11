@@ -55,31 +55,6 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 
 % Pandoc citation processing
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-% for Pandoc 2.8 to 2.10.1
-\newenvironment{cslreferences}%
-  {}%
-  {\par}
-% For Pandoc 2.11+
-\newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc} % for calculating minipage widths
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Pandoc header
 
@@ -88,8 +63,8 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{A comparison of design-based and model-based approaches for
-spatial data.}
+  \title{A comparison of design-based and model-based approaches for spatial
+data.}
     \author[USEPA]{Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
     \author[STLAW]{Matt Higham\corref{1}}
@@ -100,16 +75,14 @@ spatial data.}
   
     \author[NOAA]{Jay M. Ver Hoef}
   
-      \address[USEPA]{United States Environmental Protection Agency, 200
-SW 35th St, Corvallis, Oregon, 97333}
-    \address[STLAW]{Saint Lawrence University Department of Math,
-Computer Science, and Statistics, 23 Romoda Drive, Canton, New York,
-13617}
-    \address[OSU]{Oregon State University Department of Statistics, 239
-Weniger Hall, Corvallis, Oregon, 97331}
-    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science
-Center, National Oceanic and Atmospheric Administration, Seattle,
-Washington, 98115}
+      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
+Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Math, Computer Science, and
+Statistics, 23 Romoda Drive, Canton, New York, 13617}
+    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
+Corvallis, Oregon, 97331}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
+Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
@@ -143,7 +116,7 @@ Potential Journals:
 There are two general approaches for using data to make statistical
 inferences about a population: design-based approaches and model-based
 approaches. When data cannot be obtained for all units in a population
-(known as population units), data on a subset of the population units is
+(population units), data on a subset of the population units is
 collected in a sample. In the design-based approach, inferences about
 the underlying population are informed from a probabilistic process in
 which population units are selected to be in the sample. Alternatively,
@@ -161,25 +134,24 @@ quashing the belief that design-based approaches could not be used for
 spatially correlated data. Thereafter, several comparisons between
 design-based and model-based for spatial data have been considered, but
 they tend to compare design-based approaches that ignore spatial
-location in sampling to model-based approaches (Brus and De Gruijter,
-1997; Ver Hoef, 2002; Ver Hoef, 2008). Cooper (2006) review the two
-approaches in an ecological context before introducing a
-``model-assisted'' variance estimator that combines aspects from each
-approach. In addition to Cooper (2006), there has been substantial
-research and development into estimators that use both design and
-model-based principles (see e.g. Cicchitelli and Montanari (2012),
-Chan-Golston et al. (2020) for a Bayesian approach, and Sterba (2009)).
-More recent overviews include Brus (2020) and Wang et al. (2012), but no
-numerical comparison has been made between design-based approaches that
-incorporate spatial sampling and model-based approaches.
+locations to model-based approaches (Brus and De Gruijter, 1997; Ver
+Hoef, 2002, 2008). Cooper (2006) review the two approaches in an
+ecological context before introducing a ``model-assisted'' variance
+estimator that combines aspects from each approach. In addition to
+Cooper (2006), there has been substantial research and development into
+estimators that use both design and model-based principles (see
+e.g.~Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
+Bayesian approach, and Sterba (2009)). More recent overviews include
+Brus (2020) and Wang et al. (2012), but no numerical comparison has been
+made between design-based approaches that incorporate spatial locations
+and model-based approaches.
 
 The rest of this paper is organized as follows. In Section
 \ref{sec:background}, we compare sampling and estimation procedures
 between the design-based approach and the model-based approach. In
 Section \ref{sec:numstudy}, we use simulated and real data to study the
-properties of parameter estimates from both approaches. And in Section
-\ref{sec:discussion}, we end with a discussion and provide directions
-for future research.
+the behavior of both approaches. And in Section \ref{sec:discussion}, we
+end with a discussion and provide directions for future research.
 
 \hypertarget{sec:background}{%
 \section{Background}\label{sec:background}}
@@ -213,8 +185,8 @@ Särndal et al. (2003) and Lohr (2009) provide thorough reviews of the
 design-based approach.
 
 The model-based approach assumes the data are a random realization of a
-process. Randomness is often incorporated through distributional
-assumptions on the data-generating process. Instead of estimating fixed
+data-generating process. Randomness is often incorporated through
+distributional assumptions on this process. Instead of estimating fixed
 but unknown parameters (as in the design-based approach), the goal of
 model-based inference in the spatial context is often \emph{prediction}
 of an unknown quantity. For example, suppose the realized mean of all
@@ -235,8 +207,10 @@ precise. Cressie (1993) and Schabenberger and Gotway (2017) provide
 reviews of model-based approaches for spatial data.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-2-1} \caption{A comparison of sampling under the design-based and model-based frameworks. In the top row, we have one fixed population, and two random samples. In the bottom row, we have two realizations of the same spatial process sampled at the same locations.}\label{fig:unnamed-chunk-2}
+\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/fig1-1} \caption{A comparison of sampling under the design-based and model-based frameworks. In the top row, we have one fixed population, and two random samples. In the bottom row, we have two realizations of the same spatial process sampled at the same locations.}\label{fig:fig1}
 \end{figure}
+
+Figure \ref{fig:fig1} shows
 
 \hypertarget{spatially-balanced-design-and-analysis}{%
 \subsection{Spatially Balanced Design and
@@ -244,16 +218,16 @@ Analysis}\label{spatially-balanced-design-and-analysis}}
 
 Sampling designs can incorporate spatial locations to obtain samples
 that are spatially balanced with respect to the population (Stevens Jr
-and Olsen, 2004). A sample is spatially with respect to the population
-if the sampled population units are a miniature of the population units.
-A sample is a miniature of the population if the distribution of the
-sampled population units mirrors the density of all population units.
-Spatial balance with respect to the population is different than spatial
-balance with respect to geography. A sample that is spatially balanced
-with respect to geography is spread out in some type of equidistant
-manner over geographical space and is not meant to be miniatures of the
-population. When we refer to spatial balance henceforth, we mean spatial
-balance with respect to the population.
+and Olsen, 2004). A sample is spatially balanced with respect to the
+population if the sampled population units are a miniature of the
+population units. A sample is a miniature of the population if the
+distribution of the sampled population units mirrors the density of all
+population units. Spatial balance with respect to the population is
+different than spatial balance with respect to geography. A sample that
+is spatially balanced with respect to geography is spread out in some
+type of equidistant manner over geographical space and is not meant to
+be miniatures of the population. When we refer to spatial balance
+henceforth, we mean spatial balance with respect to the population.
 
 Spatially balanced samples are useful because they tend to yield
 estimates that have lower variance than estimates constructed from
@@ -483,7 +457,6 @@ Potential Data Sets:
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-barabesi2011sampling}{}%
 Barabesi, L., Franceschi, S., 2011. Sampling properties of spatial total
 estimators under tessellation stratified designs. Environmetrics 22,
@@ -518,8 +491,8 @@ inference for finite populations under spatial process settings.
 Environmetrics 31, e2606.
 
 \leavevmode\hypertarget{ref-chiles1999geostatistics}{}%
-Chiles, J.-P., Delfiner, P., 1999. Geostatistics: {Modeling Spatial
-Uncertainty}. {John Wiley \& Sons}, New York.
+Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
+Uncertainty. John Wiley \& Sons, New York.
 
 \leavevmode\hypertarget{ref-cicchitelli2012model}{}%
 Cicchitelli, G., Montanari, G.E., 2012. Model-assisted estimation of a
@@ -633,7 +606,7 @@ wildlife populations. Environmental and Ecological Statistics 15, 3--13.
 
 \leavevmode\hypertarget{ref-ver2013comparison}{}%
 Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
-model to nearest neighbor (k-NN) methods for forestry applications. PloS
+model to nearest neighbor (k-nn) methods for forestry applications. PloS
 one 8, e59129.
 
 \leavevmode\hypertarget{ref-wang2013design}{}%
@@ -645,8 +618,7 @@ implementation. Environmental modelling \& software 40, 280--288.
 Wang, J.-F., Stein, A., Gao, B.-B., Ge, Y., 2012. A review of spatial
 sampling. Spatial Statistics 2, 1--14.
 
-\end{CSLReferences}
-
 
 \end{document}
+
 
