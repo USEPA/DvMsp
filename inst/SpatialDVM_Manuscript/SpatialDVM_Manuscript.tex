@@ -92,7 +92,7 @@
 spatial data.}
     \author[USEPA]{Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
-    \author[STLAW]{Matthew Higham\corref{1}}
+    \author[STLAW]{Matt Higham\corref{1}}
    \ead{mhigham@stlaw.edu} 
     \author[OSU]{Lisa Madsen}
   
@@ -148,9 +148,9 @@ collected in a sample. In the design-based approach, inferences about
 the underlying population are informed from a probabilistic process in
 which population units are selected to be in the sample. Alternatively,
 in the model-based approach, inferences are made from specific
-assumptions made about the underlying process that generated the data.
-Each paradigm has a deep historical context (Sterba, 2009) and its own
-set of general advantages (Hansen et al., 1983).
+assumptions about the underlying process that generated the data. Each
+paradigm has a deep historical context (Sterba, 2009) and its own set of
+general advantages (Hansen et al., 1983).
 
 Though the design-based and model-based approaches apply to statistical
 inference in a broad sense, we focus on comparing these approaches for
@@ -225,12 +225,12 @@ population units, we would have an exact prediction for the mean of our
 one realized process, without any uncertainty. But the true mean of the
 spatial process that generated our realized data is still not known.
 When predicting the realized mean, we typically are not interested in
-the underlying process' true mean.
+the underlying process's true mean.
 
 Assuming the data is a realization of a specific data-generating process
 yields predictors that are linked to distributional assumptions. These
 distributional assumptions are used to derive prediction intervals. The
-distributional assumptions allow the prediction intervals can be more
+distributional assumptions allow the prediction intervals to be more
 precise. Cressie (1993) and Schabenberger and Gotway (2017) provide
 reviews of model-based approaches for spatial data.
 
@@ -248,12 +248,12 @@ and Olsen, 2004). A sample is spatially with respect to the population
 if the sampled population units are a miniature of the population units.
 A sample is a miniature of the population if the distribution of the
 sampled population units mirrors the density of all population units.
-Spatial balance with respect to the population is is different than
-spatial balance with respect to geography. A sample that is spatially
-balanced with respect to geography is spread out in some type of
-equidistant manner over geographical space and are not meant to be
-miniatures of the population. When we refer to spatial balance
-henceforth, we mean spatial balance with respect to the population.
+Spatial balance with respect to the population is different than spatial
+balance with respect to geography. A sample that is spatially balanced
+with respect to geography is spread out in some type of equidistant
+manner over geographical space and is not meant to be miniatures of the
+population. When we refer to spatial balance henceforth, we mean spatial
+balance with respect to the population.
 
 Spatially balanced samples are useful because they tend to yield
 estimates that have lower variance than estimates constructed from
@@ -261,7 +261,7 @@ sampling designs lacking spatial balance (Barabesi and Franceschi, 2011;
 Benedetti et al., 2017; Grafström and Lundström, 2013; Robertson et al.,
 2013; Stevens Jr and Olsen, 2004; Wang et al., 2013). To quantify
 spatial balance, Stevens Jr and Olsen (2004) proposed loss functions
-based on Voroni polygons. The first spatiallly balanced sampling
+based on Voroni polygons. The first spatially balanced sampling
 algorithm that saw widespread use was the Generalized Random
 Tessellation Stratified (Stevens Jr and Olsen, 2004). Since GRTS was
 developed, several other spatially balanced sampling algorithms have
@@ -291,11 +291,11 @@ the \textbf{\textsf{R}} package \texttt{spsurvey} (Dumelle et al.,
 After collecting a sample, the data are used to estimate population
 parameters. The Horvitz-Thompson estimator (Horvitz and Thompson, 1952)
 and its continuous analog (Cordy, 1993) yield unbiased estimates of
-population means and totals. If \(\tau\) is a population total, then the
-Horvitz-Thompson estimator of \(\tau\) (denoted by \(\hat{\tau}_{ht}\)),
-is given by \begin{align}\label{eq:ht}
+population means and totals. For example, if \(\tau\) is a population
+total, then the Horvitz-Thompson estimator of \(\tau\) (denoted by
+\(\hat{\tau}_{ht}\)), is given by \begin{align}\label{eq:ht}
   \hat{\tau}_{ht} = \sum_{i = 1}^n Z_i \pi_i^{-1},
-\end{align} where \(Z_i\) and \(pi_i\) are the observed value and
+\end{align} where \(Z_i\) and \(\pi_i\) are the observed value and
 inclusion probability of the \(i\)th population unit selected in the
 sample. Horvitz and Thompson (1952) and Sen (1953) provide variance
 estimators for \(\hat{\tau}_{ht}\), but they have two drawbacks. First,
@@ -316,19 +316,12 @@ ignoring spatial locations.
 \subsection{Finite Population Block
 Kriging}\label{finite-population-block-kriging}}
 
-We only use FPBK in this paper in order to focus more on comparing the
-design-based and model-based approaches. However, k-nearest-neighbors
-(Fix and Hodges, 1951; Ver Hoef and Temesgen, 2013), random forest
-(Breiman, 2001), Bayesian models (Chan-Golston et al., 2020), among
-others, can also be used to obtain predictions for a mean or total from
-spatially correlated responses in a finite population setting.
-
 Finite Population Block Kriging (FPBK) is an alternative to
-samipling-based methods (Ver Hoef, 2008). FPBK expands the
-geostatistical kriging framework to the finite population setting.
-Instead of basing inference off of a specific sampling design, we assume
-the data were generated by a spatial process with parameters that can be
-estimated using the framework of a model.
+sampling-based methods (Ver Hoef, 2008). FPBK expands the geostatistical
+kriging framework to the finite population setting. Instead of basing
+inference off of a specific sampling design, we assume the data are
+generated by a spatial process with parameters that can be estimated
+using the framework of a model.
 
 Ver Hoef (2008) gives details on the theory of FPBK, but some of the
 basic principles are summarized below. For a response variable
@@ -336,8 +329,8 @@ basic principles are summarized below. For a response variable
 we want to predict some linear function of the response variable,
 \(\tau(\mathbf{z}) = \mathbf{b}^\prime \mathbf{z}\), where
 \(\mathbf{b}\) is a vector of weights. For example, if we want to
-predict the total abundance across all sites, then we would use a vector
-of 1's for the weights.
+predict the population total across all sites, then we would use a
+vector of 1's for the weights.
 
 Typically, however, we only have a sample of the \(N\) sites. Denoting
 quantities that are part of the sampled sites with a subscript \emph{s}
@@ -383,15 +376,24 @@ the place of the Exponential, including functions that allow for
 anisotropy {[}pg. 80 - 93{]}(Chiles and Delfiner, 1999).
 
 With the above model formulation, the Best Linear Unbiased Predictor
-(BLUP) for \(\tau(\mathbf{b}'\mathbf{z})\)
-\(\tau(\mathbf{b}'\mathbf{z})\) is vague\} and its prediction variance
+(BLUP) for \(\tau(\mathbf{b}'\mathbf{z})\) and its prediction variance
 can be computed. While details of the derivation are in (Ver Hoef,
 2008), we note here that the predictor and its variance are both
 moment-based. Neither require a particular distribution for
 \(\mathbf{z}\).
 
+We note that we only use FPBK in this paper in order to focus more on
+comparing the design-based and model-based approaches. However,
+k-nearest-neighbors (Fix and Hodges, 1951; Ver Hoef and Temesgen, 2013),
+random forest (Breiman, 2001), Bayesian models (Chan-Golston et al.,
+2020), among others, can also be used to obtain predictions for a mean
+or total from spatially correlated responses in a finite population
+setting.
+
 \hypertarget{sec:numstudy}{%
 \section{Numerical Study}\label{sec:numstudy}}
+
+\textbf{Sample Simulation}
 
 For the following simulation results, we simulated 1040 different
 gridded populations, each of size 900 with sample size 150. For the
@@ -421,20 +423,33 @@ Design & 0.0003 & 0.0353 & 0.0251 & 0.9461 & 0.4889 & 0.1362 \\
 \textbf{Base Simulations}
 
 \begin{itemize}
+\tightlist
 \item
   both good: correctly specified model with high correlation
 \item
-  break model: non-gaussian errors
+  break model: highly non-normal errors with small sample size
 \item
   break design: small area estimation
+\end{itemize}
+
+\textbf{Simulation Discussion Questions}
+
+\begin{itemize}
+\tightlist
+\item
+  model-based: how should sample be drawn? should locations be fixed?
+\item
+  change n or sampling fraction?
+\end{itemize}
+
+\textbf{Other Base Settings?}
+
+\begin{itemize}
+\tightlist
 \item
   both good?: misspecified covariance model with high correlation
 \item
   break both? non-gaussian areas with smaller sample size
-\item
-  change n or sampling fraction
-\item
-  model-based: how should sample be drawn? should locations be fixed?
 \end{itemize}
 
 \hypertarget{software}{%
