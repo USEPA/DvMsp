@@ -215,16 +215,12 @@ Typically, however, we only have a sample of the $N$ population units. Denoting 
 \end{equation}
 where $\mathbf{X}_s$ and $\mathbf{X}_u$ are the design matrices for the sampled and unsampled population units, respectively; $\beta$ is the parameter vector of fixed effects; and $\bm{\delta}_s$ and $\bm{\delta}_u$ are random errors for the sampled and unsampled population units, respectively. Denoting $\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'$, we assume the expectation of $\bm{\delta}$ equals $\mathbf{0}$.
 
-We also typically assume that there is spatial correlation in $\bm{\delta}$, which can be modeled using a covariance function. Many common choices for this function assume that spatial covariance decreases with increasing Euclidean distance between population units. The primary function used throughout the simulations and applications of this manuscript is the Exponential covariance function: the $i,j^{th}$ entry for $\var(\bm{\delta})$ is
+We also typically assume that there is spatial correlation in $\bm{\delta}$, which can be modeled using a covariance function. Many common choices for this function assume stationarity and isotropy (CITE Cressie?) with spatial covariance that decreases with increasing Euclidean distance between population units. The primary function used throughout the simulations and applications of this manuscript is the exponential covariance function: the $i,j^{th}$ entry for $\var(\bm{\delta})$ is
 \mbox{}
 \begin{align}\label{equation:expcov}
 \cov(\delta_i, \delta_j) = \theta_1\exp(-3h_{i,j}/\theta_2) + \theta_3\mathbbm{1}\{\mathbf{h}_{i,j} = 0\}, 
 \end{align}
-where $h_{i,j}$ is the distance between population units $i$ and $j$, and $\bm{\theta}$ is a vector of spatial covariance parameters of the partial sill $\theta_1$, the range $\theta_2$, and the nugget $\theta_3$. However, any spatial covariance function could be used in the place of the Exponential, including functions that allow for anisotropy [pg. 80 - 93][@chiles1999geostatistics].
-
-<!-- need to add stationarity to this definition -->
-
-<!-- need to define indicator variable definition -->
+where $h_{i,j}$ is the distance between population units $i$ and $j$, and $\bm{\theta}$ is a vector of spatial covariance parameters of the partial sill $\theta_1$, the range $\theta_2$, and the nugget $\theta_3$, and $\mathbbm{1}$ is an indicator function. However, any spatial covariance function could be used in the place of the exponential, including functions that allow for non-stationarity or anisotropy [pg. 80 - 93][@chiles1999geostatistics].
 
 With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for $\tau(\mathbf{b}'\mathbf{z})$ and its prediction variance can be computed. While details of the derivation are in [@verhoef2008spatial], we note here that the predictor and its variance are both moment-based. Neither require a particular distribution for $\mathbf{z}$.
 
