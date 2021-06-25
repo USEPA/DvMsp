@@ -16,7 +16,7 @@ clusterExport(cluster, varlist = c("sim_pop", "covmx_exp"))
 clusterEvalQ(cluster, library(spsurvey)) # export spsurvey to cluster
 clusterEvalQ(cluster, library(sptotal)) # export sptotal to cluster
 clusterEvalQ(cluster, library(dplyr)) # export sptotal to cluster
-sim1_output <- parLapply(cluster, seed, safely(sim_one), N = 30^2, n = 150, psill = 0.9, nugget = 0.1, erange = sqrt(2)) # could initially use safely(sim1)
+sim1_output <- parLapply(cluster, seed, safely(sim_one), N = 30^2, n = 150, psill = 0.9, nugget = 0.1, erange = sqrt(4)) # could initially use safely(sim1)
 stopCluster(cluster) # stop cluster
 
 # model summaries

@@ -13,8 +13,13 @@ Introduction and Background:
 
 Simulations:
 
-* put in SRS as base-line sampling setting.
-* add FPBK as traditional SRS analysis as methods to analyze SRS sample.
-* add FPBK and traditional SRS analysis as additional methods to analyze GRTS sample.
+* put in IRS as base-line sampling setting.
+* add FPBK as traditional IRS analysis as methods to analyze SRS sample.
+* add FPBK and traditional IRS analysis as additional methods to analyze GRTS sample.
 * add GRTS with 10% nugget sites as additional sampling setting? If so, add FPBK to analyze this sample.
+
+* no correlation - normal errors
+* strong correlation - normal errors
+* no correlation - non-normal errors
+* strong correlation - log normal
 
