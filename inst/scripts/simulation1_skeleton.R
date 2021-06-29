@@ -5,8 +5,9 @@ write_out <- FALSE
 source("R/sim_pop.R")
 source("R/sim_one.R")
 
+
 # parallel
-n_trials <- 16 * 65 #(1040)
+n_trials <- 16 * 10
 seed <- seq_len(n_trials)
 library(parallel) # load parallel
 library(purrr) # load purrr
