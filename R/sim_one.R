@@ -54,54 +54,76 @@ sim_one <- function(seed = sample.int(1e7, size = 1),
                     N = 100, n = 50, gridded = TRUE,
                     cortype = "Exponential", psill, erange,
                     nugget, cortype_est = "Exponential", ...) {
+  # browser()
+  ###############################
+  ## Data Prep
+  ###############################
+
+  # set a reproducible seed
   set.seed(seed)
+
+  # simulate some data
   data <- sim_pop(N, gridded, cortype, psill, erange, nugget, ...)
 
-  ###############################
-  ## obtain IRS Sample ##########
-  ###############################
-
-  irs_samp <- dplyr::sample_n(data, n)
-  irs_unsamp <- dplyr::anti_join(data, irs_samp)
-  irs_unsamp$response <- NA
-  full_df <- dplyr::bind_rows(irs_samp, irs_unsamp)
-  full_df$wts <- 1 / nrow(full_df)
-
-  ##############################
-  ## FPBK Analysis on IRS Sample
-  ##############################
-
-  mod <- sptotal::slmfit(formula = response ~ 1,
-                         data = full_df, xcoordcol = "x",
-                         ycoordcol = "y", CorModel = cortype_est)
-  ## sptotal::
-  pred_mod <- predict(mod, wtscol = "wts")
-  model_mean <- pred_mod$FPBK_Prediction
-  model_se <- sqrt(pred_mod$PredVar)
-  model_lb <- model_mean + -1 * 1.96 * model_se
-  model_ub <- model_mean + 1 * 1.96 * model_se
-
-  ###############################
-  ## IRS Analysis on IRS Sample
-  ###############################
-
-  irs_mean_irs_samp <- mean(irs_samp$response)
-  irs_se_irs_samp <- sqrt((var(irs_samp$response) / n) * (N - n) / N)
-  irs_lb_irs_samp <- irs_mean_irs_samp - 1.96 * irs_se_irs_samp
-  irs_ub_irs_samp <- irs_mean_irs_samp + 1.96 * irs_se_irs_samp
-
-  # take a sample
-  ## convert data to sf object (for spsurvey)
+  # make an sf object (for spsurvey)
   data_sf <- sf::st_as_sf(data, coords = c("x", "y"), crs = 5070)
-  ## select grts sample
-  ## spsurvey::
+
+  ###############################
+  ## IRS Sample
+  ###############################
+
+  # irs sample
+  irs_samp <- irs(data_sf, n_base = n, ...)
+
+  # put it together
+  irs_bind <- sprbind(irs_samp, ...)
+
+  # get coordinates
+  irs_coords <- sf::st_coordinates(irs_bind)
+
+  # make data frame
+  irs_df <- data.frame(
+    response = irs_bind$response,
+    x = irs_coords[, "X"],
+    y = irs_coords[, "Y"],
+    siteID = irs_bind$siteID,
+    wgt = irs_bind$wgt
+  )
+
+  # make data frame removing id and wgt
+  irs_coords_resp <- irs_df %>%
+    select(-siteID, -wgt)
+
+  # find unsampled sites
+  irs_unsamp <- anti_join(data, irs_coords_resp)
+
+  # make response NA for unsampled
+  irs_unsamp$response <- NA
+
+  # only keep necessary columns
+  irs_unsamp <- irs_unsamp %>%
+    select(response, x, y)
+
+  # put them together
+  irs_full <- dplyr::bind_rows(irs_coords_resp, irs_unsamp)
+
+  # add weights
+  irs_full$wts <- 1 / nrow(irs_full)
+
+  ###############################
+  ## GRTS Sample
+  ###############################
+
+  # grts sample
   grts_samp <- grts(data_sf, n_base = n, ...)
-  ## convert to usable
-  ## spsurvey::
+
+  # put it together
   grts_bind <- sprbind(grts_samp, ...)
-  ## get coordinates
+
+  # get coordinates
   grts_coords <- sf::st_coordinates(grts_bind)
-  ## make data frame
+
+  # make data frame
   grts_df <- data.frame(
     response = grts_bind$response,
     x = grts_coords[, "X"],
@@ -109,67 +131,82 @@ sim_one <- function(seed = sample.int(1e7, size = 1),
     siteID = grts_bind$siteID,
     wgt = grts_bind$wgt
   )
-  ## select irs sample
-  ##  spsurvey::
-  ## irs_samp <- irs(data_sf, n_base = n, ...)
-  ## Error in FUN(X[[i]], ...) : object 'n_legacy' not found
 
-  ## convert to usable
-  ## spsurvey::
-  ## irs_bind <- sprbind(irs_samp, ...)
+  # make data frame removing id and wgt
+  grts_coords_resp <- grts_df %>%
+    select(-siteID, -wgt)
 
-  ## get coordinates
-  ## irs_coords <- sf::st_coordinates(irs_bind)
-  ## make data frame
-  # irs_df <- data.frame(
-  #   response = irs_bind$response,
-  #   x = grts_coords[, "X"],
-  #   y = grts_coords[, "Y"]
-  # )
-
-  ## GRTS-analysis on GRTS sample
-  ## spsurvey::
-  design_analysis <- cont_analysis(
-    grts_df,
-    siteID = "siteID",
-    vars = "response",
-    weight = "wgt",
-    xcoord = "x",
-    ycoord = "y"
-  )
-  ## just return the mean info
-  ## design_mean <- subset(design_analysis$Pct, Statistic == "Mean")
-  design_mean <- design_analysis$Mean
-
-  grts_coords_resp <- grts_df %>% select(-siteID, -wgt)
+  # find unsampled sites
   grts_unsamp <- anti_join(data, grts_coords_resp)
+
+  # make response NA for unsampled
   grts_unsamp$response <- NA
-  grts_unsamp <- grts_unsamp %>% select(response, x, y)
+
+  # only keep necessary columns
+  grts_unsamp <- grts_unsamp %>%
+    select(response, x, y)
+
+  # put them together
   grts_full <- dplyr::bind_rows(grts_coords_resp, grts_unsamp)
 
-  ## FPBK analysis on GRTS sample
+  # add weights
   grts_full$wts <- 1 / nrow(grts_full)
-  mod_grts <- slmfit(response ~ 1, data = grts_full, xcoordcol = "x",
-         ycoordcol = "y", CorModel = cortype_est)
-  pred_mod_grts <- predict(mod_grts, wtscol = "wts")
-  model_mean_grts <- pred_mod_grts$FPBK_Prediction
-  model_se_grts <- sqrt(pred_mod_grts$PredVar)
-  model_lb_grts <- model_mean_grts + -1 * 1.96 * model_se_grts
-  model_ub_grts <- model_mean_grts + 1 * 1.96 * model_se_grts
-
-  ## IRS analysis on GRTS sample
-  ## spsurvey::
-  irs_analysis_grts_samp <- cont_analysis(
-    grts_df,
-    siteID = "siteID",
-    vars = "response",
-    weight = "wgt",
-    xcoord = "x",
-    ycoord = "y",
-    vartype = "SRS"
-  )
 
 
+  ##############################
+  ## IRS Sample FPBK Analysis
+  ##############################
+
+  irs_model <- slmfit(formula = response ~ 1,
+                         data = irs_full, xcoordcol = "x",
+                         ycoordcol = "y", CorModel = cortype_est)
+  ## sptotal::
+  irs_pred <- predict(irs_model, wtscol = "wts")
+  irs_model_mean <- irs_pred$FPBK_Prediction
+  irs_model_se <- sqrt(irs_pred$PredVar)
+  irs_model_lb <- irs_model_mean + -1 * 1.96 * irs_model_se
+  irs_model_ub <- irs_model_mean + 1 * 1.96 * irs_model_se
+
+  ###############################
+  ## IRS Sample IRS Analysis
+  ###############################
+
+  irs_analysis <- cont_analysis(irs_df, vars = "response", siteID = "siteID", weight = "wgt", vartype = "SRS", fpc = N, statistics = "mean")$Mean
+  irs_analysis_mean <- irs_analysis$Estimate
+  irs_analysis_se <- irs_analysis$StdError
+  irs_analysis_lb <- irs_analysis$LCB95Pct
+  irs_analysis_ub <- irs_analysis$UCB95Pct
+
+  ##############################
+  ## GRTS Sample FPBK Analysis
+  ##############################
+
+  grts_model <- slmfit(formula = response ~ 1,
+                      data = grts_full, xcoordcol = "x",
+                      ycoordcol = "y", CorModel = cortype_est)
+  ## sptotal::
+  grts_pred <- predict(grts_model, wtscol = "wts")
+  grts_model_mean <- grts_pred$FPBK_Prediction
+  grts_model_se <- sqrt(grts_pred$PredVar)
+  grts_model_lb <- grts_model_mean + -1 * 1.96 * grts_model_se
+  grts_model_ub <- grts_model_mean + 1 * 1.96 * grts_model_se
+
+  ###############################
+  ## GRTS Sample GRTS Analysis
+  ###############################
+
+  grts_analysis <- cont_analysis(grts_df, vars = "response", siteID = "siteID",
+                                 weight = "wgt", xcoord = "x", ycoord = "y", statistics = "mean")$Mean
+  grts_analysis_mean <- grts_analysis$Estimate
+  grts_analysis_se <- grts_analysis$StdError
+  grts_analysis_lb <- grts_analysis$LCB95Pct
+  grts_analysis_ub <- grts_analysis$UCB95Pct
+
+  ###############################
+  ## Return Output
+  ###############################
+
+  # store realized values
   realized_mean <- mean(data$response)
   realized_var <- var(data$response)
 
@@ -181,17 +218,18 @@ sim_one <- function(seed = sample.int(1e7, size = 1),
                   realized_mean),
     true_var = c(realized_var, realized_var, realized_var,
                  realized_var),
-    estimate = c(irs_mean_irs_samp,
-                 design_mean$Estimate, as.vector(model_mean),
-                 as.vector(model_mean_grts)),
-    sd = c(irs_se_irs_samp, design_mean$StdError, as.vector(model_se),
-           as.vector(model_se_grts)),
-    lb = c(irs_lb_irs_samp, design_mean$LCB95Pct, as.vector(model_lb),
-           as.vector(model_lb_grts)),
-    ub = c(irs_ub_irs_samp, design_mean$UCB95Pct, as.vector(model_ub),
-           as.vector(model_ub_grts))
+    estimate = c(irs_analysis_mean,
+                 grts_analysis_mean, as.vector(irs_model_mean),
+                 as.vector(grts_model_mean)),
+    sd = c(irs_analysis_se, grts_analysis_se, as.vector(irs_model_se),
+           as.vector(grts_model_se)),
+    lb = c(irs_analysis_lb, grts_analysis_lb, as.vector(irs_model_lb),
+           as.vector(grts_model_lb)),
+    ub = c(irs_analysis_ub, grts_analysis_ub, as.vector(irs_model_ub),
+           as.vector(grts_model_ub))
   )
 
+  # return output
   output
 }
 

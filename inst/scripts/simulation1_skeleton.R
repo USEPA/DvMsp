@@ -1,5 +1,5 @@
 # write results?
-write_out <- FALSE
+write_out <- TRUE
 
 # source functions for now
 source("R/sim_pop.R")
@@ -7,7 +7,7 @@ source("R/sim_one.R")
 
 
 # parallel
-n_trials <- 16 * 10
+n_trials <- 2000
 seed <- seq_len(n_trials)
 library(parallel) # load parallel
 library(purrr) # load purrr
@@ -17,7 +17,7 @@ clusterExport(cluster, varlist = c("sim_pop", "covmx_exp"))
 clusterEvalQ(cluster, library(spsurvey)) # export spsurvey to cluster
 clusterEvalQ(cluster, library(sptotal)) # export sptotal to cluster
 clusterEvalQ(cluster, library(dplyr)) # export sptotal to cluster
-sim1_output <- parLapply(cluster, seed, safely(sim_one), N = 30^2, n = 150, psill = 0.9, nugget = 0.1, erange = sqrt(4)) # could initially use safely(sim1)
+sim1_output <- parLapply(cluster, seed, safely(sim_one), N = 30^2, n = 150, psill = 0.9, nugget = 0.1, erange = sqrt(4), gridded = FALSE) # could initially use safely(sim1)
 stopCluster(cluster) # stop cluster
 
 # model summaries
