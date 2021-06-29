@@ -1,4 +1,4 @@
-#' Simulate spatially correlated data
+#' Conduct a simulation trial
 #'
 #' Take a sample from and subsequently analyze spatially correlated data
 #' using \enumerate{
@@ -32,7 +32,7 @@
 #'   \item \code{ub}, an upper 95% confidence bound.
 #' }
 #' @examples
-#' sim_one(seed = sample.int(1e7, size = 1), N = 100, n = 50,
+#' sim_trial(seed = sample.int(1e7, size = 1), N = 100, n = 50,
 #' gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1,
 #' nugget = 0.2, cortype_est = "Exponential")
 #' @import stats
@@ -44,16 +44,10 @@
 ## library(sptotal)
 ## library(spsurvey)
 ## library(dplyr)
-
-
-## irs(same_arguments_to_grts) to select irs
-## cont_analysis(same_arguments, vartype = "SRS")
-##
-
-sim_one <- function(seed = sample.int(1e7, size = 1),
+sim_trial <- function(seed = sample.int(1e7, size = 1),
                     N = 100, n = 50, gridded = TRUE,
                     cortype = "Exponential", psill, erange,
-                    nugget, cortype_est = "Exponential", ...) {
+                    nugget, cortype_est = "Exponential", resptype = "normal", ...) {
   # browser()
   ###############################
   ## Data Prep
@@ -63,7 +57,7 @@ sim_one <- function(seed = sample.int(1e7, size = 1),
   set.seed(seed)
 
   # simulate some data
-  data <- sim_pop(N, gridded, cortype, psill, erange, nugget, ...)
+  data <- sim_pop(N, gridded, cortype, psill, erange, nugget, resptype, ...)
 
   # make an sf object (for spsurvey)
   data_sf <- sf::st_as_sf(data, coords = c("x", "y"), crs = 5070)
@@ -236,4 +230,4 @@ sim_one <- function(seed = sample.int(1e7, size = 1),
 
 
 ## example
-## data <- sim_one(psill = 1, erange = 1, nugget = 1)
+## data <- sim_trial(psill = 1, erange = 1, nugget = 1)

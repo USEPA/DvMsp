@@ -3,7 +3,7 @@ write_out <- TRUE
 
 # source functions for now
 source("R/sim_pop.R")
-source("R/sim_one.R")
+source("R/sim_trial.R")
 
 
 # parallel
@@ -17,19 +17,19 @@ clusterExport(cluster, varlist = c("sim_pop", "covmx_exp"))
 clusterEvalQ(cluster, library(spsurvey)) # export spsurvey to cluster
 clusterEvalQ(cluster, library(sptotal)) # export sptotal to cluster
 clusterEvalQ(cluster, library(dplyr)) # export sptotal to cluster
-sim1_output <- parLapply(cluster, seed, safely(sim_one), N = 30^2, n = 150, psill = 0.9, nugget = 0.1, erange = sqrt(4), gridded = FALSE) # could initially use safely(sim1)
+sim_output <- parLapply(cluster, seed, safely(sim_trial), N = 30^2, n = 150, psill = 0.9, nugget = 0.1, erange = sqrt(4), gridded = FALSE)
 stopCluster(cluster) # stop cluster
 
 # model summaries
 library(dplyr)
 
 # check errors
-map(sim1_output, "error") %>%
+map(sim_output, "error") %>%
   bind_rows() %>%
   nrow()
 
 # do summaries
-safe_output <- map(sim1_output, "result") %>%
+safe_output <- map(sim_output, "result") %>%
   bind_rows()
 
 # write output
