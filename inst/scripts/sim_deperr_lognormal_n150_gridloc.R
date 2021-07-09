@@ -17,7 +17,18 @@ clusterExport(cluster, varlist = c("sim_pop", "covmx_exp"))
 clusterEvalQ(cluster, library(spsurvey)) # export spsurvey to cluster
 clusterEvalQ(cluster, library(sptotal)) # export sptotal to cluster
 clusterEvalQ(cluster, library(dplyr)) # export sptotal to cluster
-sim_output <- parLapply(cluster, seed, safely(sim_trial), N = 30^2, n = 150, psill = 0.9, nugget = 0.1, erange = sqrt(4), gridded = FALSE)
+sim_output <- parLapply(
+  cluster, # the cluster
+  seed, # some seeds
+  safely(sim_trial), # see if any errors
+  N = 30^2, # pop size
+  n = 150, # sample size
+  psill = 0.9, # partial sill
+  nugget = 0.1, # nugget
+  erange = sqrt(4), # effective range
+  gridded = TRUE, # grid (TRUE) or random (FALSE) both in [0, 1] x [0,1]
+  resptype = "lognormal" # normal response
+)
 stopCluster(cluster) # stop cluster
 
 # model summaries
@@ -58,7 +69,7 @@ summ_output <- all_output %>%
 
 if (write_out) {
   library(readr)
-  write_csv(all_output, "inst/output/sim_one/all_output.csv")
-  write_csv(summ_output, "inst/output/sim_one/summ_output.csv")
+  # write_csv(all_output, "inst/output/sim_one/all_output.csv")
+  write_csv(summ_output, "inst/output/sim_deperr_lognormal_n150_gridloc.csv")
 }
 
