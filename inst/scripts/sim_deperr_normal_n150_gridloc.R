@@ -8,6 +8,7 @@ source("R/sim_trial.R")
 
 # parallel
 n_trials <- 2000
+total_var <- 2
 seed <- seq_len(n_trials)
 library(parallel) # load parallel
 library(purrr) # load purrr
@@ -23,8 +24,8 @@ sim_output <- parLapply(
   safely(sim_trial), # see if any errors
   N = 30^2, # pop size
   n = 150, # sample size
-  psill = 0.9, # partial sill
-  nugget = 0.1, # nugget
+  psill = total_var * 0.9, # partial sill
+  nugget = total_var * 0.1, # nugget
   erange = sqrt(4), # effective range
   gridded = TRUE, # grid (TRUE) or random (FALSE) both in [0, 1] x [0,1]
   resptype = "normal" # normal response
