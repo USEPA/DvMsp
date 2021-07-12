@@ -1,0 +1,227 @@
+---
+title: "Application with Lakes Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+__Notes__:
+
+* Major drawback of only sampling once for each design (IRS and GRTS) for skewed data: the results will be very dependent on how many of the skewed outleirs are selected in the sample. See this analysis for an example of IRS being artificially more "precise" because GRTS happens to select a large outlier to be in its sample.
+* for both IRS and GRTS, model-based analyses have a lower standard error (and therefore a more narrow prediction interval). In terms of prediction error, design IRS < model IRS < model GRTS < design GRTS (but, again the fact that GRTS by chance selected an outlier to be in the sample made its prediction error worse). 
+* these analyses are finding the mean DOC across all lakes, ignoring the lake area/volume.
+
+__Things to Think About__:
+
+* based on these results, I'm inclined toward simulating this application many times: otherwise, results change depending on what the seed is set to. We could also then (hopefully) report that the methods cover fine for this real data example.
+* are we happy with using `DOC` for extremely skewed data or should we consider a different response? Would we want to drop the two __extremely large__ values from the analysis? It doesn't seem like they are errors in data entry so I'm not sure that this would be justified.
+* one option for symmetric data is to pretend that we are interested in predicting the mean of log(DOC). The downside is that this isn't really a realistic goal that people would have in practice but the upside is that it's the same response variable. If not log(DOC), is there another variable you had in mind?
+* are we happy with a sample size of 200 or do we want it to be smaller to more closely match simulations?
+
+## Data Exploration
+
+Copied from `sptotal` vignette:
+
+As another example, we took data from the [National Aquatic Resource Surveys](https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys). With concerns about global warming, the earth's capacity to store carbon is of great interest, and dissolved organic carbon (DOC) is an estimate of a lake's ability to store carbon.  We will estimate the mean mg/L for DOC from a sample of lakes.  If the total lake volume could be calculated (we will not attempt that), then the total dissolved carbon in a population of lakes could be estimated. We will examine DOC in lakes from the 2012 surveys.  We combined [site data](https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_siteinfo_08232016.csv), [DOC data](https://www.epa.gov/sites/production/files/2016-12/nla2012_waterchem_wide.csv), and [habitat metrics](https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phabmet_10202016.csv) to create a data set of 1206 lakes in the conterminous United States. 
+
+The following code explores the variables in the data set, focusing on dissolved organic carbon (DOC). We can see tht `DOC_RESULT` is highly skewed with at least one extreme outlier and that the log of `DOC_RESULT` is approximately symmetric with slightly larger tails than a normal distribution would have.
+
+```{r, results = "hide", fig.keep = "none"}
+library(sptotal)
+data(USlakes)
+library(skimr)
+skim(USlakes)
+
+library(tidyverse)
+USlakes <- USlakes %>% mutate(logdoc = log(DOC_RESULT))
+
+ggplot(data = USlakes, aes(x = log(DOC_RESULT))) +
+  geom_histogram(bins = 20)
+
+ggplot(data = USlakes, aes(x = DOC_RESULT)) +
+  geom_histogram(bins = 20)
+
+summary(USlakes$DOC_RESULT)
+```
+
+We can keep log DOC in mind, but focus for now on the untransformed variable. The following plot shows that there are two observations with extremely large `DOC_RESULT` values that are clustered together.
+
+```{r}
+ggplot(data = USlakes, aes(x = XCOORD, y = YCOORD)) +
+  geom_point(aes(colour = DOC_RESULT)) +
+  scale_colour_viridis_c()
+```
+
+Filtering these two values out, we see from the next plot that there is evidence of spatial correlation in DOC, as many of the observations with higher DOC's are clustered together in the northern plains of the United States and in the southeastern state of Florida.
+
+```{r}
+ggplot(data = USlakes %>% filter(DOC_RESULT < 300),
+       aes(x = XCOORD, y = YCOORD)) +
+  geom_point(aes(colour = DOC_RESULT)) +
+  scale_colour_viridis_c()
+```
+
+In the following analyses, we will keep all observations (and not remove any extreme outliers).
+
+## IRS Sample, Model Analysis
+
+Copied from sptotal vignette: We have the whole population of lakes, but, with budget cuts, it is likely that this whole population will not always be surveyed in its entirety.  So, we will ask the question, "If we sample from this population, can we still get a fairly precise prediction of the mean DOC?"
+
+Copied from sptotal vignette: We will do the same thing that we did with the simulated data, and take a random sample of 200 lakes.  Also, because we want the mean, and not a total, we will create a weights column for the `lakeobs` data set, with each element $1/N$, where, here, $N = 1204$.
+
+```{r}
+set.seed(2)
+lakesobs <- USlakes %>% sample_n(200) ## sample 200 lakes
+lakesunobs <- anti_join(USlakes, lakesobs)
+lakesunobs$DOC_RESULT <- NA
+
+lakes_test <- bind_rows(lakesobs, lakesunobs) 
+lakes_test$wts <- 1 / nrow(lakes_test) ## predicting for mean
+```
+
+We first analyze the IRS sample with a model-based analysis.
+
+```{r}
+slmfitout_exp_lakes <- slmfit(formula = DOC_RESULT ~ 1,
+                              data = lakes_test, 
+                              xcoordcol = 'XCOORD',
+                              ycoordcol = 'YCOORD',
+                              CorModel = "Exponential")
+summary(slmfitout_exp_lakes)
+plot(slmfitout_exp_lakes)
+```
+
+```{r}
+pred_exp_lakes <- predict(slmfitout_exp_lakes,  wtscol = "wts",
+                          conf_level = 0.95)
+print(pred_exp_lakes)
+mean_irs_mod <- pred_exp_lakes$FPBK_Prediction
+se_irs_mod <- sqrt(pred_exp_lakes$PredVar)
+lb_irs_mod <- pred_exp_lakes$conf_bounds[1]
+ub_irs_mod <- pred_exp_lakes$conf_bounds[2]
+
+
+realized_mean <- mean(USlakes$DOC_RESULT) ## compute realized mean
+```
+
+## IRS Sample, Design Analysis
+
+```{r}
+irs_info <- lakesobs %>% summarise(meandoc = mean(DOC_RESULT),
+                                   vardoc = var(DOC_RESULT))
+N <- nrow(USlakes); n <- nrow(lakesobs)
+irs_se_irs_samp <- sqrt((irs_info$vardoc / n) * (N - n) / N)
+irs_lb_irs_samp <- irs_info$meandoc - 1.96 * irs_se_irs_samp
+irs_ub_irs_samp <- irs_info$meandoc + 1.96 * irs_se_irs_samp
+irs_info$meandoc; sqrt(irs_info$vardoc)
+irs_lb_irs_samp; irs_ub_irs_samp
+```
+
+## GRTS Sample, Design Analysis
+
+Next, we perform design-based and model-based analyses using a GRTS sample of 200 sites. The following code obtains the GRTS sample.
+
+```{r, results = "hide"}
+set.seed(320215)
+data_sf <- sf::st_as_sf(USlakes, coords = c("XCOORD", "YCOORD"),
+                        crs = 5070)
+library(spsurvey)
+grts_samp <- grts(data_sf, n_base = n)
+grts_bind <- sprbind(grts_samp)
+
+## get coordinates
+grts_coords <- sf::st_coordinates(grts_bind)
+## make data frame
+grts_df <- data.frame(
+  response = grts_bind$DOC_RESULT,
+  x = grts_coords[, "X"],
+  y = grts_coords[, "Y"],
+  siteID = grts_bind$siteID,
+  wgt = grts_bind$wgt
+)
+## head(grts_df)
+summary(grts_df$response)
+```
+
+We then perform a design-based analysis on the GRTS sample.
+
+```{r}
+design_analysis <- cont_analysis(
+  grts_df,
+  siteID = "siteID",
+  vars = "response",
+  weight = "wgt",
+  xcoord = "x",
+  ycoord = "y"
+)
+## just return the mean info
+## design_mean <- subset(design_analysis$Pct, Statistic == "Mean")
+design_mean_grts <- design_analysis$Mean
+design_mean_grts$Estimate
+design_mean_grts$StdError
+design_mean_grts$LCB95Pct
+design_mean_grts$UCB95Pct
+```
+
+## GRTS Sample, Model Analysis
+
+Finally, we use a model-based analysis on the GRTS sample. 
+
+```{r}
+grts_coords_resp <- grts_df %>% select(-siteID, -wgt) %>%
+  rename(DOC_RESULT = "response", XCOORD = "x", YCOORD = "y")
+grts_unsamp <- anti_join(USlakes, grts_coords_resp)
+grts_unsamp$DOC_RESULT <- NA
+grts_unsamp <- grts_unsamp %>% select(DOC_RESULT, XCOORD, YCOORD)
+grts_full <- dplyr::bind_rows(grts_coords_resp, grts_unsamp)
+```
+
+```{r}
+grts_full$wts <- 1 / nrow(grts_full)
+mod_grts <- slmfit(DOC_RESULT ~ 1, data = grts_full,
+                   xcoordcol = "XCOORD",
+                   ycoordcol = "YCOORD")
+pred_mod_grts <- predict(mod_grts, wtscol = "wts")
+model_mean_grts <- pred_mod_grts$FPBK_Prediction
+model_se_grts <- sqrt(pred_mod_grts$PredVar)
+model_lb_grts <- model_mean_grts + -1 * 1.96 * model_se_grts
+model_ub_grts <- model_mean_grts + 1 * 1.96 * model_se_grts
+model_mean_grts
+model_se_grts
+model_lb_grts
+model_ub_grts
+```
+
+Finally, we combine all results in a data frame for easy comparison:
+
+```{r}
+tibble(approach = c("Design IRS", "Design GRTS", "Model IRS", "Model GRTS"),
+       realized_mean = c(realized_mean, realized_mean, realized_mean,
+                     realized_mean),
+       estimate = c(irs_info$meandoc,
+                    design_mean_grts$Estimate, as.vector(mean_irs_mod),
+                    as.vector(model_mean_grts)),
+       sd = c(irs_se_irs_samp, design_mean_grts$StdError, as.vector(se_irs_mod),
+              as.vector(model_se_grts)),
+       lb = c(irs_lb_irs_samp, design_mean_grts$LCB95Pct, as.vector(lb_irs_mod),
+              as.vector(model_lb_grts)),
+       ub = c(irs_ub_irs_samp, design_mean_grts$UCB95Pct, as.vector(ub_irs_mod),
+              as.vector(model_ub_grts)))
+```
+
+All 95% intervals contain the realized mean of 8.32. We also see that model-based GRTS is more precise than design-based GRTS, and that model-based IRS is more precise than design-based IRS for this sample. The fact that IRS is more precise than GRTS is likely a consequence of GRTS (by chance) obtaining a very large value for `DOC_RESULT` in its sample.
+
+```{r}
+## grts obtains a very large response value in its sample
+ggplot(grts_df, aes(x = response)) +
+         geom_histogram(colour  = "black", fill = "white", bins = 20)
+
+## srs does not
+ggplot(lakesobs, aes(x = DOC_RESULT)) +
+         geom_histogram(colour  = "black", fill = "white", bins = 20)
+```
+
+
+
