@@ -16,7 +16,7 @@ nla_df <- read_csv(here("data", "nla12_keyvariables_data.csv"))
 skim(nla_df)
 ```
 
-```{r}
+```{r, results = "hide", eval = FALSE}
 View(nla_df)
 factor(nla_df$TOTALHG_UNITS) ## all same units
 ```
