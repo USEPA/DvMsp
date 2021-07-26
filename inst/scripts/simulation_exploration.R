@@ -53,6 +53,13 @@ ggplot(data = combo_perc, aes(x = sim, y = perc)) +
 ## investigate discrepancy in grid vs random
 combo_data_grts %>% filter(error_dep == "deperr", dist == "lognormal", n == "n150")
 
+combo_perc <- combo_data_grts %>%
+  pivot_wider(names_from = approach, values_from = medae, sim) %>%
+  mutate(perc = 100 * (`Design GRTS` - `Model GRTS`) / `Model GRTS`)
+ggplot(data = combo_perc, aes(x = sim, y = perc)) +
+  geom_point() +
+  coord_flip()
+
 
 ggplot(data = combo_data_grts, aes(x = sim, y = coverage, colour = approach)) +
   geom_point() +
