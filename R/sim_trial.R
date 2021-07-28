@@ -19,6 +19,8 @@
 #' @param nugget is the nugget.
 #' @param cortype_est is the (possibly misspecified) correlation
 #' function used to estimate/predict the mean, total, or other quantity.
+#' @param resptype is the response variable type, either \code{
+#' "normal"} or \code{"lognormal"}.
 #' @param ... further arguments passed to or from other methods.
 #' @return a data frame with \itemize{
 #'   \item \code{approach}, the name of th approach (\code{"Degign"}
@@ -36,6 +38,9 @@
 #' gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1,
 #' nugget = 0.2, cortype_est = "Exponential")
 #' @import stats
+#' @import sptotal
+#' @import spsurvey
+#' @importFrom rlang .data
 #' @export
 
 ## library(devtools)
@@ -86,17 +91,17 @@ sim_trial <- function(seed = sample.int(1e7, size = 1),
 
   # make data frame removing id and wgt
   irs_coords_resp <- irs_df %>%
-    select(-siteID, -wgt)
+    dplyr::select(-.data$siteID, -.data$wgt)
 
   # find unsampled sites
-  irs_unsamp <- anti_join(data, irs_coords_resp)
+  irs_unsamp <- dplyr::anti_join(data, irs_coords_resp)
 
   # make response NA for unsampled
   irs_unsamp$response <- NA
 
   # only keep necessary columns
   irs_unsamp <- irs_unsamp %>%
-    select(response, x, y)
+    dplyr::select(.data$response, .data$x, .data$y)
 
   # put them together
   irs_full <- dplyr::bind_rows(irs_coords_resp, irs_unsamp)
@@ -128,17 +133,17 @@ sim_trial <- function(seed = sample.int(1e7, size = 1),
 
   # make data frame removing id and wgt
   grts_coords_resp <- grts_df %>%
-    select(-siteID, -wgt)
+    dplyr::select(-.data$siteID, -.data$wgt)
 
   # find unsampled sites
-  grts_unsamp <- anti_join(data, grts_coords_resp)
+  grts_unsamp <- dplyr::anti_join(data, grts_coords_resp)
 
   # make response NA for unsampled
   grts_unsamp$response <- NA
 
   # only keep necessary columns
   grts_unsamp <- grts_unsamp %>%
-    select(response, x, y)
+    dplyr::select(.data$response, .data$x, .data$y)
 
   # put them together
   grts_full <- dplyr::bind_rows(grts_coords_resp, grts_unsamp)

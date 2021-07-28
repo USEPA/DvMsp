@@ -2,7 +2,7 @@
 #'
 #' simulates a spatially correlated response on either a gridded or
 #' random unit square. The resulting data can then be used in
-#' \code{\link{sim_one}()}.
+#' \code{\link{sim_trial}()}.
 #'
 #' @param N is the total number of data points. For \code{gridded = TRUE},
 #' this must be a perfect square.

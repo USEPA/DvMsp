@@ -11,6 +11,7 @@ sim_pop(
   psill,
   erange,
   nugget,
+  resptype = "normal",
   ...
 )
 }
@@ -30,6 +31,8 @@ points with random locations.}
 
 \item{nugget}{is the nugget.}
 
+\item{resptype}{the response type. The default is Gaussian errors.}
+
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
@@ -42,7 +45,7 @@ a data frame with \itemize{
 \description{
 simulates a spatially correlated response on either a gridded or
 random unit square. The resulting data can then be used in
-\code{\link{sim_one}()}.
+\code{\link{sim_trial}()}.
 }
 \examples{
 sim_pop(N = 100, gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1, nugget = 0.2)
