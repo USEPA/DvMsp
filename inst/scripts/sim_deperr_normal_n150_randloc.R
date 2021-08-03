@@ -70,7 +70,7 @@ summ_output <- all_output %>%
 
 if (write_out) {
   library(readr)
-  # write_csv(all_output, "inst/output/sim_one/all_output.csv")
+  # write_csv(all_output, "inst/all_output/sim_deperr_normal_n150_randloc.csv")
   write_csv(summ_output, "inst/output/sim_deperr_normal_n150_randloc.csv")
 }
 
