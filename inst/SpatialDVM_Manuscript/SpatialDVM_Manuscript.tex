@@ -34,6 +34,7 @@
 % use microtype if available
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 \bibliographystyle{elsarticle-harv}
+\usepackage{longtable}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -55,6 +56,31 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 
 % Pandoc citation processing
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+% for Pandoc 2.8 to 2.10.1
+\newenvironment{cslreferences}%
+  {}%
+  {\par}
+% For Pandoc 2.11+
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Pandoc header
 
@@ -63,8 +89,8 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{A comparison of design-based and model-based approaches for spatial
-data.}
+  \title{A comparison of design-based and model-based approaches for
+spatial data.}
     \author[USEPA]{In alphabetical order Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
     \author[STLAW]{Matt Higham\corref{1}}
@@ -75,14 +101,16 @@ data.}
   
     \author[NOAA]{Jay M. Ver Hoef}
   
-      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
-Corvallis, Oregon, 97333}
-    \address[STLAW]{Saint Lawrence University Department of Math, Computer Science, and
-Statistics, 23 Romoda Drive, Canton, New York, 13617}
-    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
-Corvallis, Oregon, 97331}
-    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
-Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
+      \address[USEPA]{United States Environmental Protection Agency, 200
+SW 35th St, Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Math,
+Computer Science, and Statistics, 23 Romoda Drive, Canton, New York,
+13617}
+    \address[OSU]{Oregon State University Department of Statistics, 239
+Weniger Hall, Corvallis, Oregon, 97331}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science
+Center, National Oceanic and Atmospheric Administration, Seattle,
+Washington, 98115}
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
@@ -135,12 +163,12 @@ spatially correlated data. Thereafter, several comparisons between
 design-based and model-based for spatial data have been considered, but
 they tend to compare design-based approaches that ignore spatial
 locations to model-based approaches (Brus and De Gruijter, 1997; Ver
-Hoef, 2002, 2008). Cooper (2006) review the two approaches in an
-ecological context before introducing a ``model-assisted'' variance
+Hoef, 2002; Ver Hoef, 2008). Cooper (2006) review the two approaches in
+an ecological context before introducing a ``model-assisted'' variance
 estimator that combines aspects from each approach. In addition to
 Cooper (2006), there has been substantial research and development into
-estimators that use both design and model-based principles (see
-e.g.~Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
+estimators that use both design and model-based principles (see e.g.
+Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
 Bayesian approach, and Sterba (2009)). More recent overviews include
 Brus (2020) and Wang et al. (2012), but no numerical comparison has been
 made between design-based approaches that incorporate spatial locations
@@ -379,20 +407,6 @@ a nugget of 0.1. For model-based, we assumed the correct form of the
 covariance function (exponential), but estimated the spatial parameters
 with REML.
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{lrrrrrr}
-  \hline
-Approach & Bias & RMSE & MedAE & Coverage & PClose & MedIL \\ 
-  \hline
-Design & 0.0003 & 0.0353 & 0.0251 & 0.9461 & 0.4889 & 0.1362 \\ 
-  Model & -0.0001 & 0.0362 & 0.0253 & 0.9480 & 0.5111 & 0.1430 \\ 
-   \hline
-\end{tabular}
-\caption{Approach, mean bias (Bias), root-mean-squared error (RMSE), median absolute error (MedAE), 95 percent interval coverage (Coverage), proportion of times the approach was closer to the true value (PClose), and median interval length (MedIL)} 
-\label{tab:sim_one}
-\end{table}
-
 \textbf{Base Simulations}
 
 \begin{itemize}
@@ -436,20 +450,74 @@ et al., 2021). FPBK can be readily performed in \texttt{R} with the
 for both the simulation analysis and the application, estimating
 parameters with Restricted Maximum Likelihood (REML).
 
-\hypertarget{applied-example}{%
-\subsection{Applied Example}\label{applied-example}}
+\hypertarget{application}{%
+\section{Application}\label{application}}
 
-Potential Data Sets:
+The Environmental Protection Agency (EPA), states, and tribes
+periodically conduct National Aquatic Research Surveys (NARS) in the
+United States to assess the water quality of various bodies of water. We
+will use the 2012 National Lakes Assessment (NLA), which measures
+various aspects of lake health and quality in lakes in the contiguous
+United States, to obtain an interval for mean mercury concentration.
+Although all lakes in the survey were measured in 2012, there may not
+always be enough time or money to do so. Therefore, we will explore
+whether or not we can still obtain a relatively precise estimate for the
+realized mean mercury concentration if we only take a sample of 100 of
+the 986 lakes.
 
-\begin{itemize}
-\tightlist
-\item
-  National Lakes Assessment
-\item
-  Moose in Alaska
-\item
-  Temperature Data from NOAA
-\end{itemize}
+\begin{figure}
+\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/figdata-1} \caption{Population distribution of mercury concentration for 986 lakes in the contiguous United States. Thirty-five lakes were dropped from the analysis because they were missing mercury concentration.}\label{fig:figdata}
+\end{figure}
+
+Figure \ref{fig:figdata} shows that mercury concentration is
+right-skewed, with most lakes having a low value of mercury
+concentration but a few having a much higher concentration. Mercury
+concentration exhibits some spatial correlation, with high mercury
+concentrations in lakes in the northeast and north central United
+States. Because we are considering these lakes to be our entire
+population, we know that the realized mean mercury concentration is
+103.03 ng / g.
+
+\begin{longtable}[]{@{}lrrrrr@{}}
+\caption{\label{tab:appliedtab} Table XXX. Application of design-based
+and model-based approaches to the NLA data set on mercury
+concentration.}\tabularnewline
+\toprule
+Approach & Realized Mean & Estimate & SE & 95\% LB & 95\% UB \\
+\midrule
+\endfirsthead
+\toprule
+Approach & Realized Mean & Estimate & SE & 95\% LB & 95\% UB \\
+\midrule
+\endhead
+Design IRS & 103.2 & 112.7 & 8.8 & 95.4 & 129.9 \\
+Model IRS & 103.2 & 110.5 & 7.9 & 95.0 & 125.9 \\
+Design GRTS & 103.2 & 101.8 & 6.1 & 89.8 & 113.7 \\
+Model GRTS & 103.2 & 102.3 & 5.9 & 90.8 & 113.9 \\
+\bottomrule
+\end{longtable}
+
+Table \ref{tab:appliedtab} shows the application of a design-based
+analysis on an IRS, a model-based analysis on an IRS, a design-based
+analysis on a GRTS sample, and a model-based analysis on a GRTS sample.
+We see that, for all four analyses, the true realized mean mercury
+concentration is within the bounds of the 95\% intervals. However, we
+should not generalize the results of this particular realization to any
+other data set or even to other potential samples of this data set.
+
+But, we do note a couple of patterns. The design-based IRS analysis
+shows the largest standard error: a likely reason is that this is the
+only approach that does not use the spatial correlation in mercury
+concentration across the contiguous United States. We also see that, for
+the samples drawn, the both analyses with the GRTS sampling design have
+a lower standard error than the analyses with the IRS sampling design.
+We would expect this to be the case for most samples because mercury
+concentration exhibits spatial correlation so a spatially balanced
+sample should usually yield a lower standard error. If it is acceptable
+to have an interval for mean mercury concentration of about 25 ng / g
+and if we ignore the other variables that the EPA collects information
+on in these NLA surveys, then the EPA could consider sampling just 50
+lakes to save time and money.
 
 \hypertarget{sec:discussion}{%
 \section{Discussion}\label{sec:discussion}}
@@ -459,6 +527,7 @@ Potential Data Sets:
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-barabesi2011sampling}{}%
 Barabesi, L., Franceschi, S., 2011. Sampling properties of spatial total
 estimators under tessellation stratified designs. Environmetrics 22,
@@ -493,8 +562,8 @@ inference for finite populations under spatial process settings.
 Environmetrics 31, e2606.
 
 \leavevmode\hypertarget{ref-chiles1999geostatistics}{}%
-Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
-Uncertainty. John Wiley \& Sons, New York.
+Chiles, J.-P., Delfiner, P., 1999. Geostatistics: {Modeling Spatial
+Uncertainty}. {John Wiley \& Sons}, New York.
 
 \leavevmode\hypertarget{ref-cicchitelli2012model}{}%
 Cicchitelli, G., Montanari, G.E., 2012. Model-assisted estimation of a
@@ -603,7 +672,7 @@ wildlife populations. Environmental and Ecological Statistics 15, 3--13.
 
 \leavevmode\hypertarget{ref-ver2013comparison}{}%
 Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
-model to nearest neighbor (k-nn) methods for forestry applications. PloS
+model to nearest neighbor (k-NN) methods for forestry applications. PloS
 one 8, e59129.
 
 \leavevmode\hypertarget{ref-wang2013design}{}%
@@ -615,7 +684,7 @@ implementation. Environmental modelling \& software 40, 280--288.
 Wang, J.-F., Stein, A., Gao, B.-B., Ge, Y., 2012. A review of spatial
 sampling. Spatial Statistics 2, 1--14.
 
+\end{CSLReferences}
+
 
 \end{document}
-
-
