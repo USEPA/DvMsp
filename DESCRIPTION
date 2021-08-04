@@ -23,4 +23,5 @@ Imports:
     sf,
     stats,
     magrittr,
-    rlang
+    rlang,
+    purrr

@@ -83,6 +83,7 @@ sim_pop <- function(N = 100, gridded = TRUE,
 #' @param erange is the effective range.
 #' @param nugget is the nugget effect.
 #' @return Covariance Matrix
+#' @export
 
 #' @describeIn covmx_exp Exponential Covariance
 covmx_exp <- function(distmx, psill, erange, nugget) {

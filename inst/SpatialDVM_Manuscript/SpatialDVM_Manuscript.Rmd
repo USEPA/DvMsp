@@ -228,6 +228,65 @@ We note that we only use FPBK in this paper in order to focus more on comparing 
 
 # Numerical Study {#sec:numstudy}
 
+```{r, results = "hide", message = FALSE, warning = FALSE}
+library(tidyverse)
+files <- list.files(path = here("inst", "output"), pattern = "*.csv",
+                    full.names = TRUE)
+
+combo_data <- purrr::map_df(files,
+                            ~read_csv(.x) %>% mutate(filename = .x)) %>%
+  separate(filename, into = c("junk", "error_dep", "dist", "n", "location"),
+           sep = "_") %>%
+  select(-junk)
+combo_data <- combo_data %>% mutate(sim = interaction(error_dep, dist, n, location))
+
+combo_data_grts <- combo_data %>% filter(approach %in% c("Design GRTS", "Model GRTS"))
+
+dep_only <- combo_data_grts %>% filter(error_dep == "deperr")
+dep_long <- dep_only %>%
+  pivot_wider(names_from = approach, values_from = rmspe, sim) %>%
+  mutate(perc = 100 * (`Design GRTS` - `Model GRTS`) / `Model GRTS`)
+```
+
+Major Points from August 3 Simulations:
+
+1. In most of the dependent error simulation settings, either all four approahces (IRS-Design, IRS-Model, GRTS-Design, and GRTS-Model) perform equally or GRTS-Design and GRTS-Model outperform IRS-Design and IRS-Model. Exceptions to this are a couple of the settings with very small sample sizes (n = 10), in which the IRS does better than GRTS. In the independent error settings, it usually doesn't matter much which approach is used, which makes sense.
+
+```{r}
+ggplot(data = combo_data, aes(x = sim, y = rmspe, colour = approach)) +
+  geom_point() +
+  coord_flip()
+```
+
+2. We will now focus in a bit more on comparing Design-GRTS to Model-GRTS, the two best approaches for any reasonable sample size. In the independent error settings, the two approaches perform very similarly, so those results are omitted in the following graph. In the dependent error settings, using rmspe as the performance criterion, Model-GRTS outperforms Design-GRTS in 12 of the 18 settings, the two approaches perform very similarly in 3 settings, and Design-GRTS outperforms Model-GRTS in 3 settings.
+
+```{r}
+ggplot(data = dep_long, aes(x = fct_reorder(sim, perc), y = perc)) +
+  geom_point() +
+  coord_flip() +
+  labs(y = "Percent Change in rmspe (Design - Model) / Model",
+       caption = "Percent > 0 means Model has better rmspe")
+```
+
+3. Focusing in on the three settings where Design-GRTS outperforms Model-GRTS, we see that, in two of the settings, the log-normal response has a large variance, corresponding to a large right-skew after exponentiation. All three settings have sites in random locations. However, in only one of these settings would we recommend actually using Design-GRTS. In the other two settings, the data are sufficiently skewed that a practitioner should not use either approach, though it is "safer" to use Design-GRTS.
+
+```{r}
+design_better <- dep_long %>% filter(perc < -5)
+design_better_full <- inner_join(combo_data_grts, design_better, by = c("sim"))
+ggplot(data = design_better_full, aes(x = sim, y = coverage, colour = approach)) +
+  geom_point() +
+  coord_flip() +
+  geom_hline(aes(yintercept = 0.95), alpha = 0.5)
+```
+
+4. Take-home messages
+
+- In terms of rmspe, a model-based analysis on a GRTS design yields an rmspe similar to or lower than a design-based analysis on a GRTS design, as long as the response variable is not "too skewed." 
+- If the response variable is very skewed, then neither analysis is appropriate, but, the design-based analysis is quicker. 
+- a spatially balanced GRTS sample outperforms IRS in nearly all dependent error settings, as expected.
+- methods that use spatial correlation generally perform better on random location points than they do on gridded points. This makes some intuitive sense because (1) on average, the minimum distance between an unobserved point and its nearest observed neighbor should be lower for random points and (2) the span of the study area is maximized for a grid based on the way that we set up the simulations (with the random points being drawn as uniform random variables within the boundary of the grid). 
+- comparison of Design-GRTS and Model-GRTS between two settings with different locations of points, but otherwise the same simulation parameters, should really be done on the same surface realization. One very strange realized response vector could drastically alter the results, especially on the exponentiated log data. In the same way that we compare the four approaches on the same realized data, we should also try to do the same with the locations, if they are of interest. (The realized mean won't be exactly the same but should be close).
+
 __Sample Simulation__
 
 For the following simulation results, we simulated 1040 different gridded populations, each of size 900 (on the unit square) with sample size 150. For the design-based approach, population units were selected via GRTS, the Horvitz-Thompson estimator was used,and the local mean variance was used. For the model-based approach (FPBK), population units were selected via Independent Random Sampling (IRS) and the appropriate prediction and prediction variance formulas were used. 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  3 AUG 2021 15:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  4 AUG 2021 12:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -846,12 +846,12 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip55
 )
-Package hyperref Info: Option `breaklinks' set `true' on input line 52.
+Package hyperref Info: Option `breaklinks' set `true' on input line 53.
 
 Package hyperref Warning: Option `bookmarks' has already been used,
-(hyperref)                setting the option has no effect on input line 52.
+(hyperref)                setting the option has no effect on input line 53.
 
-Package hyperref Info: Option `colorlinks' set `false' on input line 52.
+Package hyperref Info: Option `colorlinks' set `false' on input line 53.
 \cslhangindent=\skip56
 \csllabelwidth=\skip57
 (/usr/local/texlive/2016/texmf-dist/tex/latex/tools/calc.sty
@@ -888,29 +888,29 @@ Package color Info: Driver file: pdftex.def on input line 144.
 ) (./SpatialDVM_Manuscript.aux)
 \openout1 = `SpatialDVM_Manuscript.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 89.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 90.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 90.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 89.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 90.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -939,7 +939,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 89.
+LaTeX Info: Redefining \microtypecontext on input line 90.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -954,7 +954,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 )
 \AtBeginShipoutBox=\box38
-Package hyperref Info: Link coloring OFF on input line 89.
+Package hyperref Info: Link coloring OFF on input line 90.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -962,52 +962,52 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count144
 )
-LaTeX Info: Redefining \ref on input line 89.
-LaTeX Info: Redefining \pageref on input line 89.
-LaTeX Info: Redefining \nameref on input line 89.
+LaTeX Info: Redefining \ref on input line 90.
+LaTeX Info: Redefining \pageref on input line 90.
+LaTeX Info: Redefining \nameref on input line 90.
 (./SpatialDVM_Manuscript.out) (./SpatialDVM_Manuscript.out)
 \@outlinefile=\write4
 \openout4 = `SpatialDVM_Manuscript.out'.
 
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 120.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 121.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 120.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 121.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 120
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 121
 .
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 120
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 121
 .
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 120.
+(Font)              <8> on input line 121.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 120.
+(Font)              <6> on input line 121.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 120.
-LaTeX Font Info:    Try loading font information for U+msa on input line 120.
+(Font)              <5> on input line 121.
+LaTeX Font Info:    Try loading font information for U+msa on input line 121.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 120.
+LaTeX Font Info:    Try loading font information for U+msb on input line 121.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 120.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 121.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1016,7 +1016,7 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 120.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 121.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1026,10 +1026,10 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 120.
+(Font)              <10> on input line 121.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 120.
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 130.
+(Font)              <7> on input line 121.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 131.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1046,47 +1046,93 @@ File: SpatialDVM_Manuscript_files/figure-latex/fig1-1.pdf Graphic file (type pd
 f)
 <use SpatialDVM_Manuscript_files/figure-latex/fig1-1.pdf>
 Package pdftex.def Info: SpatialDVM_Manuscript_files/figure-latex/fig1-1.pdf us
-ed on input line 236.
+ed on input line 237.
 (pdftex.def)             Requested size: 345.0pt x 234.81915pt.
 [3 <./SpatialDVM_Manuscript_files/figure-latex/fig1-1.pdf>] [4]
-LaTeX Font Info:    Try loading font information for U+bbm on input line 370.
+LaTeX Font Info:    Try loading font information for U+bbm on input line 371.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 ) [5]
+<SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-3-1.pdf, id=121, 453.69
+5pt x 315.1775pt>
+File: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-3-1.pdf Graphic fi
+le (type pdf)
+<use SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-3-1.pdf>
+Package pdftex.def Info: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk
+-3-1.pdf used on input line 410.
+(pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
 
-LaTeX Warning: Reference `tab:sim_one' on page 6 undefined on input line 416.
+Overfull \hbox (123.6939pt too wide) in paragraph at lines 410--411
+[][] 
+ []
 
-[6]
-<SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf, id=130, 437.635pt x 23
+[6 <./SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-3-1.pdf>]
+<SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf, id=135, 463.73
+25pt x 316.18124pt>
+File: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf Graphic fi
+le (type pdf)
+<use SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf>
+Package pdftex.def Info: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk
+-4-1.pdf used on input line 427.
+(pdftex.def)             Requested size: 463.73135pt x 316.18047pt.
+
+Overfull \hbox (133.73135pt too wide) in paragraph at lines 427--428
+[][] 
+ []
+
+
+<SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf, id=136, 453.69
+5pt x 315.1775pt>
+File: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf Graphic fi
+le (type pdf)
+<use SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf>
+Package pdftex.def Info: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk
+-5-1.pdf used on input line 444.
+(pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
+
+Overfull \hbox (123.6939pt too wide) in paragraph at lines 444--445
+[][] 
+ []
+
+[7 <./SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf>] [8 <./Sp
+atialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf>]
+
+LaTeX Warning: Reference `tab:sim_one' on page 9 undefined on input line 509.
+
+[9]
+<SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf, id=175, 437.635pt x 23
 8.8925pt>
 File: SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf Graphic file (type
  pdf)
 <use SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf>
 Package pdftex.def Info: SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf
- used on input line 469.
+ used on input line 562.
 (pdftex.def)             Requested size: 345.0pt x 188.32932pt.
-[7 <./SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf>] [8] [9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 690.
-[10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 690.
+
+Overfull \vbox (204.37083pt too high) has occurred while \output is active []
+
+[10 <./SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf>] [11]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 783.
+[12]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 783.
 (./SpatialDVM_Manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 690.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 690.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 783.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 783.
 Package rerunfilecheck Info: File `SpatialDVM_Manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: CE89771E610DB490AA0E47E57BC35B22;1436.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 690.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 783.
  ) 
 Here is how much of TeX's memory you used:
- 13176 strings out of 493014
- 189682 string characters out of 6133351
- 289018 words of memory out of 5000000
- 16297 multiletter control sequences out of 15000+600000
- 88755 words of font info for 129 fonts, out of 8000000 for 9000
+ 13201 strings out of 493014
+ 190624 string characters out of 6133351
+ 289022 words of memory out of 5000000
+ 16309 multiletter control sequences out of 15000+600000
+ 88921 words of font info for 131 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,10n,38p,446b,448s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,10n,38p,446b,443s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc} </Users/hig
 hamm/Library/texlive/2016/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk>{/us
 r/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/te
@@ -1110,10 +1156,10 @@ blic/lm/lmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lm
 sy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></u
 sr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/t
 exlive/2016/texmf-dist/fonts/type1/public/lm/lmtt8.pfb>
-Output written on SpatialDVM_Manuscript.pdf (10 pages, 414766 bytes).
+Output written on SpatialDVM_Manuscript.pdf (12 pages, 440183 bytes).
 PDF statistics:
- 293 PDF objects out of 1000 (max. 8388607)
- 247 compressed objects within 3 object streams
- 78 named destinations out of 1000 (max. 500000)
- 22107 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 333 PDF objects out of 1000 (max. 8388607)
+ 276 compressed objects within 3 object streams
+ 84 named destinations out of 1000 (max. 500000)
+ 22122 words of extra memory for PDF output out of 24883 (max. 10000000)
 
