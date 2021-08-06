@@ -246,6 +246,10 @@ dep_only <- combo_data_grts %>% filter(error_dep == "deperr")
 dep_long <- dep_only %>%
   pivot_wider(names_from = approach, values_from = rmspe, sim) %>%
   mutate(perc = 100 * (`Design GRTS` - `Model GRTS`) / `Model GRTS`)
+
+dep_long_abs <- dep_only %>%
+  pivot_wider(names_from = approach, values_from = medae, sim) %>%
+  mutate(perc = 100 * (`Design GRTS` - `Model GRTS`) / `Model GRTS`)
 ```
 
 Major Points from August 3 Simulations:
@@ -261,6 +265,12 @@ ggplot(data = combo_data, aes(x = sim, y = rmspe, colour = approach)) +
 2. We will now focus in a bit more on comparing Design-GRTS to Model-GRTS, the two best approaches for any reasonable sample size. In the independent error settings, the two approaches perform very similarly, so those results are omitted in the following graph. In the dependent error settings, using rmspe as the performance criterion, Model-GRTS outperforms Design-GRTS in 12 of the 18 settings, the two approaches perform very similarly in 3 settings, and Design-GRTS outperforms Model-GRTS in 3 settings.
 
 ```{r}
+ggplot(data = dep_long_abs, aes(x = fct_reorder(sim, perc), y = perc)) +
+  geom_point() +
+  coord_flip() +
+  labs(y = "Percent Change in medae (Design - Model) / Model",
+       caption = "Percent > 0 means Model has better rmspe")
+
 ggplot(data = dep_long, aes(x = fct_reorder(sim, perc), y = perc)) +
   geom_point() +
   coord_flip() +
@@ -271,7 +281,7 @@ ggplot(data = dep_long, aes(x = fct_reorder(sim, perc), y = perc)) +
 3. Focusing in on the three settings where Design-GRTS outperforms Model-GRTS, we see that, in two of the settings, the log-normal response has a large variance, corresponding to a large right-skew after exponentiation. All three settings have sites in random locations. However, in only one of these settings would we recommend actually using Design-GRTS. In the other two settings, the data are sufficiently skewed that a practitioner should not use either approach, though it is "safer" to use Design-GRTS.
 
 ```{r}
-design_better <- dep_long %>% filter(perc < -5)
+design_better <- dep_long %>% dplyr::filter(perc < -5)
 design_better_full <- inner_join(combo_data_grts, design_better, by = c("sim"))
 ggplot(data = design_better_full, aes(x = sim, y = coverage, colour = approach)) +
   geom_point() +
