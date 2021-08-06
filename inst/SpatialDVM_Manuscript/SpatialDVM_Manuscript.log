@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  4 AUG 2021 12:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  6 AUG 2021 11:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1076,60 +1076,74 @@ Package pdftex.def Info: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk
 -4-1.pdf used on input line 427.
 (pdftex.def)             Requested size: 463.73135pt x 316.18047pt.
 
-Overfull \hbox (133.73135pt too wide) in paragraph at lines 427--428
-[][] 
+<SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-2.pdf, id=136, 463.73
+25pt x 316.18124pt>
+File: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-2.pdf Graphic fi
+le (type pdf)
+<use SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-2.pdf>
+Package pdftex.def Info: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk
+-4-2.pdf used on input line 428.
+(pdftex.def)             Requested size: 463.73135pt x 316.18047pt.
+
+Overfull \hbox (133.73135pt too wide) in paragraph at lines 427--429
+[][]
  []
 
 
-<SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf, id=136, 453.69
+Overfull \hbox (118.73135pt too wide) in paragraph at lines 427--429
+[] 
+ []
+
+[7 <./SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf>]
+<SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf, id=150, 453.69
 5pt x 315.1775pt>
 File: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf Graphic fi
 le (type pdf)
 <use SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk
--5-1.pdf used on input line 444.
+-5-1.pdf used on input line 445.
 (pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
 
-Overfull \hbox (123.6939pt too wide) in paragraph at lines 444--445
+Overfull \hbox (123.6939pt too wide) in paragraph at lines 445--446
 [][] 
  []
 
-[7 <./SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf>] [8 <./Sp
+[8 <./SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-2.pdf>] [9 <./Sp
 atialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf>]
 
-LaTeX Warning: Reference `tab:sim_one' on page 9 undefined on input line 509.
+LaTeX Warning: Reference `tab:sim_one' on page 10 undefined on input line 510.
 
-[9]
-<SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf, id=175, 437.635pt x 23
+[10]
+<SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf, id=187, 437.635pt x 23
 8.8925pt>
 File: SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf Graphic file (type
  pdf)
 <use SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf>
 Package pdftex.def Info: SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf
- used on input line 562.
+ used on input line 563.
 (pdftex.def)             Requested size: 345.0pt x 188.32932pt.
 
 Overfull \vbox (204.37083pt too high) has occurred while \output is active []
 
-[10 <./SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf>] [11]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 783.
-[12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 783.
+[11 <./SpatialDVM_Manuscript_files/figure-latex/figdata-1.pdf>] [12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 784.
+[13]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 784.
 (./SpatialDVM_Manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 783.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 783.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 784.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 784.
 Package rerunfilecheck Info: File `SpatialDVM_Manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: CE89771E610DB490AA0E47E57BC35B22;1436.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 783.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 784.
  ) 
 Here is how much of TeX's memory you used:
- 13201 strings out of 493014
- 190624 string characters out of 6133351
- 289022 words of memory out of 5000000
- 16309 multiletter control sequences out of 15000+600000
+ 13207 strings out of 493014
+ 190919 string characters out of 6133351
+ 289024 words of memory out of 5000000
+ 16313 multiletter control sequences out of 15000+600000
  88921 words of font info for 131 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,10n,38p,446b,443s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1156,10 +1170,10 @@ blic/lm/lmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lm
 sy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></u
 sr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/t
 exlive/2016/texmf-dist/fonts/type1/public/lm/lmtt8.pfb>
-Output written on SpatialDVM_Manuscript.pdf (12 pages, 440183 bytes).
+Output written on SpatialDVM_Manuscript.pdf (13 pages, 445695 bytes).
 PDF statistics:
- 333 PDF objects out of 1000 (max. 8388607)
- 276 compressed objects within 3 object streams
- 84 named destinations out of 1000 (max. 500000)
- 22122 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 347 PDF objects out of 1000 (max. 8388607)
+ 286 compressed objects within 3 object streams
+ 85 named destinations out of 1000 (max. 500000)
+ 22127 words of extra memory for PDF output out of 24883 (max. 10000000)
 
