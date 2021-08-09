@@ -233,11 +233,20 @@ library(tidyverse)
 files <- list.files(path = here("inst", "output"), pattern = "*.csv",
                     full.names = TRUE)
 
+# mike chunk
+# combo_data <- purrr::map_df(files,
+#                             ~read_csv(.x) %>% mutate(filename = .x)) %>%
+#   separate(filename, into = c("junk", "junk2", "error_dep", "dist", "n", "location"),
+#            sep = "_") %>%
+#   select(-junk, -junk2)
+
+# matt chunk
 combo_data <- purrr::map_df(files,
                             ~read_csv(.x) %>% mutate(filename = .x)) %>%
   separate(filename, into = c("junk", "error_dep", "dist", "n", "location"),
            sep = "_") %>%
   select(-junk)
+
 combo_data <- combo_data %>% mutate(sim = interaction(error_dep, dist, n, location))
 
 combo_data_grts <- combo_data %>% filter(approach %in% c("Design GRTS", "Model GRTS"))
@@ -289,7 +298,20 @@ ggplot(data = design_better_full, aes(x = sim, y = coverage, colour = approach))
   geom_hline(aes(yintercept = 0.95), alpha = 0.5)
 ```
 
-4. Take-home messages
+4. Coverage 
+
+For Gaussian errors, coverage for all approaches tended to be near 0.95. There was less between-approach deviation in coverages for random locations compared to grid locations. Generally, the larger the skew, the worse the coverage,and the larger the sample size, the better the coverage. Design GRTS (local neighborhood variance) tended to slightly undercover, a result Tony was familiar with.
+
+```{r}
+ggplot(data = combo_data, aes(x = sim, y = coverage, colour = approach)) +
+  geom_hline(yintercept = 0.95) +
+  geom_point() +
+  coord_flip()
+```
+
+
+
+5. Take-home messages
 
 - In terms of rmspe, a model-based analysis on a GRTS design yields an rmspe similar to or lower than a design-based analysis on a GRTS design, as long as the response variable is not "too skewed." 
 - If the response variable is very skewed, then neither analysis is appropriate, but, the design-based analysis is quicker. 
@@ -309,22 +331,6 @@ colnames(sim_one) <- c("Approach", "Bias", "RMSE", "MedAE", "Coverage", "PClose"
 sim_one_table <- xtable(sim_one, digits = 4, caption = "Approach, mean bias (Bias), root-mean-squared error (RMSE), median absolute error (MedAE), 95 percent interval coverage (Coverage), proportion of times the approach was closer to the true value (PClose), and median interval length (MedIL)", type = "latex", latex.environments = "center", label = "tab:sim_one")
 print(sim_one_table, include.rownames = FALSE, comment = FALSE)
 ```
-
-__Base Simulations__
-
-* both good: correctly specified model with high correlation (we did this in Table \ref{tab:sim_one})
-* break model: highly non-normal errors with small sample size
-* break design: small area estimation
-
-__Simulation Discussion Questions__
-
-* model-based: how should sample be drawn? should locations be fixed?
-* change n or sampling fraction?
-
-__Other Base Settings?__
-
-* both good?: misspecified covariance model with high correlation
-* break both? non-gaussian areas with smaller sample size
 
 ## Software
 
@@ -544,6 +550,10 @@ Table \ref{tab:appliedtab} shows the application of a design-based analysis on a
 But, we do note a couple of patterns. The design-based IRS analysis shows the largest standard error: a likely reason is that this is the only approach that does not use the spatial correlation in mercury concentration across the contiguous United States. We also see that, for the samples drawn, the both analyses with the GRTS sampling design have a lower standard error than the analyses with the IRS sampling design. We would expect this to be the case for most samples because mercury concentration exhibits spatial correlation so a spatially balanced sample should usually yield a lower standard error. If it is acceptable to have an interval for mean mercury concentration of about 25 ng / g and if we ignore the other variables that the EPA collects information on in these NLA surveys, then the EPA could consider sampling just 50 lakes to save time and money. 
 
 # Discussion {#sec:discussion}
+
+* Pros of Design-Based (items we are not exploring): computationally efficient, few assumptions, more naturally handles binary data, 
+
+* Pros of Model-Based (items we are not exploring): covariate inference, more efficient small-area estimation, model selection?
 
 # References {#references .unnumbered}
 

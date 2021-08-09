@@ -57,31 +57,6 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 
 % Pandoc citation processing
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-% for Pandoc 2.8 to 2.10.1
-\newenvironment{cslreferences}%
-  {}%
-  {\par}
-% For Pandoc 2.11+
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Pandoc header
 
@@ -90,8 +65,8 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{A comparison of design-based and model-based approaches for
-spatial data.}
+  \title{A comparison of design-based and model-based approaches for spatial
+data.}
     \author[USEPA]{In alphabetical order Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
     \author[STLAW]{Matt Higham\corref{1}}
@@ -102,16 +77,14 @@ spatial data.}
   
     \author[NOAA]{Jay M. Ver Hoef}
   
-      \address[USEPA]{United States Environmental Protection Agency, 200
-SW 35th St, Corvallis, Oregon, 97333}
-    \address[STLAW]{Saint Lawrence University Department of Math,
-Computer Science, and Statistics, 23 Romoda Drive, Canton, New York,
-13617}
-    \address[OSU]{Oregon State University Department of Statistics, 239
-Weniger Hall, Corvallis, Oregon, 97331}
-    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science
-Center, National Oceanic and Atmospheric Administration, Seattle,
-Washington, 98115}
+      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
+Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Math, Computer Science, and
+Statistics, 23 Romoda Drive, Canton, New York, 13617}
+    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
+Corvallis, Oregon, 97331}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
+Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
@@ -164,12 +137,12 @@ spatially correlated data. Thereafter, several comparisons between
 design-based and model-based for spatial data have been considered, but
 they tend to compare design-based approaches that ignore spatial
 locations to model-based approaches (Brus and De Gruijter, 1997; Ver
-Hoef, 2002; Ver Hoef, 2008). Cooper (2006) review the two approaches in
-an ecological context before introducing a ``model-assisted'' variance
+Hoef, 2002, 2008). Cooper (2006) review the two approaches in an
+ecological context before introducing a ``model-assisted'' variance
 estimator that combines aspects from each approach. In addition to
 Cooper (2006), there has been substantial research and development into
-estimators that use both design and model-based principles (see e.g.
-Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
+estimators that use both design and model-based principles (see
+e.g.~Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
 Bayesian approach, and Sterba (2009)). More recent overviews include
 Brus (2020) and Wang et al. (2012), but no numerical comparison has been
 made between design-based approaches that incorporate spatial locations
@@ -449,6 +422,23 @@ Major Points from August 3 Simulations:
 \setcounter{enumi}{3}
 \tightlist
 \item
+  Coverage
+\end{enumerate}
+
+For Gaussian errors, coverage for all approaches tended to be near 0.95.
+There was less between-approach deviation in coverages for random
+locations compared to grid locations. Generally, the larger the skew,
+the worse the coverage,and the larger the sample size, the better the
+coverage. Design GRTS (local neighborhood variance) tended to slightly
+undercover, a result Tony was familiar with.
+
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
   Take-home messages
 \end{enumerate}
 
@@ -501,39 +491,6 @@ a nugget of 0.1. For model-based, we assumed the correct form of the
 covariance function (exponential), but estimated the spatial parameters
 with REML.
 
-\textbf{Base Simulations}
-
-\begin{itemize}
-\tightlist
-\item
-  both good: correctly specified model with high correlation (we did
-  this in Table \ref{tab:sim_one})
-\item
-  break model: highly non-normal errors with small sample size
-\item
-  break design: small area estimation
-\end{itemize}
-
-\textbf{Simulation Discussion Questions}
-
-\begin{itemize}
-\tightlist
-\item
-  model-based: how should sample be drawn? should locations be fixed?
-\item
-  change n or sampling fraction?
-\end{itemize}
-
-\textbf{Other Base Settings?}
-
-\begin{itemize}
-\tightlist
-\item
-  both good?: misspecified covariance model with high correlation
-\item
-  break both? non-gaussian areas with smaller sample size
-\end{itemize}
-
 \hypertarget{software}{%
 \subsection{Software}\label{software}}
 
@@ -577,17 +534,19 @@ population, we know that the realized mean mercury concentration is
 and model-based approaches to the NLA data set on mercury
 concentration.}\tabularnewline
 \toprule
-Approach & Realized Mean & Estimate & SE & 95\% LB & 95\% UB \\
+Approach & Realized Mean & Estimate & SE & 95\% LB & 95\%
+UB\tabularnewline
 \midrule
 \endfirsthead
 \toprule
-Approach & Realized Mean & Estimate & SE & 95\% LB & 95\% UB \\
+Approach & Realized Mean & Estimate & SE & 95\% LB & 95\%
+UB\tabularnewline
 \midrule
 \endhead
-Design IRS & 103.2 & 112.7 & 8.8 & 95.4 & 129.9 \\
-Model IRS & 103.2 & 110.5 & 7.9 & 95.0 & 125.9 \\
-Design GRTS & 103.2 & 101.8 & 6.1 & 89.8 & 113.7 \\
-Model GRTS & 103.2 & 102.3 & 5.9 & 90.8 & 113.9 \\
+Design IRS & 103.2 & 112.7 & 8.8 & 95.4 & 129.9\tabularnewline
+Model IRS & 103.2 & 110.5 & 7.9 & 95.0 & 125.9\tabularnewline
+Design GRTS & 103.2 & 101.8 & 6.1 & 89.8 & 113.7\tabularnewline
+Model GRTS & 103.2 & 102.3 & 5.9 & 90.8 & 113.9\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -616,12 +575,20 @@ lakes to save time and money.
 \hypertarget{sec:discussion}{%
 \section{Discussion}\label{sec:discussion}}
 
+\begin{itemize}
+\item
+  Pros of Design-Based (items we are not exploring): computationally
+  efficient, few assumptions, more naturally handles binary data,
+\item
+  Pros of Model-Based (items we are not exploring): covariate inference,
+  more efficient small-area estimation, model selection?
+\end{itemize}
+
 \hypertarget{references}{%
 \section*{References}\label{references}}
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-barabesi2011sampling}{}%
 Barabesi, L., Franceschi, S., 2011. Sampling properties of spatial total
 estimators under tessellation stratified designs. Environmetrics 22,
@@ -656,8 +623,8 @@ inference for finite populations under spatial process settings.
 Environmetrics 31, e2606.
 
 \leavevmode\hypertarget{ref-chiles1999geostatistics}{}%
-Chiles, J.-P., Delfiner, P., 1999. Geostatistics: {Modeling Spatial
-Uncertainty}. {John Wiley \& Sons}, New York.
+Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
+Uncertainty. John Wiley \& Sons, New York.
 
 \leavevmode\hypertarget{ref-cicchitelli2012model}{}%
 Cicchitelli, G., Montanari, G.E., 2012. Model-assisted estimation of a
@@ -766,7 +733,7 @@ wildlife populations. Environmental and Ecological Statistics 15, 3--13.
 
 \leavevmode\hypertarget{ref-ver2013comparison}{}%
 Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
-model to nearest neighbor (k-NN) methods for forestry applications. PloS
+model to nearest neighbor (k-nn) methods for forestry applications. PloS
 one 8, e59129.
 
 \leavevmode\hypertarget{ref-wang2013design}{}%
@@ -778,7 +745,7 @@ implementation. Environmental modelling \& software 40, 280--288.
 Wang, J.-F., Stein, A., Gao, B.-B., Ge, Y., 2012. A review of spatial
 sampling. Spatial Statistics 2, 1--14.
 
-\end{CSLReferences}
-
 
 \end{document}
+
+
