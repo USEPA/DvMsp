@@ -365,6 +365,42 @@ setting.
 \hypertarget{sec:numstudy}{%
 \section{Numerical Study}\label{sec:numstudy}}
 
+There were several variables to alter in the simulations, and the names
+of the scenarios in future plots mirror these variables
+
+\begin{itemize}
+\tightlist
+\item
+  correlation type: dependent errors or independent errors
+\item
+  error type:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    normal: mean 0, variance 2
+  \item
+    lognormal: log scale mean 0, log scale variance 2
+  \item
+    lognormalbig: log scale mean 0, log scale variance 4
+  \end{itemize}
+\item
+  sample sizes: \(n = 10, 50, 150; N = 900\)
+\item
+  layout: gridded vs random population locations
+\end{itemize}
+
+So for example, the \texttt{inderror.normal.n50.randloc} is the
+simulation having independent random errors that are normal, a sample
+size of 50, and random population locations.
+
+In each simulation, a GRTS sample and an IRS sample were selected. Then
+for the GRTS sample, the design-based approach using the local
+neighborhood variance (Design GRTS) and a model-based approach were
+applied (Model GRTS). Then for the IRS sample, the design-based approach
+using the simple random sample variance (Design IRS) and a model-based
+approach were applied (Model IRS).
+
 Major Points from August 3 Simulations:
 
 \begin{enumerate}
