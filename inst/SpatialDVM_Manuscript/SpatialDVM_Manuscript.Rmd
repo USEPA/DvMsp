@@ -248,24 +248,34 @@ files <- list.files(path = here("inst", "output"), pattern = "*.csv",
                     full.names = TRUE)
 
 # mike chunk
+# Mike: see if this works. If so, delete one of the duplicates
 combo_data <- purrr::map_df(files,
                             ~read_csv(.x) %>% mutate(filename = .x)) %>%
-  separate(filename, into = c("junk", "junk2", "error_dep", "dist", "n", "location"),
+  mutate(filetemp = str_extract(filename, pattern = "sim_\\w+")) %>% 
+  separate(filetemp, into = c("junk", "error_dep", "dist", "n", "location"),
            sep = "_") %>%
-  select(-junk, -junk2)
+  select(-junk)
 
-# matt chunk
 # combo_data <- purrr::map_df(files,
 #                             ~read_csv(.x) %>% mutate(filename = .x)) %>%
-#   separate(filename, into = c("junk", "error_dep", "dist", "n", "location"),
+#   separate(filename, into = c("junk", "junk2", "error_dep", "dist", "n", "location"),
 #            sep = "_") %>%
-#   select(-junk)
+#   select(-junk, -junk2)
+
+
+# matt chunk
+combo_data <- purrr::map_df(files,
+                            ~read_csv(.x) %>% mutate(filename = .x)) %>%
+  mutate(filetemp = str_extract(filename, pattern = "sim_\\w+")) %>% 
+  separate(filetemp, into = c("junk", "error_dep", "dist", "n", "location"),
+           sep = "_") %>%
+  select(-junk)
 
 combo_data <- combo_data %>% mutate(sim = interaction(error_dep, dist, n, location))
 
-combo_data_grts <- combo_data %>% filter(approach %in% c("Design GRTS", "Model GRTS"))
+combo_data_grts <- combo_data %>% dplyr::filter(approach %in% c("Design GRTS", "Model GRTS"))
 
-dep_only <- combo_data_grts %>% filter(error_dep == "deperr")
+dep_only <- combo_data_grts %>% dplyr::filter(error_dep == "deperr")
 dep_long <- dep_only %>%
   pivot_wider(names_from = approach, values_from = rmspe, sim) %>%
   mutate(perc = 100 * (`Design GRTS` - `Model GRTS`) / `Model GRTS`)
