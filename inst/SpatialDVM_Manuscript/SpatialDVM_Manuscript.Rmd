@@ -577,7 +577,7 @@ But, we do note a couple of patterns. The design-based IRS analysis shows the la
 
 * Pros of Design-Based (items we are not exploring): computationally efficient, few assumptions, more naturally handles binary data, 
 
-* Pros of Model-Based (items we are not exploring): covariate inference, more efficient small-area estimation, model selection?
+* Pros of Model-Based (items we are not exploring): covariate inference, more efficient small-area estimation, model selection?, estimated spatial parameters to better understand spatial structure, site-by-site predictions/prediction map
 
 # References {#references .unnumbered}
 
