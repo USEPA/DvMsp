@@ -233,37 +233,32 @@ There were several variables to alter in the simulations, and the names of the s
 * correlation type: dependent errors or independent errors
 * error type:
     * normal: mean 0, variance 2
-    * lognormal: log scale mean 0, log scale variance 2
-    * lognormalbig: log scale mean 0, log scale variance 4
+    * lognormal: log scale mean 0, log scale variance 2 (total variance 47)
+    * lognormalbig: log scale mean 0, log scale variance 4 (total variance 2,926)
 * sample sizes: $n = 10, 50, 150; N = 900$
 * layout: gridded vs random population locations
 
 So for example, the `inderror.normal.n50.randloc` is the simulation having independent random errors that are normal, a sample size of 50, and random population locations. 
 
+There were 2000 trials for each simulation. The original response (before exponentiating if applicable) for the dependent error cases was normally distributed with an exponential covariance function with partial sill of 0.9, effective range of $\sqrt{2}$, and a nugget of 0.1. For the independent error cases, the partial sill was 0 and the nugget was 1.
+
 In each simulation, a GRTS sample and an IRS sample were selected. Then for the GRTS sample, the design-based approach using the local neighborhood variance (Design GRTS) and a model-based approach were applied (Model GRTS). Then for the IRS sample, the design-based approach using the simple random sample variance (Design IRS) and a model-based approach were applied (Model IRS).
+
+
+```{r, results = "asis", eval = FALSE}
+sim_one <- read_csv(here("inst", "output", "sim_one", "summ_output.csv"))
+colnames(sim_one) <- c("Approach", "Bias", "RMSE", "MedAE", "Coverage", "PClose", "MedIL")
+sim_one_table <- xtable(sim_one, digits = 4, caption = "Approach, mean bias (Bias), root-mean-squared error (RMSE), median absolute error (MedAE), 95 percent interval coverage (Coverage), proportion of times the approach was closer to the true value (PClose), and median interval length (MedIL)", type = "latex", latex.environments = "center", label = "tab:sim_one")
+print(sim_one_table, include.rownames = FALSE, comment = FALSE)
+```
+
+The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package \texttt{spsurvey} [@dumelle2021spsurvey]. FPBK can be readily performed in `R` with the `sptotal` package [@higham2020sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
 
 ```{r, results = "hide", message = FALSE, warning = FALSE}
 library(tidyverse)
 files <- list.files(path = here("inst", "output"), pattern = "*.csv",
                     full.names = TRUE)
 
-# mike chunk
-# Mike: see if this works. If so, delete one of the duplicates
-combo_data <- purrr::map_df(files,
-                            ~read_csv(.x) %>% mutate(filename = .x)) %>%
-  mutate(filetemp = str_extract(filename, pattern = "sim_\\w+")) %>% 
-  separate(filetemp, into = c("junk", "error_dep", "dist", "n", "location"),
-           sep = "_") %>%
-  select(-junk)
-
-# combo_data <- purrr::map_df(files,
-#                             ~read_csv(.x) %>% mutate(filename = .x)) %>%
-#   separate(filename, into = c("junk", "junk2", "error_dep", "dist", "n", "location"),
-#            sep = "_") %>%
-#   select(-junk, -junk2)
-
-
-# matt chunk
 combo_data <- purrr::map_df(files,
                             ~read_csv(.x) %>% mutate(filename = .x)) %>%
   mutate(filetemp = str_extract(filename, pattern = "sim_\\w+")) %>% 
@@ -338,27 +333,10 @@ ggplot(data = combo_data, aes(x = sim, y = coverage, colour = approach)) +
 5. Take-home messages
 
 - In terms of rmspe, a model-based analysis on a GRTS design yields an rmspe similar to or lower than a design-based analysis on a GRTS design, as long as the response variable is not "too skewed." 
-- If the response variable is very skewed, then neither analysis is appropriate, but, the design-based analysis is quicker. 
+- If the response variable is very skewed, then neither analysis is appropriate, but, the design-based analysis is better. 
 - a spatially balanced GRTS sample outperforms IRS in nearly all dependent error settings, as expected.
 - methods that use spatial correlation generally perform better on random location points than they do on gridded points. This makes some intuitive sense because (1) on average, the minimum distance between an unobserved point and its nearest observed neighbor should be lower for random points and (2) the span of the study area is maximized for a grid based on the way that we set up the simulations (with the random points being drawn as uniform random variables within the boundary of the grid). 
 - comparison of Design-GRTS and Model-GRTS between two settings with different locations of points, but otherwise the same simulation parameters, should really be done on the same surface realization. One very strange realized response vector could drastically alter the results, especially on the exponentiated log data. In the same way that we compare the four approaches on the same realized data, we should also try to do the same with the locations, if they are of interest. (The realized mean won't be exactly the same but should be close).
-
-__Sample Simulation__
-
-For the following simulation results, we simulated 1040 different gridded populations, each of size 900 (on the unit square) with sample size 150. For the design-based approach, population units were selected via GRTS, the Horvitz-Thompson estimator was used,and the local mean variance was used. For the model-based approach (FPBK), population units were selected via Independent Random Sampling (IRS) and the appropriate prediction and prediction variance formulas were used. 
-
-The response was normally distributed with an exponential covariance function with partial sill of 0.9, effective range of $\sqrt{2}$, and a nugget of 0.1. For model-based, we assumed the correct form of the covariance function (exponential), but estimated the spatial parameters with REML.
-
-```{r, results = "asis", eval = FALSE}
-sim_one <- read_csv(here("inst", "output", "sim_one", "summ_output.csv"))
-colnames(sim_one) <- c("Approach", "Bias", "RMSE", "MedAE", "Coverage", "PClose", "MedIL")
-sim_one_table <- xtable(sim_one, digits = 4, caption = "Approach, mean bias (Bias), root-mean-squared error (RMSE), median absolute error (MedAE), 95 percent interval coverage (Coverage), proportion of times the approach was closer to the true value (PClose), and median interval length (MedIL)", type = "latex", latex.environments = "center", label = "tab:sim_one")
-print(sim_one_table, include.rownames = FALSE, comment = FALSE)
-```
-
-## Software
-
-The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package \texttt{spsurvey} [@dumelle2021spsurvey]. FPBK can be readily performed in `R` with the `sptotal` package [@higham2020sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
 
 # Application
 
