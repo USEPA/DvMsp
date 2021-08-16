@@ -1,12 +1,14 @@
 # write results?
-write_out <- FALSE
+write_out <- TRUE
 
 # source functions for now
 source("R/sim_pop.R")
-source("R/sim_one.R")
+source("R/sim_trial.R")
+
 
 # parallel
-n_trials <- 16 * 65 #(1040)
+n_trials <- 2000
+total_var <- 4
 seed <- seq_len(n_trials)
 library(parallel) # load parallel
 library(purrr) # load purrr
@@ -16,19 +18,30 @@ clusterExport(cluster, varlist = c("sim_pop", "covmx_exp"))
 clusterEvalQ(cluster, library(spsurvey)) # export spsurvey to cluster
 clusterEvalQ(cluster, library(sptotal)) # export sptotal to cluster
 clusterEvalQ(cluster, library(dplyr)) # export sptotal to cluster
-sim1_output <- parLapply(cluster, seed, safely(sim_one), N = 30^2, n = 150, psill = 0.9, nugget = 0.1, erange = sqrt(2)) # could initially use safely(sim1)
+sim_output <- parLapply(
+  cluster, # the cluster
+  seed, # some seeds
+  safely(sim_trial), # see if any errors
+  N = 30^2, # pop size
+  n = 50, # sample size
+  psill = total_var * 0.9, # partial sill
+  nugget = total_var * 0.1, # nugget
+  erange = sqrt(4), # effective range
+  gridded = TRUE, # grid (TRUE) or random (FALSE) both in [0, 1] x [0,1]
+  resptype = "lognormal" # normal response
+)
 stopCluster(cluster) # stop cluster
 
 # model summaries
 library(dplyr)
 
 # check errors
-map(sim1_output, "error") %>%
+map(sim_output, "error") %>%
   bind_rows() %>%
   nrow()
 
 # do summaries
-safe_output <- map(sim1_output, "result") %>%
+safe_output <- map(sim_output, "result") %>%
   bind_rows()
 
 # write output
@@ -57,7 +70,7 @@ summ_output <- all_output %>%
 
 if (write_out) {
   library(readr)
-  write_csv(all_output, "inst/output/sim_one/all_output.csv")
-  write_csv(summ_output, "inst/output/sim_one/summ_output.csv")
+  # write_csv(all_output, "inst/output/sim_one/all_output.csv")
+  write_csv(summ_output, "inst/output/sim_deperr_lognormalbig_n50_gridloc.csv")
 }
 

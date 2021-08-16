@@ -1,0 +1,25 @@
+---
+title: "To Do List"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Introduction and Background:
+
+* consider re-wording the model-based use of the word "parameter" to make the parameter generating the process distinct from using "parameter" as, for example, the realized mean (which we treat as fixed for one particular realization in the finite population setting).
+
+Simulations:
+
+* put in IRS as base-line sampling setting.
+* add FPBK as traditional IRS analysis as methods to analyze SRS sample.
+* add FPBK and traditional IRS analysis as additional methods to analyze GRTS sample.
+* add GRTS with 10% nugget sites as additional sampling setting? If so, add FPBK to analyze this sample.
+
+* no correlation - normal errors
+* strong correlation - normal errors
+* no correlation - non-normal errors
+* strong correlation - log normal
+

@@ -34,6 +34,8 @@
 % use microtype if available
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 \bibliographystyle{elsarticle-harv}
+\usepackage{longtable}
+\usepackage{graphicx}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -363,71 +365,50 @@ setting.
 \hypertarget{sec:numstudy}{%
 \section{Numerical Study}\label{sec:numstudy}}
 
-\textbf{Sample Simulation}
-
-For the following simulation results, we simulated 1040 different
-gridded populations, each of size 900 (on the unit square) with sample
-size 150. For the design-based approach, population units were selected
-via GRTS, the Horvitz-Thompson estimator was used,and the local mean
-variance was used. For the model-based approach (FPBK), population units
-were selected via Independent Random Sampling (IRS) and the appropriate
-prediction and prediction variance formulas were used.
-
-The response was normally distributed with an exponential covariance
-function with partial sill of 0.9, effective range of \(\sqrt{2}\), and
-a nugget of 0.1. For model-based, we assumed the correct form of the
-covariance function (exponential), but estimated the spatial parameters
-with REML.
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{lrrrrrr}
-  \hline
-Approach & Bias & RMSE & MedAE & Coverage & PClose & MedIL \\ 
-  \hline
-Design & 0.0003 & 0.0353 & 0.0251 & 0.9461 & 0.4889 & 0.1362 \\ 
-  Model & -0.0001 & 0.0362 & 0.0253 & 0.9480 & 0.5111 & 0.1430 \\ 
-   \hline
-\end{tabular}
-\caption{Approach, mean bias (Bias), root-mean-squared error (RMSE), median absolute error (MedAE), 95 percent interval coverage (Coverage), proportion of times the approach was closer to the true value (PClose), and median interval length (MedIL)} 
-\label{tab:sim_one}
-\end{table}
-
-\textbf{Base Simulations}
+There were several variables to alter in the simulations, and the names
+of the scenarios in future plots mirror these variables
 
 \begin{itemize}
 \tightlist
 \item
-  both good: correctly specified model with high correlation (we did
-  this in Table \ref{tab:sim_one})
+  correlation type: dependent errors or independent errors
 \item
-  break model: highly non-normal errors with small sample size
+  error type:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    normal: mean 0, variance 2
+  \item
+    lognormal: log scale mean 0, log scale variance 2 (total variance
+    47)
+  \item
+    lognormalbig: log scale mean 0, log scale variance 4 (total variance
+    2,926)
+  \end{itemize}
 \item
-  break design: small area estimation
+  sample sizes: \(n = 10, 50, 150; N = 900\)
+\item
+  layout: gridded vs random population locations
 \end{itemize}
 
-\textbf{Simulation Discussion Questions}
+So for example, the \texttt{inderror.normal.n50.randloc} is the
+simulation having independent random errors that are normal, a sample
+size of 50, and random population locations.
 
-\begin{itemize}
-\tightlist
-\item
-  model-based: how should sample be drawn? should locations be fixed?
-\item
-  change n or sampling fraction?
-\end{itemize}
+There were 2000 trials for each simulation. The original response
+(before exponentiating if applicable) for the dependent error cases was
+normally distributed with an exponential covariance function with
+partial sill of 0.9, effective range of \(\sqrt{2}\), and a nugget of
+0.1. For the independent error cases, the partial sill was 0 and the
+nugget was 1.
 
-\textbf{Other Base Settings?}
-
-\begin{itemize}
-\tightlist
-\item
-  both good?: misspecified covariance model with high correlation
-\item
-  break both? non-gaussian areas with smaller sample size
-\end{itemize}
-
-\hypertarget{software}{%
-\subsection{Software}\label{software}}
+In each simulation, a GRTS sample and an IRS sample were selected. Then
+for the GRTS sample, the design-based approach using the local
+neighborhood variance (Design GRTS) and a model-based approach were
+applied (Model GRTS). Then for the IRS sample, the design-based approach
+using the simple random sample variance (Design IRS) and a model-based
+approach were applied (Model IRS).
 
 The GRTS algorithm and the local neighborhood variance estimator are
 available in the \textbf{\textsf{R}} package \texttt{spsurvey} (Dumelle
@@ -436,23 +417,200 @@ et al., 2021). FPBK can be readily performed in \texttt{R} with the
 for both the simulation analysis and the application, estimating
 parameters with Restricted Maximum Likelihood (REML).
 
-\hypertarget{applied-example}{%
-\subsection{Applied Example}\label{applied-example}}
+Major Points from August 3 Simulations:
 
-Potential Data Sets:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In most of the dependent error simulation settings, either all four
+  approahces (IRS-Design, IRS-Model, GRTS-Design, and GRTS-Model)
+  perform equally or GRTS-Design and GRTS-Model outperform IRS-Design
+  and IRS-Model. Exceptions to this are a couple of the settings with
+  very small sample sizes (n = 10), in which the IRS does better than
+  GRTS. In the independent error settings, it usually doesn't matter
+  much which approach is used, which makes sense.
+\end{enumerate}
+
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  We will now focus in a bit more on comparing Design-GRTS to
+  Model-GRTS, the two best approaches for any reasonable sample size. In
+  the independent error settings, the two approaches perform very
+  similarly, so those results are omitted in the following graph. In the
+  dependent error settings, using rmspe as the performance criterion,
+  Model-GRTS outperforms Design-GRTS in 12 of the 18 settings, the two
+  approaches perform very similarly in 3 settings, and Design-GRTS
+  outperforms Model-GRTS in 3 settings.
+\end{enumerate}
+
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-2.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Focusing in on the three settings where Design-GRTS outperforms
+  Model-GRTS, we see that, in two of the settings, the log-normal
+  response has a large variance, corresponding to a large right-skew
+  after exponentiation. All three settings have sites in random
+  locations. However, in only one of these settings would we recommend
+  actually using Design-GRTS. In the other two settings, the data are
+  sufficiently skewed that a practitioner should not use either
+  approach, though it is ``safer'' to use Design-GRTS.
+\end{enumerate}
+
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Coverage
+\end{enumerate}
+
+For Gaussian errors, coverage for all approaches tended to be near 0.95.
+There was less between-approach deviation in coverages for random
+locations compared to grid locations. Generally, the larger the skew,
+the worse the coverage,and the larger the sample size, the better the
+coverage. Design GRTS (local neighborhood variance) tended to slightly
+undercover, a result Tony was familiar with.
+
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Take-home messages
+\end{enumerate}
 
 \begin{itemize}
 \tightlist
 \item
-  National Lakes Assessment
+  In terms of rmspe, a model-based analysis on a GRTS design yields an
+  rmspe similar to or lower than a design-based analysis on a GRTS
+  design, as long as the response variable is not ``too skewed.''
 \item
-  Moose in Alaska
+  If the response variable is very skewed, then neither analysis is
+  appropriate, but, the design-based analysis is better.
 \item
-  Temperature Data from NOAA
+  a spatially balanced GRTS sample outperforms IRS in nearly all
+  dependent error settings, as expected.
+\item
+  methods that use spatial correlation generally perform better on
+  random location points than they do on gridded points. This makes some
+  intuitive sense because (1) on average, the minimum distance between
+  an unobserved point and its nearest observed neighbor should be lower
+  for random points and (2) the span of the study area is maximized for
+  a grid based on the way that we set up the simulations (with the
+  random points being drawn as uniform random variables within the
+  boundary of the grid).
+\item
+  comparison of Design-GRTS and Model-GRTS between two settings with
+  different locations of points, but otherwise the same simulation
+  parameters, should really be done on the same surface realization. One
+  very strange realized response vector could drastically alter the
+  results, especially on the exponentiated log data. In the same way
+  that we compare the four approaches on the same realized data, we
+  should also try to do the same with the locations, if they are of
+  interest. (The realized mean won't be exactly the same but should be
+  close).
 \end{itemize}
+
+\hypertarget{application}{%
+\section{Application}\label{application}}
+
+The Environmental Protection Agency (EPA), states, and tribes
+periodically conduct National Aquatic Research Surveys (NARS) in the
+United States to assess the water quality of various bodies of water. We
+will use the 2012 National Lakes Assessment (NLA), which measures
+various aspects of lake health and quality in lakes in the contiguous
+United States, to obtain an interval for mean mercury concentration.
+Although all lakes in the survey were measured in 2012, there may not
+always be enough time or money to do so. Therefore, we will explore
+whether or not we can still obtain a relatively precise estimate for the
+realized mean mercury concentration if we only take a sample of 100 of
+the 986 lakes.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/figdata-1} \caption{Population distribution of mercury concentration for 986 lakes in the contiguous United States. Thirty-five lakes were dropped from the analysis because they were missing mercury concentration.}\label{fig:figdata}
+\end{figure}
+
+Figure \ref{fig:figdata} shows that mercury concentration is
+right-skewed, with most lakes having a low value of mercury
+concentration but a few having a much higher concentration. Mercury
+concentration exhibits some spatial correlation, with high mercury
+concentrations in lakes in the northeast and north central United
+States. Because we are considering these lakes to be our entire
+population, we know that the realized mean mercury concentration is
+103.03 ng / g.
+
+\begin{longtable}[]{@{}lrrrrr@{}}
+\caption{\label{tab:appliedtab} Table XXX. Application of design-based
+and model-based approaches to the NLA data set on mercury
+concentration.}\tabularnewline
+\toprule
+Approach & Realized Mean & Estimate & SE & 95\% LB & 95\%
+UB\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Approach & Realized Mean & Estimate & SE & 95\% LB & 95\%
+UB\tabularnewline
+\midrule
+\endhead
+Design IRS & 103.2 & 112.7 & 8.8 & 95.4 & 129.9\tabularnewline
+Model IRS & 103.2 & 110.5 & 7.9 & 95.0 & 125.9\tabularnewline
+Design GRTS & 103.2 & 101.8 & 6.1 & 89.8 & 113.7\tabularnewline
+Model GRTS & 103.2 & 102.3 & 5.9 & 90.8 & 113.9\tabularnewline
+\bottomrule
+\end{longtable}
+
+Table \ref{tab:appliedtab} shows the application of a design-based
+analysis on an IRS, a model-based analysis on an IRS, a design-based
+analysis on a GRTS sample, and a model-based analysis on a GRTS sample.
+We see that, for all four analyses, the true realized mean mercury
+concentration is within the bounds of the 95\% intervals. However, we
+should not generalize the results of this particular realization to any
+other data set or even to other potential samples of this data set.
+
+But, we do note a couple of patterns. The design-based IRS analysis
+shows the largest standard error: a likely reason is that this is the
+only approach that does not use the spatial correlation in mercury
+concentration across the contiguous United States. We also see that, for
+the samples drawn, the both analyses with the GRTS sampling design have
+a lower standard error than the analyses with the IRS sampling design.
+We would expect this to be the case for most samples because mercury
+concentration exhibits spatial correlation so a spatially balanced
+sample should usually yield a lower standard error. If it is acceptable
+to have an interval for mean mercury concentration of about 25 ng / g
+and if we ignore the other variables that the EPA collects information
+on in these NLA surveys, then the EPA could consider sampling just 50
+lakes to save time and money.
 
 \hypertarget{sec:discussion}{%
 \section{Discussion}\label{sec:discussion}}
+
+\begin{itemize}
+\item
+  Pros of Design-Based (items we are not exploring): computationally
+  efficient, few assumptions, more naturally handles binary data,
+\item
+  Pros of Model-Based (items we are not exploring): covariate inference,
+  more efficient small-area estimation, model selection?, estimated
+  spatial parameters to better understand spatial structure,
+  site-by-site predictions/prediction map
+\end{itemize}
 
 \hypertarget{references}{%
 \section*{References}\label{references}}

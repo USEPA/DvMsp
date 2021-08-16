@@ -2,7 +2,7 @@
 #'
 #' simulates a spatially correlated response on either a gridded or
 #' random unit square. The resulting data can then be used in
-#' \code{\link{sim_one}()}.
+#' \code{\link{sim_trial}()}.
 #'
 #' @param N is the total number of data points. For \code{gridded = TRUE},
 #' this must be a perfect square.
@@ -13,6 +13,7 @@
 #' @param psill is the partial sill.
 #' @param erange is the effective range.
 #' @param nugget is the nugget.
+#' @param resptype the response type. The default is Gaussian errors.
 #' @param ... further arguments passed to or from other methods.
 #' @return a data frame with \itemize{
 #'   \item \code{x}, a column with the spatial x-coordinates.
@@ -28,7 +29,7 @@
 # need spsurvey and sptotal and dplyr
 sim_pop <- function(N = 100, gridded = TRUE,
                     cortype = "Exponential", psill, erange,
-                    nugget, ...) {
+                    nugget, resptype = "normal", ...) {
 
   # simulating the locations
   if (gridded) {
@@ -51,10 +52,6 @@ sim_pop <- function(N = 100, gridded = TRUE,
   # simulate the population
   ## make distance matrix
   distmx <- as.matrix(stats::dist(data))
-  distmx <- matrix(0, nrow = N, ncol = N)
-  distmx[lower.tri(distmx)] <- stats::dist(as.matrix(data))
-  distmx <- distmx + t(distmx)
-
 
   ## make covariance matrix
   covmx <- switch(cortype,
@@ -62,7 +59,15 @@ sim_pop <- function(N = 100, gridded = TRUE,
                   )
   ## simulate response
   chol_covmx <- chol(covmx)
-  data$response <- as.vector(t(chol_covmx) %*% rnorm(N))
+  response <- as.vector(t(chol_covmx) %*% rnorm(N))
+
+  if (resptype == "normal") {
+    data$response <- response
+  }
+
+  if (resptype == "lognormal") {
+    data$response <- exp(response)
+  }
 
   ## return data
   return(data)
@@ -78,6 +83,7 @@ sim_pop <- function(N = 100, gridded = TRUE,
 #' @param erange is the effective range.
 #' @param nugget is the nugget effect.
 #' @return Covariance Matrix
+#' @export
 
 #' @describeIn covmx_exp Exponential Covariance
 covmx_exp <- function(distmx, psill, erange, nugget) {

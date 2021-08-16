@@ -1,4 +1,8 @@
 # Please Leave Your Notes Here
+<<<<<<< HEAD
+=======
+
+>>>>>>> fbfacd700eb25761bce75fd577e8acf799604932
 Rmd 2: Is the paper restricted to finite populations? if so then change title to
 "a comparison of design-based and model-based approaches for finite population 
 spatial data"
