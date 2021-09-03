@@ -57,6 +57,31 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 
 % Pandoc citation processing
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+% for Pandoc 2.8 to 2.10.1
+\newenvironment{cslreferences}%
+  {}%
+  {\par}
+% For Pandoc 2.11+
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Pandoc header
 
@@ -65,8 +90,8 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{A comparison of design-based and model-based approaches for spatial
-data.}
+  \title{A comparison of design-based and model-based approaches for
+spatial data.}
     \author[USEPA]{In alphabetical order Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
     \author[STLAW]{Matt Higham\corref{1}}
@@ -77,14 +102,16 @@ data.}
   
     \author[NOAA]{Jay M. Ver Hoef}
   
-      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
-Corvallis, Oregon, 97333}
-    \address[STLAW]{Saint Lawrence University Department of Math, Computer Science, and
-Statistics, 23 Romoda Drive, Canton, New York, 13617}
-    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
-Corvallis, Oregon, 97331}
-    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
-Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
+      \address[USEPA]{United States Environmental Protection Agency, 200
+SW 35th St, Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Math,
+Computer Science, and Statistics, 23 Romoda Drive, Canton, New York,
+13617}
+    \address[OSU]{Oregon State University Department of Statistics, 239
+Weniger Hall, Corvallis, Oregon, 97331}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science
+Center, National Oceanic and Atmospheric Administration, Seattle,
+Washington, 98115}
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
@@ -137,16 +164,18 @@ spatially correlated data. Thereafter, several comparisons between
 design-based and model-based for spatial data have been considered, but
 they tend to compare design-based approaches that ignore spatial
 locations to model-based approaches (Brus and De Gruijter, 1997; Ver
-Hoef, 2002, 2008). Cooper (2006) review the two approaches in an
-ecological context before introducing a ``model-assisted'' variance
+Hoef, 2002; Ver Hoef, 2008). Cooper (2006) review the two approaches in
+an ecological context before introducing a ``model-assisted'' variance
 estimator that combines aspects from each approach. In addition to
 Cooper (2006), there has been substantial research and development into
-estimators that use both design and model-based principles (see
-e.g.~Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
+estimators that use both design and model-based principles (see e.g.
+Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
 Bayesian approach, and Sterba (2009)). More recent overviews include
 Brus (2020) and Wang et al. (2012), but no numerical comparison has been
 made between design-based approaches that incorporate spatial locations
 and model-based approaches.
+
+Lisa M.: Add paragraph describing contribution of manuscript.
 
 The rest of this paper is organized as follows. In Section
 \ref{sec:background}, we compare sampling and estimation procedures
@@ -168,7 +197,7 @@ approaches for spatial data.
 \subsection{Comparing Design-Based
 vs.~Model-Based}\label{comparing-design-based-vs.-model-based}}
 
-The design-based approach assumes the data are fixed. Randomness is
+The design-based approach assumes the population is fixed. Randomness is
 incorporated in the selection of population units according to a
 sampling design. A sampling design assigns a positive probability of
 inclusion in the sample (inclusion probability) to each population unit.
@@ -176,7 +205,7 @@ Some examples of commonly used sampling designs include independent
 random sampling (IRS), stratified random sampling, and cluster sampling.
 The goal is to use the sampling design and the sampled data to estimate
 population parameters like means and totals. These population parameters
-are typically assumed to be fixed but unknown.
+are traditionally assumed to be fixed but unknown.
 
 Treating the data as fixed and incorporating randomness through the
 sampling design yields estimators having very few other assumptions.
@@ -196,7 +225,7 @@ population units is the quantity of interest. Instead of
 \emph{estimating} a fixed unknown mean, we are \emph{predicting} the
 value of the mean, a random variable. We know that if we sampled all
 population units, we would have an exact prediction for the mean of our
-one realized process, without any uncertainty. But we are typically not
+one realized process, without any uncertainty. But we are often not
 interested in the true, unknown mean of the underlying process.
 
 Assuming the data is a realization of a specific data-generating process
@@ -207,7 +236,7 @@ precise. Cressie (1993) and Schabenberger and Gotway (2017) provide
 reviews of model-based approaches for spatial data.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/fig1-1} \caption{A comparison of sampling under the design-based and model-based frameworks. In the top row, we have one fixed population, and two random samples. In the bottom row, we have two realizations of the same spatial process sampled at the same locations.}\label{fig:fig1}
+\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/fig1-1} \caption{A comparison of sampling under the design-based and model-based frameworks. Points circled are those that are sampled. In the top row, we have one fixed population, and two random samples. In the bottom row, we have two realizations of the same spatial process sampled at the same locations.}\label{fig:fig1}
 \end{figure}
 
 Description of Figure \ref{fig:fig1} goes here.
@@ -216,9 +245,12 @@ Description of Figure \ref{fig:fig1} goes here.
 \subsection{Spatially Balanced Design and
 Analysis}\label{spatially-balanced-design-and-analysis}}
 
+Lisa M.: Need a more precise definition of ``miniature'' in this
+context, and need an example.
+
 The design-based approach can use spatial locations to obtain spatially
 balanced samples. First we discuss spatial balance with respect to the
-population (Stevens Jr and Olsen, 2004). A sample is spatially balanced
+population (Stevens and Olsen, 2004). A sample is spatially balanced
 with respect to the population if the sampled population units are a
 miniature of the population units. A sample is a miniature of the
 population if the distribution of the sampled population units mirrors
@@ -234,20 +266,21 @@ Spatially balanced samples are useful because they tend to yield
 estimates that have lower variance than estimates constructed from
 sampling designs lacking spatial balance (Barabesi and Franceschi, 2011;
 Benedetti et al., 2017; Grafström and Lundström, 2013; Robertson et al.,
-2013; Stevens Jr and Olsen, 2004; Wang et al., 2013). To quantify
-spatial balance, Stevens Jr and Olsen (2004) proposed loss functions
-based on Voroni polygons. The first spatially balanced sampling
-algorithm that saw widespread use was the Generalized Random
-Tessellation Stratified (Stevens Jr and Olsen, 2004). Since GRTS was
-developed, several other spatially balanced sampling algorithms have
-emerged, including the Local Pivotal Method (Grafström et al., 2012;
-Grafström and Matei, 2018), Spatially Correlated Poisson Sampling
-(Grafström, 2012), Balanced Acceptance Sampling (Robertson et al.,
-2013), Within-Sample-Distance (Benedetti and Piersimoni, 2017), and
-Halton Iterative Partitioning (Robertson et al., 2018). We focus on the
-Generalized Random Tessellation Stratified (GRTS) algorithm to select
-spatially balanced sampling because it has several attractive properties
-detailed by Stevens Jr and Olsen (2004) and Dumelle et al. (2021).
+2013; Stevens and Olsen, 2004; Wang et al., 2013). To quantify spatial
+balance, Stevens and Olsen (2004) proposed loss functions based on
+Voroni polygons. The first spatially balanced sampling algorithm that
+saw widespread use was the Generalized Random Tessellation Stratified
+(Stevens and Olsen, 2004). Since GRTS was developed, several other
+spatially balanced sampling algorithms have emerged, including the Local
+Pivotal Method (Grafström et al., 2012; Grafström and Matei, 2018),
+Spatially Correlated Poisson Sampling (Grafström, 2012), Balanced
+Acceptance Sampling (Robertson et al., 2013), Within-Sample-Distance
+(Benedetti and Piersimoni, 2017), and Halton Iterative Partitioning
+(Robertson et al., 2018). We focus on the Generalized Random
+Tessellation Stratified (GRTS) algorithm to select spatially balanced
+sampling because it has several attractive properties, including Lisa
+M.: List major attractive properties, and detailed by Stevens and Olsen
+(2004) and Dumelle et al. (2021).
 
 The GRTS algorithm is used to sample from finite and infinite
 populations and works by utilizing a mapping between two-dimensional and
@@ -257,8 +290,8 @@ mapped to a one-dimensional line via the hierarchical indexing. The line
 length of each population unit equals its inclusion probability. A
 systematic sample is conducted on the line and these samples are linked
 to a population unit in two-dimensional space, which results in the
-desired sample. Stevens Jr and Olsen (2004) provide and Dumelle et al.
-(2021) provide further details.
+desired sample. Stevens and Olsen (2004) and Dumelle et al. (2021)
+provide further details.
 
 After collecting a sample using the GRTS algorithm, the data are used to
 estimate population parameters. The Horvitz-Thompson estimator (Horvitz
@@ -275,11 +308,11 @@ for \(\hat{\tau}_{ht}\), but they have two drawbacks. First, they rely
 on calculating \(\pi_{ij}\), the probability that population unit \(i\)
 and population unit \(j\) are included in the sample, and this can be
 very difficult to calculate. Second, they ignore the spatial locations
-of the population units. To address these drawbacks, Stevens Jr and
-Olsen (2003) proposed a local neighborhood variance estimator. The local
+of the population units. To address these drawbacks, Stevens and Olsen
+(2003) proposed a local neighborhood variance estimator. The local
 neighborhood variance estimator does not rely on \(\pi_{ij}\), and it
 incorporates spatial locations by assigning higher weights to nearby
-observations. Stevens Jr and Olsen (2003) show this variance estimators
+observations. Stevens and Olsen (2003) show this variance estimators
 tends to reduce the estimated standard error of \(\hat{\tau}\), yielding
 narrower confidence confidence intervals for \(\tau\).
 
@@ -297,12 +330,12 @@ basic principles are summarized below. Let
 be a response variable that can be measured at the \(N\) population
 units and is represented as an \(N \times 1\) vector. Suppose we want to
 predict some linear function of the response variable,
-\(f(\mathbf{z}) = \mathbf{b}^\prime \mathbf{z}\), where \(\mathbf{b}\)
-is a \(1 \times N\) vector of weights. For example, if we want to
-predict the population total across all population units, then we would
-use a vector of 1's for the weights.
+\(f(\mathbf{z}) = \mathbf{b}^\prime \mathbf{z}\), where
+\(\mathbf{b}^\prime\) is a \(1 \times N\) vector of weights. For
+example, if we want to predict the population total across all
+population units, then we would use a vector of 1's for the weights.
 
-Typically, however, we only have a sample of the \(N\) population units.
+However, we often only have a sample of the \(N\) population units.
 Denoting quantities that are part of the sampled population units with a
 subscript \emph{s} and quantities that are part of the unsampled
 population units with a subscript \emph{u},
@@ -330,13 +363,13 @@ sampled and unsampled population units, respectively. Denoting
 \(\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'\), we assume
 the expectation of \(\bm{\delta}\) equals \(\mathbf{0}\).
 
-We also typically assume that there is spatial correlation in
-\(\bm{\delta}\), which can be modeled using a covariance function. It is
-common to assume the covariance function is second-order stationary and
-isotropic (Cressie, 1993), and that the spatial covariance decreases as
-the separation between population units increases. Many spatial
-covariance functions exist, but the primary function we use throughout
-the simulations and applications in this manuscript is the exponential
+We also assume that there is spatial correlation in \(\bm{\delta}\),
+which can be modeled using a covariance function. It is common to assume
+the covariance function is second-order stationary and isotropic
+(Cressie, 1993), and that the spatial covariance decreases as the
+separation between population units increases. Many spatial covariance
+functions exist, but the primary function we use throughout the
+simulations and applications in this manuscript is the exponential
 covariance function: the \(i,j^{th}\) entry for
 \(\mathop{\mathrm{{cov}}}(\bm{\delta})\) is \mbox{}
 \begin{align}\label{equation:expcov}
@@ -344,10 +377,15 @@ covariance function: the \(i,j^{th}\) entry for
 \end{align} where \(h_{i,j}\) is the distance between population units
 \(i\) and \(j\), and \(\bm{\theta}\) is a vector of spatial covariance
 parameters of the partial sill \(\theta_1\), the range \(\theta_2\), and
-the nugget \(\theta_3\), and \(\mathbbm{1}\) is an indicator function.
-However, any spatial covariance function could be used in the place of
-the exponential, including functions that allow for non-stationarity or
+the nugget \(\theta_3\); and, \(\mathbbm{1}\) is equal to 1 when
+distance \(h_i,j\) is equal to 0, and equal to 0 otherwise. However, any
+spatial covariance function could be used in the place of the
+exponential, including functions that allow for non-stationarity or
 anisotropy (Chiles and Delfiner, 1999, pp. 80--93).
+
+Lisa M. : Include formulas. Perhaps, but, these are very heavy in
+notation and matrix algebra. We might consider, however, adding the
+formulas to an Appendix.
 
 With the above model formulation, the Best Linear Unbiased Predictor
 (BLUP) for \(f(\mathbf{b}'\mathbf{z})\) and its prediction variance can
@@ -360,7 +398,10 @@ k-nearest-neighbors (Fix and Hodges, 1951; Ver Hoef and Temesgen, 2013),
 random forest (Breiman, 2001), Bayesian models (Chan-Golston et al.,
 2020), among others, can also be used to obtain predictions for a mean
 or total from spatially correlated responses in a finite population
-setting.
+setting. We choose to use FPBK because it is faster than a Bayesian
+approach and random forest and because Ver Hoef and Temesgen (2013)
+showed that the method outperforms k-nearest-neighbors in many
+scenarios.
 
 \hypertarget{sec:numstudy}{%
 \section{Numerical Study}\label{sec:numstudy}}
@@ -389,7 +430,8 @@ of the scenarios in future plots mirror these variables
 \item
   sample sizes: \(n = 10, 50, 150; N = 900\)
 \item
-  layout: gridded vs random population locations
+  layout: gridded vs random uniform population locations confined to a 1
+  x 1 unit square
 \end{itemize}
 
 So for example, the \texttt{inderror.normal.n50.randloc} is the
@@ -403,12 +445,23 @@ partial sill of 0.9, effective range of \(\sqrt{2}\), and a nugget of
 0.1. For the independent error cases, the partial sill was 0 and the
 nugget was 1.
 
-In each simulation, a GRTS sample and an IRS sample were selected. Then
-for the GRTS sample, the design-based approach using the local
-neighborhood variance (Design GRTS) and a model-based approach were
-applied (Model GRTS). Then for the IRS sample, the design-based approach
-using the simple random sample variance (Design IRS) and a model-based
-approach were applied (Model IRS).
+Lisa M. Notes: adding an intermediate level of spatial dependency?
+Transfer simulation scenarios to a table Explain what the effective
+range is Fill in the details of what exactly each approach means
+(perhaps a table would be a good way to do this) Reorder the sims in the
+first figure by some criterion. Think about what would be a ``reasonable
+sample size'' instead of 10. Define medae If the data has a large
+right-skew, wouldn't one consider a transformation before the analysis?
+We should address this by stating that the BLUP for the log response
+does not mean that e\^{}logBLUP is the BLUP for the response on the
+original scale.
+
+In each simulated data set, a GRTS sample and an IRS sample were
+selected. Then for the GRTS sample, the design-based approach using the
+local neighborhood variance (Design GRTS) and a model-based approach
+were applied (Model GRTS). Then for the IRS sample, the design-based
+approach using the simple random sample variance (Design IRS) and a
+model-based approach were applied (Model IRS).
 
 The GRTS algorithm and the local neighborhood variance estimator are
 available in the \textbf{\textsf{R}} package \texttt{spsurvey} (Dumelle
@@ -439,14 +492,14 @@ Major Points from August 3 Simulations:
 \setcounter{enumi}{1}
 \tightlist
 \item
-  We will now focus in a bit more on comparing Design-GRTS to
-  Model-GRTS, the two best approaches for any reasonable sample size. In
-  the independent error settings, the two approaches perform very
-  similarly, so those results are omitted in the following graph. In the
-  dependent error settings, using rmspe as the performance criterion,
-  Model-GRTS outperforms Design-GRTS in 12 of the 18 settings, the two
-  approaches perform very similarly in 3 settings, and Design-GRTS
-  outperforms Model-GRTS in 3 settings.
+  We will now focus on comparing Design-GRTS to Model-GRTS, the two best
+  approaches for any reasonable sample size. In the independent error
+  settings, the two approaches perform very similarly, so those results
+  are omitted in the following graph. In the dependent error settings,
+  using rmspe as the performance criterion, Model-GRTS outperforms
+  Design-GRTS in 12 of the 18 settings, the two approaches perform very
+  similarly in 3 settings, and Design-GRTS outperforms Model-GRTS in 3
+  settings.
 \end{enumerate}
 
 \includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf}
@@ -538,9 +591,9 @@ various aspects of lake health and quality in lakes in the contiguous
 United States, to obtain an interval for mean mercury concentration.
 Although all lakes in the survey were measured in 2012, there may not
 always be enough time or money to do so. Therefore, we will explore
-whether or not we can still obtain a relatively precise estimate for the
-realized mean mercury concentration if we only take a sample of 100 of
-the 986 lakes.
+whether or not we can still obtain an adequately precise estimate for
+the realized mean mercury concentration if we only take a sample of 100
+of the 986 lakes.
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/figdata-1} \caption{Population distribution of mercury concentration for 986 lakes in the contiguous United States. Thirty-five lakes were dropped from the analysis because they were missing mercury concentration.}\label{fig:figdata}
@@ -553,26 +606,24 @@ concentration exhibits some spatial correlation, with high mercury
 concentrations in lakes in the northeast and north central United
 States. Because we are considering these lakes to be our entire
 population, we know that the realized mean mercury concentration is
-103.03 ng / g.
+103.2 ng / g.
 
-\begin{longtable}[]{@{}lrrrrr@{}}
-\caption{\label{tab:appliedtab} Table XXX. Application of design-based
-and model-based approaches to the NLA data set on mercury
-concentration.}\tabularnewline
+\begin{longtable}[]{@{}lrrrr@{}}
+\caption{\label{tab:appliedtab} Application of design-based and
+model-based approaches to the NLA data set on mercury concentration. The
+true mean concentration is 103.2 103.2 ng / g}\tabularnewline
 \toprule
-Approach & Realized Mean & Estimate & SE & 95\% LB & 95\%
-UB\tabularnewline
+Approach & Estimate & SE & 95\% LB & 95\% UB \\
 \midrule
 \endfirsthead
 \toprule
-Approach & Realized Mean & Estimate & SE & 95\% LB & 95\%
-UB\tabularnewline
+Approach & Estimate & SE & 95\% LB & 95\% UB \\
 \midrule
 \endhead
-Design IRS & 103.2 & 112.7 & 8.8 & 95.4 & 129.9\tabularnewline
-Model IRS & 103.2 & 110.5 & 7.9 & 95.0 & 125.9\tabularnewline
-Design GRTS & 103.2 & 101.8 & 6.1 & 89.8 & 113.7\tabularnewline
-Model GRTS & 103.2 & 102.3 & 5.9 & 90.8 & 113.9\tabularnewline
+Design IRS & 112.7 & 8.8 & 95.4 & 129.9 \\
+Model IRS & 110.5 & 7.9 & 95.0 & 125.9 \\
+Design GRTS & 101.8 & 6.1 & 89.8 & 113.7 \\
+Model GRTS & 102.3 & 5.9 & 90.8 & 113.9 \\
 \bottomrule
 \end{longtable}
 
@@ -617,6 +668,7 @@ lakes to save time and money.
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-barabesi2011sampling}{}%
 Barabesi, L., Franceschi, S., 2011. Sampling properties of spatial total
 estimators under tessellation stratified designs. Environmetrics 22,
@@ -651,8 +703,8 @@ inference for finite populations under spatial process settings.
 Environmetrics 31, e2606.
 
 \leavevmode\hypertarget{ref-chiles1999geostatistics}{}%
-Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
-Uncertainty. John Wiley \& Sons, New York.
+Chiles, J.-P., Delfiner, P., 1999. Geostatistics: {Modeling Spatial
+Uncertainty}. {John Wiley \& Sons}, New York.
 
 \leavevmode\hypertarget{ref-cicchitelli2012model}{}%
 Cicchitelli, G., Montanari, G.E., 2012. Model-assisted estimation of a
@@ -742,14 +794,13 @@ for inference from samples to populations: From polarization to
 integration. Multivariate behavioral research 44, 711--740.
 
 \leavevmode\hypertarget{ref-stevens2003variance}{}%
-Stevens Jr, D.L., Olsen, A.R., 2003. Variance estimation for spatially
+Stevens, D.L., Olsen, A.R., 2003. Variance estimation for spatially
 balanced samples of environmental resources. Environmetrics 14,
 593--610.
 
 \leavevmode\hypertarget{ref-stevens2004spatially}{}%
-Stevens Jr, D.L., Olsen, A.R., 2004. Spatially balanced sampling of
-natural resources. Journal of the american Statistical association 99,
-262--278.
+Stevens, D.L., Olsen, A.R., 2004. Spatially balanced sampling of natural
+resources. Journal of the american Statistical association 99, 262--278.
 
 \leavevmode\hypertarget{ref-verhoef2002sampling}{}%
 Ver Hoef, J., 2002. Sampling and geostatistics for spatial data.
@@ -761,7 +812,7 @@ wildlife populations. Environmental and Ecological Statistics 15, 3--13.
 
 \leavevmode\hypertarget{ref-ver2013comparison}{}%
 Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
-model to nearest neighbor (k-nn) methods for forestry applications. PloS
+model to nearest neighbor (k-NN) methods for forestry applications. PloS
 one 8, e59129.
 
 \leavevmode\hypertarget{ref-wang2013design}{}%
@@ -773,7 +824,7 @@ implementation. Environmental modelling \& software 40, 280--288.
 Wang, J.-F., Stein, A., Gao, B.-B., Ge, Y., 2012. A review of spatial
 sampling. Spatial Statistics 2, 1--14.
 
+\end{CSLReferences}
+
 
 \end{document}
-
-
