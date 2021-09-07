@@ -154,10 +154,16 @@ assumptions about the underlying process that generated the data. Each
 paradigm has a deep historical context (Sterba, 2009) and its own set of
 general advantages (Hansen et al., 1983).
 
+\textbf{Tony O.}: Should this paragraph address that spatial information
+can be incorporated in the design stage or in the analysis stage (or
+both). In general, it's not clear whether we are referring to site
+selection process or the estimation process
+
 Though the design-based and model-based approaches apply to statistical
 inference in a broad sense, we focus on comparing these approaches for
-spatial data. We define spatial data as variables measured at specific
-geographic locations. De Gruijter and Ter Braak (1990) give an early
+spatial data. We define spatial data as data that incorporates the
+specific locations of the population units into either the design or
+estimation process. De Gruijter and Ter Braak (1990) give an early
 comparison of design-based and model-based approaches for spatial data,
 quashing the belief that design-based approaches could not be used for
 spatially correlated data. Thereafter, several comparisons between
@@ -175,7 +181,7 @@ Brus (2020) and Wang et al. (2012), but no numerical comparison has been
 made between design-based approaches that incorporate spatial locations
 and model-based approaches.
 
-Lisa M.: Add paragraph describing contribution of manuscript.
+\textbf{Lisa M.}: Add paragraph describing contribution of manuscript.
 
 The rest of this paper is organized as follows. In Section
 \ref{sec:background}, we compare sampling and estimation procedures
@@ -201,11 +207,12 @@ The design-based approach assumes the population is fixed. Randomness is
 incorporated in the selection of population units according to a
 sampling design. A sampling design assigns a positive probability of
 inclusion in the sample (inclusion probability) to each population unit.
-Some examples of commonly used sampling designs include independent
-random sampling (IRS), stratified random sampling, and cluster sampling.
-The goal is to use the sampling design and the sampled data to estimate
-population parameters like means and totals. These population parameters
-are traditionally assumed to be fixed but unknown.
+Some examples of commonly used sampling designs include simple random
+sampling, stratified random sample, and cluster sampling, which we refer
+to as Independent Random Sampling (IRS) survey designs. The goal is to
+use the sampling design and the sampled data to estimate population
+parameters like means and totals. These population parameters are
+traditionally assumed to be fixed but unknown.
 
 Treating the data as fixed and incorporating randomness through the
 sampling design yields estimators having very few other assumptions.
@@ -241,12 +248,22 @@ reviews of model-based approaches for spatial data.
 
 Description of Figure \ref{fig:fig1} goes here.
 
+\textbf{Tony O.}: Before this section is it useful to have a section
+that lays out the general site selection and general analysis options.
+Thinking about site selection as design-based IRS, design-based GRTS,
+Arbitrary set of sites, selection for model-based. Then general analysis
+options as design-based no spatial, design-based spatial, model-based.
+This four by three table would show that model-based analyses are
+possible for all selection options. Design-based options with no spatial
+info possible for IRS-based and GRTS-based. Design-based options with
+spatial info possible for GRTS-based.
+
 \hypertarget{spatially-balanced-design-and-analysis}{%
 \subsection{Spatially Balanced Design and
 Analysis}\label{spatially-balanced-design-and-analysis}}
 
-Lisa M.: Need a more precise definition of ``miniature'' in this
-context, and need an example.
+\textbf{Lisa M.}: Need a more precise definition of ``miniature'' in
+this context, and need an example.
 
 The design-based approach can use spatial locations to obtain spatially
 balanced samples. First we discuss spatial balance with respect to the
@@ -278,9 +295,9 @@ Acceptance Sampling (Robertson et al., 2013), Within-Sample-Distance
 (Benedetti and Piersimoni, 2017), and Halton Iterative Partitioning
 (Robertson et al., 2018). We focus on the Generalized Random
 Tessellation Stratified (GRTS) algorithm to select spatially balanced
-sampling because it has several attractive properties, including Lisa
-M.: List major attractive properties, and detailed by Stevens and Olsen
-(2004) and Dumelle et al. (2021).
+sampling because it has several attractive properties, including
+\textbf{Lisa M.}: List major attractive properties, and detailed by
+Stevens and Olsen (2004) and Dumelle et al. (2021).
 
 The GRTS algorithm is used to sample from finite and infinite
 populations and works by utilizing a mapping between two-dimensional and
@@ -383,8 +400,8 @@ spatial covariance function could be used in the place of the
 exponential, including functions that allow for non-stationarity or
 anisotropy (Chiles and Delfiner, 1999, pp. 80--93).
 
-Lisa M. : Include formulas. Perhaps, but, these are very heavy in
-notation and matrix algebra. We might consider, however, adding the
+\textbf{Lisa M.} : Include formulas. Perhaps, but, these are very heavy
+in notation and matrix algebra. We might consider, however, adding the
 formulas to an Appendix.
 
 With the above model formulation, the Best Linear Unbiased Predictor
@@ -445,16 +462,16 @@ partial sill of 0.9, effective range of \(\sqrt{2}\), and a nugget of
 0.1. For the independent error cases, the partial sill was 0 and the
 nugget was 1.
 
-Lisa M. Notes: adding an intermediate level of spatial dependency?
-Transfer simulation scenarios to a table Explain what the effective
-range is Fill in the details of what exactly each approach means
-(perhaps a table would be a good way to do this) Reorder the sims in the
-first figure by some criterion. Think about what would be a ``reasonable
-sample size'' instead of 10. Define medae If the data has a large
-right-skew, wouldn't one consider a transformation before the analysis?
-We should address this by stating that the BLUP for the log response
-does not mean that e\^{}logBLUP is the BLUP for the response on the
-original scale.
+\textbf{Lisa M.} Notes: adding an intermediate level of spatial
+dependency? Transfer simulation scenarios to a table Explain what the
+effective range is Fill in the details of what exactly each approach
+means (perhaps a table would be a good way to do this) Reorder the sims
+in the first figure by some criterion. Think about what would be a
+``reasonable sample size'' instead of 10. Define medae If the data has a
+large right-skew, wouldn't one consider a transformation before the
+analysis? We should address this by stating that the BLUP for the log
+response does not mean that e\^{}logBLUP is the BLUP for the response on
+the original scale.
 
 In each simulated data set, a GRTS sample and an IRS sample were
 selected. Then for the GRTS sample, the design-based approach using the

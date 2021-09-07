@@ -77,11 +77,13 @@ There are two general approaches for using data to make statistical inferences a
 
 <!-- Shift focus to spatial data -->
 
-Though the design-based and model-based approaches apply to statistical inference in a broad sense, we focus on comparing these approaches for spatial data. We define spatial data as variables measured at specific geographic locations. @de1990model give an early comparison of design-based and model-based approaches for spatial data, quashing the belief that design-based approaches could not be used for spatially correlated data. Thereafter, several comparisons between design-based and model-based for spatial data have been considered, but they tend to compare design-based approaches that ignore spatial locations to model-based approaches [@brus1997random; @verhoef2002sampling; @verhoef2008spatial]. @cooper2006sampling review the two approaches in an ecological context before introducing a "model-assisted" variance estimator that combines aspects from each approach. In addition to @cooper2006sampling, there has been substantial research and development into estimators that use both design and model-based principles (see e.g. @cicchitelli2012model, @chan2020bayesian for a Bayesian approach, and @sterba2009alternative). More recent overviews include @brus2020statistical and @wang2012review, but no numerical comparison has been made between design-based approaches that incorporate spatial locations and model-based approaches.
+__Tony O.__: Should this paragraph address that spatial information can be incorporated in the design stage or in the analysis stage (or both). In general, it's not clear whether we are referring to site selection process or the estimation process
+
+Though the design-based and model-based approaches apply to statistical inference in a broad sense, we focus on comparing these approaches for spatial data. We define spatial data as data that incorporates the specific locations of the population units into either the design or estimation process. @de1990model give an early comparison of design-based and model-based approaches for spatial data, quashing the belief that design-based approaches could not be used for spatially correlated data. Thereafter, several comparisons between design-based and model-based for spatial data have been considered, but they tend to compare design-based approaches that ignore spatial locations to model-based approaches [@brus1997random; @verhoef2002sampling; @verhoef2008spatial]. @cooper2006sampling review the two approaches in an ecological context before introducing a "model-assisted" variance estimator that combines aspects from each approach. In addition to @cooper2006sampling, there has been substantial research and development into estimators that use both design and model-based principles (see e.g. @cicchitelli2012model, @chan2020bayesian for a Bayesian approach, and @sterba2009alternative). More recent overviews include @brus2020statistical and @wang2012review, but no numerical comparison has been made between design-based approaches that incorporate spatial locations and model-based approaches.
 
 <!-- Outline for the rest of the paper -->
 
-Lisa M.: Add paragraph describing contribution of manuscript.
+__Lisa M.__: Add paragraph describing contribution of manuscript.
 
 The rest of this paper is organized as follows. In Section \ref{sec:background}, we compare sampling and estimation procedures between the design-based approach and the model-based approach. In Section \ref{sec:numstudy}, we use simulated and real data to study the the behavior of both approaches. And in Section \ref{sec:discussion}, we end with a discussion and provide directions for future research. 
 
@@ -91,7 +93,8 @@ The design-based and model-based approaches incorporate randomness in fundamenta
 
 ## Comparing Design-Based vs. Model-Based
 
-The design-based approach assumes the population is fixed. Randomness is incorporated in the selection of population units according to a sampling design. A sampling design assigns a positive probability of inclusion in the sample (inclusion probability) to each population unit. Some examples of commonly used sampling designs include independent random sampling (IRS), stratified random sampling, and cluster sampling. The goal is to use the sampling design and the sampled data to estimate population parameters like means and totals. These population parameters are traditionally assumed to be fixed but unknown. 
+The design-based approach assumes the population is fixed. Randomness is incorporated in the selection of population units according to a sampling design. A sampling design assigns a positive probability of inclusion in the sample (inclusion probability) to each population unit. Some examples of commonly used sampling designs include simple random sampling, stratified random sample, and cluster
+sampling, which we refer to as Independent Random Sampling (IRS) survey designs. The goal is to use the sampling design and the sampled data to estimate population parameters like means and totals. These population parameters are traditionally assumed to be fixed but unknown. 
 
 Treating the data as fixed and incorporating randomness through the sampling design yields estimators having very few other assumptions. Confidence intervals for these types of estimators are typically derived using limiting arguments. Means and totals, for example, are asymptotically normally distributed by the Central Limit Theorem. @sarndal2003model and @lohr2009sampling provide thorough reviews of the design-based approach.
 
@@ -169,13 +172,15 @@ Description of Figure \ref{fig:fig1} goes here.
 
 <!-- Figure 1b. Spatial process is fixed. In a finite population example, show 10 3d surfaces that are generated from some model. If we repeatedly generate the surface and obtain a sample, then 95% of all 95% PIs will contain the realized means. The realized mean changes from surface to surface and it's not necessarily the case that 95% of all 95% PIs will contain the true, underlying mean. -->
 
+__Tony O.__: Before this section is it useful to have a section that lays out the general site selection and general analysis options. Thinking about site selection as design-based IRS, design-based GRTS, Arbitrary set of sites, selection for model-based. Then general analysis options as design-based no spatial, design-based spatial, model-based. This four by three table would show that model-based analyses are possible for all selection options. Design-based options with no spatial info possible for IRS-based and GRTS-based. Design-based options with spatial info possible for GRTS-based.
+
 ## Spatially Balanced Design and Analysis
 
-Lisa M.: Need a more precise definition of "miniature" in this context, and need an example.
+__Lisa M.__: Need a more precise definition of "miniature" in this context, and need an example.
 
 The design-based approach can use spatial locations to obtain spatially balanced samples. First we discuss spatial balance with respect to the population [@stevens2004spatially]. A sample is spatially balanced with respect to the population if the sampled population units are a miniature of the population units. A sample is a miniature of the population if the distribution of the sampled population units mirrors the density of all population units. Spatial balance with respect to the population is different than spatial balance with respect to geography. A sample that is spatially balanced with respect to geography is spread out in some type of equidistant manner over geographical space and is not meant to be miniatures of the population. When we refer to spatial balance henceforth, we mean spatial balance with respect to the population. 
 
-Spatially balanced samples are useful because they tend to yield estimates that have lower variance than estimates constructed from sampling designs lacking spatial balance [@stevens2004spatially; @barabesi2011sampling; @grafstrom2013well; @robertson2013bas; @wang2013design; @benedetti2017spatiallyreview]. To quantify spatial balance, @stevens2004spatially proposed loss functions based on Voroni polygons. The first spatially balanced sampling algorithm that saw widespread use was the Generalized Random Tessellation Stratified [@stevens2004spatially]. Since GRTS was developed, several other spatially balanced sampling algorithms have emerged, including the Local Pivotal Method [@grafstrom2012spatially; @grafstrom2018spatially], Spatially Correlated Poisson Sampling [@grafstrom2012spatiallypoisson], Balanced Acceptance Sampling [@robertson2013bas], Within-Sample-Distance [@benedetti2017spatially], and Halton Iterative Partitioning [@robertson2018halton]. We focus on the Generalized Random Tessellation Stratified (GRTS) algorithm to select spatially balanced sampling because it has several attractive properties, including Lisa M.: List major attractive properties, and detailed by @stevens2004spatially and @dumelle2021spsurvey.
+Spatially balanced samples are useful because they tend to yield estimates that have lower variance than estimates constructed from sampling designs lacking spatial balance [@stevens2004spatially; @barabesi2011sampling; @grafstrom2013well; @robertson2013bas; @wang2013design; @benedetti2017spatiallyreview]. To quantify spatial balance, @stevens2004spatially proposed loss functions based on Voroni polygons. The first spatially balanced sampling algorithm that saw widespread use was the Generalized Random Tessellation Stratified [@stevens2004spatially]. Since GRTS was developed, several other spatially balanced sampling algorithms have emerged, including the Local Pivotal Method [@grafstrom2012spatially; @grafstrom2018spatially], Spatially Correlated Poisson Sampling [@grafstrom2012spatiallypoisson], Balanced Acceptance Sampling [@robertson2013bas], Within-Sample-Distance [@benedetti2017spatially], and Halton Iterative Partitioning [@robertson2018halton]. We focus on the Generalized Random Tessellation Stratified (GRTS) algorithm to select spatially balanced sampling because it has several attractive properties, including __Lisa M.__: List major attractive properties, and detailed by @stevens2004spatially and @dumelle2021spsurvey.
 
 <!-- algorithms. -->
 
@@ -226,7 +231,7 @@ We also assume that there is spatial correlation in $\bm{\delta}$, which can be 
 \end{align}
 where $h_{i,j}$ is the distance between population units $i$ and $j$, and $\bm{\theta}$ is a vector of spatial covariance parameters of the partial sill $\theta_1$, the range $\theta_2$, and the nugget $\theta_3$; and, $\mathbbm{1}$ is equal to 1 when distance $h_i,j$ is equal to 0, and equal to 0 otherwise. However, any spatial covariance function could be used in the place of the exponential, including functions that allow for non-stationarity or anisotropy [@chiles1999geostatistics, pp. 80-93].
 
-Lisa M. : Include formulas. Perhaps, but, these are very heavy in notation and matrix algebra. We might consider, however, adding the formulas to an Appendix.
+__Lisa M.__ : Include formulas. Perhaps, but, these are very heavy in notation and matrix algebra. We might consider, however, adding the formulas to an Appendix.
 
 With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for $f(\mathbf{b}'\mathbf{z})$ and its prediction variance can be computed. While details of the derivation are in [@verhoef2008spatial], we note here that the predictor and its variance are both moment-based.
 
@@ -248,7 +253,7 @@ So for example, the `inderror.normal.n50.randloc` is the simulation having indep
 
 There were 2000 trials for each simulation. The original response (before exponentiating if applicable) for the dependent error cases was normally distributed with an exponential covariance function with partial sill of 0.9, effective range of $\sqrt{2}$, and a nugget of 0.1. For the independent error cases, the partial sill was 0 and the nugget was 1.
 
-Lisa M. Notes: adding an intermediate level of spatial dependency?
+__Lisa M.__ Notes: adding an intermediate level of spatial dependency?
 Transfer simulation scenarios to a table
 Explain what the effective range is
 Fill in the details of what exactly each approach means (perhaps a table would be a good way to do this)
@@ -274,6 +279,9 @@ The GRTS algorithm and the local neighborhood variance estimator are available i
 library(tidyverse)
 files <- list.files(path = here("inst", "output"), pattern = "*.csv",
                     full.names = TRUE)
+
+## read_csv("inst/output/sim_deperr_normal_n10_gridloc.csv")
+## read_csv("inst/output/sim_deperr_normal_n50_gridloc.csv")
 
 combo_data <- purrr::map_df(files,
                             ~read_csv(.x) %>% mutate(filename = .x)) %>%
@@ -338,6 +346,7 @@ ggplot(data = design_better_full, aes(x = sim, y = coverage, colour = approach))
 For Gaussian errors, coverage for all approaches tended to be near 0.95. There was less between-approach deviation in coverages for random locations compared to grid locations. Generally, the larger the skew, the worse the coverage,and the larger the sample size, the better the coverage. Design GRTS (local neighborhood variance) tended to slightly undercover, a result Tony was familiar with.
 
 ```{r}
+## View(combo_data %>% filter(approach == "Design IRS"))
 ggplot(data = combo_data, aes(x = sim, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95) +
   geom_point() +
