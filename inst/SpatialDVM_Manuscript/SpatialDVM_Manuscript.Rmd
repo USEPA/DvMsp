@@ -55,6 +55,15 @@ Potential Journals:
 * Environmetrics
 * Environmental and Ecological Statistics
 
+<!-- Notes from today -->
+<!-- •	Finite populations require a smaller scope but we need to discuss the impact of infinite populations as well – put finite vs infinite population context in the introduction / similarities and differences -->
+<!-- •	What should a lower sample size be? 50 seems reasonable 30 may be too small – maybe 50, 100, 200 -->
+<!-- •	IRS results seem off for dependent error sample size 50 -->
+<!-- •	Take home points – don’t have to do GRTS design with GRTS sample -->
+<!-- •	Take home points – GRTS is better for both model and design, while spatial approach for design is close to spatial model -->
+<!-- •	Add medium dependence -->
+<!-- •	Remind readers what choices of the four approaches in the application mean – what do they mean to practitioners -->
+
 # Introduction {#sec:introduction}
 
 ```{r, include = FALSE}
