@@ -6,11 +6,6 @@ files <- list.files(path = here("inst", "output", "sims914"), pattern = "*.csv",
 combo_data <- purrr::map_df(files,
                             ~read_csv(.x) %>% mutate(filename = .x))
 
-# %>%
-#   separate(filename, into = c("junk", "error_dep", "dist", "n", "location"),
-#            sep = "_") %>%
-#   select(-junk)
-
 combo_data <- combo_data %>% mutate(sim = interaction(n, psill, resptype, gridded))
 
 ##
@@ -86,4 +81,4 @@ ggplot(data = combo_data_grts, aes(x = sim, y = coverage, colour = approach)) +
 #   geom_histogram(bins = 15) +
 #   facet_wrap(~ location)
 #
-#
+

@@ -26,7 +26,7 @@ source("R/sim_trial.R")
 ## loop through each row of parm_df
 for (i in 1:nrow(parm_df)) {
   n_trials <- 5
-  seed <- runif(n_trials, 1, 1e7)
+  seed <- sample.int(1e7, size = n_trials)
   n_cluster <- detectCores() # find cores (48 on mine)
   cluster <- makeCluster(n_cluster) # make cluster
   clusterExport(cluster, varlist = c("sim_pop", "covmx_exp"))
@@ -52,9 +52,9 @@ for (i in 1:nrow(parm_df)) {
   stopCluster(cluster) # stop cluster
 
   # check errors
-  map(sim_output, "error") %>%
-    bind_rows() %>%
-    nrow()
+  # map(sim_output, "error") %>%
+  #   bind_rows() %>%
+  #   nrow()
 
   # do summaries
   safe_output <- map(sim_output, "result") %>%

@@ -509,11 +509,94 @@ et al., 2021). FPBK can be readily performed in \texttt{R} with the
 for both the simulation analysis and the application, estimating
 parameters with Restricted Maximum Likelihood (REML).
 
+MAJOR POINTS for the following Figure, which has relative efficiency
+(rmspe / Design IRS rmspe): We see that
+
+\begin{itemize}
+\tightlist
+\item
+  When there is no spatial correlation (top row), we aren't losing that
+  much by using a spatial method over Design IRS, even if assumptions
+  are violated.
+\item
+  When there is a lot of spatial correlation Model GRTS tends to perform
+  best, but difference in relative efficiency between Model GRTS and
+  Design GRTS is not very big. In many settings Design GRTS outperforms
+  Model IRS by a large margin, suggesting that the design decision
+  (whether to use IRS or GRTS) is much more important than the analysis
+  decision (whether to analyze using model assumptions or not).
+\item
+  If there is a large amount of spatial correlation, we should
+  \textbf{not} use IRS. Even though it's assumptions are satisfied, the
+  resulting estimator is much worse than an estimator using a spatially
+  balanced sample.
+\item
+  If we are comparing design-based and model-based methods, we should
+  not use a poor design to compare with (give examples?).
+\end{itemize}
+
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+MAJOR POINTS for the following Figure:
+
+\begin{itemize}
+\tightlist
+\item
+  when we drop the IRS samples to compare the GRTS samples more closely
+  (looking at the relative efficiency of model rmspe / design rmspe), we
+  see that the model-based approach is usually better than the
+  design-based approach (but, keep in mind that the improvement was
+  small compared to the improvement of both methods over Design IRS).
+\item
+  when the model used is the same model that generated the data, the
+  Model-based approach far outperforms the Design-based approach,
+  especially when there is a lot of spatial correlation (bottom-left
+  facet). The methods perform similarly when there is no spatial
+  correlation.
+\item
+  even when the model that generates the data is different than the
+  model used to fit the data (lognormal), the model-based approach still
+  outperforms the design-based approach when there is a high amount of
+  spatial correlation.
+\end{itemize}
+
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+MAJOR POINTS for the following Figure:
+
+\begin{itemize}
+\tightlist
+\item
+  coverage for the model-based estimator is slightly higher than
+  coverage for the design-based estimator in the normal settings.
+  Coverages are about equal in the lognormal settings with a slight edge
+  to model-based (this is the point that will be tougher to explain: I
+  would have expected the design-based estimator to have better coverage
+  in the lognormal settings because it has fewer assumptions).
+\item
+  coverage is at or near the nominal 95\% in all of the normal settings,
+  where assumptions for the model approach and the design approach are
+  satisfied.
+\item
+  for the model-based approach, the more skewed the population is, the
+  higher the sample size needed to satisfy CLT for predicting a mean.
+  The derivation of the BLUP is entirely moment-based (no distribution
+  assumed) but we still need to assume a distribution to estimate
+  spatial parameters and to generate bounds of a prediction interval.
+\item
+  many confidence intervals generated for design-based approaches also
+  rely on the CLT and the normal distribution to generate the interval.
+  Again, for highly skewed data with a small sample size, this
+  assumption is violated even though all of the assumptions for
+  generating the estimator are valid.
+\end{itemize}
+
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf}
+
 Major Points from August 3 Simulations:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   In most of the dependent error simulation settings, either all four
   approahces (IRS-Design, IRS-Model, GRTS-Design, and GRTS-Model)
@@ -522,21 +605,6 @@ Major Points from August 3 Simulations:
   very small sample sizes (n = 10), in which the IRS does better than
   GRTS. In the independent error settings, it usually doesn't matter
   much which approach is used, which makes sense.
-\end{enumerate}
-
-\textbf{Jay VH}: Use relative efficiency for figure, using design IRS as
-the base method.
-
-\textbf{Jay VH}: There is not a complete crossing of all simulation
-factors. We need to add text description about why some independent
-error settings were excluded.
-
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
 \item
   We will now focus on comparing Design-GRTS to Model-GRTS, the two best
   approaches for any reasonable sample size. In the independent error
@@ -546,15 +614,6 @@ error settings were excluded.
   Design-GRTS in 12 of the 18 settings, the two approaches perform very
   similarly in 3 settings, and Design-GRTS outperforms Model-GRTS in 3
   settings.
-\end{enumerate}
-
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf}
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-2.pdf}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
 \item
   Focusing in on the three settings where Design-GRTS outperforms
   Model-GRTS, we see that, in two of the settings, the log-normal
@@ -564,14 +623,6 @@ error settings were excluded.
   actually using Design-GRTS. In the other two settings, the data are
   sufficiently skewed that a practitioner should not use either
   approach, though it is ``safer'' to use Design-GRTS.
-\end{enumerate}
-
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-6-1.pdf}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
 \item
   Coverage
 \end{enumerate}
@@ -583,17 +634,7 @@ the worse the coverage,and the larger the sample size, the better the
 coverage. Design GRTS (local neighborhood variance) tended to slightly
 undercover, a result Tony was familiar with.
 
-\textbf{Jay VH}: Need to figure out the weird results for n = 50.
-
-\textbf{Jay VH}: For the design estimator, verify that the simulation
-MSPE is equal to the estimated variance for the design estimator, on
-average, to make sure things are correct for this estimator.
-
-\textbf{Jay VH}: Not a ton of difference in grid vs.~random so we can
-consider removing that factor to simplify the presentation, or, put it
-in an appendix.
-
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-6-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}

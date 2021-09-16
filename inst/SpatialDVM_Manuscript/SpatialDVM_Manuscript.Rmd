@@ -292,85 +292,92 @@ print(sim_one_table, include.rownames = FALSE, comment = FALSE)
 
 The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package \texttt{spsurvey} [@dumelle2021spsurvey]. FPBK can be readily performed in `R` with the `sptotal` package [@higham2020sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
 
+MAJOR POINTS for the following Figure, which has relative efficiency (rmspe / Design IRS rmspe): We see that
+
+- When there is no spatial correlation (top row), we aren't losing that much by using a spatial method over Design IRS, even if assumptions are violated.
+- When there is a lot of spatial correlation Model GRTS tends to perform best, but difference in relative efficiency between Model GRTS and Design GRTS is not very big. In many settings Design GRTS outperforms Model IRS by a large margin, suggesting that the design decision (whether to use IRS or GRTS) is much more important than the analysis decision (whether to analyze using model assumptions or not). 
+- If there is a large amount of spatial correlation, we should __not__ use IRS. Even though it's assumptions are satisfied, the resulting estimator is much worse than an estimator using a spatially balanced sample.
+- If we are comparing design-based and model-based methods, we should not use a poor design to compare with (give examples?).
+
+
 ```{r, results = "hide", message = FALSE, warning = FALSE}
 library(tidyverse)
-files <- list.files(path = here("inst", "output"), pattern = "*.csv",
-                    full.names = TRUE)
+library(here)
 
-## read_csv("inst/output/sim_deperr_normal_n10_gridloc.csv")
-## read_csv("inst/output/sim_deperr_normal_n50_gridloc.csv")
+files <- list.files(path = here("inst", "output", "sims914"), pattern = "*.csv", full.names = TRUE)
 
 combo_data <- purrr::map_df(files,
-                            ~read_csv(.x) %>% mutate(filename = .x)) %>%
-  mutate(filetemp = str_extract(filename, pattern = "sim_\\w+")) %>% 
-  separate(filetemp, into = c("junk", "error_dep", "dist", "n", "location"),
-           sep = "_") %>%
-  select(-junk)
+                            ~read_csv(.x) %>% mutate(filename = .x))
 
-combo_data <- combo_data %>% mutate(sim = interaction(error_dep, dist, n, location))
+combo_data <- combo_data %>%
+  dplyr::filter(n != 10 & gridded == FALSE) %>%
+  mutate(sim = interaction(n, psill, resptype)) %>% ## , gridded
+  mutate(approach = fct_relevel(approach, c("Design IRS", "Model IRS",
+                                            "Design GRTS", "Model GRTS"))) %>%
+  mutate(resptype = fct_relevel(resptype, c("normal", "lognormal")))
+combo_data <- combo_data %>% group_by(sim) %>% mutate(designirsrmspe = if_else(approach == "Design IRS", true = rmspe, false = NA_real_)) %>%
+  fill(designirsrmspe, .direction = "downup") %>%
+  mutate(rel_efficiency = rmspe / designirsrmspe) %>%
+  ungroup()
 
-combo_data_grts <- combo_data %>% dplyr::filter(approach %in% c("Design GRTS", "Model GRTS"))
+ggplot(data = combo_data, aes(x = n, y = rel_efficiency, colour = approach)) +
+  facet_grid(psill ~ resptype) +
+  geom_jitter(width = 7) +
+  scale_colour_manual(values = c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4"))
+```
 
-dep_only <- combo_data_grts %>% dplyr::filter(error_dep == "deperr")
-dep_long <- dep_only %>%
-  pivot_wider(names_from = approach, values_from = rmspe, sim) %>%
-  mutate(perc = 100 * (`Design GRTS` - `Model GRTS`) / `Model GRTS`)
 
-dep_long_abs <- dep_only %>%
-  pivot_wider(names_from = approach, values_from = medae, sim) %>%
-  mutate(perc = 100 * (`Design GRTS` - `Model GRTS`) / `Model GRTS`)
+MAJOR POINTS for the following Figure:
+
+- when we drop the IRS samples to compare the GRTS samples more closely (looking at the relative efficiency of model rmspe / design rmspe), we see that the model-based approach is usually better than the design-based approach (but, keep in mind that the improvement was small compared to the improvement of both methods over Design IRS).
+- when the model used is the same model that generated the data, the Model-based approach far outperforms the Design-based approach, especially when there is a lot of spatial correlation (bottom-left facet). The methods perform similarly when there is no spatial correlation.
+- even when the model that generates the data is different than the model used to fit the data (lognormal), the model-based approach still outperforms the design-based approach when there is a high amount of spatial correlation.
+
+```{r}
+combo_data_grts <- combo_data %>%
+  dplyr::filter(approach %in% c("Design GRTS", "Model GRTS")) %>%
+  mutate(designgrts = if_else(approach == "Design GRTS", 
+                              true = rmspe,
+                              false = NA_real_)) %>%
+  group_by(sim) %>%
+  fill(designgrts, .direction = "updown") %>%
+  ungroup() %>%
+  mutate(releffgrts = rmspe / designgrts)
+combo_data_grts_model <- combo_data_grts %>%
+  filter(approach == "Model GRTS")
+
+ggplot(data = combo_data_grts_model, aes(x = n, y = rel_efficiency)) +
+  facet_grid(psill ~ resptype) +
+  geom_point()
+```
+
+MAJOR POINTS for the following Figure:
+
+- coverage for the model-based estimator is slightly higher than coverage for the design-based estimator in the normal settings. Coverages are about equal in the lognormal settings with a slight edge to model-based (this is the point that will be tougher to explain: I would have expected the design-based estimator to have better coverage in the lognormal settings because it has fewer assumptions).
+- coverage is at or near the nominal 95% in all of the normal settings, where assumptions for the model approach and the design approach are satisfied.
+- for the model-based approach, the more skewed the population is, the higher the sample size needed to satisfy CLT for predicting a mean. The derivation of the BLUP is entirely moment-based (no distribution assumed) but we still need to assume a distribution to estimate spatial parameters and to generate bounds of a prediction interval.
+- many confidence intervals generated for design-based approaches also rely on the CLT and the normal distribution to generate the interval. Again, for highly skewed data with a small sample size, this assumption is violated even though all of the assumptions for generating the estimator are valid.
+
+```{r}
+ggplot(data = combo_data_grts, aes(x = n, y = coverage, colour = approach)) +
+  geom_hline(yintercept = 0.95) +
+  geom_jitter(width = 7) + 
+  facet_grid(psill ~ resptype) +
+  scale_colour_manual(values = c("mediumpurple1", "mediumpurple4"))
 ```
 
 Major Points from August 3 Simulations:
 
 1. In most of the dependent error simulation settings, either all four approahces (IRS-Design, IRS-Model, GRTS-Design, and GRTS-Model) perform equally or GRTS-Design and GRTS-Model outperform IRS-Design and IRS-Model. Exceptions to this are a couple of the settings with very small sample sizes (n = 10), in which the IRS does better than GRTS. In the independent error settings, it usually doesn't matter much which approach is used, which makes sense.
 
-__Jay VH__: Use relative efficiency for figure, using design IRS as the base method.
-
-__Jay VH__: There is not a complete crossing of all simulation factors. We need to add text description about why some independent error settings were excluded.
-
-```{r}
-ggplot(data = combo_data, aes(x = sim, y = rmspe, colour = approach)) +
-  geom_point() +
-  coord_flip()
-```
 
 2. We will now focus on comparing Design-GRTS to Model-GRTS, the two best approaches for any reasonable sample size. In the independent error settings, the two approaches perform very similarly, so those results are omitted in the following graph. In the dependent error settings, using rmspe as the performance criterion, Model-GRTS outperforms Design-GRTS in 12 of the 18 settings, the two approaches perform very similarly in 3 settings, and Design-GRTS outperforms Model-GRTS in 3 settings.
 
-```{r}
-ggplot(data = dep_long_abs, aes(x = fct_reorder(sim, perc), y = perc)) +
-  geom_point() +
-  coord_flip() +
-  labs(y = "Percent Change in medae (Design - Model) / Model",
-       caption = "Percent > 0 means Model has better rmspe")
-
-ggplot(data = dep_long, aes(x = fct_reorder(sim, perc), y = perc)) +
-  geom_point() +
-  coord_flip() +
-  labs(y = "Percent Change in rmspe (Design - Model) / Model",
-       caption = "Percent > 0 means Model has better rmspe")
-```
-
 3. Focusing in on the three settings where Design-GRTS outperforms Model-GRTS, we see that, in two of the settings, the log-normal response has a large variance, corresponding to a large right-skew after exponentiation. All three settings have sites in random locations. However, in only one of these settings would we recommend actually using Design-GRTS. In the other two settings, the data are sufficiently skewed that a practitioner should not use either approach, though it is "safer" to use Design-GRTS.
-
-```{r}
-design_better <- dep_long %>% dplyr::filter(perc < -5)
-design_better_full <- inner_join(combo_data_grts, design_better, by = c("sim"))
-ggplot(data = design_better_full, aes(x = sim, y = coverage, colour = approach)) +
-  geom_point() +
-  coord_flip() +
-  geom_hline(aes(yintercept = 0.95), alpha = 0.5)
-```
 
 4. Coverage 
 
 For Gaussian errors, coverage for all approaches tended to be near 0.95. There was less between-approach deviation in coverages for random locations compared to grid locations. Generally, the larger the skew, the worse the coverage,and the larger the sample size, the better the coverage. Design GRTS (local neighborhood variance) tended to slightly undercover, a result Tony was familiar with.
-
-__Jay VH__: Need to figure out the weird results for n = 50.
-
-__Jay VH__: For the design estimator, verify that the simulation MSPE is equal to the estimated variance for the design estimator, on average, to make sure things are correct for this estimator.
-
-__Jay VH__: Not a ton of difference in grid vs. random so we can consider removing that factor to simplify the presentation, or, put it in an appendix.
 
 ```{r}
 ## View(combo_data %>% filter(approach == "Design IRS"))
