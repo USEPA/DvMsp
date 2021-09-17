@@ -256,13 +256,50 @@ We note that we only use FPBK in this paper in order to focus more on comparing 
 
 # Numerical Study {#sec:numstudy}
 
-There were several variables to alter in the simulations, and the names of the scenarios in future plots mirror these variables
+We used a numerical simulation study to investigate performance of four design-analysis combinations, summarized in Table \ref{tab:designanalysis}.
+
+```{r, echo = FALSE}
+tab <- matrix(c("IRS-Design", "IRS-Model", "GRTS-Design", "GRTS-Model"),
+       nrow = 2) %>%
+  as.table()
+row.names(tab) <- c("Design", "Model")
+library(knitr)
+kable(tab, col.names = c("IRS", "GRTS"), caption = "\\label{tab:designanalysis} Types of Sampling Design and Analysis combinations considered in the simulation study. The columns give the two types of sampling designs while the rows give the two types of analyses.")
+## I really want "Analysis" to appear as a row header and "Sampling Design" 
+## to appear as a column header, but this isn't easy to figure out.
+## I couldn't figure this out with xtable either so it might need to be
+## made "by hand."
+```
+
+We used a crossed design with the simulation parameters given in Table \ref{tab:parmtab} for a total of 36 scenarios. All scenarios used exponential correlation with an effective range of $\sqrt{2}$ for $N = 900$ response values simulated on the unit square in either random locations (Site Locations = Random) or gridded locations (Site Locations = Gridded). For the lognormal scenarios, the response values were simulated using the specified correlation parameters using a normal distribution and were subsequently exponentiated. A total variance of 2 and a mean of 0 on the normal scale is equivalent to a total variance of 47 and a mean of 2.72 after exponentiation. Therefore, when the model-based methods were used, the correlation is mis-specified. We chose to simulate values with a lognormal distribution so that we could test the model-based analysis approach with a mis-specified model and so that we could test both analysis approaches on data that exhibits a large amount of skewness (Figure \ref{fig:figlog}).
+
+```{r}
+n <- c("50", "100", "200")
+site_locations <- c("Random", "Gridded", "")
+psill_ratio <- c("0", "0.5", "0.9")
+resp_type <- c("Normal", "Lognormal", "")
+parm_tab <- rbind(n, site_locations, psill_ratio, resp_type)
+row.names(parm_tab) <- c("Sample Size (n)", "Site Locations", 
+                         "Partial Sill Variance Ratio", "Response Type")
+kable(parm_tab, col.names = c("", "", ""),
+      caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.")
+```
+
+```{r, figlog, out.width = "100%", fig.cap = "Lognormal distribution with a mean of 0 on the log scale and variance of 2 on the log scale. The distribution exhibits moderate to strong right-skewness."}
+mu <- 0; var <- 2
+xvar <- seq(0.001, 10, by = 0.01)
+yvar <- dlnorm(xvar, meanlog = 0, sdlog = sqrt(var))
+df <- tibble(xvar = xvar, yvar = yvar)
+ggplot(df, aes(x = xvar, y = yvar)) +
+  geom_line()
+```
+
 
 * correlation type: dependent errors or independent errors
 * error type:
     * normal: mean 0, variance 2
     * lognormal: log scale mean 0, log scale variance 2 (total variance 47)
-    * lognormalbig: log scale mean 0, log scale variance 4 (total variance 2,926)
+    <!-- * lognormalbig: log scale mean 0, log scale variance 4 (total variance 2,926) -->
 * sample sizes: $n = 10, 50, 150; N = 900$
 * layout: gridded vs random uniform population locations confined to a 1 x 1 unit square
 

@@ -445,8 +445,66 @@ scenarios.
 \hypertarget{sec:numstudy}{%
 \section{Numerical Study}\label{sec:numstudy}}
 
-There were several variables to alter in the simulations, and the names
-of the scenarios in future plots mirror these variables
+We used a numerical simulation study to investigate performance of four
+design-analysis combinations, summarized in Table
+\ref{tab:designanalysis}.
+
+\begin{longtable}[]{@{}lll@{}}
+\caption{\label{tab:designanalysis} Types of Sampling Design and
+Analysis combinations considered in the simulation study. The columns
+give the two types of sampling designs while the rows give the two types
+of analyses.}\tabularnewline
+\toprule
+& IRS & GRTS \\
+\midrule
+\endfirsthead
+\toprule
+& IRS & GRTS \\
+\midrule
+\endhead
+Design & IRS-Design & GRTS-Design \\
+Model & IRS-Model & GRTS-Model \\
+\bottomrule
+\end{longtable}
+
+We used a crossed design with the simulation parameters given in Table
+\ref{tab:parmtab} for a total of 36 scenarios. All scenarios used
+exponential correlation with an effective range of \(\sqrt{2}\) for
+\(N = 900\) response values simulated on the unit square in either
+random locations (Site Locations = Random) or gridded locations (Site
+Locations = Gridded). For the lognormal scenarios, the response values
+were simulated using the specified correlation parameters using a normal
+distribution and were subsequently exponentiated. A total variance of 2
+and a mean of 0 on the normal scale is equivalent to a total variance of
+47 and a mean of 2.72 after exponentiation. Therefore, when the
+model-based methods were used, the correlation is mis-specified. We
+chose to simulate values with a lognormal distribution so that we could
+test the model-based analysis approach with a mis-specified model and so
+that we could test both analysis approaches on data that exhibits a
+large amount of skewness (Figure \ref{fig:figlog}).
+
+\begin{longtable}[]{@{}llll@{}}
+\caption{\label{tab:parmtab} Simulation parameters. Total variability
+for all scenarios was 2 so that the partial sill was 0, 1, or
+1.8.}\tabularnewline
+\toprule
+& & & \\
+\midrule
+\endfirsthead
+\toprule
+& & & \\
+\midrule
+\endhead
+Sample Size (n) & 50 & 100 & 200 \\
+Site Locations & Random & Gridded & \\
+Partial Sill Variance Ratio & 0 & 0.5 & 0.9 \\
+Response Type & Normal & Lognormal & \\
+\bottomrule
+\end{longtable}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/figlog-1} \caption{Lognormal distribution with a mean of 0 on the log scale and variance of 2 on the log scale. The distribution exhibits moderate to strong right-skewness.}\label{fig:figlog}
+\end{figure}
 
 \begin{itemize}
 \tightlist
@@ -462,9 +520,6 @@ of the scenarios in future plots mirror these variables
   \item
     lognormal: log scale mean 0, log scale variance 2 (total variance
     47)
-  \item
-    lognormalbig: log scale mean 0, log scale variance 4 (total variance
-    2,926)
   \end{itemize}
 \item
   sample sizes: \(n = 10, 50, 150; N = 900\)
@@ -535,7 +590,7 @@ MAJOR POINTS for the following Figure, which has relative efficiency
   not use a poor design to compare with (give examples?).
 \end{itemize}
 
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-3-1.pdf}
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf}
 
 MAJOR POINTS for the following Figure:
 
@@ -560,7 +615,7 @@ MAJOR POINTS for the following Figure:
   spatial correlation.
 \end{itemize}
 
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-6-1.pdf}
 
 MAJOR POINTS for the following Figure:
 
@@ -591,7 +646,7 @@ MAJOR POINTS for the following Figure:
   generating the estimator are valid.
 \end{itemize}
 
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 Major Points from August 3 Simulations:
 
@@ -634,7 +689,7 @@ the worse the coverage,and the larger the sample size, the better the
 coverage. Design GRTS (local neighborhood variance) tended to slightly
 undercover, a result Tony was familiar with.
 
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-6-1.pdf}
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-8-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
