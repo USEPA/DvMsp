@@ -400,7 +400,8 @@ ggplot(data = combo_data_grts, aes(x = n, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95) +
   geom_jitter(width = 7) + 
   facet_grid(psill ~ resptype) +
-  scale_colour_manual(values = c("mediumpurple1", "mediumpurple4"))
+  scale_colour_manual(values = c("mediumpurple1", "mediumpurple4")) +
+  theme_bw()
 ```
 
 Major Points from August 3 Simulations:
