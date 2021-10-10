@@ -215,12 +215,15 @@ parameters like means and totals. These population parameters are
 traditionally assumed to be fixed but unknown.
 
 Treating the data as fixed and incorporating randomness through the
-sampling design yields estimators having very few other assumptions.
-Confidence intervals for these types of estimators are typically derived
-using limiting arguments. Means and totals, for example, are
-asymptotically normally distributed by the Central Limit Theorem.
-Särndal et al. (2003) and Lohr (2009) provide thorough reviews of the
-design-based approach.
+sampling design (top row of Figure \ref{fig:fig1} ((cite Brus 2021 here
+since our figure is similar?))) yields estimators having very few other
+assumptions. Confidence intervals for these types of estimators are
+typically derived using limiting arguments. Means and totals, for
+example, are asymptotically normally distributed by the Central Limit
+Theorem. If we repeatedly sample the surface, then 95\% of all 95\%
+confidence intervals constructed from a procedure with appropriate
+coverage will contain the true, fixed mean. Särndal et al. (2003) and
+Lohr (2009) provide thorough reviews of the design-based approach.
 
 \textbf{Jay VH}: I think it is important to stress that the limiting
 distribution is over all possible randomizations, constrained by
@@ -234,29 +237,31 @@ establish the terminology earlier.
 
 The model-based approach assumes the data are a random realization of a
 data-generating process. Randomness is often incorporated through
-distributional assumptions on this process. Instead of estimating fixed
-but unknown parameters (as in the design-based approach), the goal of
-model-based inference in the spatial context is often \emph{prediction}
-of an unknown quantity. For example, suppose the realized mean of all
-population units is the quantity of interest. Instead of
-\emph{estimating} a fixed unknown mean, we are \emph{predicting} the
-value of the mean, a random variable. We know that if we sampled all
-population units, we would have an exact prediction for the mean of our
-one realized process, without any uncertainty. But we are often not
-interested in the true, unknown mean of the underlying process.
+distributional assumptions on this process and need not be incorporated
+through random sampling (bottom row of Figure \ref{fig:fig1}). Instead
+of estimating fixed but unknown parameters (as in the design-based
+approach), the goal of model-based inference in the spatial context is
+often \emph{prediction} of an unknown quantity. For example, suppose the
+realized mean of all population units is the quantity of interest.
+Instead of \emph{estimating} a fixed unknown mean, we are
+\emph{predicting} the value of the mean, a random variable. We know that
+if we sampled all population units, we would have an exact prediction
+for the mean of our one realized process, without any uncertainty.
 
 Assuming the data is a realization of a specific data-generating process
 yields predictors that are linked to distributional assumptions. These
 distributional assumptions are used to derive prediction intervals. The
 distributional assumptions allow the prediction intervals to be more
-precise. Cressie (1993) and Schabenberger and Gotway (2017) provide
-reviews of model-based approaches for spatial data.
+precise. If we repeatedly generate the response values from a fixed
+spatial process and obtain a sample, then 95\% of all 95\% prediction
+intervals constructed from a procedure with appropriate coverage will
+contain their respective realized means. Cressie (1993) and
+Schabenberger and Gotway (2017) provide reviews of model-based
+approaches for spatial data.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/fig1-1} \caption{A comparison of sampling under the design-based and model-based frameworks. Points circled are those that are sampled. In the top row, we have one fixed population, and three random samples. In the bottom row, we have three realizations of the same spatial process sampled at the same locations.}\label{fig:fig1}
+\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/fig1-1} \caption{A comparison of sampling under the design-based and model-based frameworks. Points circled are those that are sampled. In the top row, we have one fixed population, and three random samples of n = 4. The response values at each site are fixed, but we obtain different estimates for the mean response because the randomly sampled sites vary from sample to sample. In the bottom row, we have three realizations of the same spatial process sampled at the same locations. The spatial process generating the response values has a single mean, but the realized mean is different in each of the three panels.}\label{fig:fig1}
 \end{figure}
-
-Description of Figure \ref{fig:fig1} goes here.
 
 \textbf{Tony O.}: Before this section is it useful to have a section
 that lays out the general site selection and general analysis options.
