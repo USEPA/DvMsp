@@ -477,16 +477,19 @@ We used a crossed design with the simulation parameters given in Table
 exponential correlation with an effective range of \(\sqrt{2}\) for
 \(N = 900\) response values simulated on the unit square in either
 random locations (Site Locations = Random) or gridded locations (Site
-Locations = Gridded). For the lognormal scenarios, the response values
-were simulated using the specified correlation parameters using a normal
-distribution and were subsequently exponentiated. A total variance of 2
-and a mean of 0 on the normal scale is equivalent to a total variance of
-47 and a mean of 2.72 after exponentiation. Therefore, when the
-model-based methods were used, the correlation is mis-specified. We
+Locations = Gridded). The mean for the spatial process generating the
+response was set to zero.
+
+For the lognormal scenarios, the response values were simulated using
+the specified correlation parameters using a normal distribution and
+were subsequently exponentiated. A total variance of 2 and a mean of 0
+on the normal scale is equivalent to a total variance of 47 and a mean
+of 2.72 after exponentiation. Therefore, when the model-based methods
+were used for lognormal response, the correlation was mis-specified. We
 chose to simulate values with a lognormal distribution so that we could
 test the model-based analysis approach with a mis-specified model and so
 that we could test both analysis approaches on data that exhibits a
-large amount of skewness (Figure \ref{fig:figlog}).
+large amount of skewness.
 
 \begin{longtable}[]{@{}llll@{}}
 \caption{\label{tab:parmtab} Simulation parameters. Total variability
@@ -502,65 +505,19 @@ for all scenarios was 2 so that the partial sill was 0, 1, or
 \endhead
 Sample Size (n) & 50 & 100 & 200 \\
 Site Locations & Random & Gridded & \\
-Partial Sill Variance Ratio & 0 & 0.5 & 0.9 \\
+Partial Sill / Total Variance & 0 & 0.5 & 0.9 \\
 Response Type & Normal & Lognormal & \\
 \bottomrule
 \end{longtable}
 
-\begin{figure}
-\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/figlog-1} \caption{Lognormal distribution with a mean of 0 on the log scale and variance of 2 on the log scale. The distribution exhibits moderate to strong right-skewness.}\label{fig:figlog}
-\end{figure}
-
-\begin{itemize}
-\tightlist
-\item
-  correlation type: dependent errors or independent errors
-\item
-  error type:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    normal: mean 0, variance 2
-  \item
-    lognormal: log scale mean 0, log scale variance 2 (total variance
-    47)
-  \end{itemize}
-\item
-  sample sizes: \(n = 10, 50, 150; N = 900\)
-\item
-  layout: gridded vs random uniform population locations confined to a 1
-  x 1 unit square
-\end{itemize}
-
-So for example, the \texttt{inderror.normal.n50.randloc} is the
-simulation having independent random errors that are normal, a sample
-size of 50, and random population locations.
-
-There were 2000 trials for each simulation. The original response
-(before exponentiating if applicable) for the dependent error cases was
-normally distributed with an exponential covariance function with
-partial sill of 0.9, effective range of \(\sqrt{2}\), and a nugget of
-0.1. For the independent error cases, the partial sill was 0 and the
-nugget was 1.
-
-\textbf{Lisa M.} Notes: adding an intermediate level of spatial
-dependency? Transfer simulation scenarios to a table Explain what the
-effective range is Fill in the details of what exactly each approach
-means (perhaps a table would be a good way to do this) Reorder the sims
-in the first figure by some criterion. Think about what would be a
-``reasonable sample size'' instead of 10. Define medae If the data has a
-large right-skew, wouldn't one consider a transformation before the
-analysis? We should address this by stating that the BLUP for the log
-response does not mean that e\^{}logBLUP is the BLUP for the response on
-the original scale.
-
-In each simulated data set, a GRTS sample and an IRS sample were
-selected. Then for the GRTS sample, the design-based approach using the
-local neighborhood variance (Design GRTS) and a model-based approach
-were applied (Model GRTS). Then for the IRS sample, the design-based
-approach using the simple random sample variance (Design IRS) and a
-model-based approach were applied (Model IRS).
+There were 2000 simulation trials for each of the 36 parameter
+combinations. In each trial, response values were generated from a
+spatial process with the specified parameters, and a GRTS sample and an
+IRS sample were selected. For the GRTS sample, the design-based approach
+using the local neighborhood variance (GRTS-Design) and a model-based
+approach were applied (GRTS-Model). For the IRS sample, the design-based
+approach using the simple random sample variance (IRS-Design) and a
+model-based approach were applied (IRS-Model).
 
 The GRTS algorithm and the local neighborhood variance estimator are
 available in the \textbf{\textsf{R}} package \texttt{spsurvey} (Dumelle
@@ -569,65 +526,38 @@ et al., 2021). FPBK can be readily performed in \texttt{R} with the
 for both the simulation analysis and the application, estimating
 parameters with Restricted Maximum Likelihood (REML).
 
-MAJOR POINTS for the following Figure, which has relative efficiency
-(rmspe / Design IRS rmspe): We see that
+Figure \ref{fig:figeff} shows the relative efficiency of the four
+approaches from Table \ref{tab:designanalysis} with ``IRS-Design'' as
+the baseline: \mbox{} \begin{equation*}
+\text{E} = \frac{\text{rMSPE of approach}}{\text{rMSPE of IRS-Design}},
+\end{equation*}
 
-\begin{itemize}
-\tightlist
-\item
-  When there is no spatial correlation (top row), we aren't losing that
-  much by using a spatial method over Design IRS, even if assumptions
-  are violated.
-\item
-  When there is a lot of spatial correlation Model GRTS tends to perform
-  best, but difference in relative efficiency between Model GRTS and
-  Design GRTS is not very big. In many settings Design GRTS outperforms
-  Model IRS by a large margin, suggesting that the design decision
-  (whether to use IRS or GRTS) is much more important than the analysis
-  decision (whether to analyze using model assumptions or not).
-\item
-  If there is a large amount of spatial correlation, we should
-  \textbf{not} use IRS. Even though it's assumptions are satisfied, the
-  resulting estimator is much worse than an estimator using a spatially
-  balanced sample.
-\item
-  If we are comparing design-based and model-based methods, we should
-  not use a poor design to compare with (give examples?).
-\end{itemize}
+where rMSPE is the root-Mean-Squared-Prediction-Error. When there is no
+spatial correlation (top row), the four approaches have approximately
+equal rMSPE, even when the assumptions of the model-based approaches are
+violated. So, using GRTS or using a spatial model does not result in
+much loss in efficiency even if the response variable is not spatially
+correlated. When there is high spatial correlation (bottom row), the
+GRTS-Model approach tends to perform best, but difference in relative
+efficiency between GRTS-Model and GRTS-Design is not very big. In the
+lognormal, high partial sill settings (bottom-right facet), GRTS-Design
+outperforms IRS-Model by a large margin, suggesting that the design
+decision (whether to use IRS or GRTS) is more important than the
+analysis decision (whether to analyze using model assumptions or not).
 
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf}
+Unsurprisingly, Figure \ref{fig:figeff} also shows that, when the
+assumptions for GRTS-Model are satisfied, the approach outperforms
+GRTS-Design. However, even when the model that generates the data is
+different than the model used to fit the data, as in the lognormal
+response, the model-based approach still outperforms the design-based
+approach when there is a high amount of spatial correlation.
 
-Plot Note: change colours and think about shape change partial sill
-variance to proportion of partial sill think about legend going on graph
+\begin{figure}
+\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/figeff-1} \caption{Relative Efficiency of the four design-analysis approaches. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figeff}
+\end{figure}
 
-Plot Note: Think about raw data.
-
-MAJOR POINTS for the following Figure:
-
-\begin{itemize}
-\tightlist
-\item
-  when we drop the IRS samples to compare the GRTS samples more closely
-  (looking at the relative efficiency of model rmspe / design rmspe), we
-  see that the model-based approach is usually better than the
-  design-based approach (but, keep in mind that the improvement was
-  small compared to the improvement of both methods over Design IRS).
-\item
-  when the model used is the same model that generated the data, the
-  Model-based approach far outperforms the Design-based approach,
-  especially when there is a lot of spatial correlation (bottom-left
-  facet). The methods perform similarly when there is no spatial
-  correlation.
-\item
-  even when the model that generates the data is different than the
-  model used to fit the data (lognormal), the model-based approach still
-  outperforms the design-based approach when there is a high amount of
-  spatial correlation.
-\end{itemize}
-
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-6-1.pdf}
-
-Plot Note: Do we want this figure?
+Plot Note: change colours and think about shape think about legend going
+on graph
 
 MAJOR POINTS for the following Figure:
 
@@ -660,7 +590,7 @@ MAJOR POINTS for the following Figure:
 
 Plot Note: Change to coverage plot to include all types
 
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-6-1.pdf}
 
 Major Points from August 3 Simulations:
 
@@ -700,10 +630,10 @@ For Gaussian errors, coverage for all approaches tended to be near 0.95.
 There was less between-approach deviation in coverages for random
 locations compared to grid locations. Generally, the larger the skew,
 the worse the coverage,and the larger the sample size, the better the
-coverage. Design GRTS (local neighborhood variance) tended to slightly
+coverage. GRTS-Design (local neighborhood variance) tended to slightly
 undercover, a result Tony was familiar with.
 
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -786,10 +716,10 @@ Approach & Estimate & SE & 95\% LB & 95\% UB \\
 Approach & Estimate & SE & 95\% LB & 95\% UB \\
 \midrule
 \endhead
-Design IRS & 112.7 & 8.8 & 95.4 & 129.9 \\
-Model IRS & 110.5 & 7.9 & 95.0 & 125.9 \\
-Design GRTS & 101.8 & 6.1 & 89.8 & 113.7 \\
-Model GRTS & 102.3 & 5.9 & 90.8 & 113.9 \\
+IRS-Design & 112.7 & 8.8 & 95.4 & 129.9 \\
+IRS-Model & 110.5 & 7.9 & 95.0 & 125.9 \\
+GRTS-Design & 101.8 & 6.1 & 89.8 & 113.7 \\
+GRTS-Model & 102.3 & 5.9 & 90.8 & 113.9 \\
 \bottomrule
 \end{longtable}
 

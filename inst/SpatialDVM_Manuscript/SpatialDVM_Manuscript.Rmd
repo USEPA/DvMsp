@@ -135,7 +135,7 @@ d1 <- ggplot(data = pop_df, aes(x = x, y = y)) +
   scale_colour_viridis_c() +
   geom_point(data = samp_df, size = 5.5, shape = 1, 
              show.legend = FALSE, stroke = 1.5) +
-  theme_minimal_grid() +
+  theme_bw() +
   labs(title = "Design 1",
        colour = "Response") +
   theme(axis.title = element_blank(),
@@ -151,7 +151,7 @@ d2 <- ggplot(data = pop_df, aes(x = x, y = y)) +
   scale_colour_viridis_c() +
   geom_point(data = samp_df2, size = 5.5, shape = 1, show.legend = FALSE,
              stroke = 1.5) +
-  theme_minimal_grid() +
+  theme_bw() +
   labs(title = "Design 2",
        colour = "Response") +
   theme(axis.title = element_blank(),
@@ -167,7 +167,7 @@ d3 <- ggplot(data = pop_df, aes(x = x, y = y)) +
   scale_colour_viridis_c() +
   geom_point(data = samp_df3, size = 5.5, shape = 1, show.legend = FALSE,
              stroke = 1.5) +
-  theme_minimal_grid() +
+  theme_bw() +
   labs(title = "Design 3",
        colour = "Response") +
   theme(axis.title = element_blank(),
@@ -194,7 +194,7 @@ m1 <- ggplot(data = pop_df_mod, aes(x = x, y = y)) +
   geom_point(aes(colour = response), size = 4) +
   scale_colour_viridis_c() +
   geom_point(data = samp_df_mod, size = 5.5, shape = 1, show.legend = FALSE, stroke = 1.5) +
-  theme_minimal_grid() +
+  theme_bw() +
   labs(title = "Model 1",
        colour = "Response") +
   theme(axis.title = element_blank(),
@@ -209,7 +209,7 @@ m2 <- ggplot(data = pop_df_mod2, aes(x = x, y = y)) +
   geom_point(aes(colour = response), size = 4) +
   scale_colour_viridis_c() +
   geom_point(data = samp_df_mod2, size = 5.5, shape = 1, show.legend = FALSE, stroke = 1.5) +
-  theme_minimal_grid() +
+  theme_bw() +
   labs(title = "Model 2",
        colour = "Response") +
   theme(axis.title = element_blank(),
@@ -224,7 +224,7 @@ m3 <- ggplot(data = pop_df_mod3, aes(x = x, y = y)) +
   geom_point(aes(colour = response), size = 4) +
   scale_colour_viridis_c() +
   geom_point(data = samp_df_mod2, size = 5.5, shape = 1, show.legend = FALSE, stroke = 1.5) +
-  theme_minimal_grid() +
+  theme_bw() +
   labs(title = "Model 3",
        colour = "Response") +
   theme(axis.title = element_blank(),
@@ -327,7 +327,9 @@ kable(tab, col.names = c("IRS", "GRTS"), caption = "\\label{tab:designanalysis} 
 ## made "by hand."
 ```
 
-We used a crossed design with the simulation parameters given in Table \ref{tab:parmtab} for a total of 36 scenarios. All scenarios used exponential correlation with an effective range of $\sqrt{2}$ for $N = 900$ response values simulated on the unit square in either random locations (Site Locations = Random) or gridded locations (Site Locations = Gridded). For the lognormal scenarios, the response values were simulated using the specified correlation parameters using a normal distribution and were subsequently exponentiated. A total variance of 2 and a mean of 0 on the normal scale is equivalent to a total variance of 47 and a mean of 2.72 after exponentiation. Therefore, when the model-based methods were used, the correlation is mis-specified. We chose to simulate values with a lognormal distribution so that we could test the model-based analysis approach with a mis-specified model and so that we could test both analysis approaches on data that exhibits a large amount of skewness (Figure \ref{fig:figlog}).
+We used a crossed design with the simulation parameters given in Table \ref{tab:parmtab} for a total of 36 scenarios. All scenarios used exponential correlation with an effective range of $\sqrt{2}$ for $N = 900$ response values simulated on the unit square in either random locations (Site Locations = Random) or gridded locations (Site Locations = Gridded). The mean for the spatial process generating the response was set to zero.
+
+For the lognormal scenarios, the response values were simulated using the specified correlation parameters using a normal distribution and were subsequently exponentiated. A total variance of 2 and a mean of 0 on the normal scale is equivalent to a total variance of 47 and a mean of 2.72 after exponentiation. Therefore, when the model-based methods were used for lognormal response, the correlation was mis-specified. We chose to simulate values with a lognormal distribution so that we could test the model-based analysis approach with a mis-specified model and so that we could test both analysis approaches on data that exhibits a large amount of skewness.
 
 ```{r}
 n <- c("50", "100", "200")
@@ -336,12 +338,12 @@ psill_ratio <- c("0", "0.5", "0.9")
 resp_type <- c("Normal", "Lognormal", "")
 parm_tab <- rbind(n, site_locations, psill_ratio, resp_type)
 row.names(parm_tab) <- c("Sample Size (n)", "Site Locations", 
-                         "Partial Sill Variance Ratio", "Response Type")
+                         "Partial Sill / Total Variance", "Response Type")
 kable(parm_tab, col.names = c("", "", ""),
       caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.")
 ```
 
-```{r, figlog, out.width = "100%", fig.cap = "Lognormal distribution with a mean of 0 on the log scale and variance of 2 on the log scale. The distribution exhibits moderate to strong right-skewness."}
+```{r, figlog, out.width = "100%", fig.cap = "Lognormal distribution with a mean of 0 on the log scale and variance of 2 on the log scale. The distribution exhibits moderate to strong right-skewness.", fig.keep = "none"}
 mu <- 0; var <- 2
 xvar <- seq(0.001, 10, by = 0.01)
 yvar <- dlnorm(xvar, meanlog = 0, sdlog = sqrt(var))
@@ -350,31 +352,7 @@ ggplot(df, aes(x = xvar, y = yvar)) +
   geom_line()
 ```
 
-
-* correlation type: dependent errors or independent errors
-* error type:
-    * normal: mean 0, variance 2
-    * lognormal: log scale mean 0, log scale variance 2 (total variance 47)
-    <!-- * lognormalbig: log scale mean 0, log scale variance 4 (total variance 2,926) -->
-* sample sizes: $n = 10, 50, 150; N = 900$
-* layout: gridded vs random uniform population locations confined to a 1 x 1 unit square
-
-So for example, the `inderror.normal.n50.randloc` is the simulation having independent random errors that are normal, a sample size of 50, and random population locations. 
-
-There were 2000 trials for each simulation. The original response (before exponentiating if applicable) for the dependent error cases was normally distributed with an exponential covariance function with partial sill of 0.9, effective range of $\sqrt{2}$, and a nugget of 0.1. For the independent error cases, the partial sill was 0 and the nugget was 1.
-
-__Lisa M.__ Notes: adding an intermediate level of spatial dependency?
-Transfer simulation scenarios to a table
-Explain what the effective range is
-Fill in the details of what exactly each approach means (perhaps a table would be a good way to do this)
-Reorder the sims in the first figure by some criterion.
-Think about what would be a "reasonable sample size" instead of 10.
-Define medae
-If the data has a large right-skew, wouldn't one consider a transformation before the analysis? We should address this by stating that the BLUP for the log response does not mean that e^logBLUP is the BLUP for the response on the original scale.
-
-
-In each simulated data set, a GRTS sample and an IRS sample were selected. Then for the GRTS sample, the design-based approach using the local neighborhood variance (Design GRTS) and a model-based approach were applied (Model GRTS). Then for the IRS sample, the design-based approach using the simple random sample variance (Design IRS) and a model-based approach were applied (Model IRS).
-
+There were 2000 simulation trials for each of the 36 parameter combinations. In each trial, response values were generated from a spatial process with the specified parameters, and a GRTS sample and an IRS sample were selected. For the GRTS sample, the design-based approach using the local neighborhood variance (GRTS-Design) and a model-based approach were applied (GRTS-Model). For the IRS sample, the design-based approach using the simple random sample variance (IRS-Design) and a model-based approach were applied (IRS-Model).
 
 ```{r, results = "asis", eval = FALSE}
 sim_one <- read_csv(here("inst", "output", "sim_one", "summ_output.csv"))
@@ -385,15 +363,17 @@ print(sim_one_table, include.rownames = FALSE, comment = FALSE)
 
 The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package \texttt{spsurvey} [@dumelle2021spsurvey]. FPBK can be readily performed in `R` with the `sptotal` package [@higham2020sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
 
-MAJOR POINTS for the following Figure, which has relative efficiency (rmspe / Design IRS rmspe): We see that
+Figure \ref{fig:figeff} shows the relative efficiency of the four approaches from Table \ref{tab:designanalysis} with "IRS-Design" as the baseline:
+\mbox{}
+\begin{equation*}
+\text{E} = \frac{\text{rMSPE of approach}}{\text{rMSPE of IRS-Design}},
+\end{equation*}
 
-- When there is no spatial correlation (top row), we aren't losing that much by using a spatial method over Design IRS, even if assumptions are violated.
-- When there is a lot of spatial correlation Model GRTS tends to perform best, but difference in relative efficiency between Model GRTS and Design GRTS is not very big. In many settings Design GRTS outperforms Model IRS by a large margin, suggesting that the design decision (whether to use IRS or GRTS) is much more important than the analysis decision (whether to analyze using model assumptions or not). 
-- If there is a large amount of spatial correlation, we should __not__ use IRS. Even though it's assumptions are satisfied, the resulting estimator is much worse than an estimator using a spatially balanced sample.
-- If we are comparing design-based and model-based methods, we should not use a poor design to compare with (give examples?).
+where rMSPE is the root-Mean-Squared-Prediction-Error. When there is no spatial correlation (top row), the four approaches have approximately equal rMSPE, even when the assumptions of the model-based approaches are violated. So, using GRTS or using a spatial model does not result in much loss in efficiency even if the response variable is not spatially correlated. When there is high spatial correlation (bottom row), the GRTS-Model approach tends to perform best, but difference in relative efficiency between GRTS-Model and GRTS-Design is not very big. In the lognormal, high partial sill settings (bottom-right facet), GRTS-Design outperforms IRS-Model by a large margin, suggesting that the design decision (whether to use IRS or GRTS) is more important than the analysis decision (whether to analyze using model assumptions or not). 
 
+Unsurprisingly, Figure \ref{fig:figeff} also shows that, when the assumptions for GRTS-Model are satisfied, the approach outperforms GRTS-Design. However, even when the model that generates the data is different than the model used to fit the data, as in the lognormal response, the model-based approach still outperforms the design-based approach when there is a high amount of spatial correlation.
 
-```{r, results = "hide", message = FALSE, warning = FALSE}
+```{r figeff, out.width = "100%", fig.cap = "Relative Efficiency of the four design-analysis approaches. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.", message = FALSE, warning = FALSE}
 library(tidyverse)
 library(here)
 
@@ -411,28 +391,25 @@ combo_data <- combo_data %>%
 combo_data <- combo_data %>% group_by(sim) %>% mutate(designirsrmspe = if_else(approach == "Design IRS", true = rmspe, false = NA_real_)) %>%
   fill(designirsrmspe, .direction = "downup") %>%
   mutate(rel_efficiency = rmspe / designirsrmspe) %>%
-  ungroup()
+  ungroup() %>%
+  mutate(psill_ratio = 1 - nugget_ratio) %>%
+  mutate(n_factor = factor(n))
 
-ggplot(data = combo_data, aes(x = factor(n), y = rel_efficiency, colour = approach)) +
-  facet_grid(psill ~ resptype) +
-  geom_jitter(width = 7) +
-  scale_colour_manual(values = c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4"))
+effplot <- ggplot(data = combo_data, aes(x = n_factor, y = rel_efficiency,
+                              colour = approach)) +
+  facet_grid(psill_ratio ~ resptype) +
+  geom_jitter(width = 0.19, size = 2.5) +
+  scale_colour_manual(values = c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")) +
+  theme_bw(base_size = 14) +
+  labs(x = "Sample Size", colour = "Approach",
+       y = "Relative Efficiency")
+effplot
 ```
 
 Plot Note: change colours and think about shape
-change partial sill variance to proportion of partial sill
 think about legend going on graph
 
-Plot Note: Think about raw data.
-
-
-MAJOR POINTS for the following Figure:
-
-- when we drop the IRS samples to compare the GRTS samples more closely (looking at the relative efficiency of model rmspe / design rmspe), we see that the model-based approach is usually better than the design-based approach (but, keep in mind that the improvement was small compared to the improvement of both methods over Design IRS).
-- when the model used is the same model that generated the data, the Model-based approach far outperforms the Design-based approach, especially when there is a lot of spatial correlation (bottom-left facet). The methods perform similarly when there is no spatial correlation.
-- even when the model that generates the data is different than the model used to fit the data (lognormal), the model-based approach still outperforms the design-based approach when there is a high amount of spatial correlation.
-
-```{r}
+```{r, fig.keep = "none"}
 combo_data_grts <- combo_data %>%
   dplyr::filter(approach %in% c("Design GRTS", "Model GRTS")) %>%
   mutate(designgrts = if_else(approach == "Design GRTS", 
@@ -449,8 +426,6 @@ ggplot(data = combo_data_grts_model, aes(x = n, y = releffgrts)) +
   facet_grid(psill ~ resptype) +
   geom_point()
 ```
-
-Plot Note: Do we want this figure?
 
 MAJOR POINTS for the following Figure:
 
@@ -481,10 +456,10 @@ Major Points from August 3 Simulations:
 
 4. Coverage 
 
-For Gaussian errors, coverage for all approaches tended to be near 0.95. There was less between-approach deviation in coverages for random locations compared to grid locations. Generally, the larger the skew, the worse the coverage,and the larger the sample size, the better the coverage. Design GRTS (local neighborhood variance) tended to slightly undercover, a result Tony was familiar with.
+For Gaussian errors, coverage for all approaches tended to be near 0.95. There was less between-approach deviation in coverages for random locations compared to grid locations. Generally, the larger the skew, the worse the coverage,and the larger the sample size, the better the coverage. GRTS-Design (local neighborhood variance) tended to slightly undercover, a result Tony was familiar with.
 
 ```{r}
-## View(combo_data %>% filter(approach == "Design IRS"))
+## View(combo_data %>% filter(approach == "IRS-Design"))
 ggplot(data = combo_data, aes(x = sim, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95) +
   geom_point() +
@@ -689,7 +664,7 @@ model_ub_grts
 
 ```{r, results = "hide"}
 ## combine results
-res_df <- tibble(approach = c("Design IRS", "Design GRTS", "Model IRS", "Model GRTS"),
+res_df <- tibble(approach = c("IRS-Design", "GRTS-Design", "IRS-Model", "GRTS-Model"),
        realized_mean = c(realized_mean, realized_mean, realized_mean,
                      realized_mean),
        estimate = c(irs_info$meandoc,
