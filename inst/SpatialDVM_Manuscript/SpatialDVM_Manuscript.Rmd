@@ -395,11 +395,12 @@ combo_data <- combo_data %>% group_by(sim) %>% mutate(designirsrmspe = if_else(a
   mutate(psill_ratio = 1 - nugget_ratio) %>%
   mutate(n_factor = factor(n))
 
+colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
 effplot <- ggplot(data = combo_data, aes(x = n_factor, y = rel_efficiency,
                               colour = approach)) +
   facet_grid(psill_ratio ~ resptype) +
   geom_jitter(width = 0.19, size = 2.5) +
-  scale_colour_manual(values = c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")) +
+  scale_colour_manual(values = colour_scale) +
   theme_bw(base_size = 14) +
   labs(x = "Sample Size", colour = "Approach",
        y = "Relative Efficiency")
@@ -434,47 +435,17 @@ MAJOR POINTS for the following Figure:
 - for the model-based approach, the more skewed the population is, the higher the sample size needed to satisfy CLT for predicting a mean. The derivation of the BLUP is entirely moment-based (no distribution assumed) but we still need to assume a distribution to estimate spatial parameters and to generate bounds of a prediction interval.
 - many confidence intervals generated for design-based approaches also rely on the CLT and the normal distribution to generate the interval. Again, for highly skewed data with a small sample size, this assumption is violated even though all of the assumptions for generating the estimator are valid.
 
-Plot Note: Change to coverage plot to include all types
-
 ```{r}
-ggplot(data = combo_data_grts, aes(x = n, y = coverage, colour = approach)) +
+ggplot(data = combo_data, aes(x = n_factor, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95) +
-  geom_jitter(width = 7) + 
-  facet_grid(psill ~ resptype) +
-  scale_colour_manual(values = c("mediumpurple1", "mediumpurple4")) +
-  theme_bw()
+  geom_jitter(width = 0.19, size = 2.5) + 
+  facet_grid(psill_ratio ~ resptype) +
+  scale_colour_manual(values = colour_scale) +
+  ylim(0.80, 1) +
+  theme_bw(base_size = 14) +
+  labs(x = "Sample Size", colour = "Approach",
+       y = "Interval Coverage")
 ```
-
-Major Points from August 3 Simulations:
-
-1. In most of the dependent error simulation settings, either all four approahces (IRS-Design, IRS-Model, GRTS-Design, and GRTS-Model) perform equally or GRTS-Design and GRTS-Model outperform IRS-Design and IRS-Model. Exceptions to this are a couple of the settings with very small sample sizes (n = 10), in which the IRS does better than GRTS. In the independent error settings, it usually doesn't matter much which approach is used, which makes sense.
-
-
-2. We will now focus on comparing Design-GRTS to Model-GRTS, the two best approaches for any reasonable sample size. In the independent error settings, the two approaches perform very similarly, so those results are omitted in the following graph. In the dependent error settings, using rmspe as the performance criterion, Model-GRTS outperforms Design-GRTS in 12 of the 18 settings, the two approaches perform very similarly in 3 settings, and Design-GRTS outperforms Model-GRTS in 3 settings.
-
-3. Focusing in on the three settings where Design-GRTS outperforms Model-GRTS, we see that, in two of the settings, the log-normal response has a large variance, corresponding to a large right-skew after exponentiation. All three settings have sites in random locations. However, in only one of these settings would we recommend actually using Design-GRTS. In the other two settings, the data are sufficiently skewed that a practitioner should not use either approach, though it is "safer" to use Design-GRTS.
-
-4. Coverage 
-
-For Gaussian errors, coverage for all approaches tended to be near 0.95. There was less between-approach deviation in coverages for random locations compared to grid locations. Generally, the larger the skew, the worse the coverage,and the larger the sample size, the better the coverage. GRTS-Design (local neighborhood variance) tended to slightly undercover, a result Tony was familiar with.
-
-```{r}
-## View(combo_data %>% filter(approach == "IRS-Design"))
-ggplot(data = combo_data, aes(x = sim, y = coverage, colour = approach)) +
-  geom_hline(yintercept = 0.95) +
-  geom_point() +
-  coord_flip()
-```
-
-
-
-5. Take-home messages
-
-- In terms of rmspe, a model-based analysis on a GRTS design yields an rmspe similar to or lower than a design-based analysis on a GRTS design, as long as the response variable is not "too skewed." 
-- If the response variable is very skewed, then neither analysis is appropriate, but, the design-based analysis is better. 
-- a spatially balanced GRTS sample outperforms IRS in nearly all dependent error settings, as expected.
-- methods that use spatial correlation generally perform better on random location points than they do on gridded points. This makes some intuitive sense because (1) on average, the minimum distance between an unobserved point and its nearest observed neighbor should be lower for random points and (2) the span of the study area is maximized for a grid based on the way that we set up the simulations (with the random points being drawn as uniform random variables within the boundary of the grid). 
-- comparison of Design-GRTS and Model-GRTS between two settings with different locations of points, but otherwise the same simulation parameters, should really be done on the same surface realization. One very strange realized response vector could drastically alter the results, especially on the exponentiated log data. In the same way that we compare the four approaches on the same realized data, we should also try to do the same with the locations, if they are of interest. (The realized mean won't be exactly the same but should be close).
 
 # Application
 
