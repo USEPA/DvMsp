@@ -399,7 +399,7 @@ colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
 effplot <- ggplot(data = combo_data, aes(x = n_factor, y = rel_efficiency,
                               colour = approach)) +
   facet_grid(psill_ratio ~ resptype) +
-  geom_jitter(width = 0.19, size = 2.5) +
+  geom_jitter(width = 0.24, size = 2.5) +
   scale_colour_manual(values = colour_scale) +
   theme_bw(base_size = 14) +
   labs(x = "Sample Size", colour = "Approach",
@@ -428,17 +428,19 @@ ggplot(data = combo_data_grts_model, aes(x = n, y = releffgrts)) +
   geom_point()
 ```
 
-MAJOR POINTS for the following Figure:
+Figure \ref{fig:figconf} shows the coverage for each of the four approaches. We see that the four approaches have somewhat similar coverages in all settings, with GRTS-Design having slightly lower coverage when the response is normal. 
 
-- coverage for the model-based estimator is slightly higher than coverage for the design-based estimator in the normal settings. Coverages are about equal in the lognormal settings with a slight edge to model-based (this is the point that will be tougher to explain: I would have expected the design-based estimator to have better coverage in the lognormal settings because it has fewer assumptions).
-- coverage is at or near the nominal 95% in all of the normal settings, where assumptions for the model approach and the design approach are satisfied.
+In the normal response settings, where assumptions for the model-based approaches and the design-based approaches are satisfied, all approaches have coverage around the nominal 0.95. Because the intervals are symmetric, normal-based intervals, the coverages are generally lower than the nominal 95%. We see that, because the sampling distribution of the mean is asymptotically normal (reference for this? a spatial version of CLT), the coverages when the sample size is 200 are much closer to the nominal 95% than the coverages when the sample size is 50. In general, the more skewed the distribution of the response, the larger the sample size needed to ensure proper coverage of these normal-based intervals.
+
+Do we want to mention stuff like what's in these next bullet points or no?
+
 - for the model-based approach, the more skewed the population is, the higher the sample size needed to satisfy CLT for predicting a mean. The derivation of the BLUP is entirely moment-based (no distribution assumed) but we still need to assume a distribution to estimate spatial parameters and to generate bounds of a prediction interval.
 - many confidence intervals generated for design-based approaches also rely on the CLT and the normal distribution to generate the interval. Again, for highly skewed data with a small sample size, this assumption is violated even though all of the assumptions for generating the estimator are valid.
 
-```{r}
+```{r figconf, out.width = "100%", fig.cap = "Coverage of the four design-analysis approaches. All confidence intervals are normal-based and have a nominal confidence level of 0.95, marked with a horizontal line. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.", message = FALSE, warning = FALSE}
 ggplot(data = combo_data, aes(x = n_factor, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95) +
-  geom_jitter(width = 0.19, size = 2.5) + 
+  geom_jitter(width = 0.24, size = 2.5) + 
   facet_grid(psill_ratio ~ resptype) +
   scale_colour_manual(values = colour_scale) +
   ylim(0.80, 1) +
@@ -658,6 +660,10 @@ kable(res_df_drop, digits = 1, caption = "\\label{tab:appliedtab} Application of
 ```
 
 Table \ref{tab:appliedtab} shows the application of a design-based analysis on an IRS, a model-based analysis on an IRS, a design-based analysis on a GRTS sample, and a model-based analysis on a GRTS sample. We see that, for all four analyses, the true realized mean mercury concentration is within the bounds of the 95% intervals. However, we should not generalize the results of this particular realization to any other data set or even to other potential samples of this data set. 
+
+<!-- not sure why this is getting cutoff. temporary fix: -->
+
+\pagebreak
 
 But, we do note a couple of patterns. The design-based IRS analysis shows the largest standard error: a likely reason is that this is the only approach that does not use the spatial correlation in mercury concentration across the contiguous United States. We also see that, for the samples drawn, the both analyses with the GRTS sampling design have a lower standard error than the analyses with the IRS sampling design. We would expect this to be the case for most samples because mercury concentration exhibits spatial correlation so a spatially balanced sample should usually yield a lower standard error. If it is acceptable to have an interval for mean mercury concentration of about 25 ng / g and if we ignore the other variables that the EPA collects information on in these NLA surveys, then the EPA could consider sampling just 50 lakes to save time and money. 
 

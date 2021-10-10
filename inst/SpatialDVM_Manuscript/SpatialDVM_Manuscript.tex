@@ -35,7 +35,6 @@
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 \bibliographystyle{elsarticle-harv}
 \usepackage{longtable}
-\usepackage{graphicx}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -559,21 +558,28 @@ approach when there is a high amount of spatial correlation.
 Plot Note: change colours and think about shape think about legend going
 on graph
 
-MAJOR POINTS for the following Figure:
+Figure \ref{fig:figconf} shows the coverage for each of the four
+approaches. We see that the four approaches have somewhat similar
+coverages in all settings, with GRTS-Design having slightly lower
+coverage when the response is normal.
+
+In the normal response settings, where assumptions for the model-based
+approaches and the design-based approaches are satisfied, all approaches
+have coverage around the nominal 0.95. Because the intervals are
+symmetric, normal-based intervals, the coverages are generally lower
+than the nominal 95\%. We see that, because the sampling distribution of
+the mean is asymptotically normal (reference for this? a spatial version
+of CLT), the coverages when the sample size is 200 are much closer to
+the nominal 95\% than the coverages when the sample size is 50. In
+general, the more skewed the distribution of the response, the larger
+the sample size needed to ensure proper coverage of these normal-based
+intervals.
+
+Do we want to mention stuff like what's in these next bullet points or
+no?
 
 \begin{itemize}
 \tightlist
-\item
-  coverage for the model-based estimator is slightly higher than
-  coverage for the design-based estimator in the normal settings.
-  Coverages are about equal in the lognormal settings with a slight edge
-  to model-based (this is the point that will be tougher to explain: I
-  would have expected the design-based estimator to have better coverage
-  in the lognormal settings because it has fewer assumptions).
-\item
-  coverage is at or near the nominal 95\% in all of the normal settings,
-  where assumptions for the model approach and the design approach are
-  satisfied.
 \item
   for the model-based approach, the more skewed the population is, the
   higher the sample size needed to satisfy CLT for predicting a mean.
@@ -588,7 +594,9 @@ MAJOR POINTS for the following Figure:
   generating the estimator are valid.
 \end{itemize}
 
-\includegraphics{SpatialDVM_Manuscript_files/figure-latex/unnamed-chunk-6-1.pdf}
+\begin{figure}
+\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/figconf-1} \caption{Coverage of the four design-analysis approaches. All confidence intervals are normal-based and have a nominal confidence level of 0.95, marked with a horizontal line. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figconf}
+\end{figure}
 
 \hypertarget{application}{%
 \section{Application}\label{application}}
@@ -644,6 +652,8 @@ We see that, for all four analyses, the true realized mean mercury
 concentration is within the bounds of the 95\% intervals. However, we
 should not generalize the results of this particular realization to any
 other data set or even to other potential samples of this data set.
+
+\pagebreak
 
 But, we do note a couple of patterns. The design-based IRS analysis
 shows the largest standard error: a likely reason is that this is the
