@@ -115,21 +115,16 @@ Potential Journals:
 \section{Introduction}\label{sec:introduction}}
 
 There are two general approaches for using data to make statistical
-inferences about a population: design-based approaches and model-based
-approaches. When data cannot be obtained for all units in a population
-(population units), data on a subset of the population units is
-collected in a sample. In the design-based approach, inferences about
-the underlying population are informed from a probabilistic process in
-which population units are selected to be in the sample. Alternatively,
-in the model-based approach, inferences are made from specific
-assumptions about the underlying process that generated the data. Each
-paradigm has a deep historical context (Sterba, 2009) and its own set of
-general advantages (Hansen et al., 1983).
-
-\textbf{Tony O.}: Should this paragraph address that spatial information
-can be incorporated in the design stage or in the analysis stage (or
-both). In general, it's not clear whether we are referring to site
-selection process or the estimation process
+inferences about a population: design-based and model-based. When data
+cannot be obtained for all units in a population (population units),
+data on a subset of the population units is collected and called a
+sample. In the design-based approach, inferences about the underlying
+population are informed from a probabilistic process in which population
+units are selected to be in the sample. Alternatively, in the
+model-based approach, inferences are made from specific assumptions
+about the underlying process that generated the data. Each paradigm has
+a deep historical context (Sterba, 2009) and its own set of general
+advantages (Hansen et al., 1983).
 
 Though the design-based and model-based approaches apply to statistical
 inference in a broad sense, we focus on comparing these approaches for
@@ -139,28 +134,29 @@ estimation process. De Gruijter and Ter Braak (1990) give an early
 comparison of design-based and model-based approaches for spatial data,
 quashing the belief that design-based approaches could not be used for
 spatially correlated data. Thereafter, several comparisons between
-design-based and model-based for spatial data have been considered, but
-they tend to compare design-based approaches that ignore spatial
-locations to model-based approaches (Brus and De Gruijter, 1997; Ver
-Hoef, 2002, 2008). Cooper (2006) review the two approaches in an
-ecological context before introducing a ``model-assisted'' variance
-estimator that combines aspects from each approach. In addition to
-Cooper (2006), there has been substantial research and development into
-estimators that use both design and model-based principles (see
-e.g.~Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
-Bayesian approach, and Sterba (2009)). More recent overviews include
-Brus (2020) and Wang et al. (2012), but no numerical comparison has been
-made between design-based approaches that incorporate spatial locations
-and model-based approaches.
+design-based and model-based for spatial data have been considered (Brus
+and De Gruijter, 1997; Ver Hoef, 2002, 2008). Cooper (2006) review the
+two approaches in an ecological context before introducing a
+``model-assisted'' variance estimator that combines aspects from each
+approach. In addition to Cooper (2006), there has been substantial
+research and development into estimators that use both design and
+model-based principles (see e.g.~Cicchitelli and Montanari (2012),
+Chan-Golston et al. (2020) for a Bayesian approach, and Sterba (2009)).
+More recent overviews include Brus (2020) and Wang et al. (2012).
 
-\textbf{Lisa M.}: Add paragraph describing contribution of manuscript.
-
-The rest of this paper is organized as follows. In Section
-\ref{sec:background}, we compare sampling and estimation procedures
-between the design-based approach and the model-based approach. In
-Section \ref{sec:numstudy}, we use simulated and real data to study the
-the behavior of both approaches. And in Section \ref{sec:discussion}, we
-end with a discussion and provide directions for future research.
+Though comparisons between design-based and model-based approaches to
+spatial data have been studied, no numerical comparison has been made
+between design-based approaches that incorporate spatial locations and
+model-based approaches. In this manuscript, we compare design-based
+approaches that incorporate spatial locations to model-based approaches
+for spatial data. The rest of the manuscript is organized as follows. In
+Section \ref{sec:background}, we compare sampling and estimation
+procedures between the design-based approach and the model-based
+approach for spatial data. In Section \ref{sec:numstudy}, we use a
+simulation approach to study the behavior and performance of both
+approaches. In Section \ref{application}, we use both approaches to
+analyze real data. And in Section \ref{sec:discussion}, we end with a
+discussion and provide directions for future research.
 
 \hypertarget{sec:background}{%
 \section{Background}\label{sec:background}}
@@ -171,41 +167,34 @@ randomness and its effects on subsequent inferences. We then discuss
 specific inference methods for the design-based and model-based
 approaches for spatial data.
 
-\hypertarget{comparing-design-based-vs.-model-based}{%
-\subsection{Comparing Design-Based
-vs.~Model-Based}\label{comparing-design-based-vs.-model-based}}
+\hypertarget{comparing-design-based-and-model-based-approaches}{%
+\subsection{Comparing Design-Based and Model-Based
+Approaches}\label{comparing-design-based-and-model-based-approaches}}
 
 The design-based approach assumes the population is fixed. Randomness is
-incorporated in the selection of population units according to a
-sampling design. A sampling design assigns a positive probability of
-inclusion in the sample (inclusion probability) to each population unit.
+incorporated via the selection of units in a sampling frame according to
+a sampling design. A sampling frame is the set of all units available to
+be sampled. A sampling design assigns a positive probability of
+inclusion (inclusion probability) to each unit in the sampling frame.
 Some examples of commonly used sampling designs include simple random
-sampling, stratified random sample, and cluster sampling, which we refer
-to as Independent Random Sampling (IRS) survey designs. The goal is to
-use the sampling design and the sampled data to estimate population
-parameters like means and totals. These population parameters are
-traditionally assumed to be fixed but unknown.
+sampling, stratified random sample, and cluster sampling. These sampling
+designs tend to select units from the sampling frame independently of
+other units, so we call them ``Independent Random Sampling'' (IRS)
+designs. The design-based approach combines the randomness of the
+sampling design and the data collected via the sample to estimate
+parameters (e.g.~means and totals) of a population. Generally, these
+population parameters are assumed to be fixed, unknown constants.
 
 Treating the data as fixed and incorporating randomness through the
-sampling design (top row of Figure \ref{fig:fig1} ((cite Brus 2021 here
-since our figure is similar?))) yields estimators having very few other
-assumptions. Confidence intervals for these types of estimators are
-typically derived using limiting arguments. Means and totals, for
-example, are asymptotically normally distributed by the Central Limit
-Theorem. If we repeatedly sample the surface, then 95\% of all 95\%
-confidence intervals constructed from a procedure with appropriate
+sampling design yields estimators having very few other assumptions.
+Confidence intervals for these types of estimators are typically derived
+using limiting arguments that incorporate all possible randomizations of
+sampling units selected via the sampling design. Means and totals, for
+example, are asymptotically Gaussian by the Central Limit Theorem (under
+some assumptions). If we repeatedly sample the surface, then 95\% of all
+95\% confidence intervals constructed from a procedure with appropriate
 coverage will contain the true, fixed mean. Särndal et al. (2003) and
 Lohr (2009) provide thorough reviews of the design-based approach.
-
-\textbf{Jay VH}: I think it is important to stress that the limiting
-distribution is over all possible randomizations, constrained by
-whatever design is used.
-
-\textbf{Jay VH}: quantity is vague. We should stick with variables, or
-realized variables (we might also call these values, but we should
-define and establish a consistent terminology early on.) \textbf{Matt
-H}: I think, though this comment is for this paragraph, we should
-establish the terminology earlier.
 
 The model-based approach assumes the data are a random realization of a
 data-generating process. Randomness is often incorporated through
@@ -213,23 +202,23 @@ distributional assumptions on this process and need not be incorporated
 through random sampling (bottom row of Figure \ref{fig:fig1}). Instead
 of estimating fixed but unknown parameters (as in the design-based
 approach), the goal of model-based inference in the spatial context is
-often \emph{prediction} of an unknown quantity. For example, suppose the
-realized mean of all population units is the quantity of interest.
-Instead of \emph{estimating} a fixed unknown mean, we are
-\emph{predicting} the value of the mean, a random variable. We know that
-if we sampled all population units, we would have an exact prediction
-for the mean of our one realized process, without any uncertainty.
-
-Assuming the data is a realization of a specific data-generating process
-yields predictors that are linked to distributional assumptions. These
-distributional assumptions are used to derive prediction intervals. The
-distributional assumptions allow the prediction intervals to be more
-precise. If we repeatedly generate the response values from a fixed
-spatial process and obtain a sample, then 95\% of all 95\% prediction
-intervals constructed from a procedure with appropriate coverage will
-contain their respective realized means. Cressie (1993) and
-Schabenberger and Gotway (2017) provide reviews of model-based
-approaches for spatial data.
+often to predict a realized variable, or value. For example, suppose the
+realized mean of all population units is the value of interest. Instead
+of \emph{estimating} a fixed, unknown mean, we are \emph{predicting} the
+value of the mean, a random variable. We know that if we sampled all
+population units (and not any units outside the population), we would be
+able to exactly predict (without any uncertainty) the mean of our one
+realized process. Assuming the data are realized from a specific
+data-generating process yields predictions that are linked to
+distributional assumptions. These distributional assumptions are used to
+derive prediction intervals. If we repeatedly generate the response
+values from a fixed spatial process and obtained a sample, then 95\% of
+all 95\% prediction intervals constructed from a procedure with
+appropriate coverage will contain their respective realized means.
+Cressie (1993) and Schabenberger and Gotway (2017) provide reviews of
+model-based approaches for spatial data. A visual comparison of the
+design-based and model-based assumptinos is provided in Figure
+\ref{fig:fig1} (Brus (2020) provides a similar figure).
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{manuscript_files/figure-latex/fig1-1} \caption{A comparison of sampling under the design-based and model-based frameworks. Points circled are those that are sampled. In the top row, we have one fixed population, and three random samples of n = 4. The response values at each site are fixed, but we obtain different estimates for the mean response because the randomly sampled sites vary from sample to sample. In the bottom row, we have three realizations of the same spatial process sampled at the same locations. The spatial process generating the response values has a single mean, but the realized mean is different in each of the three panels.}\label{fig:fig1}

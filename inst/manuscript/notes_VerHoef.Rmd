@@ -1,1 +1,5 @@
 # Please Leave Your Notes Here
+
+__Jay VH__: I think it is important to stress that the limiting distribution (related to confidence intervals) is over all possible randomizations, constrained by whatever design is used.
+
+__Jay VH__: quantity is vague. We should stick with variables, or realized variables (we might also call these values, but we should define and establish a consistent terminology early on.) __Matt H__: I think, though this comment is for this paragraph, we should establish the terminology earlier.
