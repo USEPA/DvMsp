@@ -2,3 +2,8 @@
 
 __Lisa M__: Add a paragraph describing the contribution of the manuscript (before the "the rest of the manuscript is organize as follows etc." in the introduction)
 
+__Lisa M.__: Need a more precise definition of "miniature" in this context, and need an example.
+
+__Lisa M.__: List major attractive properties, and detailed by @stevens2004spatially and @dumelle2021spsurvey.
+
+__Lisa M.__ : Include formulas. Perhaps, but, these are very heavy in notation and matrix algebra. We might consider, however, adding the formulas to an Appendix.

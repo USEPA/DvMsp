@@ -3,3 +3,7 @@
 __Jay VH__: I think it is important to stress that the limiting distribution (related to confidence intervals) is over all possible randomizations, constrained by whatever design is used.
 
 __Jay VH__: quantity is vague. We should stick with variables, or realized variables (we might also call these values, but we should define and establish a consistent terminology early on.) __Matt H__: I think, though this comment is for this paragraph, we should establish the terminology earlier.
+
+__Jay VH__: What about the design for model-based inference? Strictly speaking, it is fixed – there is no probabilistic use of a randomized design. However, we are going to have to deal with Diggle et al. (2010).
+
+__Jay VH__: Saying "the distribution of the sampled population units mirrors the density of..." is confusing to me. Are these formal statistical definitions of distribution (cumulative distribution function) and density (probability density function)? Wouldn’t IRS sample be a miniature, as it should, on average, mirror a population?
