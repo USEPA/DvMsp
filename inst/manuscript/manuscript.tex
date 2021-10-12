@@ -56,31 +56,6 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 
 % Pandoc citation processing
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-% for Pandoc 2.8 to 2.10.1
-\newenvironment{cslreferences}%
-  {}%
-  {\par}
-% For Pandoc 2.11+
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Pandoc header
 
@@ -89,8 +64,8 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{A comparison of design-based and model-based approaches for
-spatial data.}
+  \title{A comparison of design-based and model-based approaches for spatial
+data.}
     \author[USEPA]{In alphabetical order Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
     \author[STLAW]{Matt Higham\corref{1}}
@@ -101,16 +76,14 @@ spatial data.}
   
     \author[NOAA]{Jay M. Ver Hoef}
   
-      \address[USEPA]{United States Environmental Protection Agency, 200
-SW 35th St, Corvallis, Oregon, 97333}
-    \address[STLAW]{Saint Lawrence University Department of Mathematics,
-Computer Science, and Statistics, 23 Romoda Drive, Canton, New York,
-13617}
-    \address[OSU]{Oregon State University Department of Statistics, 239
-Weniger Hall, Corvallis, Oregon, 97331}
-    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science
-Center, National Oceanic and Atmospheric Administration, Seattle,
-Washington, 98115}
+      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
+Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Mathematics, Computer Science,
+and Statistics, 23 Romoda Drive, Canton, New York, 13617}
+    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
+Corvallis, Oregon, 97331}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
+Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
@@ -169,12 +142,12 @@ spatially correlated data. Thereafter, several comparisons between
 design-based and model-based for spatial data have been considered, but
 they tend to compare design-based approaches that ignore spatial
 locations to model-based approaches (Brus and De Gruijter, 1997; Ver
-Hoef, 2002; Ver Hoef, 2008). Cooper (2006) review the two approaches in
-an ecological context before introducing a ``model-assisted'' variance
+Hoef, 2002, 2008). Cooper (2006) review the two approaches in an
+ecological context before introducing a ``model-assisted'' variance
 estimator that combines aspects from each approach. In addition to
 Cooper (2006), there has been substantial research and development into
-estimators that use both design and model-based principles (see e.g.
-Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
+estimators that use both design and model-based principles (see
+e.g.~Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
 Bayesian approach, and Sterba (2009)). More recent overviews include
 Brus (2020) and Wang et al. (2012), but no numerical comparison has been
 made between design-based approaches that incorporate spatial locations
@@ -259,7 +232,7 @@ Schabenberger and Gotway (2017) provide reviews of model-based
 approaches for spatial data.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/fig1-1} \caption{A comparison of sampling under the design-based and model-based frameworks. Points circled are those that are sampled. In the top row, we have one fixed population, and three random samples of n = 4. The response values at each site are fixed, but we obtain different estimates for the mean response because the randomly sampled sites vary from sample to sample. In the bottom row, we have three realizations of the same spatial process sampled at the same locations. The spatial process generating the response values has a single mean, but the realized mean is different in each of the three panels.}\label{fig:fig1}
+\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/fig1-1} \caption{A comparison of sampling under the design-based and model-based frameworks. Points circled are those that are sampled. In the top row, we have one fixed population, and three random samples of n = 4. The response values at each site are fixed, but we obtain different estimates for the mean response because the randomly sampled sites vary from sample to sample. In the bottom row, we have three realizations of the same spatial process sampled at the same locations. The spatial process generating the response values has a single mean, but the realized mean is different in each of the three panels.}\label{fig:fig1}
 \end{figure}
 
 \textbf{Tony O.}: Before this section is it useful to have a section
@@ -459,15 +432,15 @@ Analysis combinations considered in the simulation study. The columns
 give the two types of sampling designs while the rows give the two types
 of analyses.}\tabularnewline
 \toprule
-& IRS & GRTS \\
+& IRS & GRTS\tabularnewline
 \midrule
 \endfirsthead
 \toprule
-& IRS & GRTS \\
+& IRS & GRTS\tabularnewline
 \midrule
 \endhead
-Design & IRS-Design & GRTS-Design \\
-Model & IRS-Model & GRTS-Model \\
+Design & IRS-Design & GRTS-Design\tabularnewline
+Model & IRS-Model & GRTS-Model\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -495,17 +468,11 @@ large amount of skewness.
 for all scenarios was 2 so that the partial sill was 0, 1, or
 1.8.}\tabularnewline
 \toprule
-& & & \\
-\midrule
-\endfirsthead
-\toprule
-& & & \\
-\midrule
 \endhead
-Sample Size (n) & 50 & 100 & 200 \\
-Site Locations & Random & Gridded & \\
-Partial Sill / Total Variance & 0 & 0.5 & 0.9 \\
-Response Type & Normal & Lognormal & \\
+Sample Size (n) & 50 & 100 & 200\tabularnewline
+Site Locations & Random & Gridded &\tabularnewline
+Partial Sill / Total Variance & 0 & 0.5 & 0.9\tabularnewline
+Response Type & Normal & Lognormal &\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -552,7 +519,7 @@ response, the model-based approach still outperforms the design-based
 approach when there is a high amount of spatial correlation.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/figeff-1} \caption{Relative Efficiency of the four design-analysis approaches. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figeff}
+\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figeff-1} \caption{Relative Efficiency of the four design-analysis approaches. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figeff}
 \end{figure}
 
 Plot Note: change colours and think about shape think about legend going
@@ -595,7 +562,7 @@ no?
 \end{itemize}
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/figconf-1} \caption{Coverage of the four design-analysis approaches. All confidence intervals are normal-based and have a nominal confidence level of 0.95, marked with a horizontal line. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figconf}
+\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figconf-1} \caption{Coverage of the four design-analysis approaches. All confidence intervals are normal-based and have a nominal confidence level of 0.95, marked with a horizontal line. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figconf}
 \end{figure}
 
 \hypertarget{application}{%
@@ -614,7 +581,7 @@ the realized mean mercury concentration if we only take a sample of 100
 of the 986 lakes.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{SpatialDVM_Manuscript_files/figure-latex/figdata-1} \caption{Population distribution of mercury concentration for 986 lakes in the contiguous United States. Thirty-five lakes were dropped from the analysis because they were missing mercury concentration.}\label{fig:figdata}
+\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figdata-1} \caption{Population distribution of mercury concentration for 986 lakes in the contiguous United States. Thirty-five lakes were dropped from the analysis because they were missing mercury concentration.}\label{fig:figdata}
 \end{figure}
 
 Figure \ref{fig:figdata} shows that mercury concentration is
@@ -631,17 +598,17 @@ population, we know that the realized mean mercury concentration is
 model-based approaches to the NLA data set on mercury concentration. The
 true mean concentration is 103.2 103.2 ng / g}\tabularnewline
 \toprule
-Approach & Estimate & SE & 95\% LB & 95\% UB \\
+Approach & Estimate & SE & 95\% LB & 95\% UB\tabularnewline
 \midrule
 \endfirsthead
 \toprule
-Approach & Estimate & SE & 95\% LB & 95\% UB \\
+Approach & Estimate & SE & 95\% LB & 95\% UB\tabularnewline
 \midrule
 \endhead
-IRS-Design & 112.7 & 8.8 & 95.4 & 129.9 \\
-IRS-Model & 110.5 & 7.9 & 95.0 & 125.9 \\
-GRTS-Design & 101.8 & 6.1 & 89.8 & 113.7 \\
-GRTS-Model & 102.3 & 5.9 & 90.8 & 113.9 \\
+IRS-Design & 112.7 & 8.8 & 95.4 & 129.9\tabularnewline
+IRS-Model & 110.5 & 7.9 & 95.0 & 125.9\tabularnewline
+GRTS-Design & 101.8 & 6.1 & 89.8 & 113.7\tabularnewline
+GRTS-Model & 102.3 & 5.9 & 90.8 & 113.9\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -688,7 +655,6 @@ lakes to save time and money.
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-barabesi2011sampling}{}%
 Barabesi, L., Franceschi, S., 2011. Sampling properties of spatial total
 estimators under tessellation stratified designs. Environmetrics 22,
@@ -723,8 +689,8 @@ inference for finite populations under spatial process settings.
 Environmetrics 31, e2606.
 
 \leavevmode\hypertarget{ref-chiles1999geostatistics}{}%
-Chiles, J.-P., Delfiner, P., 1999. Geostatistics: {Modeling Spatial
-Uncertainty}. {John Wiley \& Sons}, New York.
+Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
+Uncertainty. John Wiley \& Sons, New York.
 
 \leavevmode\hypertarget{ref-cicchitelli2012model}{}%
 Cicchitelli, G., Montanari, G.E., 2012. Model-assisted estimation of a
@@ -832,7 +798,7 @@ wildlife populations. Environmental and Ecological Statistics 15, 3--13.
 
 \leavevmode\hypertarget{ref-ver2013comparison}{}%
 Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
-model to nearest neighbor (k-NN) methods for forestry applications. PloS
+model to nearest neighbor (k-nn) methods for forestry applications. PloS
 one 8, e59129.
 
 \leavevmode\hypertarget{ref-wang2013design}{}%
@@ -844,7 +810,7 @@ implementation. Environmental modelling \& software 40, 280--288.
 Wang, J.-F., Stein, A., Gao, B.-B., Ge, Y., 2012. A review of spatial
 sampling. Spatial Statistics 2, 1--14.
 
-\end{CSLReferences}
-
 
 \end{document}
+
+

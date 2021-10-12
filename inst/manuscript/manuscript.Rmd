@@ -578,7 +578,8 @@ data_sf <- sf::st_as_sf(nla_nomiss_both, coords = c("xcoords", "ycoords"),
                         crs = 5070)
 library(spsurvey)
 grts_samp <- grts(data_sf, n_base = n)
-grts_bind <- sprbind(grts_samp)
+grts_bind <- sp_rbind(grts_samp) # Matt you need to install newest version
+# devtools::install_github("USEPA/spsurvey", ref = "main")
 
 ## get coordinates
 grts_coords <- sf::st_coordinates(grts_bind)
