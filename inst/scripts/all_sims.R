@@ -23,9 +23,12 @@ parm_df <- expand_grid(N, n, total_var, psill_ratio,
 source("R/sim_pop.R")
 source("R/sim_trial.R")
 
-## loop through each row of parm_df
+# library for later
+# library(SpatialDesignVModel)
+
+## loop through each row of parm_df (could be done with purrr::pmap() instead)
 for (i in 1:nrow(parm_df)) {
-  n_trials <- 5
+  n_trials <- 5 # 2000 for the simulation section in the manuscript
   seed <- sample.int(1e7, size = n_trials)
   n_cluster <- detectCores() # find cores (48 on mine)
   cluster <- makeCluster(n_cluster) # make cluster
@@ -51,7 +54,7 @@ for (i in 1:nrow(parm_df)) {
 
   stopCluster(cluster) # stop cluster
 
-  # check errors
+  # check errors (deprecated)
   # map(sim_output, "error") %>%
   #   bind_rows() %>%
   #   nrow()
