@@ -298,7 +298,7 @@ frame. To address these two drawbacks simultaneously, Stevens and Olsen
 (2003) proposed the local neighborhood variance estimator. The local
 neighborhood variance estimator does not rely on \(\pi_{ij}\) and
 incorporates spatial locations -- for technical details see Stevens and
-Olsen (2003). Stevens and Olsen (2003) show the local neigborhood
+Olsen (2003). Stevens and Olsen (2003) show the local neighborhood
 variance estimator tends reduce \(\text{Var}(\hat{\tau})\) compared to
 variance estimators ignoring spatial locations, yielding narrower
 confidence intervals for \(\tau\).
@@ -370,7 +370,7 @@ covariance function: the \(i,j\)th entry for
 ,
 \end{align} where \(\sigma^2_{ps}\) is the partial sill measuring
 coarse-scale (correlated) variability, \(\sigma^2_{n}\) is the nugget
-measuring fine-scale (indepenent) variability, \(\phi\) is the range
+measuring fine-scale (independent) variability, \(\phi\) is the range
 parameter measuring the distance-decay rate of the covariance, and
 \(h_{i,j}\) is the Euclidean distance between population units \(i\) and
 \(j\). Any spatial covariance function could be used in the place of the
@@ -404,10 +404,10 @@ design-analysis combinations, summarized in Table
 \centering
 \begin{tabular}{r|ll}
   \hline
- & IRS & GRTS \\ 
+ & Design & Model \\ 
   \hline
-IRS & IRS-Design & GRTS-Design \\ 
-  GRTS & IRS-Model & GRTS-Model \\ 
+IRS & IRS-Design & IRS-Model \\ 
+  GRTS & GRTS-Design & GRTS-Model \\ 
    \hline
 \end{tabular}
 \caption{\label{tab:designanalysis} Types of Sampling Design and Analysis combinations considered in the simulation study. The rows give the two types of sampling designs while the columns give the two types of analyses.} 
@@ -596,7 +596,7 @@ Independent of the analysis approach, there is no reason to prefer IRS
 over GRTS for spatial data -- GRTS tends to perform at least as well as
 IRS when there is no spatial correlation increasingly than IRS as the
 strength of spatial correlation increases; the gap in relative
-efficiency between design-GRTS and model-GRTS widens as the strength of
+efficiency between GRTS-design and GRTS-model widens as the strength of
 spatial correlation increases; and when the data are skewed, interval
 coverage for all approaches improves both as the sample size increases
 and as the strength of correlation increases.
@@ -621,7 +621,7 @@ the process of study. Model selection is also possible using model-based
 approaches and criteria such as likelihood ratio tests or AIC (Akaike,
 1974). Model-based approaches are capable of more efficient small-area
 estimation than design-based approaches by leveraging distributional
-assumptions in areas with few observed sites. Mdoel-based approaches can
+assumptions in areas with few observed sites. Model-based approaches can
 also compute site-by-site predictions at unobserved locations and use
 them to construct informative visualizations. The benefits and drawbacks
 of both approaches, alongside our theoretical and analytical
