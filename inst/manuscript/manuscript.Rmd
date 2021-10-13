@@ -98,7 +98,7 @@ The design-based and model-based approaches incorporate randomness in fundamenta
 
 The design-based approach assumes the population is fixed. Randomness is incorporated via the selection of units in a sampling frame according to a sampling design. A sampling frame is the set of all units available to be sampled. A sampling design assigns a positive probability of inclusion (inclusion probability) to each unit in the sampling frame. Some examples of commonly used sampling designs include simple random sampling, stratified random sample, and cluster sampling. These sampling designs tend to select units from the sampling frame independently of other units, so we call them "Independent Random Sampling" (IRS) designs. Sampling designs incorporating the spatial locations of units in the sample frame are called spatially balanced designs. Spatially balanced designs can be obtained using the Generalized Random Tessellation Stratified (GRTS) algorithm [@stevens2004spatially], which we discuss in more detail in Section \ref{subsec:spb_design}. The design-based approach combines the randomness of the sampling design and the data collected via the sample to estimate parameters (e.g. means and totals) of a population. Generally, these population parameters are assumed to be fixed, unknown constants. 
 
-Treating the data as fixed and incorporating randomness through the sampling design yields estimators having very few other assumptions. Confidence intervals for these types of estimators are typically derived using limiting arguments that incorporate all possible randomizations of sampling units selected via the sampling design. Means and totals, for example, are asymptotically Gaussian by the Central Limit Theorem (under some assumptions). If we repeatedly sample the surface, then 95% of all 95% confidence intervals constructed from a procedure with appropriate coverage will contain the true, fixed mean. @sarndal2003model and @lohr2009sampling provide thorough reviews of the design-based approach.
+Treating the data as fixed and incorporating randomness through the sampling design yields estimators having very few other assumptions. Confidence intervals for these types of estimators are typically derived using limiting arguments that incorporate all possible randomizations of sampling units selected via the sampling design. Means and totals, for example, are asymptotically normally distributed (normal) by the Central Limit Theorem (under some assumptions). If we repeatedly sample the surface, then 95% of all 95% confidence intervals constructed from a procedure with appropriate coverage will contain the true, fixed mean. @sarndal2003model and @lohr2009sampling provide thorough reviews of the design-based approach.
 
 The model-based approach assumes the data are a random realization of a data-generating process. Randomness is incorporated through distributional assumptions on this process. Strictly speaking, randomness need not be incorporated through random sampling, though @diggle2010geostatistical warn against preferential sampling Preferential sampling occurs when the process generating the data locations and the process being modeled are not independent of one another. To guard against preferential sampling, model-based approaches often still implement random sampling. 
 
@@ -310,7 +310,7 @@ print(xtab1, comment = FALSE)
 ## made "by hand."
 ```
 
-We used a crossed design with the simulation parameters given in Table \ref{tab:parmtab} for a total of 36 scenarios. All scenarios used exponential correlation with an effective range of $\sqrt{2}$ for $N = 900$ response values simulated on the unit square in either random locations (Site Locations = Random) or gridded locations (Site Locations = Gridded). The mean for the spatial process generating the response was set to zero.
+We used a crossed design with the simulation parameters given in Table \ref{tab:parmtab} for a total of 36 scenarios. All scenarios used exponential correlation with an effective range of $\sqrt{2}$ for $N = 900$ response values simulated on the unit square in either random locations (Layout = Random) or gridded locations (Layout = Gridded). The mean for the spatial process generating the response was set to zero.
 
 For the lognormal scenarios, the response values were simulated using the specified correlation parameters using a normal distribution and were subsequently exponentiated. A total variance of 2 and a mean of 0 on the normal scale is equivalent to a total variance of 47 and a mean of 2.72 after exponentiation. Therefore, when the model-based methods were used for lognormal response, the correlation was mis-specified. We chose to simulate values with a lognormal distribution so that we could test the model-based analysis approach with a mis-specified model and so that we could test both analysis approaches on data that exhibits a large amount of skewness.
 
@@ -349,15 +349,16 @@ sim_one_table <- xtable(sim_one, digits = 4, caption = "Approach, mean bias (Bia
 print(sim_one_table, include.rownames = FALSE, comment = FALSE)
 ```
 
-The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package \texttt{spsurvey} [@dumelle2021spsurvey]. FPBK can be readily performed in `R` with the `sptotal` package [@higham2020sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
+The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package \texttt{spsurvey} [@dumelle2021spsurvey]. FPBK can be readily performed in `R` with the `sptotal` package [@higham2021sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
 
+**Mike** For design-based, it's really RMSE -- how should we address this?
 Figure \ref{fig:figeff} shows the relative efficiency of the four approaches from Table \ref{tab:designanalysis} with "IRS-Design" as the baseline:
 \mbox{}
 \begin{equation*}
-\text{E} = \frac{\text{rMSPE of approach}}{\text{rMSPE of IRS-Design}},
+\text{EFF} = \frac{\text{rMSPE of approach}}{\text{rMSPE of IRS-Design}},
 \end{equation*}
 
-where rMSPE is the root-Mean-Squared-Prediction-Error. When there is no spatial correlation (top row), the four approaches have approximately equal rMSPE, even when the assumptions of the model-based approaches are violated. So, using GRTS or using a spatial model does not result in much loss in efficiency even if the response variable is not spatially correlated. When there is high spatial correlation (bottom row), the GRTS-Model approach tends to perform best, but difference in relative efficiency between GRTS-Model and GRTS-Design is not very big. In the lognormal, high partial sill settings (bottom-right facet), GRTS-Design outperforms IRS-Model by a large margin, suggesting that the design decision (whether to use IRS or GRTS) is more important than the analysis decision (whether to analyze using model assumptions or not). 
+where rMSPE is the root-mean-squared-prediction error. When there is no spatial correlation (top row), the four approaches have approximately equal rMSPE, even when the assumptions of the model-based approaches are violated. So, using GRTS or using a spatial model does not result in much, if any, loss in efficiency even if the response variable is not spatially correlated. When there is high spatial correlation (bottom row), the GRTS-Model approach tends to perform best, but difference in relative efficiency between GRTS-Model and GRTS-Design is small. In the lognormal, high partial sill settings (bottom-right facet), GRTS-Design outperforms IRS-Model by a large margin, suggesting that the design decision (whether to use IRS or GRTS) is more important than the analysis decision (whether to analyze using model assumptions or not). 
 
 Unsurprisingly, Figure \ref{fig:figeff} also shows that, when the assumptions for GRTS-Model are satisfied, the approach outperforms GRTS-Design. However, even when the model that generates the data is different than the model used to fit the data, as in the lognormal response, the model-based approach still outperforms the design-based approach when there is a high amount of spatial correlation.
 
@@ -395,9 +396,6 @@ effplot <- ggplot(data = combo_data, aes(x = n_factor, y = rel_efficiency,
 effplot
 ```
 
-Plot Note: change colours and think about shape
-think about legend going on graph
-
 ```{r, fig.keep = "none"}
 combo_data_grts <- combo_data %>%
   dplyr::filter(approach %in% c("Design GRTS", "Model GRTS")) %>%
@@ -416,14 +414,9 @@ ggplot(data = combo_data_grts_model, aes(x = n, y = releffgrts)) +
   geom_point()
 ```
 
-Figure \ref{fig:figconf} shows the coverage for each of the four approaches. We see that the four approaches have somewhat similar coverages in all settings, with GRTS-Design having slightly lower coverage when the response is normal. 
+We also studied 95% interval coverage among the approaches. The design-based 95% confidence intervals and model-based 95% prediction intervals are constructed using the normal distribution. Justification for the design-based intervals lies in the asymptotic normality of totals via the Central Limit Theorem, and justification for the model-based intervals lies in the normality assumption of the errors.  Figure \ref{fig:figconf} shows the 95% interval coverage for each of the four approaches. All four approaches have somewhat similar interval coverage in all settings, with GRTS-Design having slightly lower coverage when the response is normal. 
 
-In the normal response settings, where assumptions for the model-based approaches and the design-based approaches are satisfied, all approaches have coverage around the nominal 0.95. Because the intervals are symmetric, normal-based intervals, the coverages are generally lower than the nominal 95%. We see that, because the sampling distribution of the mean is asymptotically normal (reference for this? a spatial version of CLT), the coverages when the sample size is 200 are much closer to the nominal 95% than the coverages when the sample size is 50. In general, the more skewed the distribution of the response, the larger the sample size needed to ensure proper coverage of these normal-based intervals.
-
-Do we want to mention stuff like what's in these next bullet points or no?
-
-- for the model-based approach, the more skewed the population is, the higher the sample size needed to satisfy CLT for predicting a mean. The derivation of the BLUP is entirely moment-based (no distribution assumed) but we still need to assume a distribution to estimate spatial parameters and to generate bounds of a prediction interval.
-- many confidence intervals generated for design-based approaches also rely on the CLT and the normal distribution to generate the interval. Again, for highly skewed data with a small sample size, this assumption is violated even though all of the assumptions for generating the estimator are valid.
+In the normal response settings, all approaches have coverage around 95%. This is expected, as the intervals are also based on the normal distribution In the lognormal response settings, however, all approaches have coverage below 95%. This is also expected, as the intervals are still based on the normal distribution. In the lognormal response settings, interval coverage increases both as the sample size increases and as the strength of spatial dependence increases. This suggests that the larger the sample size and the stronger the spatial dependence, the more resistant these intervals are to departures from normality of the data.
 
 ```{r figconf, out.width = "100%", fig.cap = "Coverage of the four design-analysis approaches. All confidence intervals are normal-based and have a nominal confidence level of 0.95, marked with a horizontal line. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.", message = FALSE, warning = FALSE}
 ggplot(data = combo_data, aes(x = n_factor, y = coverage, colour = approach)) +
@@ -439,13 +432,13 @@ ggplot(data = combo_data, aes(x = n_factor, y = coverage, colour = approach)) +
 
 # Application {#application}
 
-The Environmental Protection Agency (EPA), states, and tribes periodically conduct National Aquatic Research Surveys (NARS) in the United States to assess the water quality of various bodies of water. We will use the 2012 National Lakes Assessment (NLA), which measures various aspects of lake health and quality in lakes in the contiguous United States, to obtain an interval for mean mercury concentration. Although all lakes in the survey were measured in 2012, there may not always be enough time or money to do so. Therefore, we will explore whether or not we can still obtain an adequately precise estimate for the realized mean mercury concentration if we only take a sample of 100 of the 986 lakes.
+The Environmental Protection Agency (EPA), states, and tribes periodically conduct National Aquatic Research Surveys (NARS) in the United States to assess the water quality of various bodies of water. We will use the 2012 National Lakes Assessment (NLA), which measures various aspects of lake health and quality in lakes in the contiguous United States, to obtain an interval for mean mercury concentration. Although we know the true mean mercury concentration values for the 986 lakes from the 2012 NLA, we will explore whether or not we obtain an adequately precise estimate for the realized mean mercury concentration if we sample only 100 of the 986 lakes.
 
 ```{r, message = FALSE, warning = FALSE, echo = FALSE, results = "hide"}
 library(tidyverse)
 library(here)
 library(SpatialDesignVModel)
-data(nla)
+data(nla_df) # may need to reinstall package
 nla_df
 factor(nla_df$TOTALHG_UNITS) ## all same units
 
@@ -482,7 +475,7 @@ nla_nomiss_both$xcoords <- coord_list$xy[ ,1]
 nla_nomiss_both$ycoords <- coord_list$xy[ ,2]
 ```
 
-```{r figdata, out.width = "100%", fig.cap = "Population distribution of mercury concentration for 986 lakes in the contiguous United States. Thirty-five lakes were dropped from the analysis because they were missing mercury concentration.", message = FALSE, warning = FALSE}
+```{r figdata, out.width = "100%", fig.cap = "Population distribution of mercury concentration for 986 lakes in the contiguous United States.", message = FALSE, warning = FALSE}
 merc <- ggplot(data = nla_nomiss_both, aes(x = total_hg)) +
   geom_histogram(colour = "black", fill = "white", bins = 15) +
   labs(x = "HG (ng / g)")
@@ -496,7 +489,8 @@ merc_map <- ggplot(data = nla_nomiss_both, aes(x = xcoords, y = ycoords)) +
   theme(axis.text.x = element_blank(),
         axis.text.y = element_blank(),
         axis.ticks = element_blank()) +
-  coord_quickmap() 
+  coord_quickmap() +
+  theme_bw(base_size = 14)
 # dist_map <- ggplot(data = nla_nomiss_both, aes(x = xcoords, y = ycoords)) +
 #   geom_point(aes(colour = RDis_IX)) +
 #   scale_colour_viridis_c() +
@@ -509,12 +503,12 @@ library(gridExtra)
 merc_map
 ```
 
-```{r, echo = FALSE, results = "hide"}
-mean(nla_nomiss_both$total_hg)
+```{r, echo = FALSE}
+mean_hg <- mean(nla_nomiss_both$total_hg)
 # mean(nla_nomiss_both$RDis_IX)
 ```
 
-Figure \ref{fig:figdata} shows that mercury concentration is right-skewed, with most lakes having a low value of mercury concentration but a few having a much higher concentration. Mercury concentration exhibits some spatial correlation, with high mercury concentrations in lakes in the northeast and north central United States. Because we are considering these lakes to be our entire population, we know that the realized mean mercury concentration is 103.2 ng / g.
+Figure \ref{fig:figdata} shows that mercury concentration is right-skewed, with most lakes having a low value of mercury concentration but a few having a much higher concentration. Mercury concentration exhibits some spatial correlation, with high mercury concentrations in lakes in the northeast and north central United States. The realized mean mercury concentration in the 986 lakes is 103.2 ng / g.
 
 ```{r, results = "hide", fig.keep = "none"}
 ## IRS Sample, Model Analysis
@@ -641,20 +635,19 @@ res_df <- tibble(approach = c("IRS-Design", "GRTS-Design", "IRS-Model", "GRTS-Mo
 res_df <- res_df %>% slice(1, 3, 2, 4)
 ```
 
-```{r apptab}
-library(knitr)
+```{r apptab, results = "asis"}
 res_df_drop <- res_df[ ,-2]
 names(res_df_drop) <- c("Approach", "Estimate", "SE", "95% LB", "95% UB")
-kable(res_df_drop, digits = 1, caption = "\\label{tab:appliedtab} Application of design-based and model-based approaches to the NLA data set on mercury concentration. The true mean concentration is 103.2 103.2 ng / g")
+xtab_app <- xtable(res_df_drop, digits = 1, caption = "\\label{tab:appliedtab} Application of design-based and model-based approaches to the NLA data set on mercury concentration. The true mean concentration is 103.2 ng / g.")
+print(xtab_app, include.rownames = FALSE, comment = FALSE)
 ```
 
-Table \ref{tab:appliedtab} shows the application of a design-based analysis on an IRS, a model-based analysis on an IRS, a design-based analysis on a GRTS sample, and a model-based analysis on a GRTS sample. We see that, for all four analyses, the true realized mean mercury concentration is within the bounds of the 95% intervals. However, we should not generalize the results of this particular realization to any other data set or even to other potential samples of this data set. 
+Table \ref{tab:appliedtab} shows the application of a design-based analysis of an IRS sample, a model-based analysis of an IRS sample, a design-based analysis of a GRTS sample, and a model-based analysis of a GRTS sample. For all four analyses, the true realized mean mercury concentration is within the bounds of the 95% intervals. However, we should not generalize the results of this particular realization to any other data set or even to other potential samples of this data set. 
 
-<!-- not sure why this is getting cutoff. temporary fix: -->
+<!-- not sure why this is getting cutoff. temporary fix: \pagebreak 
+probably because it is an html table -- I used xtable to fix -->
 
-\pagebreak
-
-But, we do note a couple of patterns. The design-based IRS analysis shows the largest standard error: a likely reason is that this is the only approach that does not use the spatial correlation in mercury concentration across the contiguous United States. We also see that, for the samples drawn, the both analyses with the GRTS sampling design have a lower standard error than the analyses with the IRS sampling design. We would expect this to be the case for most samples because mercury concentration exhibits spatial correlation so a spatially balanced sample should usually yield a lower standard error. If it is acceptable to have an interval for mean mercury concentration of about 25 ng / g and if we ignore the other variables that the EPA collects information on in these NLA surveys, then the EPA could consider sampling just 50 lakes to save time and money. 
+But, we do note a couple of patterns. The design-based IRS analysis shows the largest standard error: a likely reason is that this is the only approach that does not incorporate any spatial information regarding mercury concentration across the contiguous United States. We also see that both approaches using the GRTS sample have a lower standard error than the both approaches using the IRS sample. We would expect this to be the case for most samples because mercury concentration exhibits spatial patterning, so a spatially balanced sample should usually yield a lower standard error. 
 
 # Discussion {#sec:discussion}
 

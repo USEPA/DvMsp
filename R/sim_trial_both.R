@@ -75,7 +75,7 @@ sim_trial_both <- function(seed = sample.int(1e7, size = 1),
     irs_samp <- irs(data_sf, n_base = n)
 
     # put it together
-    irs_bind <- sprbind(irs_samp)
+    irs_bind <- sp_rbind(irs_samp)
 
     # get coordinates
     irs_coords <- sf::st_coordinates(irs_bind)
@@ -117,7 +117,7 @@ sim_trial_both <- function(seed = sample.int(1e7, size = 1),
     grts_samp <- grts(data_sf, n_base = n)
 
     # put it together
-    grts_bind <- sprbind(grts_samp)
+    grts_bind <- sp_rbind(grts_samp)
 
     # get coordinates
     grts_coords <- sf::st_coordinates(grts_bind)
@@ -170,7 +170,7 @@ sim_trial_both <- function(seed = sample.int(1e7, size = 1),
     ## IRS Sample IRS Analysis
     ###############################
 
-    irs_analysis <- cont_analysis(irs_df, vars = "response", siteID = "siteID", weight = "wgt", vartype = "SRS", fpc = N, statistics = "mean")$Mean
+    irs_analysis <- cont_analysis(irs_df, vars = "response", siteID = "siteID", weight = "wgt", vartype = "SRS", fpc = N, statistics = "Mean")$Mean
     irs_analysis_mean <- irs_analysis$Estimate
     irs_analysis_se <- irs_analysis$StdError
     irs_analysis_lb <- irs_analysis$LCB95Pct
@@ -195,7 +195,7 @@ sim_trial_both <- function(seed = sample.int(1e7, size = 1),
     ###############################
 
     grts_analysis <- cont_analysis(grts_df, vars = "response", siteID = "siteID",
-                                   weight = "wgt", xcoord = "x", ycoord = "y", statistics = "mean")$Mean
+                                   weight = "wgt", xcoord = "x", ycoord = "y", statistics = "Mean")$Mean
     grts_analysis_mean <- grts_analysis$Estimate
     grts_analysis_se <- grts_analysis$StdError
     grts_analysis_lb <- grts_analysis$LCB95Pct

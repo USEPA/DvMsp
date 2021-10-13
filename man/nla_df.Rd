@@ -65,7 +65,7 @@ nla_df
 A data set that can be used with the \code{SpatialDesignVModel} package.
 }
 \examples{
-data(nla)
+data(nla_df)
 names(nla_df)
 summary(nla_df)
 }

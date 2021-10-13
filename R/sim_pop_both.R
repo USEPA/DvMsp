@@ -69,8 +69,8 @@ sim_pop_both <- function(N = 100,
   }
 
   ## return data
-  data_grid <- data %>% dplyr::filter(method == "grid")
-  data_rand <- data %>% dplyr::filter(method == "rand")
+  data_grid <- data[data$method == "grid", ] # using dplyr::filter gives note about NSE
+  data_rand <- data[data$method == "rand", ]
   data <- list(data_grid, data_rand)
   return(data)
 }

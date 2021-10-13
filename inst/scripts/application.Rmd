@@ -129,7 +129,7 @@ data_sf <- sf::st_as_sf(USlakes, coords = c("XCOORD", "YCOORD"),
                         crs = 5070)
 library(spsurvey)
 grts_samp <- grts(data_sf, n_base = n)
-grts_bind <- sprbind(grts_samp)
+grts_bind <- sp_rbind(grts_samp)
 
 ## get coordinates
 grts_coords <- sf::st_coordinates(grts_bind)

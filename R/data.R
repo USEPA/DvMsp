@@ -56,7 +56,7 @@
 #' }
 #'
 #' @examples
-#' data(nla)
+#' data(nla_df)
 #' names(nla_df)
 #' summary(nla_df)
 "nla_df"
