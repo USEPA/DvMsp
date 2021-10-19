@@ -81,6 +81,9 @@ library(xtable) # latex tables
 
 <!-- Brief introduction to model based and design based -->
 
+Add sentence about bias.
+Add sentence about user functions.
+
 There are two general approaches for using data to make statistical inferences about a population: design-based and model-based. When data cannot be obtained for all units in a population (population units), data on a subset of the population units is collected and called a sample. In the design-based approach, inferences about the underlying population are informed from a probabilistic process in which population units are selected to be in the sample. Alternatively, in the model-based approach, inferences are made from specific assumptions about the underlying process that generated the data. Each paradigm has a deep historical context [@sterba2009alternative] and its own set of general advantages [@hansen1983evaluation].
 
 <!-- Shift focus to spatial data -->
