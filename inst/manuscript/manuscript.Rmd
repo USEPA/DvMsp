@@ -313,7 +313,7 @@ print(xtab1, comment = FALSE)
 ## made "by hand."
 ```
 
-We used a crossed design with the simulation parameters given in Table \ref{tab:parmtab} for a total of 36 scenarios. All scenarios used exponential correlation with an effective range of $\sqrt{2}$ for $N = 900$ response values simulated on the unit square in either random locations (Layout = Random) or gridded locations (Layout = Gridded). The mean for the spatial process generating the response was set to zero.
+We used a crossed design with the simulation parameters given in Table \ref{tab:parmtab} for a total of 36 scenarios. All scenarios used exponential correlation with a  $\sqrt{2} / 3$ for $N = 900$ response values simulated on the unit square in either random locations (Layout = Random) or gridded locations (Layout = Gridded). The range was chosen so that the decayed to nearly zero at the largest distance possible in the domain, $\sqrt{2}$, otherwise known as the "effective" range (for the exponential covariance, the effective range is $3\phi$). The mean for the spatial process generating the response was set to zero.
 
 For the lognormal scenarios, the response values were simulated using the specified correlation parameters using a normal distribution and were subsequently exponentiated. A total variance of 2 and a mean of 0 on the normal scale is equivalent to a total variance of 47 and a mean of 2.72 after exponentiation. Therefore, when the model-based methods were used for lognormal response, the correlation was mis-specified. We chose to simulate values with a lognormal distribution so that we could test the model-based analysis approach with a mis-specified model and so that we could test both analysis approaches on data that exhibits a large amount of skewness.
 
@@ -369,7 +369,7 @@ Unsurprisingly, Figure \ref{fig:figeff} also shows that, when the assumptions fo
 library(tidyverse)
 library(here)
 
-files <- list.files(path = here("inst", "output", "sims914"), pattern = "*.csv", full.names = TRUE)
+files <- list.files(path = here("inst", "output", "simulation_summary"), pattern = "*.csv", full.names = TRUE)
 
 combo_data <- purrr::map_df(files,
                             ~read_csv(.x) %>% mutate(filename = .x))

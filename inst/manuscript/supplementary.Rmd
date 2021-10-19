@@ -1,0 +1,148 @@
+---
+title: A comparison of design-based and model-based approaches for finite population spatial data -- Supplementary Material.
+author:
+  - name: Michael Dumelle
+    email: Dumelle.Michael@epa.gov
+    affiliation: USEPA
+    footnote: 1
+  - name: Matt Higham
+    email: mhigham@stlaw.edu
+    affiliation: STLAW
+  - name: Lisa Madsen
+    affiliation: OSU
+  - name: Anthony R. Olsen
+    affiliation: USEPA
+  - name: Jay M. Ver Hoef
+    affiliation: NOAA
+address:
+  - code: USEPA
+    address: United States Environmental Protection Agency, 200 SW 35th St, Corvallis, Oregon, 97333
+  - code: STLAW
+    address: Saint Lawrence University Department of Mathematics, Computer Science, and Statistics, 23 Romoda Drive, Canton, New York, 13617
+  - code: OSU
+    address: Oregon State University Department of Statistics, 239 Weniger Hall, Corvallis, Oregon, 97331
+  - code: NOAA
+    address: Marine Mammal Laboratory, Alaska Fisheries Science Center, National Oceanic and Atmospheric Administration, Seattle, Washington, 98115
+footnote:
+  - code: 1
+    text: "Corresponding Author"
+journal: "An awesome journal"
+date: "`r Sys.Date()`"
+linenumbers: true
+numbersections: true
+csl: elsevier-harvard.csl
+preamble: >
+  \usepackage{bm}
+  \usepackage{bbm}
+  \usepackage{color}
+  \DeclareMathOperator{\var}{{var}}
+  \DeclareMathOperator{\cov}{{cov}}
+  \renewenvironment{abstract}{}{}
+output: rticles::elsevier_article
+---
+
+# Numerical Study Tables {#sec:numstudy}
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  warning = FALSE, 
+  message = FALSE,
+  include = TRUE, 
+  echo = FALSE
+)
+library(tidyverse)
+library(here)
+library(xtable) # latex tables
+```
+
+Recall the four design-analysis combinations and the parameter configurations, summarized in Table \ref{tab:designanalysis} and \ref{tab:parmtab}, respectively.
+
+```{r, echo = FALSE, results = "asis"}
+tab <- matrix(c("IRS-Design", "IRS-Model", "GRTS-Design", "GRTS-Model"),
+       nrow = 2, byrow = TRUE) %>%
+  as.table()
+row.names(tab) <- c("IRS", "GRTS")
+xtab1 <- xtable(tab, col.names = c("Design", "Model"), caption = "\\label{tab:designanalysis} Types of Sampling Design and Analysis combinations considered in the simulation study. The rows give the two types of sampling designs while the columns give the two types of analyses.")
+align(xtab1) <- "r|ll"
+names(xtab1) <- c("Design", "Model")
+print(xtab1, comment = FALSE)
+## I really want "Analysis" to appear as a row header and "Sampling Design" 
+## to appear as a column header, but this isn't easy to figure out.
+## I couldn't figure this out with xtable either so it might need to be
+## made "by hand."
+```
+
+
+```{r, echo = FALSE, results = "asis"}
+n <- c("50", "100", "200")
+site_locations <- c("Random", "Gridded", "")
+psill_ratio <- c("0", "0.5", "0.9")
+resp_type <- c("Normal", "Lognormal", "")
+parm_tab <- rbind(n, site_locations, psill_ratio, resp_type)
+parm_tab[c(2, 4), 3] <- "-"
+row.names(parm_tab) <- c("Sample Size (n)", "Layout", 
+                         "Proportion of Dependent Error", "Response Type")
+# library(knitr) kable with htlm has trouble with page breaks -- kable with latex harder for me than xtable
+# kable(parm_tab, col.names = c("", "", ""),
+#       caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.")
+parm_xtab <- xtable(parm_tab, caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.")
+align(parm_xtab) <- "r|lll"
+print(parm_xtab, include.colnames = FALSE, hline.after = c(0, nrow(parm_xtab)), comment = FALSE)
+```
+
+```{r, results = "asis", eval = FALSE}
+sim_one <- read_csv(here("inst", "output", "sim_one", "summ_output.csv"))
+colnames(sim_one) <- c("Approach", "Bias", "RMSE", "MedAE", "Coverage", "PClose", "MedIL")
+sim_one_table <- xtable(sim_one, digits = 4, caption = "Approach, mean bias (Bias), root-mean-squared error (RMSE), median absolute error (MedAE), 95 percent interval coverage (Coverage), proportion of times the approach was closer to the true value (PClose), and median interval length (MedIL)", type = "latex", latex.environments = "center", label = "tab:sim_one")
+print(sim_one_table, include.rownames = FALSE, comment = FALSE)
+```
+
+Next we present a summary table for each of the 36 simulation scenarios.
+```{r}
+make_sim_table <- function(table_value) {
+  sim_table <- read_csv(here("inst", "output", "simulation_summary", paste0("allsims", table_value, ".csv")))
+  sim_table <- sim_table %>%
+    dplyr::select(Approach = approach,
+                  Layout = gridded,
+                  Response = resptype,
+                  `DE Prop` = psill_ratio,
+                  n = n,
+                  Bias = mpbias,
+                  `rMS(P)E` = rmspe,
+                  Coverage = coverage) %>%
+    mutate(
+     Approach = case_when(
+       Approach == "Design GRTS" ~ "GRTS-Design",
+       Approach == "Design IRS" ~ "IRS-Design",
+       Approach == "Model GRTS" ~ "GRTS-Model",
+       Approach == "Model IRS" ~ "IRS-Model"
+     ),
+     Layout = case_when(
+        Layout ~ "Gridded",
+        !Layout ~ "Random"
+      ),
+     Response = case_when(
+       Response == "normal" ~ "Normal",
+       Response == "lognormal" ~ "Lognormal"
+     ),
+     across(c(`DE Prop`, n), as.character)
+    )
+sim_table <- sim_table[c(2, 4, 1, 3), ]
+sim_table_out <- xtable(
+  sim_table,
+  digits = 4,
+  caption = "Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\\% interval coverage (Coverage) for a simulation scenario.",
+   type = "latex",
+  latex.environments = "center"
+)
+print(sim_table_out, include.rownames = FALSE, comment = FALSE)
+}
+```
+
+```{r, results = "asis"}
+for (i in 13:48) {
+  make_sim_table(i)
+}
+```

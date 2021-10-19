@@ -55,31 +55,6 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 
 % Pandoc citation processing
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-% for Pandoc 2.8 to 2.10.1
-\newenvironment{cslreferences}%
-  {}%
-  {\par}
-% For Pandoc 2.11+
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Pandoc header
 
@@ -88,8 +63,8 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{A comparison of design-based and model-based approaches for
-finite population spatial data.}
+  \title{A comparison of design-based and model-based approaches for finite
+population spatial data.}
     \author[USEPA]{Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
     \author[STLAW]{Matt Higham}
@@ -100,16 +75,14 @@ finite population spatial data.}
   
     \author[NOAA]{Jay M. Ver Hoef}
   
-      \address[USEPA]{United States Environmental Protection Agency, 200
-SW 35th St, Corvallis, Oregon, 97333}
-    \address[STLAW]{Saint Lawrence University Department of Mathematics,
-Computer Science, and Statistics, 23 Romoda Drive, Canton, New York,
-13617}
-    \address[OSU]{Oregon State University Department of Statistics, 239
-Weniger Hall, Corvallis, Oregon, 97331}
-    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science
-Center, National Oceanic and Atmospheric Administration, Seattle,
-Washington, 98115}
+      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
+Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Mathematics, Computer Science,
+and Statistics, 23 Romoda Drive, Canton, New York, 13617}
+    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
+Corvallis, Oregon, 97331}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
+Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
@@ -140,6 +113,8 @@ Potential Journals:
 \hypertarget{sec:introduction}{%
 \section{Introduction}\label{sec:introduction}}
 
+Add sentence about bias. Add sentence about user functions.
+
 There are two general approaches for using data to make statistical
 inferences about a population: design-based and model-based. When data
 cannot be obtained for all units in a population (population units),
@@ -161,12 +136,12 @@ comparison of design-based and model-based approaches for spatial data,
 quashing the belief that design-based approaches could not be used for
 spatially correlated data. Thereafter, several comparisons between
 design-based and model-based for spatial data have been considered (Brus
-and De Gruijter, 1997; Ver Hoef, 2002; Ver Hoef, 2008). Cooper (2006)
-review the two approaches in an ecological context before introducing a
+and De Gruijter, 1997; Ver Hoef, 2002, 2008). Cooper (2006) review the
+two approaches in an ecological context before introducing a
 ``model-assisted'' variance estimator that combines aspects from each
 approach. In addition to Cooper (2006), there has been substantial
 research and development into estimators that use both design and
-model-based principles (see e.g. Cicchitelli and Montanari (2012),
+model-based principles (see e.g.~Cicchitelli and Montanari (2012),
 Chan-Golston et al. (2020) for a Bayesian approach, and Sterba (2009)).
 More recent overviews include Brus (2020) and Wang et al. (2012).
 
@@ -442,11 +417,13 @@ IRS & IRS-Design & IRS-Model \\
 
 We used a crossed design with the simulation parameters given in Table
 \ref{tab:parmtab} for a total of 36 scenarios. All scenarios used
-exponential correlation with an effective range of \(\sqrt{2}\) for
-\(N = 900\) response values simulated on the unit square in either
-random locations (Layout = Random) or gridded locations (Layout =
-Gridded). The mean for the spatial process generating the response was
-set to zero.
+exponential correlation with a \(\sqrt{2} / 3\) for \(N = 900\) response
+values simulated on the unit square in either random locations (Layout =
+Random) or gridded locations (Layout = Gridded). The range was chosen so
+that the decayed to nearly zero at the largest distance possible in the
+domain, \(\sqrt{2}\), otherwise known as the ``effective'' range (for
+the exponential covariance, the effective range is \(3\phi\)). The mean
+for the spatial process generating the response was set to zero.
 
 For the lognormal scenarios, the response values were simulated using
 the specified correlation parameters using a normal distribution and
@@ -662,7 +639,6 @@ model-based analyses.
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-akaike1974new}{}%
 Akaike, H., 1974. A new look at the statistical model identification.
 IEEE transactions on automatic control 19, 716--723.
@@ -701,8 +677,8 @@ inference for finite populations under spatial process settings.
 Environmetrics 31, e2606.
 
 \leavevmode\hypertarget{ref-chiles1999geostatistics}{}%
-Chiles, J.-P., Delfiner, P., 1999. Geostatistics: {Modeling Spatial
-Uncertainty}. {John Wiley \& Sons}, New York.
+Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
+Uncertainty. John Wiley \& Sons, New York.
 
 \leavevmode\hypertarget{ref-cicchitelli2012model}{}%
 Cicchitelli, G., Montanari, G.E., 2012. Model-assisted estimation of a
@@ -722,9 +698,9 @@ samples: A reappraisal of classical sampling theory. Mathematical
 geology 22, 407--415.
 
 \leavevmode\hypertarget{ref-diggle2010geostatistical}{}%
-Diggle, P.J., Menezes, R., Su, T., 2010. Geostatistical inference under
-preferential sampling. Journal of the Royal Statistical Society: Series
-C (Applied Statistics) 59, 191--232.
+Diggle, P.J., Menezes, R., Su, T.-l., 2010. Geostatistical inference
+under preferential sampling. Journal of the Royal Statistical Society:
+Series C (Applied Statistics) 59, 191--232.
 
 \leavevmode\hypertarget{ref-dumelle2021spsurvey}{}%
 Dumelle, M., Olsen, A.R., Kincaid, T., Weber, M., 2021. Selecting and
@@ -815,7 +791,7 @@ wildlife populations. Environmental and Ecological Statistics 15, 3--13.
 
 \leavevmode\hypertarget{ref-ver2013comparison}{}%
 Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
-model to nearest neighbor (k-NN) methods for forestry applications. PloS
+model to nearest neighbor (k-nn) methods for forestry applications. PloS
 one 8, e59129.
 
 \leavevmode\hypertarget{ref-wang2013design}{}%
@@ -827,7 +803,7 @@ implementation. Environmental modelling \& software 40, 280--288.
 Wang, J.-F., Stein, A., Gao, B.-B., Ge, Y., 2012. A review of spatial
 sampling. Spatial Statistics 2, 1--14.
 
-\end{CSLReferences}
-
 
 \end{document}
+
+
