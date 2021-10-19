@@ -1,6 +1,6 @@
 #' National Lakes Assessment Data
 #'
-#' A data set that can be used with the \code{SpatialDesignVModel} package.
+#' A data set that can be used with the \code{DvMsp} package.
 #'
 #' @format A data frame object including:
 #' \describe{

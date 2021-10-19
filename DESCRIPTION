@@ -1,5 +1,5 @@
-Package: SpatialDesignVModel
-Title: Simulates and analyzes spatial data with design and model-based appraoches
+Package: DvMsp
+Title: A supplementary package for the manuscript titled "A comparison of design-based and model-based approaches for spatial data"
 Version: 0.0.1
 Authors@R: c(
     person(given = "Michael",
@@ -10,7 +10,7 @@ Authors@R: c(
            given = "Matt",
            email = "mhigham@stlawu.edu",
            role = c("aut")))
-Description: This package accompanies the paper INSERT PAPER TITLE. Functions within the package are used to analyze both simulated and real data sets.
+Description: This package accompanies the manuscript titled "A comparison of design-based and model-based approaches for spatial data" by Michael Dumelle, Matthew Higham, Jay Ver Hoef, Tony Olsen, and Lisa Madsen. Functions within the package are used to analyze both the simulated and the real data.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

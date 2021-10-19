@@ -92,8 +92,8 @@ for (i in 1:nrow(parm_df)) {
 
   if (write_out == TRUE) {
     library(readr)
-    write_csv(all_output, glue::glue("inst/output/sims914raw/allsims_raw", i, ".csv"))
-    write_csv(summ_output, glue::glue("inst/output/sims914/allsims", i, ".csv"))
+    write_csv(all_output, glue::glue("inst/output/simulation_raw/allsims_raw", i, ".csv"))
+    write_csv(summ_output, glue::glue("inst/output/simulation_summary/allsims", i, ".csv"))
   }
 
   print(i)
