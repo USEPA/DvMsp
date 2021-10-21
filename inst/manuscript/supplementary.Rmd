@@ -6,7 +6,6 @@ author:
     affiliation: USEPA
     footnote: 1
   - name: Matt Higham
-    email: mhigham@stlaw.edu
     affiliation: STLAW
   - name: Lisa Madsen
     affiliation: OSU
@@ -26,7 +25,7 @@ address:
 footnote:
   - code: 1
     text: "Corresponding Author"
-journal: "An awesome journal"
+journal: "TBD"
 date: "`r Sys.Date()`"
 linenumbers: true
 numbersections: true

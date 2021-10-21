@@ -2,7 +2,7 @@
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
 \usepackage[hyphens]{url}
 
-  \journal{An awesome journal} % Sets Journal name
+  \journal{TBD} % Sets Journal name
 
 
 \usepackage{lineno} % add
@@ -68,7 +68,7 @@ population spatial data.}
     \author[USEPA]{Michael Dumelle\corref{1}}
    \ead{Dumelle.Michael@epa.gov} 
     \author[STLAW]{Matt Higham}
-   \ead{mhigham@stlaw.edu} 
+  
     \author[OSU]{Lisa Madsen}
   
     \author[USEPA]{Anthony R. Olsen}
@@ -112,8 +112,6 @@ Potential Journals:
 
 \hypertarget{sec:introduction}{%
 \section{Introduction}\label{sec:introduction}}
-
-Add sentence about bias. Add sentence about user functions.
 
 There are two general approaches for using data to make statistical
 inferences about a population: design-based and model-based. When data
@@ -465,14 +463,14 @@ et al., 2021). FPBK can be readily performed in \texttt{R} with the
 for both the simulation analysis and the application, estimating
 parameters with Restricted Maximum Likelihood (REML).
 
-\textbf{Mike} For design-based, it's really RMSE -- how should we
-address this? Figure \ref{fig:figeff} shows the relative efficiency of
-the four approaches from Table \ref{tab:designanalysis} with
-``IRS-Design'' as the baseline: \mbox{} \begin{equation*}
-\text{EFF} = \frac{\text{rMSPE of approach}}{\text{rMSPE of IRS-Design}},
+Figure \ref{fig:figeff} shows the relative efficiency of the four
+approaches from Table \ref{tab:designanalysis} with ``IRS-Design'' as
+the baseline: \mbox{} \begin{equation*}
+\text{EFF} = \frac{\text{rMS(P)E of approach}}{\text{rMS(P)E of IRS-Design}},
 \end{equation*}
 
-where rMSPE is the root-mean-squared-prediction error. When there is no
+where rMS(P)E is the root-mean-squared error (design-based) or the
+root-mean-squared-prediction error (model-based). When there is no
 spatial correlation (top row), the four approaches have approximately
 equal rMSPE, even when the assumptions of the model-based approaches are
 violated. So, using GRTS or using a spatial model does not result in
@@ -521,6 +519,12 @@ data.
 \begin{figure}
 \includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figconf-1} \caption{Coverage of the four design-analysis approaches. All confidence intervals are normal-based and have a nominal confidence level of 0.95, marked with a horizontal line. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figconf}
 \end{figure}
+
+In addition to rMS(P)E and interval coverage, we also recorded average
+bias. The average bias is nearly zero for all approaches in all
+scenarios, so we omit a visualization of the results here. The
+supplementary material contains tables with mean bias, rMS(P)E, and
+interval coverage for all 36 simulation scenarios.
 
 \hypertarget{application}{%
 \section{Application}\label{application}}
@@ -585,54 +589,66 @@ sample should usually yield a lower standard error.
 \section{Discussion}\label{sec:discussion}}
 
 The design-based and model-based approaches to inference are
-fundamentally different paradigms by which to select samples and analyze
-data. The design-based approach incorporates randomness through sampling
-to estimate a population parameter. The model-based approach
-incorporates randomness through distributional assumptions to predict
-the realized value of a random variable. Though these approaches have
-often been compared in the literature both from theoretical and
+fundamentally different paradigms by which to samples are selected and
+data are analyzed. The design-based approach incorporates randomness
+through sampling to estimate a population parameter. The model-based
+approach incorporates randomness through distributional assumptions to
+predict the realized value of a random variable. Though these approaches
+have often been compared in the literature both from theoretical and
 analytical perspectives, our contribution lies in studying them in a
 spatial context while implementing spatially balanced sampling. Aside
 from the theoretical differences described, a few analytical findings
-were particularly notable: the design decision (GRTS vs IRS) seems much
+are particularly notable: the design decision (GRTS vs IRS) seems much
 more important than the analysis decision (design-based vs model-based);
-Independent of the analysis approach, there is no reason to prefer IRS
+independent of the analysis approach, there is no reason to prefer IRS
 over GRTS for spatial data -- GRTS tends to perform at least as well as
-IRS when there is no spatial correlation increasingly than IRS as the
-strength of spatial correlation increases; the gap in relative
-efficiency between GRTS-design and GRTS-model widens as the strength of
-spatial correlation increases; and when the data are skewed, interval
-coverage for all approaches improves both as the sample size increases
-and as the strength of correlation increases.
+IRS when there is no spatial correlation and increasingly better than
+IRS as the strength of spatial correlation increases; the gap in
+relative efficiency between GRTS-design and GRTS-model widens as the
+strength of spatial correlation increases; and when the data are skewed,
+interval coverage for all approaches improves both as the sample size
+increases and as the strength of correlation increases.
 
 There are several benefits and drawbacks of the design-based and
 model-based approaches for spatial data, some of which we have not yet
-discussed but are worthy of consideration in future research. The
-design-based approach relies on few assumptions, while the model-based
-approach relies on rigid distributional ones. The Horvitz-Thompson
-estimator of means and totals is unbiased and computationally efficient,
-while model-based estimation of covariance parameters can be
-computationally burdensome, especially for likelihood-based methods such
-as REML that rely on inverting a covariance matrix. The design-based
-approach also more naturally handles binary data, free from the more
-complicated logistic regression formulation commonly used to handle
-binary data in a model-based approach. The model-based approach,
-however, can quantify the relationship between covariates (predictor
-variables) and the response variable, something the design-based
-approach cannot do naturally. The model-based approach also yields
-estimated spatial covariance parameters, which help better understand
-the process of study. Model selection is also possible using model-based
-approaches and criteria such as likelihood ratio tests or AIC (Akaike,
-1974). Model-based approaches are capable of more efficient small-area
-estimation than design-based approaches by leveraging distributional
-assumptions in areas with few observed sites. Model-based approaches can
-also compute site-by-site predictions at unobserved locations and use
-them to construct informative visualizations. The benefits and drawbacks
-of both approaches, alongside our theoretical and analytical
-comparisons, should be heavily considered when choosing among them. This
-is especially true from an analysis perspective, as we found that using
-a spatially balanced sampling algorithm benefits both design-based and
-model-based analyses.
+discussed but are worthy of consideration in future research.
+Design-based approaches are often computationally efficient, while
+model-based estimation of covariance parameters can be computationally
+burdensome, especially for likelihood-based methods such as REML that
+rely on inverting a covariance matrix. The design-based approach also
+more naturally handles binary data, free from the more complicated
+logistic regression formulation commonly used to handle binary data in a
+model-based approach. The model-based approach, however, can more
+naturally quantify the relationship between covariates (predictor
+variables) and the response variable. The model-based approach also
+yields estimated spatial covariance parameters, which help better
+understand the process of study. Model selection is also possible using
+model-based approaches and criteria such as likelihood ratio tests or
+AIC (Akaike, 1974). Model-based approaches are capable of more efficient
+small-area estimation than design-based approaches by leveraging
+distributional assumptions in areas with few observed sites. Model-based
+approaches can also compute site-by-site predictions at unobserved
+locations and use them to construct informative visualizations. The
+benefits and drawbacks of both approaches, alongside our theoretical and
+analytical comparisons, should be heavily considered when choosing among
+them. This is especially true from an analysis perspective, as we found
+that using a spatially balanced sampling algorithm benefits both
+design-based and model-based analyses.
+
+\hypertarget{data-and-code-availability}{%
+\section*{Data and Code Availability}\label{data-and-code-availability}}
+\addcontentsline{toc}{section}{Data and Code Availability}
+
+This manuscript has a supplementary R package that contains all of the
+data and code used. Instructions for download at available at
+\url{https://github.com/michaeldumelle/DvMsp}.
+
+\hypertarget{supplementary-material}{%
+\section*{Supplementary Material}\label{supplementary-material}}
+\addcontentsline{toc}{section}{Supplementary Material}
+
+In the supplementary material, we provide summary statistics for all 36
+simulation scenarios.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}

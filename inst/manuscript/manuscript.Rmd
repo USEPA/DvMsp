@@ -6,7 +6,6 @@ author:
     affiliation: USEPA
     footnote: 1
   - name: Matt Higham
-    email: mhigham@stlaw.edu
     affiliation: STLAW
   - name: Lisa Madsen
     affiliation: OSU
@@ -29,7 +28,7 @@ footnote:
 abstract: |
   This is the abstract.
 
-journal: "An awesome journal"
+journal: "TBD"
 date: "`r Sys.Date()`"
 bibliography: mybibfile.bib
 linenumbers: true
@@ -342,23 +341,15 @@ ggplot(df, aes(x = xvar, y = yvar)) +
 
 There were 2000 simulation trials for each of the 36 parameter combinations. In each trial, response values were generated from a spatial process with the specified parameters, and a GRTS sample and an IRS sample were selected. For the GRTS sample, the design-based approach using the local neighborhood variance (GRTS-Design) and a model-based approach were applied (GRTS-Model). For the IRS sample, the design-based approach using the simple random sample variance (IRS-Design) and a model-based approach were applied (IRS-Model).
 
-```{r, results = "asis", eval = FALSE}
-sim_one <- read_csv(here("inst", "output", "sim_one", "summ_output.csv"))
-colnames(sim_one) <- c("Approach", "Bias", "RMSE", "MedAE", "Coverage", "PClose", "MedIL")
-sim_one_table <- xtable(sim_one, digits = 4, caption = "Approach, mean bias (Bias), root-mean-squared error (RMSE), median absolute error (MedAE), 95 percent interval coverage (Coverage), proportion of times the approach was closer to the true value (PClose), and median interval length (MedIL)", type = "latex", latex.environments = "center", label = "tab:sim_one")
-print(sim_one_table, include.rownames = FALSE, comment = FALSE)
-```
-
 The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package \texttt{spsurvey} [@dumelle2021spsurvey]. FPBK can be readily performed in `R` with the `sptotal` package [@higham2021sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
 
-**Mike** For design-based, it's really RMSE -- how should we address this?
 Figure \ref{fig:figeff} shows the relative efficiency of the four approaches from Table \ref{tab:designanalysis} with "IRS-Design" as the baseline:
 \mbox{}
 \begin{equation*}
-\text{EFF} = \frac{\text{rMSPE of approach}}{\text{rMSPE of IRS-Design}},
+\text{EFF} = \frac{\text{rMS(P)E of approach}}{\text{rMS(P)E of IRS-Design}},
 \end{equation*}
 
-where rMSPE is the root-mean-squared-prediction error. When there is no spatial correlation (top row), the four approaches have approximately equal rMSPE, even when the assumptions of the model-based approaches are violated. So, using GRTS or using a spatial model does not result in much, if any, loss in efficiency even if the response variable is not spatially correlated. When there is high spatial correlation (bottom row), the GRTS-Model approach tends to perform best, but difference in relative efficiency between GRTS-Model and GRTS-Design is small. In the lognormal, high partial sill settings (bottom-right facet), GRTS-Design outperforms IRS-Model by a large margin, suggesting that the design decision (whether to use IRS or GRTS) is more important than the analysis decision (whether to analyze using model assumptions or not). 
+where rMS(P)E is the root-mean-squared error (design-based) or the root-mean-squared-prediction error (model-based). When there is no spatial correlation (top row), the four approaches have approximately equal rMSPE, even when the assumptions of the model-based approaches are violated. So, using GRTS or using a spatial model does not result in much, if any, loss in efficiency even if the response variable is not spatially correlated. When there is high spatial correlation (bottom row), the GRTS-Model approach tends to perform best, but difference in relative efficiency between GRTS-Model and GRTS-Design is small. In the lognormal, high partial sill settings (bottom-right facet), GRTS-Design outperforms IRS-Model by a large margin, suggesting that the design decision (whether to use IRS or GRTS) is more important than the analysis decision (whether to analyze using model assumptions or not). 
 
 Unsurprisingly, Figure \ref{fig:figeff} also shows that, when the assumptions for GRTS-Model are satisfied, the approach outperforms GRTS-Design. However, even when the model that generates the data is different than the model used to fit the data, as in the lognormal response, the model-based approach still outperforms the design-based approach when there is a high amount of spatial correlation.
 
@@ -429,6 +420,8 @@ ggplot(data = combo_data, aes(x = n_factor, y = coverage, colour = approach)) +
   labs(x = "Sample Size", colour = "Approach",
        y = "Interval Coverage")
 ```
+
+In addition to rMS(P)E and interval coverage, we also recorded average bias. The average bias is nearly zero for all approaches in all scenarios, so we omit a visualization of the results here. The supplementary material contains tables with mean bias, rMS(P)E, and interval coverage for all 36 simulation scenarios. 
 
 # Application {#application}
 
@@ -655,6 +648,14 @@ The design-based and model-based approaches to inference are fundamentally diffe
 <!-- The design-based approach relies on few assumptions, while the model-based approach relies on rigid distributional ones. -->
 
 There are several benefits and drawbacks of the design-based and model-based approaches for spatial data, some of which we have not yet discussed but are worthy of consideration in future research.  Design-based approaches are often computationally efficient, while model-based estimation of covariance parameters can be computationally burdensome, especially for likelihood-based methods such as REML that rely on inverting a covariance matrix. The design-based approach also more naturally handles binary data, free from the more complicated logistic regression formulation commonly used to handle binary data in a model-based approach. The model-based approach, however, can more naturally quantify the relationship between covariates (predictor variables) and the response variable. The model-based approach also yields estimated spatial covariance parameters, which help better understand the process of study. Model selection is also possible using model-based approaches and criteria such as likelihood ratio tests or AIC [@akaike1974new]. Model-based approaches are capable of more efficient small-area estimation than design-based approaches by leveraging distributional assumptions in areas with few observed sites. Model-based approaches can also compute site-by-site predictions at unobserved locations and use them to construct informative visualizations. The benefits and drawbacks of both approaches, alongside our theoretical and analytical comparisons, should be heavily considered when choosing among them. This is especially true from an analysis perspective, as we found that using a spatially balanced sampling algorithm benefits both design-based and model-based analyses.
+
+# Data and Code Availability {.unnumbered}
+
+This manuscript has a supplementary R package that contains all of the data and code used. Instructions for download at available at [https://github.com/michaeldumelle/DvMsp](https://github.com/michaeldumelle/DvMsp).
+
+# Supplementary Material {.unnumbered}
+
+In the supplementary material, we provide summary statistics for all 36 simulation scenarios.
 
 # References {#references .unnumbered}
 
