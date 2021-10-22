@@ -1,0 +1,25 @@
+---
+title: "simulation-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{simulation-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(DvMsp)
+```
+
+## Specifying Parameters for a Simulation
+
+We discuss simulations from 36 combinations of parameters in __NAME of paper__, but practitioners may be interested in other combinations that more closely reflect their population of interest. The purpose of this vignette is to illustrate how to use the functions in the `DvMsp` package to investigate performance of model-based predictors and design-based estimators in IRS and GRTS samples for any parameter combination. 
+
+

@@ -25,3 +25,7 @@ Imports:
     magrittr,
     rlang,
     purrr
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

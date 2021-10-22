@@ -43,17 +43,12 @@
 #' @importFrom rlang .data
 #' @export
 
-## library(devtools)
-## install_github("https://github.com/highamm/sptotal")
-## install_github('USEPA/spsurvey', ref = "main")
-## library(sptotal)
-## library(spsurvey)
-## library(dplyr)
 sim_trial <- function(seed = sample.int(1e7, size = 1),
                     N = 100, n = 50, gridded = TRUE,
                     cortype = "Exponential", psill, erange,
-                    nugget, cortype_est = "Exponential", resptype = "normal", ...) {
-  # browser()
+                    nugget, cortype_est = "Exponential",
+                    resptype = "normal", ...) {
+
   ###############################
   ## Data Prep
   ###############################
