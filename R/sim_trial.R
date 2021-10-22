@@ -14,11 +14,11 @@
 #' points with random locations.
 #' @param cortype is the true correlation function, which is
 #' \code{"Exponential"} by default.
+#' @param cortype_est is the (possibly misspecified) correlation
+#' function used to estimate/predict the mean, total, or other quantity.
 #' @param psill is the partial sill.
 #' @param erange is the effective range.
 #' @param nugget is the nugget.
-#' @param cortype_est is the (possibly misspecified) correlation
-#' function used to estimate/predict the mean, total, or other quantity.
 #' @param resptype is the response variable type, either \code{
 #' "normal"} or \code{"lognormal"}.
 #' @param ... further arguments passed to or from other methods.
@@ -33,6 +33,8 @@
 #'   \item \code{lb}, a lower 95% confidence bound
 #'   \item \code{ub}, an upper 95% confidence bound.
 #' }
+#'
+#'
 #' @examples
 #' sim_trial(seed = sample.int(1e7, size = 1), N = 100, n = 50,
 #' gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1,
@@ -47,7 +49,7 @@ sim_trial <- function(seed = sample.int(1e7, size = 1),
                     N = 100, n = 50, gridded = TRUE,
                     cortype = "Exponential", psill, erange,
                     nugget, cortype_est = "Exponential",
-                    resptype = "normal", ...) {
+                    resptype = "normal", mu = 0, ...) {
 
   ###############################
   ## Data Prep

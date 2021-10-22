@@ -18,20 +18,45 @@ knitr::opts_chunk$set(
 library(DvMsp)
 ```
 
+Things to do:
+
+* add in Gaussian and Spherical as options for correlation for creating population units and for estimation.
+
 ## Specifying Parameters for a Simulation
 
 We discuss simulations from 36 combinations of parameters in __NAME of paper__, but practitioners may be interested in other combinations that more closely reflect their population of interest. The purpose of this vignette is to illustrate how to use the functions in the `DvMsp` package to investigate performance of model-based predictors and design-based estimators in IRS and GRTS samples for any parameter combination. 
 
-There are two primary functions: `sim_pop()` to simulate a population and `sim_trial()` to perform IRS and GRTS samples and design-based and model-based analyses on those samples. 
+There are two primary functions: `sim_pop()` to simulate a population and `sim_trial()` to perform IRS and GRTS samples and design-based and model-based analyses on those samples. `sim_pop()` is called within `sim_trial()` so the user only needs to use `sim_trial()`. 
 
-The parameters that can be changed in `sim_pop()` are:
+The parameters that can be changed in `sim_trial()` are:
 
-* `N`, the number of units in the population,
-* `gridded`, whether the population units are placed in a grid (`TRUE`) or are randomly placed (`FALSE`),
-* `cortype` the correlation function, which is `"Exponential"` by default.
-* `psill`, the partial sill,
-* `erange`, the effective range,
-* `nugget` the nugget,
+* `N`, the number of units in the population.
+* `n`, the number of units sampled.
+* `gridded`, whether the population units are placed in a grid (`TRUE`) or are randomly placed (`FALSE`).
+* `cortype`, the correlation function used to simulate the resposne of the population units, which is `"Exponential"` by default. Other choices are `"Gaussian"` and `"Spherical"`.
+* `cortype_est`, the possibly mis-specified correlation function used to estimate covariance parameters for the model-based approach. Other choices are `"Gaussian"` and `"Spherical"`.
+* `psill`, the partial sill.
+* `erange`, the effective range.
+* `nugget` the nugget.
 * `resptype`, either `"normal"` for Gaussian errors or `"lognormal"` for exponentiated normal errors.
+* `mu`, the mean, which is `0` by default.
 
+The `sim_trial()` function will return a data frame with a row for IRS-Design, a row for GRTS-Design, a row for IRS-Model, and a row for GRTS-Model. Recorded in the columns are:
 
+* `approach`, the name of the approach used.
+* `seed` the value of the randomly generated seed (so that results for a trial can be replicated, if desired).
+* `true_mean`, the value of the realized mean.
+* `true_var`, the value of the realized variance.
+* `estimate`, the estimate of the realized mean.
+* `sd`, the standard error of the estimate.
+* `lb`, a lower bound for a 95% confidence interval.
+* `ub`, an upper bound for a 95% confidence interval.
+
+An example for running `sim_trial()` using one of the parameter settings in the accompanying manuscript is given here:
+
+```{r}
+sim_trial(N = 900, n = 100, gridded = FALSE, cortype = "Exponential",
+          cortype_est = "Exponential",
+          psill = 1.8, erange = sqrt(4), nugget = 0.2, resptype = "normal",
+          mu = 0)
+```
