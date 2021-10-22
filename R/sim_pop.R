@@ -15,6 +15,7 @@
 #' @param nugget is the nugget.
 #' @param resptype the response type. The default is Gaussian errors.
 #' @param ... further arguments passed to or from other methods.
+#' @param mu is the mean of the response and is \code{0} by default.
 #' @return a data frame with \itemize{
 #'   \item \code{x}, a column with the spatial x-coordinates.
 #'   \item \code{y}, a column with the spatial y-coordinates.
@@ -29,7 +30,7 @@
 # need spsurvey and sptotal and dplyr
 sim_pop <- function(N = 100, gridded = TRUE,
                     cortype = "Exponential", psill, erange,
-                    nugget, resptype = "normal", ...) {
+                    nugget, resptype = "normal", mu = 0, ...) {
 
   # simulating the locations
   if (gridded) {
@@ -59,7 +60,7 @@ sim_pop <- function(N = 100, gridded = TRUE,
                   )
   ## simulate response
   chol_covmx <- chol(covmx)
-  response <- as.vector(t(chol_covmx) %*% rnorm(N))
+  response <- mu + as.vector(t(chol_covmx) %*% rnorm(N))
 
   if (resptype == "normal") {
     data$response <- response
