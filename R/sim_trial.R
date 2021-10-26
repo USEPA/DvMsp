@@ -58,6 +58,9 @@ sim_trial <- function(seed = sample.int(1e7, size = 1),
   # make an sf object (for spsurvey)
   data_sf <- sf::st_as_sf(data, coords = c("x", "y"), crs = 5070)
 
+  # reshuffle data (for spsurvey irs() but in 5.0.0 -- will be fixed in 5.1.0)
+  data_sf <- data_sf[sample(1:nrow(data_sf)), ]
+
   ###############################
   ## IRS Sample
   ###############################
