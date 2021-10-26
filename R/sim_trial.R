@@ -10,18 +10,12 @@
 #' @param N is the total number of data points.
 #'  For \code{gridded = TRUE}, this must be a perfect square.
 #' @param n is the number of data points sampled.
-#' @param gridded \code{TRUE} for gridded sites and \code{FALSE} for
-#' points with random locations.
-#' @param cortype is the true correlation function, which is
-#' \code{"Exponential"} by default.
-#' @param cortype_est is the (possibly misspecified) correlation
-#' function used to estimate/predict the mean, total, or other quantity.
-#' @param psill is the partial sill.
-#' @param erange is the effective range.
-#' @param nugget is the nugget.
-#' @param resptype is the response variable type, either \code{
-#' "normal"} or \code{"lognormal"}.
-#' @param ... further arguments passed to or from other methods.
+#' @inheritParams sim_pop
+#' @param cortype_est is the correlation function type used to estimate the
+#' covariance parameters. Available options include
+#' \code{"Exponential"} for the exponential correlation, \code{"Gaussian"} for
+#' the Gaussian correlation, and \code{"Spherical"} for the spherical correlation.
+#' The default is \code{"Exponential"}.
 #' @return a data frame with \itemize{
 #'   \item \code{approach}, the name of th approach (\code{"Degign"}
 #'   or \code{"Model"}).
@@ -37,7 +31,7 @@
 #'
 #' @examples
 #' sim_trial(seed = sample.int(1e7, size = 1), N = 100, n = 50,
-#' gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1,
+#' gridded = TRUE, cortype = "Exponential", psill = 1, range = 1,
 #' nugget = 0.2, cortype_est = "Exponential")
 #' @import stats
 #' @import sptotal
@@ -47,7 +41,7 @@
 
 sim_trial <- function(seed = sample.int(1e7, size = 1),
                     N = 100, n = 50, gridded = TRUE,
-                    cortype = "Exponential", psill, erange,
+                    cortype = "Exponential", psill, range,
                     nugget, cortype_est = "Exponential",
                     resptype = "normal", mu = 0, ...) {
 
@@ -59,7 +53,7 @@ sim_trial <- function(seed = sample.int(1e7, size = 1),
   set.seed(seed)
 
   # simulate some data
-  data <- sim_pop(N, gridded, cortype, psill, erange, nugget, resptype, ...)
+  data <- sim_pop(N, gridded, cortype, psill, range, nugget, resptype, ...)
 
   # make an sf object (for spsurvey)
   data_sf <- sf::st_as_sf(data, coords = c("x", "y"), crs = 5070)
@@ -228,8 +222,3 @@ sim_trial <- function(seed = sample.int(1e7, size = 1),
   # return output
   output
 }
-
-
-
-## example
-## data <- sim_trial(psill = 1, erange = 1, nugget = 1)

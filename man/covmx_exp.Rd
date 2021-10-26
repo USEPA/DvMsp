@@ -3,18 +3,21 @@
 \name{covmx_exp}
 \alias{covmx_exp}
 \alias{covmx_gauss}
+\alias{covmx_sph}
 \title{Spatial Correlation Models}
 \usage{
-covmx_exp(distmx, psill, erange, nugget)
+covmx_exp(distmx, psill, range, nugget)
 
-covmx_gauss(distmx, psill, erange, nugget)
+covmx_gauss(distmx, psill, range, nugget)
+
+covmx_sph(distmx, psill, range, nugget)
 }
 \arguments{
 \item{distmx}{is the distance matrix for sampled sites.}
 
 \item{psill}{is the partial sill.}
 
-\item{erange}{is the effective range.}
+\item{range}{is the effective range.}
 
 \item{nugget}{is the nugget effect.}
 }
@@ -30,5 +33,7 @@ in this package: \code{covmx_exp()}.
 \item \code{covmx_exp}: Exponential Covariance
 
 \item \code{covmx_gauss}: Gaussian Covariance
+
+\item \code{covmx_sph}: Spherical Covariance
 }}
 

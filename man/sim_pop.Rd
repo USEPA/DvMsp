@@ -9,9 +9,10 @@ sim_pop(
   gridded = TRUE,
   cortype = "Exponential",
   psill,
-  erange,
+  range,
   nugget,
   resptype = "normal",
+  mu = 0,
   ...
 )
 }
@@ -22,16 +23,24 @@ this must be a perfect square.}
 \item{gridded}{\code{TRUE} for gridded sites and \code{FALSE} for
 points with random locations.}
 
-\item{cortype}{is the correlation function, which is
-\code{"Exponential"} by default.}
+\item{cortype}{is the correlation function type used to generate the population.
+Available options include
+\code{"Exponential"} for the exponential correlation, \code{"Gaussian"} for
+the Gaussian correlation, and \code{"Spherical"} for the spherical correlation.
+The default is \code{"Exponential"}.}
 
 \item{psill}{is the partial sill.}
 
-\item{erange}{is the effective range.}
+\item{range}{is the range.}
 
 \item{nugget}{is the nugget.}
 
-\item{resptype}{the response type. The default is Gaussian errors.}
+\item{resptype}{the response type of the errors. Available options:
+\code{"normal"} for Gaussian errors and \code{"lognormal"} for log Gaussian
+errors. The default is Gaussian errors.}
+
+\item{mu}{is the mean of response vector and is \code{0} for all population
+units by default.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
@@ -48,5 +57,6 @@ random unit square. The resulting data can then be used in
 \code{\link{sim_trial}()}.
 }
 \examples{
-sim_pop(N = 100, gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1, nugget = 0.2)
+sim_pop(N = 100, gridded = TRUE, cortype = "Exponential", psill = 1,
+range = 1, nugget = 0.2, resptype = "normal", mu = 0)
 }

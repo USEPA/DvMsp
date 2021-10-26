@@ -6,15 +6,15 @@ write_out <- TRUE
 
 ## set up grid for simulation settings
 N <- 30 ^ 2
-n <- c(10, 50, 100, 200)
+n <- c(50, 100, 200)
 total_var <- 2
 psill_ratio <- c(0, 0.5, 0.9)
-erange <- sqrt(4)
+range <- 2 / 3
 gridded <- c(TRUE, FALSE)
 resptype <- c("normal", "lognormal")
 
 parm_df <- expand_grid(N, n, total_var, psill_ratio,
-                       erange, gridded, resptype) %>%
+                       range, gridded, resptype) %>%
   mutate(nugget_ratio = 1 - psill_ratio,
          psill = total_var * psill_ratio,
          nugget = total_var * nugget_ratio)
@@ -28,7 +28,7 @@ source("R/sim_trial.R")
 
 ## loop through each row of parm_df (could be done with purrr::pmap() instead)
 for (i in 1:nrow(parm_df)) {
-  n_trials <- 5 # 2000 for the simulation section in the manuscript
+  n_trials <- 2000
   seed <- sample.int(1e7, size = n_trials)
   n_cluster <- detectCores() # find cores (48 on mine)
   cluster <- makeCluster(n_cluster) # make cluster
@@ -47,7 +47,7 @@ for (i in 1:nrow(parm_df)) {
     n = parm_df_sim %>% pull(n), # sample size
     psill = parm_df_sim %>% pull(psill), # partial sill
     nugget = parm_df_sim %>% pull(nugget), # nugget
-    erange = parm_df_sim %>% pull(erange), # effective range
+    range = parm_df_sim %>% pull(range), # range
     gridded = parm_df_sim %>% pull(gridded), # grid (TRUE) or random (FALSE) both in [0, 1] x [0,1]
     resptype = parm_df_sim %>% pull(resptype) # normal response
   )

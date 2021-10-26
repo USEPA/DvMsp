@@ -11,10 +11,11 @@ sim_trial(
   gridded = TRUE,
   cortype = "Exponential",
   psill,
-  erange,
+  range,
   nugget,
   cortype_est = "Exponential",
   resptype = "normal",
+  mu = 0,
   ...
 )
 }
@@ -29,20 +30,30 @@ For \code{gridded = TRUE}, this must be a perfect square.}
 \item{gridded}{\code{TRUE} for gridded sites and \code{FALSE} for
 points with random locations.}
 
-\item{cortype}{is the true correlation function, which is
-\code{"Exponential"} by default.}
+\item{cortype}{is the correlation function type used to generate the population.
+Available options include
+\code{"Exponential"} for the exponential correlation, \code{"Gaussian"} for
+the Gaussian correlation, and \code{"Spherical"} for the spherical correlation.
+The default is \code{"Exponential"}.}
 
 \item{psill}{is the partial sill.}
 
-\item{erange}{is the effective range.}
+\item{range}{is the range.}
 
 \item{nugget}{is the nugget.}
 
-\item{cortype_est}{is the (possibly misspecified) correlation
-function used to estimate/predict the mean, total, or other quantity.}
+\item{cortype_est}{is the correlation function type used to estimate the
+covariance parameters. Available options include
+\code{"Exponential"} for the exponential correlation, \code{"Gaussian"} for
+the Gaussian correlation, and \code{"Spherical"} for the spherical correlation.
+The default is \code{"Exponential"}.}
 
-\item{resptype}{is the response variable type, either \code{
-"normal"} or \code{"lognormal"}.}
+\item{resptype}{the response type of the errors. Available options:
+\code{"normal"} for Gaussian errors and \code{"lognormal"} for log Gaussian
+errors. The default is Gaussian errors.}
+
+\item{mu}{is the mean of response vector and is \code{0} for all population
+units by default.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
@@ -68,6 +79,6 @@ using \enumerate{
 }
 \examples{
 sim_trial(seed = sample.int(1e7, size = 1), N = 100, n = 50,
-gridded = TRUE, cortype = "Exponential", psill = 1, erange = 1,
+gridded = TRUE, cortype = "Exponential", psill = 1, range = 1,
 nugget = 0.2, cortype_est = "Exponential")
 }

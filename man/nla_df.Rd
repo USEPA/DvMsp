@@ -62,7 +62,7 @@ A data frame object including:
 nla_df
 }
 \description{
-A data set that can be used with the \code{SpatialDesignVModel} package.
+A data set that can be used with the \code{DvMsp} package.
 }
 \examples{
 data(nla_df)
