@@ -422,14 +422,14 @@ spatial process generating the response was set to zero.
 
 For the lognormal scenarios, the response values were simulated using
 the specified correlation parameters using a normal distribution and
-were subsequently exponentiated. A total variance of 2 and a mean of 0
-on the normal scale is equivalent to a total variance of 47 and a mean
-of 2.72 after exponentiation. Therefore, when the model-based methods
-were used for lognormal response, the correlation was mis-specified. We
-chose to simulate values with a lognormal distribution so that we could
-test the model-based analysis approach with a mis-specified model and so
-that we could test both analysis approaches on data that exhibits a
-large amount of skewness.
+were subsequently exponentiated. A total variance of 0.6931 and a mean
+of 0 on the normal scale yielded a total variance of 2 and a mean of
+1.414 after exponentiation. Therefore, when the model-based methods were
+used for lognormal response, the correlation was mis-specified. We chose
+to simulate values with a lognormal distribution so that we could test
+the model-based analysis approach with a mis-specified model and so that
+we could test both analysis approaches on data that exhibits a large
+amount of skewness.
 
 \begin{table}[ht]
 \centering
@@ -441,7 +441,7 @@ Sample Size (n) & 50 & 100 & 200 \\
   Response Type & Normal & Lognormal & - \\ 
    \hline
 \end{tabular}
-\caption{\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.} 
+\caption{\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2.} 
 \end{table}
 
 There were 2000 simulation trials for each of the 36 parameter

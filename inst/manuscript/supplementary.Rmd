@@ -86,7 +86,7 @@ row.names(parm_tab) <- c("Sample Size (n)", "Layout",
 # library(knitr) kable with htlm has trouble with page breaks -- kable with latex harder for me than xtable
 # kable(parm_tab, col.names = c("", "", ""),
 #       caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.")
-parm_xtab <- xtable(parm_tab, caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.")
+parm_xtab <- xtable(parm_tab, caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2.")
 align(parm_xtab) <- "r|lll"
 print(parm_xtab, include.colnames = FALSE, hline.after = c(0, nrow(parm_xtab)), comment = FALSE)
 ```

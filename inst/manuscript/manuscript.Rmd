@@ -313,7 +313,7 @@ We used a crossed design with the simulation parameters given in Table \ref{tab:
 
 <!-- The range was chosen so that the decayed to nearly zero at the largest distance possible in the domain, $\sqrt{2}$, otherwise known as the "effective" range (for the exponential covariance, the effective range is $3\phi$). -->
 
-For the lognormal scenarios, the response values were simulated using the specified correlation parameters using a normal distribution and were subsequently exponentiated. A total variance of 2 and a mean of 0 on the normal scale is equivalent to a total variance of 47 and a mean of 2.72 after exponentiation. Therefore, when the model-based methods were used for lognormal response, the correlation was mis-specified. We chose to simulate values with a lognormal distribution so that we could test the model-based analysis approach with a mis-specified model and so that we could test both analysis approaches on data that exhibits a large amount of skewness.
+For the lognormal scenarios, the response values were simulated using the specified correlation parameters using a normal distribution and were subsequently exponentiated. A total variance of 0.6931 and a mean of 0 on the normal scale yielded a total variance of 2 and a mean of 1.414 after exponentiation. Therefore, when the model-based methods were used for lognormal response, the correlation was mis-specified. We chose to simulate values with a lognormal distribution so that we could test the model-based analysis approach with a mis-specified model and so that we could test both analysis approaches on data that exhibits a large amount of skewness.
 
 ```{r, echo = FALSE, results = "asis"}
 n <- c("50", "100", "200")
@@ -327,7 +327,7 @@ row.names(parm_tab) <- c("Sample Size (n)", "Layout",
 # library(knitr) kable with htlm has trouble with page breaks -- kable with latex harder for me than xtable
 # kable(parm_tab, col.names = c("", "", ""),
 #       caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.")
-parm_xtab <- xtable(parm_tab, caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.")
+parm_xtab <- xtable(parm_tab, caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2.")
 align(parm_xtab) <- "r|lll"
 print(parm_xtab, include.colnames = FALSE, hline.after = c(0, nrow(parm_xtab)), comment = FALSE)
 ```
