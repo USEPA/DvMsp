@@ -109,7 +109,7 @@ set.seed(10102021)
 source(here("R", "sim_pop.R"))
 N <- 9
 pop_df <- sim_pop(N = N, gridded = TRUE, cortype = "Exponential",
-                  psill = 0.9, erange = 1, nugget = 0.1)
+                  psill = 0.9, range = 1, nugget = 0.1)
 
 n <- 4
 samp_df <- pop_df %>% sample_n(n) 
@@ -167,11 +167,11 @@ d3 <- ggplot(data = pop_df, aes(x = x, y = y)) +
   ylim(-0.1, 1.1)
 
 pop_df_mod <- sim_pop(N = N, gridded = TRUE, cortype = "Exponential",
-                      psill = 0.9, erange = 1, nugget = 0.1)
+                      psill = 0.9, range = 1, nugget = 0.1)
 pop_df_mod2 <- sim_pop(N = N, gridded = TRUE, cortype = "Exponential",
-                       psill = 0.9, erange = 1, nugget = 0.1)
+                       psill = 0.9, range = 1, nugget = 0.1)
 pop_df_mod3 <- sim_pop(N = N, gridded = TRUE, cortype = "Exponential",
-                      psill = 0.9, erange = 1, nugget = 0.1)
+                      psill = 0.9, range = 1, nugget = 0.1)
 
 indeces <- sample(1:N, size = n, replace = FALSE)
 samp_df_mod <- pop_df_mod %>% slice(indeces)
@@ -345,7 +345,7 @@ There were 2000 simulation trials for each of the 36 parameter combinations. In 
 
 The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package \texttt{spsurvey} [@dumelle2021spsurvey]. FPBK can be readily performed in `R` with the `sptotal` package [@higham2021sptotal]. We use `sptotal` for both the simulation analysis and the application, estimating parameters with Restricted Maximum Likelihood (REML).
 
-Figure \ref{fig:figeff} shows the relative efficiency of the four approaches from Table \ref{tab:designanalysis} with "IRS-Design" as the baseline:
+Figure \ref{fig:figeff} shows the relative efficiency of the four approaches from Table \ref{tab:designanalysis} using the random location layout, where "IRS-Design" is the baseline:
 \mbox{}
 \begin{equation*}
 \text{EFF} = \frac{\text{rMS(P)E of approach}}{\text{rMS(P)E of IRS-Design}},
@@ -353,7 +353,7 @@ Figure \ref{fig:figeff} shows the relative efficiency of the four approaches fro
 
 where rMS(P)E is the root-mean-squared error (design-based) or the root-mean-squared-prediction error (model-based). When there is no spatial correlation (top row), the four approaches have approximately equal rMSPE, even when the assumptions of the model-based approaches are violated. So, using GRTS or using a spatial model does not result in much, if any, loss in efficiency even if the response variable is not spatially correlated. When there is high spatial correlation (bottom row), the GRTS-Model approach tends to perform best, but difference in relative efficiency between GRTS-Model and GRTS-Design is small. In the lognormal, high partial sill settings (bottom-right facet), GRTS-Design outperforms IRS-Model by a large margin, suggesting that the design decision (whether to use IRS or GRTS) is more important than the analysis decision (whether to analyze using model assumptions or not). 
 
-Unsurprisingly, Figure \ref{fig:figeff} also shows that, when the assumptions for GRTS-Model are satisfied, the approach outperforms GRTS-Design. However, even when the model that generates the data is different than the model used to fit the data, as in the lognormal response, the model-based approach still outperforms the design-based approach when there is a high amount of spatial correlation.
+Unsurprisingly, Figure \ref{fig:figeff} also shows that, when the assumptions for GRTS-Model are satisfied, the approach outperforms GRTS-Design. However, even when the model that generates the data is different than the model used to fit the data, as in the lognormal response, the model-based approach still outperforms the design-based approach when there is a high amount of spatial correlation. Additionally, as the sample size increases, IRS-Design performs relatively worse compared to the other approaches. These conclusions were similar to those observed when the data were gridded.
 
 ```{r figeff, out.width = "100%", fig.cap = "Relative Efficiency of the four design-analysis approaches. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.", message = FALSE, warning = FALSE}
 library(tidyverse)
@@ -365,7 +365,7 @@ combo_data <- purrr::map_df(files,
                             ~read_csv(.x) %>% mutate(filename = .x))
 
 combo_data <- combo_data %>%
-  dplyr::filter(n != 10 & gridded == FALSE) %>%
+  dplyr::filter(gridded == FALSE) %>%
   mutate(sim = interaction(n, psill, resptype)) %>% ## , gridded
   mutate(approach = fct_relevel(approach, c("Design IRS", "Model IRS",
                                             "Design GRTS", "Model GRTS"))) %>%
@@ -407,9 +407,9 @@ ggplot(data = combo_data_grts_model, aes(x = n, y = releffgrts)) +
   geom_point()
 ```
 
-We also studied 95% interval coverage among the approaches. The design-based 95% confidence intervals and model-based 95% prediction intervals are constructed using the normal distribution. Justification for the design-based intervals lies in the asymptotic normality of totals via the Central Limit Theorem, and justification for the model-based intervals lies in the normality assumption of the errors.  Figure \ref{fig:figconf} shows the 95% interval coverage for each of the four approaches. All four approaches have somewhat similar interval coverage in all settings, with GRTS-Design having slightly lower coverage when the response is normal. 
+We also studied 95% interval coverage among the approaches. The design-based 95% confidence intervals and model-based 95% prediction intervals are constructed using the normal distribution. Justification for the design-based intervals lies in the asymptotic normality of totals via the Central Limit Theorem, and justification for the model-based intervals lies in the normality assumption of the errors.  Figure \ref{fig:figconf} shows the 95% interval coverage for each of the four approaches in the random location layout. All four approaches have somewhat similar interval coverage in all settings, with GRTS-Design having slightly lower coverage when the response is normal. 
 
-In the normal response settings, all approaches have coverage around 95%. This is expected, as the intervals are also based on the normal distribution In the lognormal response settings, however, all approaches have coverage below 95%. This is also expected, as the intervals are still based on the normal distribution. In the lognormal response settings, interval coverage increases both as the sample size increases and as the strength of spatial dependence increases. This suggests that the larger the sample size and the stronger the spatial dependence, the more resistant these intervals are to departures from normality of the data.
+In the normal response settings, all approaches have coverage around 95%. This is expected, as the intervals are also based on the normal distribution In the lognormal response settings, however, all approaches have coverage below 95%. This is also expected, as the intervals are still based on the normal distribution. In the lognormal response settings, interval coverage increases both as the sample size increases and as the strength of spatial dependence increases. This suggests that the larger the sample size and the stronger the spatial dependence, the more resistant these intervals are to departures from normality of the data. These conclusions were similar to those observed when the data were gridded.
 
 ```{r figconf, out.width = "100%", fig.cap = "Coverage of the four design-analysis approaches. All confidence intervals are normal-based and have a nominal confidence level of 0.95, marked with a horizontal line. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.", message = FALSE, warning = FALSE}
 ggplot(data = combo_data, aes(x = n_factor, y = coverage, colour = approach)) +

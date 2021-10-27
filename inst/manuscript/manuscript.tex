@@ -415,13 +415,10 @@ IRS & IRS-Design & IRS-Model \\
 
 We used a crossed design with the simulation parameters given in Table
 \ref{tab:parmtab} for a total of 36 scenarios. All scenarios used
-exponential correlation with a \(\sqrt{2} / 3\) for \(N = 900\) response
+exponential correlation with a \(\sqrt{4} / 3\) for \(N = 900\) response
 values simulated on the unit square in either random locations (Layout =
-Random) or gridded locations (Layout = Gridded). The range was chosen so
-that the decayed to nearly zero at the largest distance possible in the
-domain, \(\sqrt{2}\), otherwise known as the ``effective'' range (for
-the exponential covariance, the effective range is \(3\phi\)). The mean
-for the spatial process generating the response was set to zero.
+Random) or gridded locations (Layout = Gridded). The mean for the
+spatial process generating the response was set to zero.
 
 For the lognormal scenarios, the response values were simulated using
 the specified correlation parameters using a normal distribution and
@@ -464,8 +461,8 @@ for both the simulation analysis and the application, estimating
 parameters with Restricted Maximum Likelihood (REML).
 
 Figure \ref{fig:figeff} shows the relative efficiency of the four
-approaches from Table \ref{tab:designanalysis} with ``IRS-Design'' as
-the baseline: \mbox{} \begin{equation*}
+approaches from Table \ref{tab:designanalysis} using the random location
+layout, where ``IRS-Design'' is the baseline: \mbox{} \begin{equation*}
 \text{EFF} = \frac{\text{rMS(P)E of approach}}{\text{rMS(P)E of IRS-Design}},
 \end{equation*}
 
@@ -489,6 +486,9 @@ GRTS-Design. However, even when the model that generates the data is
 different than the model used to fit the data, as in the lognormal
 response, the model-based approach still outperforms the design-based
 approach when there is a high amount of spatial correlation.
+Additionally, as the sample size increases, IRS-Design performs
+relatively worse compared to the other approaches. These conclusions
+were similar to those observed when the data were gridded.
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figeff-1} \caption{Relative Efficiency of the four design-analysis approaches. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figeff}
@@ -501,9 +501,9 @@ for the design-based intervals lies in the asymptotic normality of
 totals via the Central Limit Theorem, and justification for the
 model-based intervals lies in the normality assumption of the errors.
 Figure \ref{fig:figconf} shows the 95\% interval coverage for each of
-the four approaches. All four approaches have somewhat similar interval
-coverage in all settings, with GRTS-Design having slightly lower
-coverage when the response is normal.
+the four approaches in the random location layout. All four approaches
+have somewhat similar interval coverage in all settings, with
+GRTS-Design having slightly lower coverage when the response is normal.
 
 In the normal response settings, all approaches have coverage around
 95\%. This is expected, as the intervals are also based on the normal
@@ -514,7 +514,8 @@ settings, interval coverage increases both as the sample size increases
 and as the strength of spatial dependence increases. This suggests that
 the larger the sample size and the stronger the spatial dependence, the
 more resistant these intervals are to departures from normality of the
-data.
+data. These conclusions were similar to those observed when the data
+were gridded.
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figconf-1} \caption{Coverage of the four design-analysis approaches. All confidence intervals are normal-based and have a nominal confidence level of 0.95, marked with a horizontal line. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figconf}

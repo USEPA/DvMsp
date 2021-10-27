@@ -7,14 +7,20 @@ write_out <- TRUE
 ## set up grid for simulation settings
 N <- 30 ^ 2
 n <- c(50, 100, 200)
-total_var <- 2
 psill_ratio <- c(0, 0.5, 0.9)
-range <- 2 / 3
+range <- sqrt(2) / 3
 gridded <- c(TRUE, FALSE)
 resptype <- c("normal", "lognormal")
+total_var_norm <- 2
+# find variance that gives lognormal var of 2
+total_var_lognorm <- uniroot(function(x) (exp(x) - 1) * exp(x) - total_var_norm, interval = c(0, 10))$root
 
-parm_df <- expand_grid(N, n, total_var, psill_ratio,
+parm_df <- expand_grid(N, n, psill_ratio,
                        range, gridded, resptype) %>%
+  mutate(total_var = case_when(
+    resptype == "normal" ~ total_var_norm,
+    resptype == "lognormal" ~ total_var_lognorm
+  )) %>%
   mutate(nugget_ratio = 1 - psill_ratio,
          psill = total_var * psill_ratio,
          nugget = total_var * nugget_ratio)
@@ -29,13 +35,13 @@ source("R/sim_trial.R")
 ## loop through each row of parm_df (could be done with purrr::pmap() instead)
 for (i in 1:nrow(parm_df)) {
   n_trials <- 2000
-  seed <- sample.int(1e7, size = n_trials)
+  seed <- 1:n_trials
   n_cluster <- detectCores() # find cores (48 on mine)
   cluster <- makeCluster(n_cluster) # make cluster
   clusterExport(cluster, varlist = c("sim_pop", "covmx_exp"))
-  clusterEvalQ(cluster, library(spsurvey)) # export spsurvey to cluster
+  clusterEvalQ(cluster, library(spsurvey)) # export spsurvey to cluster v >= 5.1.0
   clusterEvalQ(cluster, library(sptotal)) # export sptotal to cluster
-  clusterEvalQ(cluster, library(dplyr)) # export sptotal to cluster
+  clusterEvalQ(cluster, library(dplyr)) # export dplyr to cluster
 
   parm_df_sim <- parm_df %>% slice(i) ## grab row for ith parameter combo
   sim_output <- parLapply(

@@ -141,7 +141,7 @@ print(sim_table_out, include.rownames = FALSE, comment = FALSE)
 ```
 
 ```{r, results = "asis"}
-for (i in 13:48) {
+for (i in 1:36) {
   make_sim_table(i)
 }
 ```
