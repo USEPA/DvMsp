@@ -18,10 +18,6 @@ knitr::opts_chunk$set(
 library(DvMsp)
 ```
 
-Things to do:
-
-* add in Gaussian and Spherical as options for correlation for creating population units and for estimation.
-
 ## Specifying Parameters for a Simulation
 
 We discuss simulations from 36 combinations of parameters in __NAME of paper__, but practitioners may be interested in other combinations that more closely reflect their population of interest. The purpose of this vignette is to illustrate how to use the functions in the `DvMsp` package to investigate performance of model-based predictors and design-based estimators in IRS and GRTS samples for any parameter combination. 
@@ -54,9 +50,54 @@ The `sim_trial()` function will return a data frame with a row for IRS-Design, a
 
 An example for running `sim_trial()` using one of the parameter settings in the accompanying manuscript is given here:
 
-```{r}
-sim_trial(N = 900, n = 100, gridded = FALSE, cortype = "Exponential",
-          cortype_est = "Exponential",
-          psill = 1.8, erange = sqrt(4), nugget = 0.2, resptype = "normal",
-          mu = 0)
+```{r, message = FALSE}
+out1 <- sim_trial(N = 900, n = 100, gridded = FALSE,
+          cortype = "Exponential", cortype_est = "Exponential",
+          psill = 1.8, range = sqrt(4) / 3, nugget = 0.2,
+          resptype = "normal", mu = 0)
+out1
 ```
+
+Each row of the resulting output represents one of the four approaches. The last four columns give the estimate for the mean, the standard error, a 95% confidence/prediction interval lower bound, and a 95% confidence/prediction interval upper bound. 
+
+We could also create a couple of other variables: 
+
+* `resid`, the realized mean minus the estimate/prediction and
+* `cover`, a `1` if the 95% interval covers the realized mean and a `0` if the 95% interval does not cover the realized mean.
+
+```{r}
+out1 %>% dplyr::mutate(
+  resid = true_mean - estimate,
+  cover = 1 * (lb <= true_mean & true_mean <= ub)
+)
+```
+
+Finally, to investigate the properties of the different approaches, we know that we want to repeat this process a large number (2000 in the accompanying manuscript) times. The following code repeats the population generation and estimation 5 times, and can be modified to simulate a larger number of iterations.
+
+```{r}
+n_trials <- 5
+out5 <- purrr::rerun(n_trials, sim_trial(N = 900, n = 100, gridded = FALSE,
+                                         cortype = "Exponential",
+                                         cortype_est = "Exponential",
+                                         psill = 1.8, range = sqrt(4) / 3,
+                                         nugget = 0.2,
+                                         resptype = "normal", mu = 0)) %>%
+  dplyr::bind_rows()
+```
+
+Using this output, we can generate tables similar to those that appear in the accompanying manuscript.
+
+```{r}
+out5 %>% dplyr::mutate(resid = true_mean - estimate,
+                       cover = 1 * (lb <= true_mean & true_mean <= ub)) %>%
+  dplyr::group_by(approach) %>%
+  dplyr::summarise(mpbias = mean(resid),
+                   rmspe = sqrt(mean(resid ^ 2)),
+                   medae = median(abs(resid)),
+                   coverage = mean(cover),
+                   med_ci_len = median(ub - lb))
+```
+
+Because of the randomness involved in simulating a population, the tables will not match up exactly. However, with a large number of `n_trials`, the results should be quite close.
+
+

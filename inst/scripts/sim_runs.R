@@ -65,7 +65,7 @@ for (i in 1:nrow(parm_df)) {
   #   bind_rows() %>%
   #   nrow()
 
-  # do summaries
+  # do summaries, could be done with a for loop instead ;)
   safe_output <- map(sim_output, "result") %>%
     bind_rows()
 
