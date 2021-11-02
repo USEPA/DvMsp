@@ -85,28 +85,25 @@ sim_pop <- function(N = 100, gridded = TRUE,
 
 #' Spatial Correlation Models
 #'
-#' Note that, currently, only one of these models is implemented
-#' in this package: \code{covmx_exp()}.
-#'
 #' @param distmx is the distance matrix for sampled sites.
 #' @param psill is the partial sill.
 #' @param range is the effective range.
 #' @param nugget is the nugget effect.
 #' @return Covariance Matrix
-#' @export
+#' @noRd
 
-#' @describeIn covmx_exp Exponential Covariance
+# Exponential Covariance
 covmx_exp <- function(distmx, psill, range, nugget) {
   psill * exp(- distmx / range) + nugget * (distmx == 0)
 }
 
-#' @describeIn covmx_exp Gaussian Covariance
+# Gaussian Covariance
 covmx_gauss <- function(distmx, psill, range, nugget) {
   psill * exp(- distmx^2 / range^2) +
     nugget * (distmx == 0)
 }
 
-#' @describeIn covmx_exp Spherical Covariance
+# Spherical Covariance
 covmx_sph <- function(distmx, psill, range, nugget) {
   distratio <- distmx / range
   psill * (1 - (3 / 2) * distratio + (1 / 2) * distratio^3) + nugget * (distmx == 0)

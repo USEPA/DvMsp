@@ -41,7 +41,7 @@ Summaries of the simulation output (all 36 trials) are available in the "output"
 system.file("output", package = "DvMsp")
 ```
 
-Raw simulation output is not included when installing the supplementary package but is available at [here](https://github.com/michaeldumelle/DvMsp/tree/main/inst/output/simulation_raw).
+Raw simulation output is not included when installing the supplementary package but is available [here](https://github.com/michaeldumelle/DvMsp/tree/main/inst/output/simulation_raw).
 
 ### Manuscript
 
