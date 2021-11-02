@@ -1,6 +1,6 @@
 Package: DvMsp
 Title: A supplementary package for the manuscript titled "A comparison of design-based and model-based approaches for spatial data"
-Version: 0.0.1
+Version: 0.0.0.9000
 Authors@R: c(
     person(given = "Michael",
            family = "Dumelle",
@@ -9,7 +9,17 @@ Authors@R: c(
     person(family = "Higham",
            given = "Matt",
            email = "mhigham@stlawu.edu",
-           role = c("aut")))
+           role = c("aut")),
+    person(family = "Ver Hoef",
+           given = "Jay",
+           role = c("aut")),
+    person(family = "Olsen",
+           given = "Anthony R.",
+           role = c("aut"))
+    person(family = "Madsen",
+           given = "Lisa",
+           role = c("aut"))
+    )
 Description: This package accompanies the manuscript titled "A comparison of design-based and model-based approaches for spatial data" by Michael Dumelle, Matthew Higham, Jay Ver Hoef, Tony Olsen, and Lisa Madsen. Functions within the package are used to analyze both the simulated and the real data.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -17,6 +27,7 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
+Suggests: 
     dplyr,
     spsurvey,
     sptotal (>= 1.0.0),
@@ -24,8 +35,7 @@ Imports:
     stats,
     magrittr,
     rlang,
-    purrr
-Suggests: 
+    purrr,
     rmarkdown,
     knitr
 VignetteBuilder: knitr
