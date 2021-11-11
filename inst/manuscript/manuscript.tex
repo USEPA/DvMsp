@@ -273,20 +273,18 @@ the algorithm has several attractive properties. It accommodates finite
 and infinite sampling frames. It accommodates equal, unequal, and
 proportional (to size) inclusion probabilities. It accommodates legacy
 (historical) sampling (Foster et al., 2017). It accommodates a minimum
-distance between units in a sample. It accommodates replacement units in
-a sample, which are units that can be sampled in place of an original
-unit that can no longer be sampled. Lastly, it can be implemented using
-the spsurvey R package Dumelle et al. (2021).
-
-The GRTS algorithm samples from finite and infinite populations by
-utilizing a mapping between two-dimensional and one-dimensional space.
-The units in the two-dimensional sampling frame are divided into cells
-using a hierarchical address. This hierarchical address is then used to
-map the units from two-dimensional space to a one-dimensional line where
-each unit's line length equals its inclusion probability. A systematic
-sample is conducted on the line and linked back to a unit in
-two-dimensional space, which results in the desired sample. Stevens and
-Olsen (2004) provides further details.
+distance between units in a sample. Lastly, it accommodates replacement
+units in a sample, which are units that can be sampled in place of an
+original unit that can no longer be sampled. The GRTS algorithm samples
+from finite and infinite populations by utilizing a mapping between
+two-dimensional and one-dimensional space. The units in the
+two-dimensional sampling frame are divided into cells using a
+hierarchical address. This hierarchical address is then used to map the
+units from two-dimensional space to a one-dimensional line where each
+unit's line length equals its inclusion probability. A systematic sample
+is conducted on the line and linked back to a unit in two-dimensional
+space, which results in the desired sample. Stevens and Olsen (2004)
+provides further details.
 
 After selecting a spatially balanced sample using the GRTS algorithm
 (i.e., a GRTS sample), data are collected and used to estimate
@@ -382,7 +380,7 @@ covariance function: the \(i,j\)th elment of hte matrix
 \end{cases}
 ,
 \end{align} where \(\sigma^2_{1}\) is dependent random error variance
-measuring coarse-scale (correlated) variability, \(\sigma^2_{n}\) is the
+measuring coarse-scale (correlated) variability, \(\sigma^2_{2}\) is the
 independent random error variance measuring fine-scale (independent)
 variability, \(\phi\) is the range parameter measuring the
 distance-decay rate of the correlation, and \(h_{i,j}\) is the Euclidean
@@ -414,9 +412,12 @@ methods in most scenarios.
 \hypertarget{sec:numstudy}{%
 \section{Numerical Study}\label{sec:numstudy}}
 
-We used a numerical simulation study to investigate performance of four
-design-analysis combinations, summarized in Table
-\ref{tab:designanalysis}.
+We used a simulation study to investigate performance of four
+sampling-analysis combinations: IRS-Design, IRS with a design-based
+analysis; IRS-Model, IRS with a model-based analysis; GRTS-Design, GRTS
+sampling with a design-based analysis; and GRTS-Model, GRTS sampling
+with a model-based analysis. These combinations are also provided in
+Table \ref{tab:designanalysis}.
 
 \begin{table}[ht]
 \centering
@@ -428,10 +429,38 @@ IRS & IRS-Design & IRS-Model \\
   GRTS & GRTS-Design & GRTS-Model \\ 
    \hline
 \end{tabular}
-\caption{\label{tab:designanalysis} Types of Sampling Design and Analysis combinations considered in the simulation study. The rows give the two types of sampling designs while the columns give the two types of analyses.} 
+\caption{\label{tab:designanalysis} Sampling-analysis combinations in the simulation study. The rows give the two types of sampling designs and the columns give the two types of analyses.} 
 \end{table}
 
-We used a crossed design with the simulation parameters given in Table
+Performance of the four sampling-analysis combinations were evaluated in
+36 different simulation scenarios. The 36 scenarios resulted from the
+crossing of three sample sizes, two location layouts, two response
+types, and three proportions of dependent random error. The three sample
+sizes (\(n\)) were \(n = 50, n = 100,\) and \(n = 200\). Samples were
+always selected from a population size (\(N\)) of \(N = 900\). The two
+location layouts were random and gridded. Locations in the random layout
+were selected randomly from the unit square (\([0, 1] \times [0, 1]\)).
+Locations in the gridded layout were selected randomly on a fixed grid
+from the unit square. The two response types were normal and lognormal.
+For the normal response type, the response was simulated using mean-zero
+random errors with the exponential covariance
+(Equation\(~\)\ref{equation:expcov}) for varying proportions of
+dependent random error. The proportion of dependent random error is
+represented by \(\sigma^2_1 / (\sigma^2_1 + \sigma^2_2)\), where
+\(\sigma^2_1\) and \(\sigma^2_2\) are from
+Equation\(~\)\ref{equation:expcov}. The total variance
+(\(\sigma^2_1 + \sigma^2_2\)) was always 2. The range was always
+\(\sqrt{2} / 3\), which means that the correlation in the dependent
+random error decays to nearly zero at the largest possible distance
+between two units in the domain. For the lognormal response type, the
+response was first simulated using the same approach as for the normal
+response type, except that the total variance was 0.6931 instead of 2.
+The response was then exponentiated, yielding a total variance of 2 on
+the exponentiated scale. The lognormal responses were used to evaluate
+performance of the sampling-analysis approaches for data that were
+skewed.
+
+a crossed design with the simulation parameters given in Table
 \ref{tab:parmtab} for a total of 36 scenarios. All scenarios used
 exponential correlation with a \(\sqrt{4} / 3\) for \(N = 900\) response
 values simulated on the unit square in either random locations (Layout =
@@ -454,12 +483,12 @@ amount of skewness.
 \begin{tabular}{r|lll}
    \hline
 Sample Size (n) & 50 & 100 & 200 \\ 
-  Layout & Random & Gridded & - \\ 
+  Location Layout & Random & Gridded & - \\ 
   Proportion of Dependent Error & 0 & 0.5 & 0.9 \\ 
   Response Type & Normal & Lognormal & - \\ 
    \hline
 \end{tabular}
-\caption{\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2.} 
+\caption{\label{tab:parmtab} Simulation scenario options. All combinations of sample size, location layout, response type, and proportion of dependent random error composed the 36 simulation scenarios. In each simualtion scenario, the mean was zero and the variance was two.} 
 \end{table}
 
 There were 2000 simulation trials for each of the 36 parameter
@@ -472,31 +501,33 @@ approach using the simple random sample variance (IRS-Design) and a
 model-based approach were applied (IRS-Model).
 
 The GRTS algorithm and the local neighborhood variance estimator are
-available in the \textbf{\textsf{R}} package \texttt{spsurvey} (Dumelle
-et al., 2021). FPBK can be readily performed in \texttt{R} with the
-\texttt{sptotal} package (Higham et al., 2021). We use \texttt{sptotal}
-for both the simulation analysis and the application, estimating
+available in the \textbf{\textsf{R}} package spsurvey (Dumelle et al.,
+2021). FPBK can be readily performed using the \texttt{sptotal}
+\textbf{\textsf{R}} package (Higham et al., 2021). We use sptotal for
+both the simulation analysis and the application, estimating covariance
 parameters with Restricted Maximum Likelihood (REML).
 
-Figure \ref{fig:figeff} shows the relative efficiency of the four
-approaches from Table \ref{tab:designanalysis} using the random location
-layout, where ``IRS-Design'' is the baseline: \mbox{} \begin{equation*}
-\text{EFF} = \frac{\text{rMS(P)E of approach}}{\text{rMS(P)E of IRS-Design}},
+We define rMS(P)E as the root-mean-squared error (design-based) or the
+root-mean-squared-prediction error (model-based).Figure \ref{fig:figeff}
+shows the relative rMS(P)E of the four approaches from Table
+\ref{tab:designanalysis} using the random location layout with
+``IRS-Design'' is the baseline. More formally, the relative rMS(P)E is
+defined as \begin{equation*}
+\frac{\text{rMS(P)E of sampling-analysis combination}}{\text{rMS(P)E of IRS-Design}},
 \end{equation*}
 
-where rMS(P)E is the root-mean-squared error (design-based) or the
-root-mean-squared-prediction error (model-based). When there is no
-spatial correlation (top row), the four approaches have approximately
-equal rMSPE, even when the assumptions of the model-based approaches are
-violated. So, using GRTS or using a spatial model does not result in
-much, if any, loss in efficiency even if the response variable is not
-spatially correlated. When there is high spatial correlation (bottom
+When there is no spatial correlation (Figure \ref{fig:figeff}, top row),
+the four approaches have approximately equal rMSPE, even when the
+assumptions of the model-based approaches are violated. So, using GRTS
+or using a spatial model does not result in much, if any, loss in
+efficiency even if the response variable is not spatially correlated.
+When there is high spatial correlation (Figure \ref{fig:figeff}, bottom
 row), the GRTS-Model approach tends to perform best, but difference in
 relative efficiency between GRTS-Model and GRTS-Design is small. In the
-lognormal, high partial sill settings (bottom-right facet), GRTS-Design
-outperforms IRS-Model by a large margin, suggesting that the design
-decision (whether to use IRS or GRTS) is more important than the
-analysis decision (whether to analyze using model assumptions or not).
+lognormal, high partial sill settings (Figure \ref{fig:figeff}, bottom
+row and right column), IRS-Model outperforms IRS-Design by a large
+margin, suggesting that the poor design properties of IRS are largely
+mitigated by the model-based analysis.
 
 Unsurprisingly, Figure \ref{fig:figeff} also shows that, when the
 assumptions for GRTS-Model are satisfied, the approach outperforms
@@ -509,35 +540,35 @@ relatively worse compared to the other approaches. These conclusions
 were similar to those observed when the data were gridded.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figeff-1} \caption{Relative Efficiency of the four design-analysis approaches. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figeff}
+\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figeff-1} \caption{Relative rMS(P)E for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}\label{fig:figeff}
 \end{figure}
 
 We also studied 95\% interval coverage among the approaches. The
 design-based 95\% confidence intervals and model-based 95\% prediction
-intervals are constructed using the normal distribution. Justification
-for the design-based intervals lies in the asymptotic normality of
-totals via the Central Limit Theorem, and justification for the
-model-based intervals lies in the normality assumption of the errors.
+intervals were constructed using the normal distribution. Justification
+for the design-based and model-based intervals comes from the asymptotic
+normality of totals via the Central Limit Theorem (under some
+assumptions).
+
 Figure \ref{fig:figconf} shows the 95\% interval coverage for each of
 the four approaches in the random location layout. All four approaches
 have somewhat similar interval coverage in all settings, with
 GRTS-Design having slightly lower coverage when the response is normal.
+Coverage in the normal response settings tended to be near 95\%,
+slightly higher than coverage in the lognormal settings, which still
+generally exceeded 90\%. Coverage for all approaches increased with the
+sample size for both the normal and lognormal scenarios. At a sample
+size of 200, all four sampling-design combinations had approximately
+95\% interval coverage in both response scenarios. These conclusions
+were similar to those observed when the data were gridded.
 
-In the normal response settings, all approaches have coverage around
-95\%. This is expected, as the intervals are also based on the normal
-distribution In the lognormal response settings, however, all approaches
-have coverage below 95\%. This is also expected, as the intervals are
-still based on the normal distribution. In the lognormal response
-settings, interval coverage increases both as the sample size increases
-and as the strength of spatial dependence increases. This suggests that
-the larger the sample size and the stronger the spatial dependence, the
-more resistant these intervals are to departures from normality of the
-data. These conclusions were similar to those observed when the data
-were gridded.
-
-\begin{figure}
-\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figconf-1} \caption{Coverage of the four design-analysis approaches. All confidence intervals are normal-based and have a nominal confidence level of 0.95, marked with a horizontal line. The plot is faceted by the type of response on the columns and the partial-sill to total-variance ratio on the rows.}\label{fig:figconf}
-\end{figure}
+\textbackslash begin\{figure\}
+\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figconf-1}
+\textbackslash caption\{Interval coverage for the four sampling-analysis
+combinations. The rows indicate the proportion of dependent error and
+the columns indicate the response type. The solid, black line in each
+plot represents 95\% coverage.\}\label{fig:figconf}
+\textbackslash end\{figure\}
 
 In addition to rMS(P)E and interval coverage, we also recorded average
 bias. The average bias is nearly zero for all approaches in all
