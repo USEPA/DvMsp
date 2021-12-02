@@ -25,7 +25,7 @@ footnote:
     code: 1
     text: "Corresponding Author: Michael Dumelle (Dumelle.Michael@epa.gov)"
 abstract: |
-  The design-based and model-based approaches to frequentist statistical inference rest on fundamentally different foundations. In the design-based approach, inference depends on random sampling. In the model-based approach, inference depends on distributional assumptions. In this manuscript, we compare the approaches for finite population spatial data. We first provide relevant background for design-based and model-based approaches to finite population patial data. Then we use a simulation study and an analysis of real mercurcy concentration data to compare them numerically. We find that sampling plans that incorporate spatial locations (spatially balanced samples) perform better than sampling plans ignoring spatial locations (non-spatially balanced samples), regardless of whether design-based or model-based approaches were used to analyze the data. We also find that within sampling plans, model-based approaches tend to outperform design-based approaches, even for skewed data. This gap in performance is small when spatially samples are used but large when non-spatially balanced samples are used.
+  The design-based and model-based approaches to frequentist statistical inference rest on fundamentally different foundations. In the design-based approach, inference depends on random sampling. In the model-based approach, inference depends on distributional assumptions. In this manuscript, we compare the approaches for finite population spatial data. We first provide relevant background for design-based and model-based approaches to finite population spatial data. Then we use a simulation study and an analysis of real mercury concentration data to compare them numerically. We find that sampling plans that incorporate spatial locations (spatially balanced samples) perform better than sampling plans ignoring spatial locations (non-spatially balanced samples), regardless of whether design-based or model-based approaches were used to analyze the data. We also find that within sampling plans, model-based approaches tend to outperform design-based approaches, even for skewed data. This gap in performance is small when spatially balanced samples are used but large when non-spatially balanced samples are used.
 
 journal: "Methods in Ecology and Evolution"
 date: "`r Sys.Date()`"
@@ -212,7 +212,7 @@ ggarrange(d1, d2, d3, m1, m2, m3, nrow = 2, ncol = 3,
 
 ## Spatially Balanced Design and Analysis {#subsec:spb_design}
 
-The design-based approach can be used to select samples that are "well-spread" in space, or spatially balanced. Spatially balanced samples are useful because parameter estimates from these samples tend to vary less than parameter estimates from samples that are not spatially balanced [@stevens2004spatially; @barabesi2011sampling; @grafstrom2013well; @robertson2013bas; @wang2013design; @benedetti2017spatiallyreview]. The first spatially balanced sampling algorithm that saw widespread use was the Generalized Random Tessellation Stratified (GRTS) algorithm [@stevens2004spatially]. To quantify the spatial balance of a sample, @stevens2004spatially proposed loss metrics based on Voroni polygons. After the GRTS algorithm was developed, several other spatially balanced sampling algorithms have emerged, including the Local Pivotal Method [@grafstrom2012spatially; @grafstrom2018spatially], Spatially Correlated Poisson Sampling [@grafstrom2012spatiallypoisson], Balanced Acceptance Sampling [@robertson2013bas], Within-Sample-Distance Sampling [@benedetti2017spatially], and Halton Iterative Partitioning Sampling [@robertson2018halton]. In this manuscript, we use the Generalized Random Tessellation Stratified (GRTS) algorithm to select spatially balanced samples sampling because the algorithm has several attractive properties. It accommodates finite and infinite sampling frames. It accommodates equal, unequal, and proportional (to size) inclusion probabilities. It accommodates legacy (historical) sampling [@foster2017spatially]. It accommodates a minimum distance between units in a sample. Lastly, it accommodates replacement units in a sample, which are units that can be sampled in place of an original unit that can no longer be sampled.
+The design-based approach can be used to select samples that are "well-spread" in space, or spatially balanced. Spatially balanced samples are useful because parameter estimates from these samples tend to vary less than parameter estimates from samples that are not spatially balanced [@stevens2004spatially; @barabesi2011sampling; @grafstrom2013well; @robertson2013bas; @wang2013design; @benedetti2017spatiallyreview]. The first spatially balanced sampling algorithm that saw widespread use was the Generalized Random Tessellation Stratified (GRTS) algorithm [@stevens2004spatially]. To quantify the spatial balance of a sample, @stevens2004spatially proposed loss metrics based on Voroni polygons. After the GRTS algorithm was developed, several other spatially balanced sampling algorithms have emerged, including the Local Pivotal Method [@grafstrom2012spatially; @grafstrom2018spatially], Spatially Correlated Poisson Sampling [@grafstrom2012spatiallypoisson], Balanced Acceptance Sampling [@robertson2013bas], Within-Sample-Distance Sampling [@benedetti2017spatially], and Halton Iterative Partitioning Sampling [@robertson2018halton]. In this manuscript, we use the Generalized Random Tessellation Stratified (GRTS) algorithm to select spatially balanced samples sampling because the algorithm has several attractive properties. It accommodates finite and infinite sampling frames, equal, unequal, and proportional (to size) inclusion probabilities, legacy (historical) sampling [@foster2017spatially], a minimum distance between units in a sample, and replacement units in a sample (which are units that can be sampled in place of an original unit that can no longer be sampled).
 The GRTS algorithm samples from finite and infinite populations by utilizing a mapping between two-dimensional and one-dimensional space. The units in the two-dimensional sampling frame are divided into cells using a hierarchical address. This hierarchical address is then used to map the units from two-dimensional space to a one-dimensional line where each unit's line length equals its inclusion probability. A systematic sample is conducted on the line and linked back to a unit in two-dimensional space, which results in the desired sample. @stevens2004spatially provides further details. 
 
 <!-- This makes it seem like HT is being used to estimate population parameters in GRTS? Needs to be in there, but maybe a sentence making it clear that this isn't being used? Or just change the order and talk about Local variance first and then mention these for more general settings? -->
@@ -221,7 +221,7 @@ After selecting a spatially balanced sample using the GRTS algorithm (i.e., a GR
 \begin{align}\label{eq:ht}
   \hat{\tau}_{ht} = \sum_{i = 1}^n Z_i \pi_i^{-1},
 \end{align}
-where $Z_i$ is the value of the $i$th unit in the sample and $\pi_i$ is the inclusion probability of the $i$th unit in the sample. An estimate of the population mean can be obtained by dividing $\hat{\tau}_{ht}$ by number of population units. 
+where $Z_i$ is the value of the $i$th unit in the sample and $\pi_i$ is the inclusion probability of the $i$th unit in the sample. An estimate of the population mean can be obtained by dividing $\hat{\tau}_{ht}$ by the number of population units, $N$. 
 
 While the Horvitz-Thompson estimator is unbiased for population means and totals, it is also important to quantify the uncertainty in these estimates. @horvitz1952generalization and @sen1953estimate provide variance estimators for $\hat{\tau}_{ht}$, but these estimators have two drawbacks. First, they rely on calculating $\pi_{ij}$, the probability that unit $i$ and unit $j$ are both in the sample -- this quantity can be challenging if not impossible to calculate analytically. Second, these estimators ignore the spatial locations of the units in the sampling frame. To address these two drawbacks simultaneously, @stevens2003variance proposed the local neighborhood variance estimator. The local neighborhood variance estimator does not rely on $\pi_{ij}$ and incorporates spatial locations -- for technical details see @stevens2003variance. @stevens2003variance show the local neighborhood variance estimator tends to reduce the estimated variance of $\hat{\tau}$ compared to variance estimators ignoring spatial locations, yielding narrower confidence intervals for $\tau$.
 
@@ -249,7 +249,7 @@ We often only have a sample of the $N$ population units. Denoting quantities tha
 \end{equation}
 where $\mathbf{X}_s$ and $\mathbf{X}_u$ are the design matrices for the sampled and unsampled population units, respectively, and $\bm{\beta}$ is the parameter vector of fixed effects.
 
-Let $\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'$, where $\bm{\delta}_s$ and $\bm{\delta}_u$ are random errors for teh sampled and unsampled population units, respectively. We assume $E(\bm{\delta} = \mathbf{0}$ and that there is spatial correlation in $\bm{\delta}$ that can be modeled using a covariance function. It is common to assume the covariance function is second-order stationary and isotropic [@cressie1993statistics], and that the spatial covariance decreases as the separation between population units increases. Many spatial covariance functions exist, but the primary function we use throughout the simulations and applications in this manuscript is the exponential covariance function: the $i,j$th elment of hte matrix $\cov(\bm{\delta})$ is
+Let $\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'$, where $\bm{\delta}_s$ and $\bm{\delta}_u$ are random errors for the sampled and unsampled population units, respectively. We assume $E(\bm{\delta}) = \mathbf{0}$ and that there is spatial correlation in $\bm{\delta}$ that can be modeled using a covariance function. It is common to assume the covariance function is second-order stationary and isotropic [@cressie1993statistics], and that the spatial covariance decreases as the separation between population units increases. Many spatial covariance functions exist, but the primary function we use throughout the simulations and applications in this manuscript is the exponential covariance function: the $i,j$th elment of the matrix $\cov(\bm{\delta})$ is
 \mbox{}
 \begin{align}\label{equation:expcov}
 \cov(\delta_i, \delta_j) = 
@@ -261,7 +261,7 @@ Let $\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'$, where $\bm{\delta}
 \end{align}
 where $\sigma^2_{1}$ is dependent random error variance measuring coarse-scale (correlated) variability, $\sigma^2_{2}$ is the independent random error variance measuring fine-scale (independent) variability, $\phi$ is the range parameter measuring the distance-decay rate of the correlation, and $h_{i,j}$ is the Euclidean distance between population units $i$ and $j$. Often $\sigma^2_{1}$ and $\sigma^2_{2}$ are called the partial sill and nugget, respectively. Any spatial covariance function could be used in the place of the exponential, including functions that allow for non-stationarity or anisotropy [@chiles1999geostatistics, pp. 80-93].
 
-With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for $f(\mathbf{b}'\mathbf{z})$ and its prediction variance can be computed. While details of the derivation are in [@verhoef2008spatial], we note here that the predictor and its variance are both moment-based, meaning that they do not rely on any distributional assumptions.
+With the above model formulation, the Best Linear Unbiased Predictor (BLUP) for $f(\mathbf{b}'\mathbf{z})$ and its prediction variance can be computed. While details of the derivation are in @verhoef2008spatial, we note here that the predictor and its variance are both moment-based, meaning that they do not rely on any distributional assumptions.
 
 We note that we only use FPBK in this paper in order to focus more on comparing the design-based and model-based approaches. Other methods, such as k-nearest-neighbors [@fix1989discriminatory; @ver2013comparison], random forest [@breiman2001random], Bayesian models [@chan2020bayesian], among others, could also be used to obtain predictions for a mean or total from spatially correlated responses of a finite population. We choose to use FPBK because it is faster than a Bayesian approach and it was developed with theoretically-based variance estimators of means and totals for spatial data, whereas random forests and k-nearest-neighbors use ad-hoc variance estimators in most cases [@ver2013comparison]; additionally, FBPK outperformed the other methods in most scenarios. 
 
@@ -305,7 +305,7 @@ In each of the 36 simulation scenarios, there were 2000 independent simulation t
 
 The average bias was nearly zero for all four combinations in all 36 scenarios, so we omit a more detailed summary of those results here. Tables for average bias in all 36 simulation scenarios are provided in the supplementary material.
 
-Figure \ref{fig:figeff} shows the relative rMS(P)E of the four approaches from Table \ref{tab:designanalysis} using the random location layout with "IRS-Design" is the baseline. More formally, the relative rMS(P)E is defined as
+Figure \ref{fig:figeff} shows the relative rMS(P)E of the four approaches from Table \ref{tab:designanalysis} using the random location layout with "IRS-Design" as the baseline. More formally, the relative rMS(P)E is defined as
 \begin{equation*}
 \frac{\text{rMS(P)E of sampling-analysis combination}}{\text{rMS(P)E of IRS-Design}},
 \end{equation*}
@@ -334,9 +334,14 @@ combo_data <- combo_data %>% group_by(sim) %>% mutate(designirsrmspe = if_else(a
   mutate(n_factor = factor(n))
 
 colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
+resptype_labs <- c(normal = "Response: Normal", lognormal = "Response: Lognormal")
+psill_ratio_labs <- c("0" = "Prop DE: 0", "0.5" = "Prop DE: 0.5", "0.9" = "Prop DE: 0.9")
 effplot <- ggplot(data = combo_data, aes(x = n_factor, y = rel_efficiency,
                               colour = approach)) +
-  facet_grid(psill_ratio ~ resptype) +
+  facet_grid(
+    psill_ratio ~ resptype,
+    labeller = labeller(resptype = resptype_labs, psill_ratio = psill_ratio_labs)
+  ) +
   geom_jitter(width = 0.24, size = 2.5) +
   scale_colour_manual(values = colour_scale) +
   theme_bw(base_size = 14) +
@@ -355,7 +360,10 @@ Tables for interval coverage in all 36 simulation scenarios are provided in the 
 ggplot(data = combo_data, aes(x = n_factor, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95) +
   geom_jitter(width = 0.24, size = 2.5) + 
-  facet_grid(psill_ratio ~ resptype) +
+  facet_grid(
+    psill_ratio ~ resptype,
+    labeller = labeller(resptype = resptype_labs, psill_ratio = psill_ratio_labs)
+  ) +
   scale_colour_manual(values = colour_scale) +
   ylim(0.80, 1) +
   theme_bw(base_size = 14) +
@@ -365,7 +373,7 @@ ggplot(data = combo_data, aes(x = n_factor, y = coverage, colour = approach)) +
 
 # Application {#application}
 
-The Environmental Protection Agency (EPA), states, and tribes periodically conduct National Aquatic Research Surveys (NARS) in the United States to assess the water quality of various bodies of water. We will use the 2012 National Lakes Assessment (NLA), which measures various aspects of lake health and quality in lakes in the contiguous United States, to study mercury concentration. Although we know the true mean mercury concentration values for the 986 lakes from the 2012 NLA, we will explore whether or not we obtain an adequately precise estimate for the realized mean mercury concentration if we sample only 100 of the 986 lakes.
+The Environmental Protection Agency (EPA), states, and tribes periodically conduct National Aquatic Research Surveys (NARS) in the United States to assess the water quality of various bodies of water. We will use the 2012 National Lakes Assessment (NLA), which measures various aspects of lake health and water quality in lakes in the contiguous United States, to study mercury concentration. Although we know the true mean mercury concentration values for the 986 lakes from the 2012 NLA, we will explore whether or not we obtain an adequately precise estimate for the realized mean mercury concentration if we sample only 100 of the 986 lakes.
 
 ```{r, message = FALSE, warning = FALSE, echo = FALSE, results = "hide"}
 library(tidyverse)
@@ -597,6 +605,11 @@ This manuscript has a supplementary R package that contains all of the data and 
 # Supplementary Material {.unnumbered}
 
 In the supplementary material, we provide tables presenting summary statistics for all 36 simulation scenarios.
+
+# Acknowledgements {.unnumbered}
+
+The views expressed in this manuscript are those of the authors and do not necessarily represent the views or policies of the U.S. Environmental Protection Agency. Any mention of trade names, products, or services does not imply an endorsement by the U.S. government or the U.S. Environmental Protection Agency. The U.S. Environmental Protection Agency does not endorse any commercial products, services, or enterprises.
+
 
 # References {#references .unnumbered}
 
