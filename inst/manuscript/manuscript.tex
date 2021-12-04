@@ -87,22 +87,21 @@ Corvallis, Oregon, 97331}
   
   \begin{abstract}
   The design-based and model-based approaches to frequentist statistical
-  inference rest on fundamentally different foundations. In the
+  inference lie on fundamentally different foundations. In the
   design-based approach, inference depends on random sampling. In the
   model-based approach, inference depends on distributional assumptions.
   In this manuscript, we compare the approaches for finite population
-  spatial data. We first provide relevant background for design-based and
-  model-based approaches to finite population spatial data. Then we use a
-  simulation study and an analysis of real mercury concentration data to
-  compare them numerically. We find that sampling plans that incorporate
-  spatial locations (spatially balanced samples) perform better than
-  sampling plans ignoring spatial locations (non-spatially balanced
-  samples), regardless of whether design-based or model-based approaches
-  were used to analyze the data. We also find that within sampling plans,
-  model-based approaches tend to outperform design-based approaches, even
-  for skewed data. This gap in performance is small when spatially
-  balanced samples are used but large when non-spatially balanced samples
-  are used.
+  spatial data. We first provide relevant background for the approaches
+  and then use a simulation study and an analysis of real mercury
+  concentration data to numerically compare them. We find that sampling
+  plans that incorporate spatial locations (spatially balanced samples)
+  perform better than sampling plans ignoring spatial locations
+  (non-spatially balanced samples), regardless of whether design-based or
+  model-based approaches were used to analyze the data. We also find that
+  within sampling plans, the model-based approaches often outperform
+  design-based approaches, even for skewed data. This gap in performance
+  is small when spatially balanced samples are used but large when
+  non-spatially balanced samples are used.
   \end{abstract}
   
  \end{frontmatter}
@@ -112,15 +111,15 @@ Corvallis, Oregon, 97331}
 
 There are two general approaches for using data to make frequentist
 statistical inferences about a population: design-based and model-based.
-When data cannot be collected for all units in a population (population
-units), data are collected on a subset of the population units. This
-subset is called a sample. In the design-based approach, inferences
-about the underlying population are informed via a probabilistic process
-assigning some population units to the sample. Alternatively, in the
-model-based approach, inferences are made from specific assumptions
-about the underlying process generating the data. Each paradigm has a
-deep historical context (Sterba, 2009) and its own set of benefits and
-drawbacks (Hansen et al., 1983).
+When data cannot be collected for all units in a population (i.e.,
+population units), data are collected on a subset of the population
+units. This subset is called a sample. In the design-based approach,
+inferences about the underlying population are informed via a
+probabilistic process assigning some population units to be part of the
+sample. Alternatively, in the model-based approach, inferences are made
+from specific assumptions about the underlying process generating the
+data. Each paradigm has a deep historical context (Sterba, 2009) and its
+own set of benefits and drawbacks (Hansen et al., 1983).
 
 Though the design-based and model-based approaches apply to statistical
 inference in a broad sense, we focus on comparing these approaches for
@@ -140,11 +139,11 @@ both design and model-based principles (see e.g., Sterba (2009),
 Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
 Bayesian approach).
 
-Though comparisons between design-based and model-based approaches to
-spatial data have been studied, no numerical comparison has been made
-between design-based approaches that incorporate spatial locations and
-model-based approaches. In this manuscript, we compare design-based
-approaches that incorporate spatial locations to model-based approaches
+Certainly comparisons between design-based and model-based approaches to
+spatial data have been studied. But no numerical comparison has been
+made between design-based approaches incorporating spatial information
+and design-based approaches. In this manuscript, we compare design-based
+approaches incorporating spatial information to model-based approaches
 for spatial data. We focus on finite populations, but these comparisons
 generalize to infinite populations as well. A finite population contains
 a finite number of population units; an example is lakes (treated as a
@@ -153,12 +152,12 @@ United States. An infinite population contains an infinite number of
 population units; an example is locations within a single lake.
 
 The rest of the manuscript is organized as follows. In Section
-\ref{sec:background}, we introduce and compare several sampling and
-estimation procedures of the design-based and model-based approaches for
-finite population spatial data. In Section \ref{sec:numstudy}, we use a
-simulation approach to study the behavior and performance of both
-approaches. In Section \ref{application}, we use both approaches to
-analyze real data consisting of mercury concentration from lakes in the
+\ref{sec:background}, we introduce and provide relevant background for
+the design-based and model-based approaches to finite population spatial
+data. In Section \ref{sec:numstudy}, we use a simulation study to
+compare the performance of the approaches in a variety of scenarios. In
+Section \ref{application}, we compare the performance of the approaches
+on real data that contains mercury concentration in lakes from the
 contiguous United States. And in Section \ref{sec:discussion}, we end
 with a discussion and provide directions for future research.
 
@@ -259,12 +258,11 @@ and Halton Iterative Partitioning Sampling (Robertson et al., 2018). In
 this manuscript, we use the Generalized Random Tessellation Stratified
 (GRTS) algorithm to select spatially balanced samples sampling because
 the algorithm has several attractive properties. It accommodates finite
-and infinite sampling frames. It accommodates equal, unequal, and
-proportional (to size) inclusion probabilities. It accommodates legacy
-(historical) sampling (Foster et al., 2017). It accommodates a minimum
-distance between units in a sample. Lastly, it accommodates replacement
-units in a sample, which are units that can be sampled in place of an
-original unit that can no longer be sampled. The GRTS algorithm samples
+and infinite sampling frames, equal, unequal, and proportional (to size)
+inclusion probabilities, legacy (historical) sampling (Foster et al.,
+2017), a minimum distance between units in a sample, and replacement
+units in a sample (which are units that can be sampled in place of an
+original unit that can no longer be sampled). The GRTS algorithm samples
 from finite and infinite populations by utilizing a mapping between
 two-dimensional and one-dimensional space. The units in the
 two-dimensional sampling frame are divided into cells using a
@@ -541,12 +539,12 @@ The Environmental Protection Agency (EPA), states, and tribes
 periodically conduct National Aquatic Research Surveys (NARS) in the
 United States to assess the water quality of various bodies of water. We
 will use the 2012 National Lakes Assessment (NLA), which measures
-various aspects of lake health and quality in lakes in the contiguous
-United States, to study mercury concentration. Although we know the true
-mean mercury concentration values for the 986 lakes from the 2012 NLA,
-we will explore whether or not we obtain an adequately precise estimate
-for the realized mean mercury concentration if we sample only 100 of the
-986 lakes.
+various aspects of lake health and water quality in lakes in the
+contiguous United States, to study mercury concentration. Although we
+know the true mean mercury concentration values for the 986 lakes from
+the 2012 NLA, we will explore whether or not we obtain an adequately
+precise estimate for the realized mean mercury concentration if we
+sample only 100 of the 986 lakes.
 
 Figure \ref{fig:figdata} shows that mercury concentration is
 right-skewed, with most lakes having a low value of mercury
