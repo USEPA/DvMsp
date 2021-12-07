@@ -59,7 +59,7 @@ sim_trial <- function(seed = sample.int(1e7, size = 1),
   data_sf <- sf::st_as_sf(data, coords = c("x", "y"), crs = 5070)
 
   ###############################
-  ## IRS Sample
+  ## IRS Sample # must be spsurvey version 5.1.0 or greater
   ###############################
 
   # irs sample

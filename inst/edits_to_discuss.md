@@ -7,14 +7,15 @@ Q. Abstract comment from reviewer 1.
 
 Q. Hwo do you feel about the last paragraph in 2.3?
 
-# Numerical Study
+# Simulation Study
 
-Q. Should this be called simulation study?
-Q. One reviewer recommended removing table 1 (sampling-analysis combinations).
+Q. Should this be called simulation study or numerical study?
+Q. One reviewer recommended removing table 1 (sampling-analysis combinations)
 Q. Are you happy with the change to the y-axis in the facet images.
 
 # Application
 
+Q. Any changes Figure 4? Should we use full-size subfigures
 Q. Are you happy with the addition of the fitted semivariogram results in the application?
 
 # Extra

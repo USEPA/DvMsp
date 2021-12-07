@@ -3,10 +3,4 @@
 .RData
 .Ruserdata
 /inst/SpatialDVM_Manuscript/lit/
-inst/output/sim_one/all_output.csv
-inst/output/sim_two/all_output.csv
-inst/output/sim_three/all_output.csv
-inst/output/sim_four/all_output.csv
-inst/output/sim_five/all_output.csv
-inst/output/sim_six/all_output.csv
 inst/doc
