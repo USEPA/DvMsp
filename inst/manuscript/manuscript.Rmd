@@ -543,7 +543,7 @@ res_df <- tibble(approach = c("IRS-Design", "GRTS-Design", "IRS-Model", "GRTS-Mo
 res_df <- res_df %>% slice(1, 3, 2, 4)
 ```
 
-```{r figdata, out.width = "49%", fig.cap = "Population distribution of mercury concentration (hg) for 986 lakes in the contiguous United States in a spatial layout (left) and a histogram (right).", message = FALSE, warning = FALSE, fig.show='hold', fig.align='center'}
+```{r, message = FALSE, warning = FALSE}
 merc <- ggplot(data = nla_nomiss_both, aes(x = total_hg)) +
   geom_histogram(colour = "black", fill = "white", bins = 15) +
   labs(x = "HG (ng / g)")
@@ -554,22 +554,31 @@ merc_map <- ggplot(data = nla_nomiss_both, aes(x = xcoords, y = ycoords)) +
   geom_point(aes(colour = total_hg)) +
   scale_colour_viridis_c() +
   labs(x = "", y = "", colour = "Hg") +
-  lims(x = c(0, 6500)) +
+  # lims(x = c(0, 6500)) +
   coord_quickmap() +
   theme_bw(base_size = 20) + 
   theme(axis.text.x = element_blank(),
       axis.text.y = element_blank(),
-      axis.ticks = element_blank(),
-      legend.position = c(0.85, 0.5),
-      legend.key.size = unit(0.75, "cm"))
+      axis.ticks = element_blank())#,
+      #legend.position = c(0.85, 0.5),
+      #legend.key.size = unit(0.75, "cm"))
 
 merc_hist <- ggplot(data = nla_nomiss_both, aes(x = total_hg)) +
   geom_histogram(bins = 50) + 
   labs(x = "Hg", y = "Count") +
   theme_bw(base_size = 20)
+```
 
-merc_map
-merc_hist
+```{r, warning = FALSE, message = FALSE, include = FALSE}
+mod_plot <- plot(mod_grts) +
+  labs(x = "Distance", title = "") +
+  scale_size_continuous(name = "Pairs") +
+  theme_bw(base_size = 20)
+```
+
+```{r figdata, out.width = "100%", fig.cap = "Population distribution of mercury concentration (hg) for 986 lakes in the contiguous United States in a spatial layout (left) and a histogram (right). The empirical semivariogram (black circles) of mercury concentration against the REML fit using the estimated covariance parameters (black line) from GRTS-Model.", message = FALSE, warning = FALSE, fig.align='center'}
+plot_grid(merc_map, plot_grid(merc_hist, mod_plot), ncol = 1, nrow = 2)
+# plot_grid(merc_map, merc_hist, mod_plot, nrow = 3)
 ```
 
 ```{r apptab, results = "asis"}
@@ -582,11 +591,6 @@ print(xtab_app, include.rownames = FALSE, comment = FALSE)
 We selected a single IRS sample and a single GRTS sample and estimated (design-based) or predicted (model-based) the mean mercury concentration and its standard error using using design-based and model-based approaches. For the model-based analyses, the exponential covariance was used. Table \ref{tab:appliedtab} shows the results from these analyses. For all four sampling-analysis combinations, the true realized mean mercury concentration is within the bounds of the 95% confidence (design-based) or prediction (model-based) intervals. Though we should not generalize these results to other samples from these data, we do note a couple of patterns. The design-based IRS analysis shows the largest standard error: a likely reason is that this is the only approach that does not incorporate any spatial information regarding mercury concentration. Both analyses using GRTS sampling have lower standard errors than both analyses using IRS sampling. We expect that these patterns are consistent with other samples from these data because mercury concentration exhibits spatial patterning, so a spatially balanced sample should usually yield a lower standard error. 
 
 To better understand the dependence structure in mercury concentration, the empirical semivariogram can be visualized alongside a fit using the model-based approaches. The empirical semivariogram quantifies the halved squared differences (semivariance) among response values at different distances apart. If a process exhibits strong spatial dependence, the empirical semivariogram will have small values at small distances and large values at large distances. Figure \ref{fig:figsv} shows the empirical semivariogram quantifying the average semivariance for several distances.  Overlain onto Figure \ref{fig:figsv} is the estimated semivariance obtained using the covariance parmaeters from the REML fit of GRTS-Model. Figure \ref{fig:figsv} provides evidence that there is strong correlation in mercury concentration among the sites.
-
-```{r figsv, out.width = "85%", fig.align='center', fig.cap = "The empirical semivariogram (black circles) of mercury concentration against the REML fit using the estimated covariance parameters (black line) from GRTS-Model."}
-plot(mod_grts)
-```
-
 
 # Discussion {#sec:discussion}
 
