@@ -58,7 +58,7 @@
 
 % Pandoc header
 
-\usepackage{bm} \usepackage{bbm} \usepackage{color} \DeclareMathOperator{\var}{{var}} \DeclareMathOperator{\cov}{{cov}}
+\usepackage{bm} \usepackage{bbm} \usepackage{color} \DeclareMathOperator{\var}{{var}} \DeclareMathOperator{\cov}{{cov}} \usepackage{caption} \usepackage{subcaption}
 
 \begin{document}
 \begin{frontmatter}
@@ -231,7 +231,10 @@ visual comparison of the design-based and model-based approaches (Ver
 Hoef (2002) and Brus (2021) provide similar figures).
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/fig1-1} \caption{A visual comparison of the design-based and model-based approaches. In the top row, there is one fixed population with nine population units and three random samples of size four (points circled are those sampled). The response values at each site are fixed, but we obtain different estimates for the mean response in each random sample. In the bottom row, there are three realizations of the same data-generating stochastic process that are all sampled at the same four locations. The ata-generating stochastic process has a single mean, but the mean of the nine population units is different in each of the three realizations.}\label{fig:fig1}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/dvm_comp.jpeg}
+  \caption{A visual comparison of the design-based and model-based approaches. In the top row, there is one fixed population with nine population units and three random samples of size four (points circled are those sampled). The response values at each site are fixed, but we obtain different estimates for the mean response in each random sample. In the bottom row, there are three realizations of the same data-generating stochastic process that are all sampled at the same four locations. The data-generating stochastic process has a single mean, but the mean of the nine population units is different in each of the three realizations}
+  \label{fig:fig1}
 \end{figure}
 
 \hypertarget{subsec:spb_design}{%
@@ -249,7 +252,7 @@ Benedetti et al., 2017; Grafström and Lundström, 2013; Robertson et al.,
 balanced sampling algorithm seeing widespread use is the Generalized
 Random Tessellation Stratified (GRTS) algorithm (Stevens and Olsen,
 2004). To quantify the spatial balance of a sample, Stevens and Olsen
-(2004) proposed loss metrics based on Voronoi polygons (Direchlet
+(2004) proposed loss metrics based on Voronoi polygons (Dirichlet
 Tessellations). After the GRTS algorithm was developed, several other
 spatially balanced sampling algorithms emerged, such as the Local
 Pivotal Method (Grafström et al., 2012; Grafström and Matei, 2018),
@@ -291,7 +294,7 @@ It is also important to quantify uncertainty \(\hat{\tau}_{ht}\).
 Horvitz and Thompson (1952) and Sen (1953) provide variance estimators
 for \(\hat{\tau}_{ht}\), but these estimators have two drawbacks. First,
 they rely on calculating \(\pi_{ij}\), the probability that population
-unit \(i\) and populatoin unit \(j\) are both in the sample -- this
+unit \(i\) and population unit \(j\) are both in the sample -- this
 quantity can be challenging if not impossible to calculate analytically.
 Second, these estimators ignore the spatial locations of the population
 units. To address these two drawbacks simultaneously, Stevens and Olsen
@@ -434,7 +437,7 @@ always selected from a population size (\(N\)) of \(N = 900\). The two
 location layouts (of the population units) were random and gridded.
 Locations in the random layout were randomly generated inside the unit
 square (\([0, 1] \times [0, 1]\)). Locations in the gridded layout were
-placed on a fixed, equall spaced grid inside the unit square. The two
+placed on a fixed, equally spaced grid inside the unit square. The two
 response types were normal and lognormal. For the normal response type,
 the response was simulated using mean-zero random errors with the
 exponential covariance (Equation\(~\)\ref{equation:expcov}) for varying
@@ -478,7 +481,7 @@ sampling-analysis combinations. After all 2000 trials, we summarized the
 long-run performance of the combinations by calculating average bias,
 rMS(P)E (root-mean-squared error for the design-based approaches and
 root-mean-squared-prediction error for the model-based approaches), and
-the proportion of tiems the true mean is contained in its 95\% interval.
+the proportion of times the true mean is contained in its 95\% interval.
 The GRTS algorithm and the local neighborhood variance estimator are
 available in the \textbf{\textsf{R}} package \texttt{spsurvey} (Dumelle
 et al., 2021). FPBK is available in the \texttt{sptotal}
@@ -493,8 +496,16 @@ the supplementary material.
 
 Figure \ref{fig:figeff} shows the relative rMS(P)E of the four
 approaches from Table \ref{tab:designanalysis} using the random location
-layout with ``IRS-Design'' as the baseline. The relative rMS(P)E is
-defined as \begin{equation*}
+layout with ``IRS-Design'' as the baseline.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/rmspe_eff.jpeg}
+  \caption{Relative rMS(P)E for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
+  \label{fig:figeff}
+\end{figure}
+
+The relative rMS(P)E is defined as \begin{equation*}
 \frac{\text{rMS(P)E of sampling-analysis combination}}{\text{rMS(P)E of IRS-Design}},
 \end{equation*} When there is no spatial correlation (Figure
 \ref{fig:figeff}, ``Prop DE: 0'' row), the four sampling-analysis
@@ -515,10 +526,6 @@ those observed in the grid location layout, so we omit a grid location
 layout figure here. Tables for rMS(P)E in all 36 simulation scenarios
 are provided in the supplementary material.
 
-\begin{figure}
-\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figeff-1} \caption{Relative rMS(P)E for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}\label{fig:figeff}
-\end{figure}
-
 We also studied 95\% interval coverage among the sampling-analysis
 combinations. The design-based confidence intervals and model-based
 prediction intervals were constructed using the normal distribution.
@@ -527,6 +534,14 @@ the Central Limit Theorem.
 
 Figure \ref{fig:figconf} shows the 95\% interval coverage for each of
 the four sampling-analysis combinations in the random location layout.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/coverage.jpeg}
+  \caption{Interval coverage for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line in each plot represents 95\% coverage.}
+  \label{fig:figconf}
+\end{figure}
+
 Within each scenario, the sampling-analysis combinations tend to have
 fairly similar interval coverage. Coverage in the normal response
 scenarios was usually near 95\%, while coverage in the lognormal
@@ -538,10 +553,6 @@ conclusions are similar to those observed in the grid location layout,
 so we omit a grid location layout figure here. Tables for interval
 coverage in all 36 simulation scenarios are provided in the
 supplementary material.
-
-\begin{figure}
-\includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figconf-1} \caption{Interval coverage for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line in each plot represents 95\% coverage.}\label{fig:figconf}
-\end{figure}
 
 \hypertarget{application}{%
 \section{Application}\label{application}}
@@ -558,37 +569,37 @@ explore whether or not we obtain an adequately precise estimate for the
 realized mean mercury concentration if we sample only 100 of the 986
 lakes.
 
-Figure \ref{fig:figdata} shows that mercury concentration is
-right-skewed, with most lakes having a low value of mercury
-concentration but a few having a much higher concentration. Mercury
-concentration exhibits some spatial correlation, with high mercury
-concentrations in lakes in the northeast and north central United
-States. The realized mean mercury concentration in the 986 lakes is
-103.2 ng / g.
+Figure \ref{fig:merc} shows that mercury concentration is right-skewed,
+with most lakes having a low value of mercury concentration but a few
+having a much higher concentration. Mercury concentration exhibits some
+spatial correlation, with high mercury concentrations in lakes in the
+northeast and north central United States. The realized mean mercury
+concentration in the 986 lakes is 103.2 ng / g. TALK ABOUT EMPIRICAL
+SEMIVARIOGRAM IN THIS PARAGRAPH.
 
 \begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{manuscript_files/figure-latex/figdata-1} 
-
-}
-
-\caption{Population distribution of mercury concentration (hg) for 986 lakes in the contiguous United States in a spatial layout (left) and a histogram (right). The empirical semivariogram (black circles) of mercury concentration against the REML fit using the estimated covariance parameters (black line) from GRTS-Model.}\label{fig:figdata}
-\end{figure}
-
-\begin{table}[ht]
 \centering
-\begin{tabular}{lrrrr}
-  \hline
-Approach & Estimate & SE & 95\% LB & 95\% UB \\ 
-  \hline
-IRS-Design & 112.7 & 8.8 & 95.4 & 129.9 \\ 
-  IRS-Model & 110.5 & 7.9 & 95.0 & 125.9 \\ 
-  GRTS-Design & 101.8 & 6.1 & 89.8 & 113.7 \\ 
-  GRTS-Model & 102.3 & 5.9 & 90.8 & 113.9 \\ 
-   \hline
-\end{tabular}
-\caption{\label{tab:appliedtab} Application of design-based and model-based approaches to the NLA data set on mercury concentration. The true mean concentration is 103.2 ng / g.} 
-\end{table}
+\begin{subfigure}{0.98\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_map.jpeg}
+  \caption*{}
+  \label{fig:mercury_map}
+\end{subfigure} \\
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_hist.jpeg}
+  \caption*{}
+  \label{fig:mercury_hist}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/sv_plot.jpeg}
+  \caption*{}
+  \label{fig:sv_plot}
+\end{subfigure}
+\caption{Mercury concentration visualizations for the population (Hg) for 986 lakes in the contiguous United States. A spatial layout is in the top row, a histogram is in the bottom row and left column, and an empirical semivariogram is in the bottom row and right column.}
+\label{fig:merc}
+\end{figure}
 
 We selected a single IRS sample and a single GRTS sample and estimated
 (design-based) or predicted (model-based) the mean mercury concentration
@@ -608,18 +619,20 @@ these patterns are consistent with other samples from these data because
 mercury concentration exhibits spatial patterning, so a spatially
 balanced sample should usually yield a lower standard error.
 
-To better understand the dependence structure in mercury concentration,
-the empirical semivariogram can be visualized alongside a fit using the
-model-based approaches. The empirical semivariogram quantifies the
-halved squared differences (semivariance) among response values at
-different distances apart. If a process exhibits strong spatial
-dependence, the empirical semivariogram will have small values at small
-distances and large values at large distances. Figure \ref{fig:figsv}
-shows the empirical semivariogram quantifying the average semivariance
-for several distances. Overlain onto Figure \ref{fig:figsv} is the
-estimated semivariance obtained using the covariance parmaeters from the
-REML fit of GRTS-Model. Figure \ref{fig:figsv} provides evidence that
-there is strong correlation in mercury concentration among the sites.
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+Approach & Estimate & SE & 95\% LB & 95\% UB \\ 
+  \hline
+IRS-Design & 112.7 & 8.8 & 95.4 & 129.9 \\ 
+  IRS-Model & 110.5 & 7.9 & 95.0 & 125.9 \\ 
+  GRTS-Design & 101.8 & 6.1 & 89.8 & 113.7 \\ 
+  GRTS-Model & 102.3 & 5.9 & 90.8 & 113.9 \\ 
+   \hline
+\end{tabular}
+\caption{\label{tab:appliedtab} Application of design-based and model-based approaches to the NLA data set on mercury concentration. The true mean concentration is 103.2 ng / g.} 
+\end{table}
 
 \hypertarget{sec:discussion}{%
 \section{Discussion}\label{sec:discussion}}
@@ -683,6 +696,7 @@ sampling algorithm benefits both design-based and model-based analyses.
 
 This manuscript has a supplementary R package that contains all of the
 data and code used. Instructions for download at available at
+
 \url{https://github.com/michaeldumelle/DvMsp}.
 
 \hypertarget{supplementary-material}{%
@@ -692,17 +706,19 @@ data and code used. Instructions for download at available at
 In the supplementary material, we provide tables presenting summary
 statistics for all 36 simulation scenarios.
 
-\hypertarget{acknowledgements}{%
-\section*{Acknowledgements}\label{acknowledgements}}
-\addcontentsline{toc}{section}{Acknowledgements}
+\hypertarget{acknowledgments}{%
+\section*{Acknowledgments}\label{acknowledgments}}
+\addcontentsline{toc}{section}{Acknowledgments}
 
 The views expressed in this manuscript are those of the authors and do
 not necessarily represent the views or policies of the U.S.
-Environmental Protection Agency. Any mention of trade names, products,
-or services does not imply an endorsement by the U.S. government or the
-U.S. Environmental Protection Agency. The U.S. Environmental Protection
-Agency does not endorse any commercial products, services, or
-enterprises.
+Environmental Protection Agency or the National Oceanic and Atmospheric
+Administration. Any mention of trade names, products, or services does
+not imply an endorsement by the U.S. government, the U.S. Environmental
+Protection Agency, or the National Oceanic and Atmospheric
+Administration. The U.S. Environmental Protection Agency and National
+Oceanic and Atmospheric Administration do not endorse any commercial
+products, services, or enterprises.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}

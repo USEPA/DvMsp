@@ -26,7 +26,6 @@ footnote:
     text: "Corresponding Author: Michael Dumelle (Dumelle.Michael@epa.gov)"
 abstract: |
   The design-based and model-based approaches to frequentist statistical inference lie on fundamentally different foundations. In the design-based approach, inference depends on random sampling. In the model-based approach, inference depends on distributional assumptions. In this manuscript, we compare the approaches for finite population spatial data. We first provide relevant background for the approaches and then use a simulation study and an analysis of real mercury concentration data to numerically compare them. We find that sampling plans that incorporate spatial locations (spatially balanced samples) perform better than sampling plans ignoring spatial locations (non-spatially balanced samples), regardless of whether design-based or model-based approaches were used to analyze the data. We also find that within sampling plans, the model-based approaches often outperform design-based approaches, even for skewed data. This gap in performance is small when spatially balanced samples are used but large when non-spatially balanced samples are used.
-
 journal: "Methods in Ecology and Evolution"
 date: "`r Sys.Date()`"
 bibliography: mybibfile.bib
@@ -39,6 +38,8 @@ preamble: >
   \usepackage{color}
   \DeclareMathOperator{\var}{{var}}
   \DeclareMathOperator{\cov}{{cov}}
+  \usepackage{caption}
+  \usepackage{subcaption}
 output: rticles::elsevier_article
 ---
 
@@ -85,136 +86,16 @@ The model-based approach assumes the data are a random realization of a data-gen
 
 Instead of estimating fixed, unknown population parameters, as in the design-based approach, often the goal of model-based inference is to predict a realized variable, or value. For example, suppose the realized mean of all population units is the value of interest. Instead of \emph{estimating} a fixed, unknown mean, we are \emph{predicting} the value of the mean, a random variable. Prediction intervals are then derived using assumptions of the data-generating stochastic process. If we repeatedly generate response values from the same data-generating stochastic process and select samples, then 95% of all 95% prediction intervals constructed from a procedure with appropriate coverage will contain their respective realized means. @cressie1993statistics and @schabenberger2017statistical provide thorough reviews of model-based approaches for spatial data. In Figure \ref{fig:fig1}, we provide a visual comparison of the design-based and model-based approaches (@verhoef2002sampling and @brus2021statistical provide similar figures).
 
-```{r fig1, out.width = "100%", fig.cap = "A visual comparison of the design-based and model-based approaches. In the top row, there is one fixed population with nine population units and three random samples of size four (points circled are those sampled). The response values at each site are fixed, but we obtain different estimates for the mean response in each random sample. In the bottom row, there are three realizations of the same data-generating stochastic process that are all sampled at the same four locations. The ata-generating stochastic process has a single mean, but the mean of the nine population units is different in each of the three realizations."}
-set.seed(10102021)
-
-source(here("R", "sim_pop.R"))
-N <- 9
-pop_df <- sim_pop(N = N, gridded = TRUE, cortype = "Exponential",
-                  psill = 0.9, range = 1, nugget = 0.1)
-
-n <- 4
-samp_df <- pop_df %>% sample_n(n) 
-samp_df2 <- pop_df %>% sample_n(n) 
-samp_df3 <- pop_df %>% sample_n(n) 
-
-
-library(cowplot)
-d1 <- ggplot(data = pop_df, aes(x = x, y = y)) +
-  geom_point(aes(colour = response), size = 4) +
-  scale_colour_viridis_c() +
-  geom_point(data = samp_df, size = 5.5, shape = 1, 
-             show.legend = FALSE, stroke = 1.5) +
-  theme_bw() +
-  labs(title = "Design 1",
-       colour = "Response") +
-  theme(axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        axis.text = element_blank(),
-        legend.position = "none",
-        panel.grid.major = element_blank()) +
-  xlim(-0.1, 1.1) +
-  ylim(-0.1, 1.1)
-
-d2 <- ggplot(data = pop_df, aes(x = x, y = y)) +
-  geom_point(aes(colour = response), size = 4) +
-  scale_colour_viridis_c() +
-  geom_point(data = samp_df2, size = 5.5, shape = 1, show.legend = FALSE,
-             stroke = 1.5) +
-  theme_bw() +
-  labs(title = "Design 2",
-       colour = "Response") +
-  theme(axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        axis.text = element_blank(),
-        legend.position = "none",
-        panel.grid.major = element_blank()) +
-  xlim(-0.1, 1.1) +
-  ylim(-0.1, 1.1)
-
-d3 <- ggplot(data = pop_df, aes(x = x, y = y)) +
-  geom_point(aes(colour = response), size = 4) +
-  scale_colour_viridis_c() +
-  geom_point(data = samp_df3, size = 5.5, shape = 1, show.legend = FALSE,
-             stroke = 1.5) +
-  theme_bw() +
-  labs(title = "Design 3",
-       colour = "Response") +
-  theme(axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        axis.text = element_blank(), 
-        legend.position = "none",
-        panel.grid.major = element_blank()) +
-  xlim(-0.1, 1.1) +
-  ylim(-0.1, 1.1)
-
-pop_df_mod <- sim_pop(N = N, gridded = TRUE, cortype = "Exponential",
-                      psill = 0.9, range = 1, nugget = 0.1)
-pop_df_mod2 <- sim_pop(N = N, gridded = TRUE, cortype = "Exponential",
-                       psill = 0.9, range = 1, nugget = 0.1)
-pop_df_mod3 <- sim_pop(N = N, gridded = TRUE, cortype = "Exponential",
-                      psill = 0.9, range = 1, nugget = 0.1)
-
-indeces <- sample(1:N, size = n, replace = FALSE)
-samp_df_mod <- pop_df_mod %>% slice(indeces)
-samp_df_mod2 <- pop_df_mod2 %>% slice(indeces)
-samp_df_mod3 <- pop_df_mod3 %>% slice(indeces)
-
-m1 <- ggplot(data = pop_df_mod, aes(x = x, y = y)) +
-  geom_point(aes(colour = response), size = 4) +
-  scale_colour_viridis_c() +
-  geom_point(data = samp_df_mod, size = 5.5, shape = 1, show.legend = FALSE, stroke = 1.5) +
-  theme_bw() +
-  labs(title = "Model 1",
-       colour = "Response") +
-  theme(axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        axis.text = element_blank(), 
-        legend.position = "none",
-        panel.grid.major = element_blank()) +
-  xlim(-0.1, 1.1) +
-  ylim(-0.1, 1.1)
-
-m2 <- ggplot(data = pop_df_mod2, aes(x = x, y = y)) +
-  geom_point(aes(colour = response), size = 4) +
-  scale_colour_viridis_c() +
-  geom_point(data = samp_df_mod2, size = 5.5, shape = 1, show.legend = FALSE, stroke = 1.5) +
-  theme_bw() +
-  labs(title = "Model 2",
-       colour = "Response") +
-  theme(axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        axis.text = element_blank(), 
-        legend.position = "none",
-        panel.grid.major = element_blank()) +
-  xlim(-0.1, 1.1) +
-  ylim(-0.1, 1.1)
-
-m3 <- ggplot(data = pop_df_mod3, aes(x = x, y = y)) +
-  geom_point(aes(colour = response), size = 4) +
-  scale_colour_viridis_c() +
-  geom_point(data = samp_df_mod2, size = 5.5, shape = 1, show.legend = FALSE, stroke = 1.5) +
-  theme_bw() +
-  labs(title = "Model 3",
-       colour = "Response") +
-  theme(axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        axis.text = element_blank(), 
-        legend.position = "none",
-        panel.grid.major = element_blank()) +
-  xlim(-0.1, 1.1) +
-  ylim(-0.1, 1.1)
-
-library(ggpubr)
-ggarrange(d1, d2, d3, m1, m2, m3, nrow = 2, ncol = 3,
-          common.legend = TRUE, legend = "right")
-```
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/dvm_comp.jpeg}
+  \caption{A visual comparison of the design-based and model-based approaches. In the top row, there is one fixed population with nine population units and three random samples of size four (points circled are those sampled). The response values at each site are fixed, but we obtain different estimates for the mean response in each random sample. In the bottom row, there are three realizations of the same data-generating stochastic process that are all sampled at the same four locations. The data-generating stochastic process has a single mean, but the mean of the nine population units is different in each of the three realizations}
+  \label{fig:fig1}
+\end{figure}
 
 ## Spatially Balanced Design and Analysis {#subsec:spb_design}
 
-We previously mentioned that the design-based approach can be used to select spatially balanced samples (samples that incorporate spatial locations of the population units and are "well-spread" is space). Spatially balanced samples are useful because parameter estimates from these samples tend to vary less than parameter estimates from samples that are not spatially balanced [@stevens2004spatially; @barabesi2011sampling; @grafstrom2013well; @robertson2013bas; @wang2013design; @benedetti2017spatiallyreview]. The first spatially balanced sampling algorithm seeing widespread use is the Generalized Random Tessellation Stratified (GRTS) algorithm [@stevens2004spatially]. To quantify the spatial balance of a sample, @stevens2004spatially proposed loss metrics based on Voronoi polygons (Direchlet Tessellations). After the GRTS algorithm was developed, several other spatially balanced sampling algorithms emerged, such as the Local Pivotal Method [@grafstrom2012spatially; @grafstrom2018spatially], Spatially Correlated Poisson Sampling [@grafstrom2012spatiallypoisson], Balanced Acceptance Sampling [@robertson2013bas], Within-Sample-Distance Sampling [@benedetti2017spatially], and Halton Iterative Partitioning Sampling [@robertson2018halton]. In this manuscript, we select spatially balanced samples using the Generalized Random Tessellation Stratified (GRTS) algorithm because it has several attractive properties. More specifically, the GRTS algorithm accommodates finite and infinite sampling frames, equal, unequal, and proportional (to size) inclusion probabilities, legacy (historical) sampling [@foster2017spatially], a minimum distance between units in a sample, and replacement units (replacement units are population units that can be sampled when a population unit originally selected can no longer be sampled). The GRTS algorithm selects samples by utilizing a particular mapping between two-dimensional and one-dimensional space that preserves proximity relationships. Via this mapping, units in two-dimensional space are partitioned using a hierarchical address. This hierarchical address is used to map population units to a one-dimensional line. On the one dimensional line, each population unit's line length equals its inclusion probability. Then, a systematic sample of population units is selected on the line, yielding desired sample. @stevens2004spatially provides more technical details. 
-
-<!-- This makes it seem like HT is being used to estimate population parameters in GRTS? Needs to be in there, but maybe a sentence making it clear that this isn't being used? Or just change the order and talk about Local variance first and then mention these for more general settings? -->
+We previously mentioned that the design-based approach can be used to select spatially balanced samples (samples that incorporate spatial locations of the population units and are "well-spread" is space). Spatially balanced samples are useful because parameter estimates from these samples tend to vary less than parameter estimates from samples that are not spatially balanced [@stevens2004spatially; @barabesi2011sampling; @grafstrom2013well; @robertson2013bas; @wang2013design; @benedetti2017spatiallyreview]. The first spatially balanced sampling algorithm seeing widespread use is the Generalized Random Tessellation Stratified (GRTS) algorithm [@stevens2004spatially]. To quantify the spatial balance of a sample, @stevens2004spatially proposed loss metrics based on Voronoi polygons (Dirichlet Tessellations). After the GRTS algorithm was developed, several other spatially balanced sampling algorithms emerged, such as the Local Pivotal Method [@grafstrom2012spatially; @grafstrom2018spatially], Spatially Correlated Poisson Sampling [@grafstrom2012spatiallypoisson], Balanced Acceptance Sampling [@robertson2013bas], Within-Sample-Distance Sampling [@benedetti2017spatially], and Halton Iterative Partitioning Sampling [@robertson2018halton]. In this manuscript, we select spatially balanced samples using the Generalized Random Tessellation Stratified (GRTS) algorithm because it has several attractive properties. More specifically, the GRTS algorithm accommodates finite and infinite sampling frames, equal, unequal, and proportional (to size) inclusion probabilities, legacy (historical) sampling [@foster2017spatially], a minimum distance between units in a sample, and replacement units (replacement units are population units that can be sampled when a population unit originally selected can no longer be sampled). The GRTS algorithm selects samples by utilizing a particular mapping between two-dimensional and one-dimensional space that preserves proximity relationships. Via this mapping, units in two-dimensional space are partitioned using a hierarchical address. This hierarchical address is used to map population units to a one-dimensional line. On the one dimensional line, each population unit's line length equals its inclusion probability. Then, a systematic sample of population units is selected on the line, yielding desired sample. @stevens2004spatially provides more technical details. 
 
 After selecting a sample and collecting data, unbiased estimates of population means and totals can be obtained using the Horvitz-Thompson estimator [@horvitz1952generalization]. If $\tau$ is a population total, the Horvitz-Thompson estimate of $\tau$, denoted by $\hat{\tau}_{ht}$, is is given by
 \begin{align}\label{eq:ht}
@@ -222,7 +103,7 @@ After selecting a sample and collecting data, unbiased estimates of population m
 \end{align}
 where $Z_i$ is the value of the $i$th population unit in the sample and $\pi_i$ is the inclusion probability of the $i$th population unit in the sample. An estimate of the population mean is obtained by dividing $\hat{\tau}_{ht}$ by $N$, the number of population units. 
 
-It is also important to quantify uncertainty $\hat{\tau}_{ht}$.  @horvitz1952generalization and @sen1953estimate provide variance estimators for $\hat{\tau}_{ht}$, but these estimators have two drawbacks. First, they rely on calculating $\pi_{ij}$, the probability that population unit $i$ and populatoin unit $j$ are both in the sample -- this quantity can be challenging if not impossible to calculate analytically. Second, these estimators ignore the spatial locations of the population units. To address these two drawbacks simultaneously, @stevens2003variance proposed the local neighborhood variance estimator. The local neighborhood variance estimator does not rely on $\pi_{ij}$ and incorporates spatial locations -- for technical details see @stevens2003variance. @stevens2003variance show the local neighborhood variance estimator tends to reduce the estimated variance of $\hat{\tau}$ and yield narrower confidence intervals compared to variance estimators that ignore spatial locations.
+It is also important to quantify uncertainty $\hat{\tau}_{ht}$.  @horvitz1952generalization and @sen1953estimate provide variance estimators for $\hat{\tau}_{ht}$, but these estimators have two drawbacks. First, they rely on calculating $\pi_{ij}$, the probability that population unit $i$ and population unit $j$ are both in the sample -- this quantity can be challenging if not impossible to calculate analytically. Second, these estimators ignore the spatial locations of the population units. To address these two drawbacks simultaneously, @stevens2003variance proposed the local neighborhood variance estimator. The local neighborhood variance estimator does not rely on $\pi_{ij}$ and incorporates spatial locations -- for technical details see @stevens2003variance. @stevens2003variance show the local neighborhood variance estimator tends to reduce the estimated variance of $\hat{\tau}$ and yield narrower confidence intervals compared to variance estimators that ignore spatial locations.
 
 ## Finite Population Block Kriging
 
@@ -281,7 +162,7 @@ print(xtab1, comment = FALSE)
 ## made "by hand."
 ```
 
-Performance for the four sampling-analysis combinations was evaluated in 36 different simulation scenarios. The 36 scenarios resulted from the crossing of three sample sizes, two location layouts, two response types, and three proportions of dependent random error. The three sample sizes ($n$) were $n = 50, n = 100,$ and $n = 200$. Samples were always selected from a population size ($N$) of $N = 900$. The two location layouts (of the population units) were random and gridded. Locations in the random layout were randomly generated inside the unit square ($[0, 1] \times [0, 1]$). Locations in the gridded layout were placed on a fixed, equall spaced grid inside the unit square. The two response types were normal and lognormal. For the normal response type, the response was simulated using mean-zero random errors with the exponential covariance (Equation$~$\ref{equation:expcov}) for varying proportions of dependent random error. The proportion of dependent random error is represented by $\sigma^2_1 / (\sigma^2_1 + \sigma^2_2)$, where $\sigma^2_1$ and $\sigma^2_2$ are the dependent random error variance (partial sill) and independent random error variance (nugget), respectively, from Equation$~$\ref{equation:expcov}. The total variance, $\sigma^2_1 + \sigma^2_2$, was always 2. The range was always $\sqrt{2} / 3$, which means that the correlation in the dependent random error decayed to nearly zero at the largest possible distance between two units in the domain. For the lognormal response type, the response was first simulated using the same approach as for the normal response type, except that the total variance was 0.6931 instead of 2. The response was then exponentiated, yielding a random variable whose total variance is 2. The lognormal responses were used to evaluate performance of the sampling-analysis approaches for data that were skewed (i.e., not normal).
+Performance for the four sampling-analysis combinations was evaluated in 36 different simulation scenarios. The 36 scenarios resulted from the crossing of three sample sizes, two location layouts, two response types, and three proportions of dependent random error. The three sample sizes ($n$) were $n = 50, n = 100,$ and $n = 200$. Samples were always selected from a population size ($N$) of $N = 900$. The two location layouts (of the population units) were random and gridded. Locations in the random layout were randomly generated inside the unit square ($[0, 1] \times [0, 1]$). Locations in the gridded layout were placed on a fixed, equally spaced grid inside the unit square. The two response types were normal and lognormal. For the normal response type, the response was simulated using mean-zero random errors with the exponential covariance (Equation$~$\ref{equation:expcov}) for varying proportions of dependent random error. The proportion of dependent random error is represented by $\sigma^2_1 / (\sigma^2_1 + \sigma^2_2)$, where $\sigma^2_1$ and $\sigma^2_2$ are the dependent random error variance (partial sill) and independent random error variance (nugget), respectively, from Equation$~$\ref{equation:expcov}. The total variance, $\sigma^2_1 + \sigma^2_2$, was always 2. The range was always $\sqrt{2} / 3$, which means that the correlation in the dependent random error decayed to nearly zero at the largest possible distance between two units in the domain. For the lognormal response type, the response was first simulated using the same approach as for the normal response type, except that the total variance was 0.6931 instead of 2. The response was then exponentiated, yielding a random variable whose total variance is 2. The lognormal responses were used to evaluate performance of the sampling-analysis approaches for data that were skewed (i.e., not normal).
 
 ```{r, echo = FALSE, results = "asis"}
 n <- c("50", "100", "200")
@@ -298,299 +179,77 @@ align(parm_xtab) <- "r|lll"
 print(parm_xtab, include.colnames = FALSE, hline.after = c(0, nrow(parm_xtab)), comment = FALSE)
 ```
 
-In each of the 36 simulation scenarios, there were 2000 independent simulation trials. In each trial, IRS and GRTS samples were selected and then design-based and model-based analyses were used to estimate (design-based) or predict (model-based) the mean and construct confidence (design-based) or prediction (model-based) intervals. Then we recorded the bias, squared error, and interval coverage for all sampling-analysis combinations. After all 2000 trials, we summarized the long-run performance of the combinations by calculating average bias, rMS(P)E (root-mean-squared error for the design-based approaches and root-mean-squared-prediction error for the model-based approaches), and the proportion of tiems the true mean is contained in its 95% interval. The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package `spsurvey` [@dumelle2021spsurvey]. FPBK is available in the `sptotal` \textbf{\textsf{R}} package [@higham2021sptotal] and covariance parameters were estimated using Restricted Maximum Likelihood  [@patterson1971recovery; @harville1977maximum; @wolfinger1994computing].
+In each of the 36 simulation scenarios, there were 2000 independent simulation trials. In each trial, IRS and GRTS samples were selected and then design-based and model-based analyses were used to estimate (design-based) or predict (model-based) the mean and construct confidence (design-based) or prediction (model-based) intervals. Then we recorded the bias, squared error, and interval coverage for all sampling-analysis combinations. After all 2000 trials, we summarized the long-run performance of the combinations by calculating average bias, rMS(P)E (root-mean-squared error for the design-based approaches and root-mean-squared-prediction error for the model-based approaches), and the proportion of times the true mean is contained in its 95% interval. The GRTS algorithm and the local neighborhood variance estimator are available in the \textbf{\textsf{R}} package `spsurvey` [@dumelle2021spsurvey]. FPBK is available in the `sptotal` \textbf{\textsf{R}} package [@higham2021sptotal] and covariance parameters were estimated using Restricted Maximum Likelihood  [@patterson1971recovery; @harville1977maximum; @wolfinger1994computing].
 
 The average bias was nearly zero for all four combinations in all 36 scenarios, so we omit a more detailed summary of those results here. Tables for average bias in all 36 simulation scenarios are provided in the supplementary material.
 
-Figure \ref{fig:figeff} shows the relative rMS(P)E of the four approaches from Table \ref{tab:designanalysis} using the random location layout with "IRS-Design" as the baseline. The relative rMS(P)E is defined as
+Figure \ref{fig:figeff} shows the relative rMS(P)E of the four approaches from Table \ref{tab:designanalysis} using the random location layout with "IRS-Design" as the baseline.
+<!--- figure 2 -->
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/rmspe_eff.jpeg}
+  \caption{Relative rMS(P)E for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
+  \label{fig:figeff}
+\end{figure}
+The relative rMS(P)E is defined as
 \begin{equation*}
 \frac{\text{rMS(P)E of sampling-analysis combination}}{\text{rMS(P)E of IRS-Design}},
 \end{equation*}
 When there is no spatial correlation (Figure \ref{fig:figeff}, "Prop DE: 0" row), the four sampling-analysis combinations have approximately equal rMS(P)E. So using the GRTS sampling plan or a model-based analysis does not result in much, if any, loss in efficiency compared to IRS-Design when there is no spatial correlation. When there is spatial correlation (Figure \ref{fig:figeff}, "Prop DE: 0.5" and "Prop DE: 0.9" rows), GRTS-Model tends to perform best, followed by GRTS-Design, IRS-Model, and finally IRS-Design, though the difference in relative rMS(P)E among GRTS-Model, GRTS-Design, and IRS-Model is relatively small.  As the strength of spatial correlation increases, the gap in rMS(P)E between IRS-Design and the other sampling-analysis combinations widens. Finally we note that when there is spatial correlation, IRS-Model outperforms IRS-Design by a large margin, suggesting that the poor design properties of IRS are largely mitigated by the model-based analysis. These conclusions are similar to those observed in the grid location layout, so we omit a grid location layout figure here. Tables for rMS(P)E in all 36 simulation scenarios are provided in the supplementary material.
 
-```{r figeff, out.width = "100%", fig.cap = "Relative rMS(P)E for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.", message = FALSE, warning = FALSE}
-library(tidyverse)
-library(here)
-
-files <- list.files(path = here("inst", "output", "simulation_summary"), pattern = "*.csv", full.names = TRUE)
-
-combo_data <- purrr::map_df(files,
-                            ~read_csv(.x) %>% mutate(filename = .x))
-
-combo_data <- combo_data %>%
-  dplyr::filter(gridded == FALSE) %>%
-  mutate(sim = interaction(n, psill, resptype)) %>% ## , gridded
-  mutate(approach = fct_relevel(approach, c("Design IRS", "Model IRS",
-                                            "Design GRTS", "Model GRTS"))) %>%
-  mutate(resptype = fct_relevel(resptype, c("normal", "lognormal")))
-combo_data <- combo_data %>% group_by(sim) %>% mutate(designirsrmspe = if_else(approach == "Design IRS", true = rmspe, false = NA_real_)) %>%
-  fill(designirsrmspe, .direction = "downup") %>%
-  mutate(rel_efficiency = rmspe / designirsrmspe) %>%
-  ungroup() %>%
-  mutate(psill_ratio = 1 - nugget_ratio) %>%
-  mutate(n_factor = factor(n))
-
-colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
-resptype_labs <- c(normal = "Response: Normal", lognormal = "Response: Lognormal")
-psill_ratio_labs <- c("0" = "Prop DE: 0", "0.5" = "Prop DE: 0.5", "0.9" = "Prop DE: 0.9")
-effplot <- ggplot(data = combo_data, aes(x = n_factor, y = rel_efficiency,
-                              colour = approach)) +
-  facet_grid(
-    psill_ratio ~ resptype,
-    labeller = labeller(resptype = resptype_labs, psill_ratio = psill_ratio_labs)
-  ) +
-  geom_jitter(width = 0.24, size = 2.5) +
-  scale_colour_manual(values = colour_scale) +
-  theme_bw(base_size = 14) +
-  labs(x = "Sample Size", colour = "Approach",
-       y = "Relative Efficiency")
-effplot
-```
-
 We also studied 95% interval coverage among the sampling-analysis combinations. The design-based confidence intervals and model-based prediction intervals were constructed using the normal distribution. Justification for this comes from the asymptotic normality of means via the Central Limit Theorem.  
 
-Figure \ref{fig:figconf} shows the 95% interval coverage for each of the four sampling-analysis combinations in the random location layout. Within each scenario, the sampling-analysis combinations tend to have fairly similar interval coverage. Coverage in the normal response scenarios was usually near 95%, while coverage in the lognormal response scenarios varied from from 90% to 95%. Coverage tended to always increase with the sample size. At a sample size of 200, all four sampling-analysis combinations had approximately 95% interval coverage in both response scenarios for all dependent error proportions.  These conclusions are similar to those observed in the grid location layout, so we omit a grid location layout figure here. Tables for interval coverage in all 36 simulation scenarios are provided in the supplementary material.
-
-
-```{r figconf, out.width = "100%", fig.cap = "Interval coverage for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line in each plot represents 95\\% coverage.", message = FALSE, warning = FALSE}
-ggplot(data = combo_data, aes(x = n_factor, y = coverage, colour = approach)) +
-  geom_hline(yintercept = 0.95) +
-  geom_jitter(width = 0.24, size = 2.5) + 
-  facet_grid(
-    psill_ratio ~ resptype,
-    labeller = labeller(resptype = resptype_labs, psill_ratio = psill_ratio_labs)
-  ) +
-  scale_colour_manual(values = colour_scale) +
-  ylim(0.80, 1) +
-  theme_bw(base_size = 14) +
-  labs(x = "Sample Size", colour = "Approach",
-       y = "Interval Coverage")
-```
+Figure \ref{fig:figconf} shows the 95% interval coverage for each of the four sampling-analysis combinations in the random location layout.
+<!--- figure 3 -->
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/coverage.jpeg}
+  \caption{Interval coverage for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line in each plot represents 95\% coverage.}
+  \label{fig:figconf}
+\end{figure}
+Within each scenario, the sampling-analysis combinations tend to have fairly similar interval coverage. Coverage in the normal response scenarios was usually near 95%, while coverage in the lognormal response scenarios varied from from 90% to 95%. Coverage tended to always increase with the sample size. At a sample size of 200, all four sampling-analysis combinations had approximately 95% interval coverage in both response scenarios for all dependent error proportions.  These conclusions are similar to those observed in the grid location layout, so we omit a grid location layout figure here. Tables for interval coverage in all 36 simulation scenarios are provided in the supplementary material.
 
 # Application {#application}
 
 The Environmental Protection Agency (EPA), states, and tribes periodically conduct National Aquatic Research Surveys (NARS) in the United States to assess the water quality of various bodies of water. We will use the 2012 National Lakes Assessment (NLA), which measures various aspects of lake health and water quality for lakes in the contiguous United States. Specifically, we will analyze mercury concentration in lakes. Although we know the true mean mercury concentration values for the 986 lakes from the 2012 NLA, we will explore whether or not we obtain an adequately precise estimate for the realized mean mercury concentration if we sample only 100 of the 986 lakes.
 
-```{r, message = FALSE, warning = FALSE, echo = FALSE, results = "hide"}
-library(tidyverse)
-library(here)
-library(DvMsp)
-data(nla_df) # may need to reinstall package
-nla_df
-factor(nla_df$TOTALHG_UNITS) ## all same units
+Figure \ref{fig:merc} shows that mercury concentration is right-skewed, with most lakes having a low value of mercury concentration but a few having a much higher concentration. Mercury concentration exhibits some spatial correlation, with high mercury concentrations in lakes in the northeast and north central United States. The realized mean mercury concentration in the 986 lakes is 103.2 ng / g. TALK ABOUT EMPIRICAL SEMIVARIOGRAM IN THIS PARAGRAPH.
 
-nla_df %>% group_by(SITE_ID) %>%
-  summarise(nonmiss = sum(!is.na(TOTALHG_RESULT))) %>%
-  ungroup() %>% summarise(maxnonmiss = max(nonmiss))
-## HG never measured twice at the same site.
+\begin{figure}
+\centering
+\begin{subfigure}{0.98\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_map.jpeg}
+  \caption*{}
+  \label{fig:mercury_map}
+\end{subfigure} \\
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_hist.jpeg}
+  \caption*{}
+  \label{fig:mercury_hist}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/sv_plot.jpeg}
+  \caption*{}
+  \label{fig:sv_plot}
+\end{subfigure}
+\caption{Mercury concentration visualizations for the population (Hg) for 986 lakes in the contiguous United States. A spatial layout is in the top row, a histogram is in the bottom row and left column, and an empirical semivariogram is in the bottom row and right column.}
+\label{fig:merc}
+\end{figure}
 
-nla_df %>% group_by(SITE_ID) %>%
-  summarise(nonmiss = sum(!is.na(TOTALHG_RESULT))) %>%
-  summarise(sumnomiss = sum(nonmiss == 0))
-## 35 sites never have HG measured. These will be dropped as well as the duplicate sites.
-
-## in duplicate sites, fill in the value for RDis_IX
-nla_nomiss <- nla_df %>%
-  group_by(SITE_ID) %>%
-  fill(RDis_IX, .direction = "downup") %>%
-  ungroup() %>%
-  filter(!is.na(TOTALHG_RESULT)) %>%
-  rename(total_hg = "TOTALHG_RESULT")
-
-nla_nomiss_both <- nla_nomiss
-## check
-nla_nomiss_both %>% group_by(SITE_ID) %>% count() %>%
-  ungroup() %>%
-  summarise(not1 = sum(n != 1))
-
-## transform coordinates
-library(sptotal)
-coord_list <- LLtoTM(cm = mean(nla_nomiss_both$INDEX_LON_DD),
-                     lat = nla_nomiss_both$INDEX_LAT_DD, 
-                     lon = nla_nomiss_both$INDEX_LON_DD)
-nla_nomiss_both$xcoords <- coord_list$xy[ ,1]
-nla_nomiss_both$ycoords <- coord_list$xy[ ,2]
-```
-
-```{r, echo = FALSE}
-mean_hg <- mean(nla_nomiss_both$total_hg)
-# mean(nla_nomiss_both$RDis_IX)
-```
-
-Figure \ref{fig:figdata} shows that mercury concentration is right-skewed, with most lakes having a low value of mercury concentration but a few having a much higher concentration. Mercury concentration exhibits some spatial correlation, with high mercury concentrations in lakes in the northeast and north central United States. The realized mean mercury concentration in the 986 lakes is 103.2 ng / g.
-
-```{r, results = "hide", fig.keep = "none"}
-## IRS Sample, Model Analysis
-
-set.seed(080421)
-n <- 100
-lakesobs <- nla_nomiss_both %>% sample_n(n) 
-lakesunobs <- anti_join(nla_nomiss_both, lakesobs)
-lakesunobs$total_hg <- NA
-
-lakes_test <- bind_rows(lakesobs, lakesunobs) 
-lakes_test$wts <- 1 / nrow(lakes_test) ## predicting for mean
-
-slmfitout_exp_lakes <- slmfit(formula = total_hg ~ 1,
-                              data = lakes_test, 
-                              xcoordcol = 'xcoords',
-                              ycoordcol = 'ycoords',
-                              CorModel = "Exponential")
-summary(slmfitout_exp_lakes)
-plot(slmfitout_exp_lakes)
-
-pred_exp_lakes <- predict(slmfitout_exp_lakes, wtscol = "wts",
-                          conf_level = 0.95)
-print(pred_exp_lakes)
-mean_irs_mod <- pred_exp_lakes$FPBK_Prediction
-se_irs_mod <- sqrt(pred_exp_lakes$PredVar)
-lb_irs_mod <- pred_exp_lakes$conf_bounds[1]
-ub_irs_mod <- pred_exp_lakes$conf_bounds[2]
-
-realized_mean <- mean(nla_nomiss_both$total_hg) ## compute realized mean
-```
-
-```{r, results = "hide"}
-## IRS Sample, Design Analysis
-## 
-irs_info <- lakesobs %>% summarise(meandoc = mean(total_hg),
-                                   vardoc = var(total_hg))
-N <- nrow(nla_nomiss_both); n <- nrow(lakesobs)
-irs_se_irs_samp <- sqrt((irs_info$vardoc / n) * (N - n) / N)
-irs_lb_irs_samp <- irs_info$meandoc - 1.96 * irs_se_irs_samp
-irs_ub_irs_samp <- irs_info$meandoc + 1.96 * irs_se_irs_samp
-irs_info$meandoc; sqrt(irs_info$vardoc)
-irs_lb_irs_samp; irs_ub_irs_samp
-```
-
-```{r, results = "hide"}
-## GRTS Sample, Design Analysis
-data_sf <- sf::st_as_sf(nla_nomiss_both, coords = c("xcoords", "ycoords"),
-                        crs = 5070)
-library(spsurvey)
-grts_samp <- grts(data_sf, n_base = n)
-grts_bind <- sp_rbind(grts_samp) 
-
-## get coordinates
-grts_coords <- sf::st_coordinates(grts_bind)
-## make data frame
-grts_df <- data.frame(
-  response = grts_bind$total_hg,
-  x = grts_coords[, "X"],
-  y = grts_coords[, "Y"],
-  siteID = grts_bind$siteID,
-  wgt = grts_bind$wgt
-)
-## head(grts_df)
-summary(grts_df$response)
-
-design_analysis <- cont_analysis(
-  grts_df,
-  siteID = "siteID",
-  vars = "response",
-  weight = "wgt",
-  xcoord = "x",
-  ycoord = "y"
-)
-## just return the mean info
-## design_mean <- subset(design_analysis$Pct, Statistic == "Mean")
-design_mean_grts <- design_analysis$Mean
-design_mean_grts$Estimate
-design_mean_grts$StdError
-design_mean_grts$LCB95Pct
-design_mean_grts$UCB95Pct
-```
-
-```{r, results = "hide"}
-## GRTS Sample, Model Analysis
-
-grts_coords_resp <- grts_df %>% select(-siteID, -wgt) %>%
-  rename(total_hg = "response", xcoords = "x", ycoords = "y")
-grts_unsamp <- anti_join(nla_nomiss_both, grts_coords_resp)
-grts_unsamp$total_hg <- NA
-grts_unsamp <- grts_unsamp %>% select(total_hg, xcoords, ycoords)
-grts_full <- dplyr::bind_rows(grts_coords_resp, grts_unsamp)
-
-grts_full$wts <- 1 / nrow(grts_full)
-mod_grts <- slmfit(total_hg ~ 1, data = grts_full,
-                   xcoordcol = "xcoords",
-                   ycoordcol = "ycoords")
-pred_mod_grts <- predict(mod_grts, wtscol = "wts")
-model_mean_grts <- pred_mod_grts$FPBK_Prediction
-model_se_grts <- sqrt(pred_mod_grts$PredVar)
-model_lb_grts <- model_mean_grts + -1 * 1.96 * model_se_grts
-model_ub_grts <- model_mean_grts + 1 * 1.96 * model_se_grts
-model_mean_grts
-model_se_grts
-model_lb_grts
-model_ub_grts
-```
-
-```{r, results = "hide"}
-## combine results
-res_df <- tibble(approach = c("IRS-Design", "GRTS-Design", "IRS-Model", "GRTS-Model"),
-       realized_mean = c(realized_mean, realized_mean, realized_mean,
-                     realized_mean),
-       estimate = c(irs_info$meandoc,
-                    design_mean_grts$Estimate, as.vector(mean_irs_mod),
-                    as.vector(model_mean_grts)),
-       se = c(irs_se_irs_samp, design_mean_grts$StdError, as.vector(se_irs_mod),
-              as.vector(model_se_grts)),
-       lb = c(irs_lb_irs_samp, design_mean_grts$LCB95Pct, as.vector(lb_irs_mod),
-              as.vector(model_lb_grts)),
-       ub = c(irs_ub_irs_samp, design_mean_grts$UCB95Pct, as.vector(ub_irs_mod),
-              as.vector(model_ub_grts)))
-res_df <- res_df %>% slice(1, 3, 2, 4)
-```
-
-```{r, message = FALSE, warning = FALSE}
-merc <- ggplot(data = nla_nomiss_both, aes(x = total_hg)) +
-  geom_histogram(colour = "black", fill = "white", bins = 15) +
-  labs(x = "HG (ng / g)")
-# dist <- ggplot(data = nla_nomiss_both, aes(x = RDis_IX)) +
-#   geom_histogram(colour = "black", fill = "white", bins = 15) +
-#   labs(x = "Lakeshore Disturbance")
-merc_map <- ggplot(data = nla_nomiss_both, aes(x = xcoords, y = ycoords)) +
-  geom_point(aes(colour = total_hg)) +
-  scale_colour_viridis_c() +
-  labs(x = "", y = "", colour = "Hg") +
-  # lims(x = c(0, 6500)) +
-  coord_quickmap() +
-  theme_bw(base_size = 20) + 
-  theme(axis.text.x = element_blank(),
-      axis.text.y = element_blank(),
-      axis.ticks = element_blank())#,
-      #legend.position = c(0.85, 0.5),
-      #legend.key.size = unit(0.75, "cm"))
-
-merc_hist <- ggplot(data = nla_nomiss_both, aes(x = total_hg)) +
-  geom_histogram(bins = 50) + 
-  labs(x = "Hg", y = "Count") +
-  theme_bw(base_size = 20)
-```
-
-```{r, warning = FALSE, message = FALSE, include = FALSE}
-mod_plot <- plot(mod_grts) +
-  labs(x = "Distance", title = "") +
-  scale_size_continuous(name = "Pairs") +
-  theme_bw(base_size = 20)
-```
-
-```{r figdata, out.width = "100%", fig.cap = "Population distribution of mercury concentration (hg) for 986 lakes in the contiguous United States in a spatial layout (left) and a histogram (right). The empirical semivariogram (black circles) of mercury concentration against the REML fit using the estimated covariance parameters (black line) from GRTS-Model.", message = FALSE, warning = FALSE, fig.align='center'}
-plot_grid(merc_map, plot_grid(merc_hist, mod_plot), ncol = 1, nrow = 2)
-# plot_grid(merc_map, merc_hist, mod_plot, nrow = 3)
-```
+We selected a single IRS sample and a single GRTS sample and estimated (design-based) or predicted (model-based) the mean mercury concentration and its standard error using using design-based and model-based approaches. For the model-based analyses, the exponential covariance was used. Table \ref{tab:appliedtab} shows the results from these analyses. For all four sampling-analysis combinations, the true realized mean mercury concentration is within the bounds of the 95% confidence (design-based) or prediction (model-based) intervals. Though we should not generalize these results to other samples from these data, we do note a couple of patterns. The design-based IRS analysis shows the largest standard error: a likely reason is that this is the only approach that does not incorporate any spatial information regarding mercury concentration. Both analyses using GRTS sampling have lower standard errors than both analyses using IRS sampling. We expect that these patterns are consistent with other samples from these data because mercury concentration exhibits spatial patterning, so a spatially balanced sample should usually yield a lower standard error. 
 
 ```{r apptab, results = "asis"}
+res_df <- readr::read_csv(here("inst", "output", "application", "application.csv"))
 res_df_drop <- res_df[ ,-2]
 names(res_df_drop) <- c("Approach", "Estimate", "SE", "95% LB", "95% UB")
 xtab_app <- xtable(res_df_drop, digits = 1, caption = "\\label{tab:appliedtab} Application of design-based and model-based approaches to the NLA data set on mercury concentration. The true mean concentration is 103.2 ng / g.")
 print(xtab_app, include.rownames = FALSE, comment = FALSE)
 ```
 
-We selected a single IRS sample and a single GRTS sample and estimated (design-based) or predicted (model-based) the mean mercury concentration and its standard error using using design-based and model-based approaches. For the model-based analyses, the exponential covariance was used. Table \ref{tab:appliedtab} shows the results from these analyses. For all four sampling-analysis combinations, the true realized mean mercury concentration is within the bounds of the 95% confidence (design-based) or prediction (model-based) intervals. Though we should not generalize these results to other samples from these data, we do note a couple of patterns. The design-based IRS analysis shows the largest standard error: a likely reason is that this is the only approach that does not incorporate any spatial information regarding mercury concentration. Both analyses using GRTS sampling have lower standard errors than both analyses using IRS sampling. We expect that these patterns are consistent with other samples from these data because mercury concentration exhibits spatial patterning, so a spatially balanced sample should usually yield a lower standard error. 
-
-To better understand the dependence structure in mercury concentration, the empirical semivariogram can be visualized alongside a fit using the model-based approaches. The empirical semivariogram quantifies the halved squared differences (semivariance) among response values at different distances apart. If a process exhibits strong spatial dependence, the empirical semivariogram will have small values at small distances and large values at large distances. Figure \ref{fig:figsv} shows the empirical semivariogram quantifying the average semivariance for several distances.  Overlain onto Figure \ref{fig:figsv} is the estimated semivariance obtained using the covariance parmaeters from the REML fit of GRTS-Model. Figure \ref{fig:figsv} provides evidence that there is strong correlation in mercury concentration among the sites.
+<!--- To better understand the dependence structure in mercury concentration, the empirical semivariogram can be visualized alongside a fit using the model-based approaches. The empirical semivariogram quantifies the halved squared differences (semivariance) among response values at different distances apart. If a process exhibits strong spatial dependence, the empirical semivariogram will have small values at small distances and large values at large distances. Figure \ref{fig:figsv} shows the empirical semivariogram quantifying the average semivariance for several distances.  Overlain onto Figure \ref{fig:figsv} is the estimated semivariance obtained using the covariance parameters from the REML fit of GRTS-Model. Figure \ref{fig:figsv} provides evidence that there is strong correlation in mercury concentration among the sites. -->
 
 # Discussion {#sec:discussion}
 
@@ -600,16 +259,17 @@ There are several benefits and drawbacks of the design-based and model-based app
 
 # Data and Code Availability {.unnumbered}
 
-This manuscript has a supplementary R package that contains all of the data and code used. Instructions for download at available at [https://github.com/michaeldumelle/DvMsp](https://github.com/michaeldumelle/DvMsp).
+This manuscript has a supplementary R package that contains all of the data and code used. Instructions for download at available at 
+
+[https://github.com/michaeldumelle/DvMsp](https://github.com/michaeldumelle/DvMsp).
 
 # Supplementary Material {.unnumbered}
 
 In the supplementary material, we provide tables presenting summary statistics for all 36 simulation scenarios.
 
-# Acknowledgements {.unnumbered}
+# Acknowledgments {.unnumbered}
 
-The views expressed in this manuscript are those of the authors and do not necessarily represent the views or policies of the U.S. Environmental Protection Agency. Any mention of trade names, products, or services does not imply an endorsement by the U.S. government or the U.S. Environmental Protection Agency. The U.S. Environmental Protection Agency does not endorse any commercial products, services, or enterprises.
-
+The views expressed in this manuscript are those of the authors and do not necessarily represent the views or policies of the U.S. Environmental Protection Agency or the National Oceanic and Atmospheric Administration. Any mention of trade names, products, or services does not imply an endorsement by the U.S. government, the U.S. Environmental Protection Agency, or the National Oceanic and Atmospheric Administration. The U.S. Environmental Protection Agency and National Oceanic and Atmospheric Administration do not endorse any commercial products, services, or enterprises.
 
 # References {#references .unnumbered}
 

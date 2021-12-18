@@ -2,7 +2,6 @@
 title: A comparison of design-based and model-based approaches for finite population spatial data -- Supplementary Material.
 author:
   - name: Michael Dumelle
-    email: Dumelle.Michael@epa.gov
     affiliation: USEPA
     footnote: 1
   - name: Matt Higham
@@ -24,8 +23,8 @@ address:
     address: Marine Mammal Laboratory, Alaska Fisheries Science Center, National Oceanic and Atmospheric Administration, Seattle, Washington, 98115
 footnote:
   - code: 1
-    text: "Corresponding Author"
-journal: "TBD"
+    text: "Corresponding Author: Michael Dumelle (Dumelle.Michael@epa.gov)"
+journal: "Methods in Ecology and Evolution"
 date: "`r Sys.Date()`"
 linenumbers: true
 numbersections: true
@@ -136,7 +135,7 @@ sim_table_out <- xtable(
    type = "latex",
   latex.environments = "center"
 )
-print(sim_table_out, include.rownames = FALSE, comment = FALSE)
+print(sim_table_out, include.rownames = FALSE, comment = FALSE, scalebox = "0.85")
 }
 ```
 
