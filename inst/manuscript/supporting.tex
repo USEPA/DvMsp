@@ -1,0 +1,709 @@
+\documentclass[]{elsarticle} %review=doublespace preprint=single 5p=2 column
+%%% Begin My package additions %%%%%%%%%%%%%%%%%%%
+\usepackage[hyphens]{url}
+
+  \journal{Methods in Ecology and Evolution} % Sets Journal name
+
+
+\usepackage{lineno} % add
+  \linenumbers % turns line numbering on
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{graphicx}
+\usepackage{booktabs} % book-quality tables
+%%%%%%%%%%%%%%%% end my additions to header
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\bibliographystyle{elsarticle-harv}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={A comparison of design-based and model-based approaches for finite population spatial data -- Supporting Information.},
+            colorlinks=false,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+
+\setcounter{secnumdepth}{5}
+% Pandoc toggle for numbering sections (defaults to be off)
+
+% Pandoc citation processing
+
+% Pandoc header
+
+\usepackage{bm} \usepackage{bbm} \usepackage{color} \DeclareMathOperator{\var}{{var}} \DeclareMathOperator{\cov}{{cov}} \renewenvironment{abstract}{}{}
+
+\begin{document}
+\begin{frontmatter}
+
+  \title{A comparison of design-based and model-based approaches for finite
+population spatial data -- Supporting Information.}
+    \author[USEPA]{Michael Dumelle\corref{1}}
+  
+    \author[STLAW]{Matt Higham}
+  
+    \author[OSU]{Lisa Madsen}
+  
+    \author[USEPA]{Anthony R. Olsen}
+  
+    \author[NOAA]{Jay M. Ver Hoef}
+  
+      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
+Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Mathematics, Computer Science,
+and Statistics, 23 Romoda Drive, Canton, New York, 13617}
+    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
+Corvallis, Oregon, 97331}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
+Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
+      \cortext[1]{Corresponding Author: Michael Dumelle (Dumelle.Michael@epa.gov)}
+  
+  \begin{abstract}
+  
+  \end{abstract}
+  
+ \end{frontmatter}
+
+\hypertarget{sec:simtabs}{%
+\section{Simulation Study Tables}\label{sec:simtabs}}
+
+Recall the four design-analysis combinations and the parameter
+configurations, summarized in Table \ref{tab:designanalysis} and
+\ref{tab:parmtab}, respectively.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{r|ll}
+  \hline
+ & Design & Model \\ 
+  \hline
+IRS & IRS-Design & IRS-Model \\ 
+  GRTS & GRTS-Design & GRTS-Model \\ 
+   \hline
+\end{tabular}
+\caption{\label{tab:designanalysis} Types of Sampling Design and Analysis combinations considered in the simulation study. The rows give the two types of sampling designs while the columns give the two types of analyses.} 
+\end{table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{r|lll}
+   \hline
+Sample Size (n) & 50 & 100 & 200 \\ 
+  Layout & Random & Gridded & - \\ 
+  Proportion of Dependent Error & 0 & 0.5 & 0.9 \\ 
+  Response Type & Normal & Lognormal & - \\ 
+   \hline
+\end{tabular}
+\caption{\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2.} 
+\end{table}
+
+Next we present a summary table for each of the 36 simulation scenarios.
+
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Normal & 0 & 50 & -0.0023 & 0.1968 & 0.9440 \\ 
+  IRS-Model & Gridded & Normal & 0 & 50 & -0.0029 & 0.1988 & 0.9400 \\ 
+  GRTS-Design & Gridded & Normal & 0 & 50 & -0.0011 & 0.1946 & 0.9110 \\ 
+  GRTS-Model & Gridded & Normal & 0 & 50 & -0.0006 & 0.1949 & 0.9300 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Lognormal & 0 & 50 & -0.0036 & 0.2007 & 0.9080 \\ 
+  IRS-Model & Gridded & Lognormal & 0 & 50 & -0.0094 & 0.2071 & 0.9045 \\ 
+  GRTS-Design & Gridded & Lognormal & 0 & 50 & -0.0007 & 0.1962 & 0.8690 \\ 
+  GRTS-Model & Gridded & Lognormal & 0 & 50 & -0.0022 & 0.1969 & 0.8945 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Normal & 0 & 50 & 0.0019 & 0.1861 & 0.9505 \\ 
+  IRS-Model & Random & Normal & 0 & 50 & 0.0014 & 0.1892 & 0.9445 \\ 
+  GRTS-Design & Random & Normal & 0 & 50 & -0.0040 & 0.1955 & 0.9090 \\ 
+  GRTS-Model & Random & Normal & 0 & 50 & -0.0040 & 0.1965 & 0.9315 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Lognormal & 0 & 50 & 0.0032 & 0.1843 & 0.9205 \\ 
+  IRS-Model & Random & Lognormal & 0 & 50 & -0.0039 & 0.1945 & 0.9105 \\ 
+  GRTS-Design & Random & Lognormal & 0 & 50 & -0.0056 & 0.1944 & 0.8870 \\ 
+  GRTS-Model & Random & Lognormal & 0 & 50 & -0.0078 & 0.1967 & 0.9075 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Normal & 0.5 & 50 & 0.0025 & 0.1762 & 0.9470 \\ 
+  IRS-Model & Gridded & Normal & 0.5 & 50 & 0.0007 & 0.1655 & 0.9305 \\ 
+  GRTS-Design & Gridded & Normal & 0.5 & 50 & 0.0004 & 0.1524 & 0.9115 \\ 
+  GRTS-Model & Gridded & Normal & 0.5 & 50 & -0.0003 & 0.1499 & 0.9320 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Lognormal & 0.5 & 50 & 0.0004 & 0.1863 & 0.9140 \\ 
+  IRS-Model & Gridded & Lognormal & 0.5 & 50 & -0.0076 & 0.1834 & 0.9035 \\ 
+  GRTS-Design & Gridded & Lognormal & 0.5 & 50 & 0.0016 & 0.1612 & 0.8810 \\ 
+  GRTS-Model & Gridded & Lognormal & 0.5 & 50 & -0.0017 & 0.1606 & 0.8940 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Normal & 0.5 & 50 & 0.0037 & 0.1657 & 0.9590 \\ 
+  IRS-Model & Random & Normal & 0.5 & 50 & 0.0027 & 0.1546 & 0.9495 \\ 
+  GRTS-Design & Random & Normal & 0.5 & 50 & -0.0034 & 0.1511 & 0.9170 \\ 
+  GRTS-Model & Random & Normal & 0.5 & 50 & -0.0037 & 0.1504 & 0.9305 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Lognormal & 0.5 & 50 & 0.0023 & 0.1637 & 0.9245 \\ 
+  IRS-Model & Random & Lognormal & 0.5 & 50 & -0.0055 & 0.1622 & 0.9125 \\ 
+  GRTS-Design & Random & Lognormal & 0.5 & 50 & -0.0057 & 0.1570 & 0.9000 \\ 
+  GRTS-Model & Random & Lognormal & 0.5 & 50 & -0.0079 & 0.1567 & 0.9100 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Normal & 0.9 & 50 & 0.0053 & 0.1579 & 0.9470 \\ 
+  IRS-Model & Gridded & Normal & 0.9 & 50 & 0.0026 & 0.1165 & 0.9315 \\ 
+  GRTS-Design & Gridded & Normal & 0.9 & 50 & 0.0013 & 0.1074 & 0.9220 \\ 
+  GRTS-Model & Gridded & Normal & 0.9 & 50 & -0.0007 & 0.0949 & 0.9430 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Lognormal & 0.9 & 50 & 0.0031 & 0.1731 & 0.9220 \\ 
+  IRS-Model & Gridded & Lognormal & 0.9 & 50 & -0.0020 & 0.1325 & 0.9135 \\ 
+  GRTS-Design & Gridded & Lognormal & 0.9 & 50 & 0.0031 & 0.1183 & 0.9065 \\ 
+  GRTS-Model & Gridded & Lognormal & 0.9 & 50 & -0.0002 & 0.1090 & 0.9120 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Normal & 0.9 & 50 & 0.0062 & 0.1520 & 0.9525 \\ 
+  IRS-Model & Random & Normal & 0.9 & 50 & 0.0037 & 0.1074 & 0.9525 \\ 
+  GRTS-Design & Random & Normal & 0.9 & 50 & -0.0029 & 0.1038 & 0.9340 \\ 
+  GRTS-Model & Random & Normal & 0.9 & 50 & -0.0027 & 0.0940 & 0.9360 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Lognormal & 0.9 & 50 & 0.0053 & 0.1542 & 0.9325 \\ 
+  IRS-Model & Random & Lognormal & 0.9 & 50 & -0.0012 & 0.1160 & 0.9115 \\ 
+  GRTS-Design & Random & Lognormal & 0.9 & 50 & -0.0033 & 0.1150 & 0.9160 \\ 
+  GRTS-Model & Random & Lognormal & 0.9 & 50 & -0.0031 & 0.1014 & 0.9235 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Normal & 0 & 100 & -0.0029 & 0.1322 & 0.9430 \\ 
+  IRS-Model & Gridded & Normal & 0 & 100 & -0.0033 & 0.1332 & 0.9410 \\ 
+  GRTS-Design & Gridded & Normal & 0 & 100 & 0.0041 & 0.1302 & 0.9245 \\ 
+  GRTS-Model & Gridded & Normal & 0 & 100 & 0.0038 & 0.1304 & 0.9420 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Lognormal & 0 & 100 & -0.0052 & 0.1334 & 0.9335 \\ 
+  IRS-Model & Gridded & Lognormal & 0 & 100 & -0.0072 & 0.1350 & 0.9300 \\ 
+  GRTS-Design & Gridded & Lognormal & 0 & 100 & 0.0042 & 0.1303 & 0.9035 \\ 
+  GRTS-Model & Gridded & Lognormal & 0 & 100 & 0.0034 & 0.1307 & 0.9265 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Normal & 0 & 100 & -0.0066 & 0.1366 & 0.9405 \\ 
+  IRS-Model & Random & Normal & 0 & 100 & -0.0067 & 0.1370 & 0.9385 \\ 
+  GRTS-Design & Random & Normal & 0 & 100 & 0.0028 & 0.1364 & 0.9180 \\ 
+  GRTS-Model & Random & Normal & 0 & 100 & 0.0029 & 0.1363 & 0.9345 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Lognormal & 0 & 100 & -0.0051 & 0.1348 & 0.9280 \\ 
+  IRS-Model & Random & Lognormal & 0 & 100 & -0.0075 & 0.1372 & 0.9230 \\ 
+  GRTS-Design & Random & Lognormal & 0 & 100 & 0.0002 & 0.1375 & 0.8840 \\ 
+  GRTS-Model & Random & Lognormal & 0 & 100 & -0.0003 & 0.1377 & 0.9090 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Normal & 0.5 & 100 & -0.0016 & 0.1177 & 0.9540 \\ 
+  IRS-Model & Gridded & Normal & 0.5 & 100 & -0.0023 & 0.1072 & 0.9470 \\ 
+  GRTS-Design & Gridded & Normal & 0.5 & 100 & 0.0051 & 0.0998 & 0.9300 \\ 
+  GRTS-Model & Gridded & Normal & 0.5 & 100 & 0.0039 & 0.0982 & 0.9470 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Lognormal & 0.5 & 100 & -0.0021 & 0.1211 & 0.9445 \\ 
+  IRS-Model & Gridded & Lognormal & 0.5 & 100 & -0.0058 & 0.1153 & 0.9295 \\ 
+  GRTS-Design & Gridded & Lognormal & 0.5 & 100 & 0.0041 & 0.1090 & 0.9085 \\ 
+  GRTS-Model & Gridded & Lognormal & 0.5 & 100 & 0.0019 & 0.1090 & 0.9180 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Normal & 0.5 & 100 & -0.0064 & 0.1222 & 0.9440 \\ 
+  IRS-Model & Random & Normal & 0.5 & 100 & -0.0049 & 0.1073 & 0.9440 \\ 
+  GRTS-Design & Random & Normal & 0.5 & 100 & 0.0013 & 0.1041 & 0.9155 \\ 
+  GRTS-Model & Random & Normal & 0.5 & 100 & 0.0014 & 0.1020 & 0.9400 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Lognormal & 0.5 & 100 & -0.0063 & 0.1204 & 0.9355 \\ 
+  IRS-Model & Random & Lognormal & 0.5 & 100 & -0.0097 & 0.1150 & 0.9275 \\ 
+  GRTS-Design & Random & Lognormal & 0.5 & 100 & 0.0003 & 0.1092 & 0.8960 \\ 
+  GRTS-Model & Random & Lognormal & 0.5 & 100 & -0.0004 & 0.1088 & 0.9120 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Normal & 0.9 & 100 & -0.0007 & 0.1059 & 0.9605 \\ 
+  IRS-Model & Gridded & Normal & 0.9 & 100 & -0.0019 & 0.0700 & 0.9445 \\ 
+  GRTS-Design & Gridded & Normal & 0.9 & 100 & 0.0044 & 0.0655 & 0.9435 \\ 
+  GRTS-Model & Gridded & Normal & 0.9 & 100 & 0.0030 & 0.0585 & 0.9440 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Lognormal & 0.9 & 100 & -0.0011 & 0.1092 & 0.9540 \\ 
+  IRS-Model & Gridded & Lognormal & 0.9 & 100 & -0.0033 & 0.0779 & 0.9330 \\ 
+  GRTS-Design & Gridded & Lognormal & 0.9 & 100 & 0.0035 & 0.0757 & 0.9190 \\ 
+  GRTS-Model & Gridded & Lognormal & 0.9 & 100 & 0.0017 & 0.0693 & 0.9190 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Normal & 0.9 & 100 & -0.0048 & 0.1095 & 0.9430 \\ 
+  IRS-Model & Random & Normal & 0.9 & 100 & -0.0017 & 0.0671 & 0.9535 \\ 
+  GRTS-Design & Random & Normal & 0.9 & 100 & -0.0009 & 0.0674 & 0.9265 \\ 
+  GRTS-Model & Random & Normal & 0.9 & 100 & 0.0000 & 0.0595 & 0.9420 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Lognormal & 0.9 & 100 & -0.0045 & 0.1110 & 0.9375 \\ 
+  IRS-Model & Random & Lognormal & 0.9 & 100 & -0.0052 & 0.0771 & 0.9310 \\ 
+  GRTS-Design & Random & Lognormal & 0.9 & 100 & -0.0009 & 0.0732 & 0.9195 \\ 
+  GRTS-Model & Random & Lognormal & 0.9 & 100 & -0.0007 & 0.0661 & 0.9165 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Normal & 0 & 200 & 0.0013 & 0.0882 & 0.9550 \\ 
+  IRS-Model & Gridded & Normal & 0 & 200 & 0.0013 & 0.0886 & 0.9530 \\ 
+  GRTS-Design & Gridded & Normal & 0 & 200 & -0.0045 & 0.0885 & 0.9380 \\ 
+  GRTS-Model & Gridded & Normal & 0 & 200 & -0.0045 & 0.0885 & 0.9460 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Lognormal & 0 & 200 & 0.0001 & 0.0880 & 0.9350 \\ 
+  IRS-Model & Gridded & Lognormal & 0 & 200 & -0.0002 & 0.0883 & 0.9355 \\ 
+  GRTS-Design & Gridded & Lognormal & 0 & 200 & -0.0034 & 0.0898 & 0.9285 \\ 
+  GRTS-Model & Gridded & Lognormal & 0 & 200 & -0.0035 & 0.0900 & 0.9335 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Normal & 0 & 200 & -0.0014 & 0.0893 & 0.9465 \\ 
+  IRS-Model & Random & Normal & 0 & 200 & -0.0015 & 0.0896 & 0.9465 \\ 
+  GRTS-Design & Random & Normal & 0 & 200 & 0.0007 & 0.0868 & 0.9460 \\ 
+  GRTS-Model & Random & Normal & 0 & 200 & 0.0007 & 0.0867 & 0.9490 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Lognormal & 0 & 200 & -0.0028 & 0.0891 & 0.9425 \\ 
+  IRS-Model & Random & Lognormal & 0 & 200 & -0.0033 & 0.0896 & 0.9395 \\ 
+  GRTS-Design & Random & Lognormal & 0 & 200 & 0.0015 & 0.0860 & 0.9365 \\ 
+  GRTS-Model & Random & Lognormal & 0 & 200 & 0.0012 & 0.0861 & 0.9415 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Normal & 0.5 & 200 & 0.0022 & 0.0788 & 0.9535 \\ 
+  IRS-Model & Gridded & Normal & 0.5 & 200 & 0.0008 & 0.0678 & 0.9580 \\ 
+  GRTS-Design & Gridded & Normal & 0.5 & 200 & -0.0024 & 0.0671 & 0.9335 \\ 
+  GRTS-Model & Gridded & Normal & 0.5 & 200 & -0.0030 & 0.0661 & 0.9410 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Lognormal & 0.5 & 200 & 0.0016 & 0.0816 & 0.9420 \\ 
+  IRS-Model & Gridded & Lognormal & 0.5 & 200 & -0.0000 & 0.0739 & 0.9335 \\ 
+  GRTS-Design & Gridded & Lognormal & 0.5 & 200 & -0.0033 & 0.0744 & 0.9330 \\ 
+  GRTS-Model & Gridded & Lognormal & 0.5 & 200 & -0.0041 & 0.0742 & 0.9350 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Normal & 0.5 & 200 & -0.0016 & 0.0790 & 0.9480 \\ 
+  IRS-Model & Random & Normal & 0.5 & 200 & -0.0010 & 0.0690 & 0.9475 \\ 
+  GRTS-Design & Random & Normal & 0.5 & 200 & -0.0002 & 0.0652 & 0.9455 \\ 
+  GRTS-Model & Random & Normal & 0.5 & 200 & 0.0001 & 0.0640 & 0.9500 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Lognormal & 0.5 & 200 & -0.0027 & 0.0809 & 0.9494 \\ 
+  IRS-Model & Random & Lognormal & 0.5 & 200 & -0.0037 & 0.0732 & 0.9454 \\ 
+  GRTS-Design & Random & Lognormal & 0.5 & 200 & -0.0008 & 0.0671 & 0.9434 \\ 
+  GRTS-Model & Random & Lognormal & 0.5 & 200 & -0.0012 & 0.0662 & 0.9479 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Normal & 0.9 & 200 & 0.0021 & 0.0704 & 0.9570 \\ 
+  IRS-Model & Gridded & Normal & 0.9 & 200 & 0.0005 & 0.0411 & 0.9590 \\ 
+  GRTS-Design & Gridded & Normal & 0.9 & 200 & -0.0005 & 0.0423 & 0.9370 \\ 
+  GRTS-Model & Gridded & Normal & 0.9 & 200 & -0.0012 & 0.0377 & 0.9450 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Gridded & Lognormal & 0.9 & 200 & 0.0014 & 0.0744 & 0.9520 \\ 
+  IRS-Model & Gridded & Lognormal & 0.9 & 200 & -0.0002 & 0.0480 & 0.9355 \\ 
+  GRTS-Design & Gridded & Lognormal & 0.9 & 200 & -0.0014 & 0.0499 & 0.9380 \\ 
+  GRTS-Model & Gridded & Lognormal & 0.9 & 200 & -0.0022 & 0.0459 & 0.9380 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Normal & 0.9 & 200 & -0.0009 & 0.0725 & 0.9470 \\ 
+  IRS-Model & Random & Normal & 0.9 & 200 & -0.0010 & 0.0409 & 0.9450 \\ 
+  GRTS-Design & Random & Normal & 0.9 & 200 & -0.0005 & 0.0405 & 0.9490 \\ 
+  GRTS-Model & Random & Normal & 0.9 & 200 & 0.0001 & 0.0354 & 0.9510 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+\begin{table}[ht]
+\centering
+\scalebox{0.85}{
+\begin{tabular}{lllllrrr}
+  \hline
+Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
+  \hline
+IRS-Design & Random & Lognormal & 0.9 & 200 & -0.0006 & 0.0750 & 0.9393 \\ 
+  IRS-Model & Random & Lognormal & 0.9 & 200 & -0.0025 & 0.0461 & 0.9418 \\ 
+  GRTS-Design & Random & Lognormal & 0.9 & 200 & -0.0013 & 0.0452 & 0.9348 \\ 
+  GRTS-Model & Random & Lognormal & 0.9 & 200 & -0.0012 & 0.0397 & 0.9418 \\ 
+   \hline
+\end{tabular}
+}
+\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\end{table}
+
+
+\end{document}
+
+

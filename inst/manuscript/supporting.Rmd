@@ -1,5 +1,5 @@
 ---
-title: A comparison of design-based and model-based approaches for finite population spatial data -- Supplementary Material.
+title: A comparison of design-based and model-based approaches for finite population spatial data -- Supporting Information.
 author:
   - name: Michael Dumelle
     affiliation: USEPA
@@ -39,7 +39,7 @@ preamble: >
 output: rticles::elsevier_article
 ---
 
-# Numerical Study Tables {#sec:numstudy}
+# Simulation Study Tables {#sec:simtabs}
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(

@@ -58,7 +58,7 @@
 
 % Pandoc header
 
-\usepackage{bm} \usepackage{bbm} \usepackage{color} \DeclareMathOperator{\var}{{var}} \DeclareMathOperator{\cov}{{cov}} \usepackage{caption} \usepackage{subcaption}
+\usepackage{bm} \usepackage{bbm} \usepackage{color} \DeclareMathOperator{\var}{{var}} \DeclareMathOperator{\cov}{{cov}} \usepackage{caption} \usepackage{subcaption} \usepackage{setspace} \doublespacing
 
 \begin{document}
 \begin{frontmatter}
@@ -86,25 +86,40 @@ Corvallis, Oregon, 97331}
       \cortext[1]{Corresponding Author: Michael Dumelle (Dumelle.Michael@epa.gov)}
   
   \begin{abstract}
-  The design-based and model-based approaches to frequentist statistical
-  inference lie on fundamentally different foundations. In the
-  design-based approach, inference depends on random sampling. In the
-  model-based approach, inference depends on distributional assumptions.
-  In this manuscript, we compare the approaches for finite population
-  spatial data. We first provide relevant background for the approaches
-  and then use a simulation study and an analysis of real mercury
-  concentration data to numerically compare them. We find that sampling
-  plans that incorporate spatial locations (spatially balanced samples)
-  perform better than sampling plans ignoring spatial locations
-  (non-spatially balanced samples), regardless of whether design-based or
-  model-based approaches were used to analyze the data. We also find that
-  within sampling plans, the model-based approaches often outperform
-  design-based approaches, even for skewed data. This gap in performance
-  is small when spatially balanced samples are used but large when
-  non-spatially balanced samples are used.
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \item
+  \item
+  \item
+  \item
+    The design-based and model-based approaches to frequentist statistical
+    inference lie on fundamentally different foundations. In the
+    design-based approach, inference depends on random sampling. In the
+    model-based approach, inference depends on distributional assumptions.
+    In this manuscript, we compare the approaches for finite population
+    spatial data. We first provide relevant background for the approaches
+    and then use a simulation study and an analysis of real mercury
+    concentration data to numerically compare them. We find that sampling
+    plans that incorporate spatial locations (spatially balanced samples)
+    perform better than sampling plans ignoring spatial locations
+    (non-spatially balanced samples), regardless of whether design-based
+    or model-based approaches were used to analyze the data. We also find
+    that within sampling plans, the model-based approaches often
+    outperform design-based approaches, even for skewed data. This gap in
+    performance is small when spatially balanced samples are used but
+    large when non-spatially balanced samples are used.
+  \end{enumerate}
   \end{abstract}
   
  \end{frontmatter}
+
+\hypertarget{keywords}{%
+\section*{Keywords}\label{keywords}}
+\addcontentsline{toc}{section}{Keywords}
+
+Design-based inference; Finite Population Block Kriging (FPBK);
+Generalized Random Tessellation Stratified (GRTS) algorithm; Model-based
+inference; Spatially balanced sampling; Spatial covariance;
 
 \hypertarget{sec:introduction}{%
 \section{Introduction}\label{sec:introduction}}
@@ -154,15 +169,16 @@ population units; an example is locations within a single lake.
 The rest of the manuscript is organized as follows. In Section
 \ref{sec:background}, we introduce and provide relevant background for
 the design-based and model-based approaches to finite population spatial
-data. In Section \ref{sec:numstudy}, we use a simulation study to
-compare the performance of the approaches in a variety of scenarios. In
-Section \ref{application}, we compare the performance of the approaches
-on real data that contains mercury concentration in lakes from the
-contiguous United States. And in Section \ref{sec:discussion}, we end
-with a discussion and provide directions for future research.
+data. In Section \ref{sec:mm}, we describe how we compare performance of
+the approaches wiht a simulation study and an analysis of real data that
+contains mercury concentration in lakes from the contiguous United
+States. In Section \ref{sec:results}, we present results from the
+simulation study and the analysis of mercury concentrations. And in
+Section \ref{sec:discussion}, we end with a discussion and provide
+directions for future research.
 
 \hypertarget{sec:background}{%
-\section{Background}\label{sec:background}}
+\subsection{Background}\label{sec:background}}
 
 The design-based and model-based approaches incorporate randomness in
 fundamentally different ways. In this section, we describe the role of
@@ -170,7 +186,7 @@ randomness for each approach and the subsequent effects on statistical
 inferences for spatial data.
 
 \hypertarget{subsec:dvm_compare}{%
-\subsection{Comparing Design-Based and Model-Based
+\subsubsection{Comparing Design-Based and Model-Based
 Approaches}\label{subsec:dvm_compare}}
 
 The design-based approach assumes the population is fixed. Randomness is
@@ -226,9 +242,9 @@ stochastic process and select samples, then 95\% of all 95\% prediction
 intervals constructed from a procedure with appropriate coverage will
 contain their respective realized means. Cressie (1993) and
 Schabenberger and Gotway (2017) provide thorough reviews of model-based
-approaches for spatial data. In Figure \ref{fig:fig1}, we provide a
-visual comparison of the design-based and model-based approaches (Ver
-Hoef (2002) and Brus (2021) provide similar figures).
+approaches for spatial data. In Fig. \ref{fig:fig1}, we provide a visual
+comparison of the design-based and model-based approaches (Ver Hoef
+(2002) and Brus (2021) provide similar figures).
 
 \begin{figure}
   \centering
@@ -238,7 +254,7 @@ Hoef (2002) and Brus (2021) provide similar figures).
 \end{figure}
 
 \hypertarget{subsec:spb_design}{%
-\subsection{Spatially Balanced Design and
+\subsubsection{Spatially Balanced Design and
 Analysis}\label{subsec:spb_design}}
 
 We previously mentioned that the design-based approach can be used to
@@ -307,7 +323,7 @@ variance estimator tends to reduce the estimated variance of
 variance estimators that ignore spatial locations.
 
 \hypertarget{finite-population-block-kriging}{%
-\subsection{Finite Population Block
+\subsubsection{Finite Population Block
 Kriging}\label{finite-population-block-kriging}}
 
 Finite Population Block Kriging (FPBK) is a model-based approach that
@@ -405,8 +421,11 @@ contexts, and FBPK tended to perform best. Compared to the Bayesian
 approach, we prefer FPBK mostly because it is much more computationally
 efficient.
 
-\hypertarget{sec:numstudy}{%
-\section{Simulation Study}\label{sec:numstudy}}
+\hypertarget{sec:mm}{%
+\section{Materials and Methods}\label{sec:mm}}
+
+\hypertarget{sec:mm_sim}{%
+\subsection{Simulation Study}\label{sec:mm_sim}}
 
 We used a simulation study to investigate performance of four
 sampling-analysis combinations: IRS with a design-based analysis, called
@@ -489,14 +508,36 @@ et al., 2021). FPBK is available in the \texttt{sptotal}
 parameters were estimated using Restricted Maximum Likelihood (Harville,
 1977; Patterson and Thompson, 1971; Wolfinger et al., 1994).
 
+\hypertarget{sec:mm_app}{%
+\subsection{Application}\label{sec:mm_app}}
+
+The Environmental Protection Agency (EPA), states, and tribes
+periodically conduct National Aquatic Research Surveys (NARS) in the
+United States to assess the water quality of various bodies of water. We
+will use data from the 2012 National Lakes Assessment (NLA), which
+measures various aspects of lake health and water quality for lakes in
+the contiguous United States (USEPA, 2012). Specifically, we will
+analyze mercury concentration in lakes. Although we know the true mean
+mercury concentration values for the 986 lakes from the 2012 NLA, we
+will explore whether or not we obtain an adequately precise estimate for
+the realized mean mercury concentration if we sample only 100 of the 986
+lakes. For each of the four familiar sampling-analysis combinations
+(IRS-Design, IRS-Model, GRTS-Design, and GRTS-Model), we estimate
+
+\hypertarget{sec:results}{%
+\section{Results}\label{sec:results}}
+
+\hypertarget{sec:r_sim}{%
+\subsection{Simulation Study}\label{sec:r_sim}}
+
 The average bias was nearly zero for all four combinations in all 36
 scenarios, so we omit a more detailed summary of those results here.
 Tables for average bias in all 36 simulation scenarios are provided in
-the supplementary material.
+the supporting information.
 
-Figure \ref{fig:figeff} shows the relative rMS(P)E of the four
-approaches from Table \ref{tab:designanalysis} using the random location
-layout with ``IRS-Design'' as the baseline.
+Fig. \ref{fig:figeff} shows the relative rMS(P)E of the four approaches
+from Table \ref{tab:designanalysis} using the random location layout
+with ``IRS-Design'' as the baseline.
 
 \begin{figure}
   \centering
@@ -507,12 +548,12 @@ layout with ``IRS-Design'' as the baseline.
 
 The relative rMS(P)E is defined as \begin{equation*}
 \frac{\text{rMS(P)E of sampling-analysis combination}}{\text{rMS(P)E of IRS-Design}},
-\end{equation*} When there is no spatial correlation (Figure
+\end{equation*} When there is no spatial correlation (Fig.
 \ref{fig:figeff}, ``Prop DE: 0'' row), the four sampling-analysis
 combinations have approximately equal rMS(P)E. So using the GRTS
 sampling plan or a model-based analysis does not result in much, if any,
 loss in efficiency compared to IRS-Design when there is no spatial
-correlation. When there is spatial correlation (Figure \ref{fig:figeff},
+correlation. When there is spatial correlation (Fig. \ref{fig:figeff},
 ``Prop DE: 0.5'' and ``Prop DE: 0.9'' rows), GRTS-Model tends to perform
 best, followed by GRTS-Design, IRS-Model, and finally IRS-Design, though
 the difference in relative rMS(P)E among GRTS-Model, GRTS-Design, and
@@ -524,7 +565,7 @@ margin, suggesting that the poor design properties of IRS are largely
 mitigated by the model-based analysis. These conclusions are similar to
 those observed in the grid location layout, so we omit a grid location
 layout figure here. Tables for rMS(P)E in all 36 simulation scenarios
-are provided in the supplementary material.
+are provided in the supporting information.
 
 We also studied 95\% interval coverage among the sampling-analysis
 combinations. The design-based confidence intervals and model-based
@@ -532,8 +573,8 @@ prediction intervals were constructed using the normal distribution.
 Justification for this comes from the asymptotic normality of means via
 the Central Limit Theorem.
 
-Figure \ref{fig:figconf} shows the 95\% interval coverage for each of
-the four sampling-analysis combinations in the random location layout.
+Fig. \ref{fig:figconf} shows the 95\% interval coverage for each of the
+four sampling-analysis combinations in the random location layout.
 
 \begin{figure}
   \centering
@@ -551,31 +592,27 @@ sampling-analysis combinations had approximately 95\% interval coverage
 in both response scenarios for all dependent error proportions. These
 conclusions are similar to those observed in the grid location layout,
 so we omit a grid location layout figure here. Tables for interval
-coverage in all 36 simulation scenarios are provided in the
-supplementary material.
+coverage in all 36 simulation scenarios are provided in the supporting
+information.
 
-\hypertarget{application}{%
-\section{Application}\label{application}}
+\hypertarget{sec:r_app}{%
+\subsection{Application}\label{sec:r_app}}
 
-The Environmental Protection Agency (EPA), states, and tribes
-periodically conduct National Aquatic Research Surveys (NARS) in the
-United States to assess the water quality of various bodies of water. We
-will use the 2012 National Lakes Assessment (NLA), which measures
-various aspects of lake health and water quality for lakes in the
-contiguous United States. Specifically, we will analyze mercury
-concentration in lakes. Although we know the true mean mercury
-concentration values for the 986 lakes from the 2012 NLA, we will
-explore whether or not we obtain an adequately precise estimate for the
-realized mean mercury concentration if we sample only 100 of the 986
-lakes.
-
-Figure \ref{fig:merc} shows that mercury concentration is right-skewed,
+Fig. \ref{fig:merc} shows that mercury concentration is right-skewed,
 with most lakes having a low value of mercury concentration but a few
 having a much higher concentration. Mercury concentration exhibits some
-spatial correlation, with high mercury concentrations in lakes in the
-northeast and north central United States. The realized mean mercury
-concentration in the 986 lakes is 103.2 ng / g. TALK ABOUT EMPIRICAL
-SEMIVARIOGRAM IN THIS PARAGRAPH.
+spatial patterning, with high mercury concentrations in lakes in the
+northeast and north central United States. Fig. \ref{fig:merc} also
+shows the spatial dependence in mercury concentration via the empirical
+semivariogram. The empirical semivariogram can be used as a tool to
+visualize spatial dependence. It quantifes the halved squared
+differences (semivariance) among mercury concentration at different
+distances apart. When a process is spatially correlated, the
+semivariance tends to be smaller at small distances and larger at large
+distances. Together, the map, histogram, and semivariogram in Fig.
+\ref{fig:merc} suggest that mercury concentration is skewed and exhibits
+spatial dependence. Lastly we note that the realized mean mercury
+concentration in the 986 lakes is 103.2 ng / g.
 
 \begin{figure}
 \centering
@@ -690,22 +727,6 @@ motive the process of choosing among them. This is especially true from
 an analysis perspective, as we found that using a spatially balanced
 sampling algorithm benefits both design-based and model-based analyses.
 
-\hypertarget{data-and-code-availability}{%
-\section*{Data and Code Availability}\label{data-and-code-availability}}
-\addcontentsline{toc}{section}{Data and Code Availability}
-
-This manuscript has a supplementary R package that contains all of the
-data and code used. Instructions for download at available at
-
-\url{https://github.com/michaeldumelle/DvMsp}.
-
-\hypertarget{supplementary-material}{%
-\section*{Supplementary Material}\label{supplementary-material}}
-\addcontentsline{toc}{section}{Supplementary Material}
-
-In the supplementary material, we provide tables presenting summary
-statistics for all 36 simulation scenarios.
-
 \hypertarget{acknowledgments}{%
 \section*{Acknowledgments}\label{acknowledgments}}
 \addcontentsline{toc}{section}{Acknowledgments}
@@ -719,6 +740,39 @@ Protection Agency, or the National Oceanic and Atmospheric
 Administration. The U.S. Environmental Protection Agency and National
 Oceanic and Atmospheric Administration do not endorse any commercial
 products, services, or enterprises.
+
+\hypertarget{conflict-of-interest-statement}{%
+\section*{Conflict of Interest
+Statement}\label{conflict-of-interest-statement}}
+\addcontentsline{toc}{section}{Conflict of Interest Statement}
+
+There are no conflicts of interest for any of the authors.
+
+\hypertarget{data-and-code-availability}{%
+\section*{Data and Code Availability}\label{data-and-code-availability}}
+\addcontentsline{toc}{section}{Data and Code Availability}
+
+This manuscript has a supplementary R package that contains all of the
+data and code used in its creation. The supplementary R package is
+hosted on GitHub. Instructions for download at available at
+
+\url{https://github.com/michaeldumelle/DvMsp}.
+
+\hypertarget{supporting-information}{%
+\section*{Supporting Information}\label{supporting-information}}
+\addcontentsline{toc}{section}{Supporting Information}
+
+In the supporting information, we provide tables presenting summary
+statistics for all 36 simulation scenarios.
+
+\hypertarget{author-contributions}{%
+\section*{Author Contributions}\label{author-contributions}}
+\addcontentsline{toc}{section}{Author Contributions}
+
+All authors conceived the ideas; All authors designed methodology; MD
+and MH performed the simulations and analyzed the data; MD and MH led
+the writing of the manuscript; All authors contributed critically to the
+drafts and gave final approval for publication.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -879,6 +933,10 @@ balanced samples of environmental resources. Environmetrics 14,
 \leavevmode\hypertarget{ref-stevens2004spatially}{}%
 Stevens, D.L., Olsen, A.R., 2004. Spatially balanced sampling of natural
 resources. Journal of the American Statistical Association 99, 262--278.
+
+\leavevmode\hypertarget{ref-USEPA2012NLA}{}%
+USEPA, 2012. National lakes assessment 2012.
+https://www.epa.gov/national-aquatic-resource-surveys/national-results-and-regional-highlights-national-lakes-assessment.
 
 \leavevmode\hypertarget{ref-verhoef2002sampling}{}%
 Ver Hoef, J., 2002. Sampling and geostatistics for spatial data.
