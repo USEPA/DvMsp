@@ -2,7 +2,7 @@
 
 ### A Supplementary R Package to "A comparison of design-based and model-based approaches for finite population spatial data"
 
-##### Michael Dumelle<sup>1</sup>, Matt Higham<sup>2</sup>, Jay Ver Hoef<sup>3</sup>, Anthony R. Olsen<sup>1</sup>, Lisa Madsen<sup>4</sup>
+##### Michael Dumelle<sup>1</sup>, Matt Higham<sup>2</sup>, Jay M. Ver Hoef<sup>3</sup>, Anthony R. Olsen<sup>1</sup>, Lisa Madsen<sup>4</sup>
 
 ##### <sup>1</sup>United States Environmental Protection Agency, Corvallis, OR, USA
 ##### <sup>2</sup>St. Lawrence University Department of Math, Computer Science, and Statistics, Canton, NY, USA
@@ -95,14 +95,14 @@ citation("DvMsp")
 ```
 To cite this work in publications use:
 
-  Dumelle, Michael., Higham, Matthew., Ver Hoef, Jay., Olsen, Tony., and Madsen, Lisa. (2021). A comparison
+  Dumelle, Michael., Higham, Matthew., Ver Hoef, Jay M., Olsen, Anthony R., and Madsen, Lisa. (2021). A comparison
   of design-based and model-based approaches for finite population spatial data. In submission.
 
 A BibTeX entry for LaTeX users is
 
   @Article{,
     title = {A comparison of design-based and model-based approaches for finite population spatial data},
-    author = {Michael Dumelle and Matthew Higham and Jay Ver Hoef and Tony Olsen and Lisa Madsen},
+    author = {Michael Dumelle and Matthew Higham and Jay M. Ver Hoef and Anthony R. Olsen and Lisa Madsen},
     journal = {In submission},
     year = {2021},
     volume = {0},
