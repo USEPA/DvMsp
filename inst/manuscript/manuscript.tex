@@ -110,21 +110,20 @@ Corvallis, Oregon, 97331}
     sampling plans that incorporate spatial locations (spatially balanced
     samples) generally outperform sampling plans that ignore spatial
     locations (non-spatially balanced samples). We also found that
-    model-based analyses tend to outperform design-based analyses, even
-    when the data are skewed (and by consequence, the model-based
+    model-based approaches tend to outperform design-based approaches,
+    even when the data are skewed (and by consequence, the model-based
     distributional assumptions violated). The performance gap between the
     analysis approaches is small when spatially balanced samples are used
     but large when non-spatially balanced samples are used. This suggests
-    that the sampling choice (spatially balanced samples versus
-    non-spatially balanced samples) is most important when using a
-    design-based analysis.
+    that the sampling choice (whether to select a sample that is spatially
+    balanced) is most important when performing design-based inference.
   \item
-    There are many benefits and drawbacks practitioners must consider when
-    choosing between design-based and model-based approaches for finite
-    population spatial data. We provide relevant background
-    contextualizing each approach and study their properties in a variety
-    of scenarios, making recommendations for use based on the
-    practitioner's goals.
+    There are many benefits and drawbacks to the design-based and
+    model-based approaches for finite population spatial data that
+    practitioners must consider when choosing between them. We provide
+    relevant background contextualizing each approach and study their
+    properties in a variety of scenarios, making recommendations for use
+    based on the practitioner's goals.
   \end{enumerate}
   \end{abstract}
   
@@ -145,13 +144,14 @@ There are two general approaches for using data to make frequentist
 statistical inferences about a population: design-based and model-based.
 When data cannot be collected for all units in a population (i.e.,
 population units), data are collected on a subset of the population
-units. This subset is called a sample. In the design-based approach,
-inferences about the underlying population are informed via a
-probabilistic process assigning some population units to be part of the
-sample. Alternatively, in the model-based approach, inferences are made
-from specific assumptions about the underlying process generating the
-data. Each paradigm has a deep historical context (Sterba, 2009) and its
-own set of benefits and drawbacks (Hansen et al., 1983).
+units. This subset of population units is called a sample. In the
+design-based approach, inferences about the underlying population are
+informed via a probabilistic process that randomly assigns some
+population units to be in the sample. Alternatively, in the model-based
+approach, inferences are made from specific assumptions about the
+underlying process generating the data. Each paradigm has a deep
+historical context (Sterba, 2009) and its own set of benefits and
+drawbacks (Hansen et al., 1983).
 
 Though the design-based and model-based approaches apply to statistical
 inference in a broad sense, we focus on comparing these approaches for
@@ -167,32 +167,35 @@ et al., 2012). Cooper (2006) reviews the two approaches in an ecological
 context before introducing a ``model-assisted'' variance estimator that
 combines aspects from each approach. In addition to Cooper (2006), there
 has been substantial research and development into estimators that use
-both design and model-based principles (see e.g., Sterba (2009),
-Cicchitelli and Montanari (2012), Chan-Golston et al. (2020) for a
-Bayesian approach).
+both design and model-based principles (see e.g., Sterba (2009) and
+Cicchitelli and Montanari (2012), and see Chan-Golston et al. (2020) for
+a Bayesian approach).
 
 Certainly comparisons between design-based and model-based approaches to
 spatial data have been studied. But no numerical comparison has been
-made between design-based approaches incorporating spatial information
-and design-based approaches. In this manuscript, we compare design-based
-approaches incorporating spatial information to model-based approaches
-for spatial data. We focus on finite populations, but these comparisons
-generalize to infinite populations as well. A finite population contains
-a finite number of population units; an example is lakes (treated as a
-whole with the lake centroid representing location) in the contiguous
-United States. An infinite population contains an infinite number of
-population units; an example is locations within a single lake.
+made between design-based approaches that incorporate spatial
+information and model-based approaches. In this manuscript, we compare
+design-based approaches that incorporate spatial information to
+model-based approaches for finite population spatial data. A finite
+population contains a finite number of population units (we assume the
+finite number is known); an example is lakes (treated as a whole with
+the lake centroid representing location) in the contiguous United
+States. Though we manuscript focuses on finite populations, these
+comparisons generalize to infinite populations as well. An infinite
+population contains an infinite number of population units; an example
+is locations within a single lake. In this manuscript we assume the
+number of finite population units is known
 
 The rest of the manuscript is organized as follows. In Section
 \ref{sec:background}, we introduce and provide relevant background for
 the design-based and model-based approaches to finite population spatial
 data. In Section \ref{sec:mm}, we describe how we compare performance of
-the approaches wiht a simulation study and an analysis of real data that
-contains mercury concentration in lakes from the contiguous United
+the approaches with a simulation study and an analysis of real data that
+contains mercury concentration in lakes located in the contiguous United
 States. In Section \ref{sec:results}, we present results from the
-simulation study and the analysis of mercury concentrations. And in
-Section \ref{sec:discussion}, we end with a discussion and provide
-directions for future research.
+simulation study and the mercury concentration analysis. And in Section
+\ref{sec:discussion}, we end with a discussion and provide directions
+for future research.
 
 \hypertarget{sec:background}{%
 \subsection{Background}\label{sec:background}}
@@ -211,16 +214,18 @@ incorporated via the selection of units in a sampling frame. A sampling
 frame is the set of all units available to be sampled. Units from the
 sampling frame are selected as part of the sample according to a
 sampling design, which assigns a positive probability of inclusion
-(inclusion probability) to each unit from the sampling frame. Some
-examples of commonly used sampling designs include simple random
-sampling, stratified random sampling, and cluster sampling. When
-sampling designs incorporate spatial locations into sampling, we call
-the resulting samples ``spatially balanced.'' One approach to selecting
-spatially balanced samples is the Generalized Random Tessellation
-Stratified (GRTS) algorithm (Stevens and Olsen, 2004), which we discuss
-in more detail in Section \ref{subsec:spb_design}. When sampling designs
-do not incorporate spatial locations into sampling, we call the
-resulting samples ``non-spatially balanced.''
+(inclusion probability) to each unit from the sampling frame. These
+inclusion probabilities are later used to analyze data. Some examples of
+commonly used sampling designs include simple random sampling,
+stratified random sampling, and cluster sampling.
+
+When sampling designs incorporate spatial locations into sampling, we
+call the resulting samples ``spatially balanced.'' One approach to
+selecting spatially balanced samples is the Generalized Random
+Tessellation Stratified (GRTS) algorithm (Stevens and Olsen, 2004),
+which we discuss in more detail in Section \ref{subsec:spb_design}. When
+sampling designs do not incorporate spatial locations into sampling, we
+call the resulting samples ``non-spatially balanced.''
 
 Fundamentally, the design-based approach combines the randomness of the
 sampling design with the data collected via the sample to justify the
@@ -245,7 +250,10 @@ Diggle et al. (2010) warn against preferential sampling. Preferential
 sampling occurs when the process generating the data locations and the
 process being modeled are not independent of one another. To guard
 against preferential sampling, model-based approaches often still
-implement some form of random sampling.
+implement some form of random sampling. When model-based approaches
+implement random sampling, the inclusion probabilities are ignored when
+analyzing the data (in contrast to the design-based approach, which
+relies on these inclusion probabilities to analyze the data).
 
 Instead of estimating fixed, unknown population parameters, as in the
 design-based approach, often the goal of model-based inference is to
@@ -276,25 +284,24 @@ Analysis}\label{subsec:spb_design}}
 
 We previously mentioned that the design-based approach can be used to
 select spatially balanced samples (samples that incorporate spatial
-locations of the population units and are ``well-spread'' is space).
-Spatially balanced samples are useful because parameter estimates from
-these samples tend to vary less than parameter estimates from samples
-that are not spatially balanced (Barabesi and Franceschi, 2011;
-Benedetti et al., 2017; Grafström and Lundström, 2013; Robertson et al.,
-2013; Stevens and Olsen, 2004; Wang et al., 2013). The first spatially
-balanced sampling algorithm seeing widespread use is the Generalized
-Random Tessellation Stratified (GRTS) algorithm (Stevens and Olsen,
-2004). To quantify the spatial balance of a sample, Stevens and Olsen
-(2004) proposed loss metrics based on Voronoi polygons (Dirichlet
-Tessellations). After the GRTS algorithm was developed, several other
-spatially balanced sampling algorithms emerged, such as the Local
-Pivotal Method (Grafström et al., 2012; Grafström and Matei, 2018),
-Spatially Correlated Poisson Sampling (Grafström, 2012), Balanced
-Acceptance Sampling (Robertson et al., 2013), Within-Sample-Distance
-Sampling (Benedetti and Piersimoni, 2017), and Halton Iterative
-Partitioning Sampling (Robertson et al., 2018). In this manuscript, we
-select spatially balanced samples using the Generalized Random
-Tessellation Stratified (GRTS) algorithm because it has several
+locations of the population units). Spatially balanced samples are
+useful because parameter estimates from these samples tend to vary less
+than parameter estimates from samples that are not spatially balanced
+(Barabesi and Franceschi, 2011; Benedetti et al., 2017; Grafström and
+Lundström, 2013; Robertson et al., 2013; Stevens and Olsen, 2004; Wang
+et al., 2013). The first spatially balanced sampling algorithm to see
+widespread use was the Generalized Random Tessellation Stratified (GRTS)
+algorithm (Stevens and Olsen, 2004). To quantify the spatial balance of
+a sample, Stevens and Olsen (2004) proposed loss metrics based on
+Voronoi polygons (Dirichlet Tessellations). After the GRTS algorithm was
+developed, several other spatially balanced sampling algorithms emerged,
+such as the Local Pivotal Method (Grafström et al., 2012; Grafström and
+Matei, 2018), Spatially Correlated Poisson Sampling (Grafström, 2012),
+Balanced Acceptance Sampling (Robertson et al., 2013),
+Within-Sample-Distance Sampling (Benedetti and Piersimoni, 2017), and
+Halton Iterative Partitioning Sampling (Robertson et al., 2018). In this
+manuscript, we select spatially balanced samples using the Generalized
+Random Tessellation Stratified (GRTS) algorithm because it has several
 attractive properties. More specifically, the GRTS algorithm
 accommodates finite and infinite sampling frames, equal, unequal, and
 proportional (to size) inclusion probabilities, legacy (historical)
@@ -308,13 +315,14 @@ two-dimensional space are partitioned using a hierarchical address. This
 hierarchical address is used to map population units to a
 one-dimensional line. On the one dimensional line, each population
 unit's line length equals its inclusion probability. Then, a systematic
-sample of population units is selected on the line, yielding desired
-sample. Stevens and Olsen (2004) provides more technical details.
+sample of population units is selected on the line and mapped back to
+two-dimensional space, yielding the desired sample. Stevens and Olsen
+(2004) provide more technical details.
 
 After selecting a sample and collecting data, unbiased estimates of
 population means and totals can be obtained using the Horvitz-Thompson
 estimator (Horvitz and Thompson, 1952). If \(\tau\) is a population
-total, the Horvitz-Thompson estimate of \(\tau\), denoted by
+total, the Horvitz-Thompson estimator for \(\tau\), denoted by
 \(\hat{\tau}_{ht}\), is is given by \begin{align}\label{eq:ht}
   \hat{\tau}_{ht} = \sum_{i = 1}^n Z_i \pi_i^{-1},
 \end{align} where \(Z_i\) is the value of the \(i\)th population unit in
@@ -348,7 +356,7 @@ expands the geostatistical Kriging framework to the finite population
 setting (Ver Hoef, 2008). Instead of developing inference based on a
 specific sampling design, we assume the data are generated by a spatial
 stochastic process. We summarize some of the basic principles of FBPK
-next (for more technical details, see Ver Hoef (2008)) Let
+next (for more technical details, see Ver Hoef (2008)). Let
 \({\mathbf{z} \equiv \{\text{z}(s_1), \text{z}(s_2), . . . , \text{z}(s_N) \}}\)
 be an \(N \times 1\) response vector at locations \(s_1\), \(s_2\), . .
 . , \(s_N\) that can be measured at the \(N\) population units. Suppose
@@ -383,15 +391,15 @@ and \(\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'\), where
 sampled and unsampled population units, respectively.
 
 FBPK assumes \(\bm{\delta}\) in Equation\(~\)\ref{equation:Zmarginal}
-has mean-zero and a spatial correlation structure that can be modeled
+has mean-zero and a spatial dependence structure that can be modeled
 using a covariance function. This covariance function is commonly
-assumed to be non-negative (between zero and one), second-order
-stationary (depending only on the distance between population units),
-isotropic (independent of direction), and decay with distance between
-population units (Cressie, 1993). Henceforth, it is implied that we have
-made these same assumptions regarding \(\bm{\delta}\), though Chiles and
-Delfiner (1999), pp.~80-93 discuss covariance functions that are not
-second-order stationary, not isotropic, or both. A variety of flexible
+assumed to be non-negative, second-order stationary (depending only on
+the distance between population units), isotropic (independent of
+direction), and decay with distance between population units (Cressie,
+1993). Henceforth, it is implied that we have made these same
+assumptions regarding \(\bm{\delta}\), though Chiles and Delfiner
+(1999), pp.~80-93 discuss covariance functions that are not second-order
+stationary, not isotropic, or not either. A variety of flexible
 covariance functions can be used to model \(\bm{\delta}\) (Cressie,
 1993); one example is the exponential covariance function (for a
 thorough list of spatial covariance functions, see Cressie (1993). The
@@ -424,19 +432,16 @@ note here that the predictor and its variance are both moment-based,
 meaning that they do not rely on any distributional assumptions.
 
 Other approaches, such as k-nearest-neighbors (Fix and Hodges, 1989; Ver
-Hoef and Temesgen, 2013), random forests (Breiman, 2001), Bayesian
-models (Chan-Golston et al., 2020), among others, could also be used to
-obtain predictions for a mean or total from spatially correlated
-responses of a finite population. Compared to the k-nearest-neighbors
-and random forest approach, we prefer FBPK because it is model-based and
-relies on theoretically-based variance estimators leveraging the model's
-spatial covariance structure, whereas k-nearest-neighbors and random
-forests use ad-hoc variance estimators (Ver Hoef and Temesgen, 2013).
-Additionally, Ver Hoef and Temesgen (2013) studied compared FBPK,
-k-nearest-neighbors, and random forests in a variety of spatial data
-contexts, and FBPK tended to perform best. Compared to the Bayesian
-approach, we prefer FPBK mostly because it is much more computationally
-efficient.
+Hoef and Temesgen, 2013) and random forests (Breiman, 2001), among
+others, could also be used to obtain predictions for a mean or total
+from spatially correlated responses of a finite population. Compared to
+the k-nearest-neighbors and random forest approach, we prefer FBPK
+because it is model-based and relies on theoretically-based variance
+estimators leveraging the model's spatial covariance structure, whereas
+k-nearest-neighbors and random forests use ad-hoc variance estimators
+(Ver Hoef and Temesgen, 2013). Additionally, Ver Hoef and Temesgen
+(2013) studied compared FBPK, k-nearest-neighbors, and random forests in
+a variety of spatial data contexts, and FBPK tended to perform best.
 
 \hypertarget{sec:mm}{%
 \section{Materials and Methods}\label{sec:mm}}
@@ -445,11 +450,12 @@ efficient.
 \subsection{Simulation Study}\label{sec:mm_sim}}
 
 We used a simulation study to investigate performance of four
-sampling-analysis combinations: IRS with a design-based analysis, called
-``IRS-Design''; IRS with a model-based analysis, called ``IRS-Model'';
-GRTS sampling with a design-based analysis, called ``GRTS-Design''; GRTS
-sampling with a model-based analysis, called ``GRTS-Model''. These
-combinations are also provided in Table \ref{tab:designanalysis}.
+sampling-analysis combinations: IRS sampling with a design-based
+analysis, called ``IRS-Design''; IRS sampling with a model-based
+analysis, called ``IRS-Model''; GRTS sampling with a design-based
+analysis, called ``GRTS-Design''; GRTS sampling with a model-based
+analysis, called ``GRTS-Model''. These combinations are also provided in
+Table \ref{tab:designanalysis}.
 
 \begin{table}[ht]
 \centering
@@ -486,13 +492,13 @@ Equation\(~\)\ref{equation:expcov}. The total variance,
 \(\sigma^2_1 + \sigma^2_2\), was always 2. The range was always
 \(\sqrt{2} / 3\), which means that the correlation in the dependent
 random error decayed to nearly zero at the largest possible distance
-between two units in the domain. For the lognormal response type, the
-response was first simulated using the same approach as for the normal
-response type, except that the total variance was 0.6931 instead of 2.
-The response was then exponentiated, yielding a random variable whose
-total variance is 2. The lognormal responses were used to evaluate
-performance of the sampling-analysis approaches for data that were
-skewed (i.e., not normal).
+between two population units in the domain. For the lognormal response
+type, the response was first simulated using the same approach as for
+the normal response type, except that the total variance was 0.6931
+instead of 2. The response was then exponentiated, yielding a lognormal
+random variable whose total variance is 2. The lognormal responses were
+used to evaluate performance of the sampling-analysis approaches for
+data that were skewed (i.e., not normal).
 
 \begin{table}[ht]
 \centering
@@ -504,7 +510,7 @@ Sample Size (n) & 50 & 100 & 200 \\
   Response Type & Normal & Lognormal & - \\ 
    \hline
 \end{tabular}
-\caption{\label{tab:parmtab} Simulation scenario options. All combinations of sample size, location layout, response type, and proportion of dependent random error composed the 36 simulation scenarios. In each simualtion scenario, the total variance was two.} 
+\caption{\label{tab:parmtab} Simulation scenario options. All combinations of sample size, location layout, response type, and proportion of dependent random error composed the 36 simulation scenarios. In each simualtion scenario, the total variance was 2.} 
 \end{table}
 
 In each of the 36 simulation scenarios, there were 2000 independent
@@ -528,18 +534,22 @@ parameters were estimated using Restricted Maximum Likelihood (Harville,
 \hypertarget{sec:mm_app}{%
 \subsection{Application}\label{sec:mm_app}}
 
-The Environmental Protection Agency (EPA), states, and tribes
-periodically conduct National Aquatic Research Surveys (NARS) in the
-United States to assess the water quality of various bodies of water. We
-will use data from the 2012 National Lakes Assessment (NLA), which
-measures various aspects of lake health and water quality for lakes in
-the contiguous United States (USEPA, 2012). Specifically, we will
-analyze mercury concentration in lakes. Although we know the true mean
-mercury concentration values for the 986 lakes from the 2012 NLA, we
-will explore whether or not we obtain an adequately precise estimate for
-the realized mean mercury concentration if we sample only 100 of the 986
-lakes. For each of the four familiar sampling-analysis combinations
-(IRS-Design, IRS-Model, GRTS-Design, and GRTS-Model), we estimate
+The United States Environmental Protection Agency (USEPA), states, and
+tribes periodically conduct National Aquatic Research Surveys (NARS) to
+assess the water quality of various bodies of water in the contiguous
+United States. We will use data from the 2012 National Lakes Assessment
+(NLA), which measures various aspects of lake health and water quality
+(USEPA, 2012). Specifically, we will analyze mercury concentration in
+lakes. Although we can calculate the true mean mercury concentration
+values for the 986 lakes from the 2012 NLA, we will explore whether or
+not we obtain an adequately precise estimate for the realized mean
+mercury concentration if we sample only 100 of the 986 lakes. For each
+of the four familiar sampling-analysis combinations (IRS-Design,
+IRS-Model, GRTS-Design, and GRTS-Model), we estimate (design-based) or
+predict (model-based) the mean mercury concentration and construct 95\%
+confidence (design-based) or prediction (model-based) intervals from
+this sample of 100 lakes, which we compare to the actual mean from all
+986 lakes.
 
 \hypertarget{sec:results}{%
 \section{Results}\label{sec:results}}
@@ -554,16 +564,8 @@ the supporting information.
 
 Fig. \ref{fig:figeff} shows the relative rMS(P)E of the four approaches
 from Table \ref{tab:designanalysis} using the random location layout
-with ``IRS-Design'' as the baseline.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/rmspe_eff.jpeg}
-  \caption{Relative rMS(P)E for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
-  \label{fig:figeff}
-\end{figure}
-
-The relative rMS(P)E is defined as \begin{equation*}
+with ``IRS-Design'' as the baseline. The relative rMS(P)E is defined as
+\begin{equation*}
 \frac{\text{rMS(P)E of sampling-analysis combination}}{\text{rMS(P)E of IRS-Design}},
 \end{equation*} When there is no spatial correlation (Fig.
 \ref{fig:figeff}, ``Prop DE: 0'' row), the four sampling-analysis
@@ -584,27 +586,24 @@ those observed in the grid location layout, so we omit a grid location
 layout figure here. Tables for rMS(P)E in all 36 simulation scenarios
 are provided in the supporting information.
 
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/rmspe_eff.jpeg}
+  \caption{Relative rMS(P)E in the simulation study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
+  \label{fig:figeff}
+\end{figure}
+
 We also studied 95\% interval coverage among the sampling-analysis
 combinations. The design-based confidence intervals and model-based
 prediction intervals were constructed using the normal distribution.
 Justification for this comes from the asymptotic normality of means via
-the Central Limit Theorem.
-
-Fig. \ref{fig:figconf} shows the 95\% interval coverage for each of the
-four sampling-analysis combinations in the random location layout.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/coverage.jpeg}
-  \caption{Interval coverage for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line in each plot represents 95\% coverage.}
-  \label{fig:figconf}
-\end{figure}
-
-Within each scenario, the sampling-analysis combinations tend to have
-fairly similar interval coverage. Coverage in the normal response
-scenarios was usually near 95\%, while coverage in the lognormal
-response scenarios varied from from 90\% to 95\%. Coverage tended to
-always increase with the sample size. At a sample size of 200, all four
+the Central Limit Theorem. Fig. \ref{fig:figconf} shows the 95\%
+interval coverage for each of the four sampling-analysis combinations in
+the random location layout. Within each scenario, the sampling-analysis
+combinations tend to have fairly similar interval coverage. Coverage in
+the normal response scenarios was usually near 95\%, while coverage in
+the lognormal response scenarios varied from from 90\% to 95\% but
+increased with the sample size. At a sample size of 200, all four
 sampling-analysis combinations had approximately 95\% interval coverage
 in both response scenarios for all dependent error proportions. These
 conclusions are similar to those observed in the grid location layout,
@@ -612,24 +611,32 @@ so we omit a grid location layout figure here. Tables for interval
 coverage in all 36 simulation scenarios are provided in the supporting
 information.
 
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/coverage.jpeg}
+  \caption{Interval coverage in the simulation study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line in each plot represents 95\% coverage.}
+  \label{fig:figconf}
+\end{figure}
+
 \hypertarget{sec:r_app}{%
 \subsection{Application}\label{sec:r_app}}
 
-Fig. \ref{fig:merc} shows that mercury concentration is right-skewed,
-with most lakes having a low value of mercury concentration but a few
-having a much higher concentration. Mercury concentration exhibits some
-spatial patterning, with high mercury concentrations in lakes in the
-northeast and north central United States. Fig. \ref{fig:merc} also
-shows the spatial dependence in mercury concentration via the empirical
+Fig. \ref{fig:merc} shows a map and histogram of mercury concentration.
+The map shows mercury concentration exhibits some spatial patterning,
+with high mercury concentrations in lakes in the northeast and north
+central United States. The histogram shows that mercury concentration is
+right-skewed, with most lakes having a low value of mercury
+concentration but a few having a much higher concentration. Fig.
+\ref{fig:merc} also shows mercury concentration's empirical
 semivariogram. The empirical semivariogram can be used as a tool to
-visualize spatial dependence. It quantifes the halved squared
+visualize spatial dependence. It quantifies the halved squared
 differences (semivariance) among mercury concentration at different
-distances apart. When a process is spatially correlated, the
-semivariance tends to be smaller at small distances and larger at large
-distances. Together, the map, histogram, and semivariogram in Fig.
-\ref{fig:merc} suggest that mercury concentration is skewed and exhibits
-spatial dependence. Lastly we note that the realized mean mercury
-concentration in the 986 lakes is 103.2 ng / g.
+distances apart. When a process is spatially correlated (has spatial
+dependence), the semivariance tends to be smaller at small distances and
+larger at large distances. The empirical semivariogram in Fig.
+\ref{fig:merc} suggests that mercury concentration is exhibits spatial
+dependence. Lastly we note that the realized mean mercury concentration
+in the 986 NLA lakes is 103.2 ng / g.
 
 \begin{figure}
 \centering
@@ -651,7 +658,7 @@ concentration in the 986 lakes is 103.2 ng / g.
   \caption*{}
   \label{fig:sv_plot}
 \end{subfigure}
-\caption{Mercury concentration visualizations for the population (Hg) for 986 lakes in the contiguous United States. A spatial layout is in the top row, a histogram is in the bottom row and left column, and an empirical semivariogram is in the bottom row and right column.}
+\caption{Mercury concentration visualizations for the population (Hg) for 986 lakes in the NLA data. A spatial layout is in the top row, a histogram is in the bottom row and left column, and an empirical semivariogram is in the bottom row and right column.}
 \label{fig:merc}
 \end{figure}
 
@@ -677,7 +684,7 @@ balanced sample should usually yield a lower standard error.
 \centering
 \begin{tabular}{lrrrr}
   \hline
-Approach & Estimate & SE & 95\% LB & 95\% UB \\ 
+Approach & Est/Pred & SE & 95\% LB & 95\% UB \\ 
   \hline
 IRS-Design & 112.7 & 8.8 & 95.4 & 129.9 \\ 
   IRS-Model & 110.5 & 7.9 & 95.0 & 125.9 \\ 
@@ -685,25 +692,25 @@ IRS-Design & 112.7 & 8.8 & 95.4 & 129.9 \\
   GRTS-Model & 102.3 & 5.9 & 90.8 & 113.9 \\ 
    \hline
 \end{tabular}
-\caption{\label{tab:appliedtab} Application of design-based and model-based approaches to the NLA data set on mercury concentration. The true mean concentration is 103.2 ng / g.} 
+\caption{\label{tab:appliedtab} For each sampling-analysis combination (Approach), estimates/predictions (Est/Pred), standard errors (SE), lower 95\% interval bounds (95\% LB), and upper 95\% interval bounds (95\% UB) for mean mercury concentration computed using the sample of 100 lakes in the NLA data. The true mean concentration of all 986 lakes in the NLA data is 103.2 ng / g.} 
 \end{table}
 
 \hypertarget{sec:discussion}{%
 \section{Discussion}\label{sec:discussion}}
 
 The design-based and model-based approaches to statistical inference are
-fundamentally different paradigms by which samples are selected and data
-are analyzed. The design-based approach incorporates randomness through
-sampling to estimate population parameters. The model-based approach
-incorporates randomness through distributional assumptions to predict
-realized values of a random process. Though these approaches have often
-been compared in the literature both from theoretical and analytical
-perspectives, our contribution lies in studying them in a spatial
-context while implementing spatially balanced sampling. Aside from the
-theoretical differences described, a few analytical findings from the
-simulation study are particularly notable. First, the sampling decision
-(GRTS vs IRS) is most important when using a design-based analysis.
-Though GRTS-Model still outperformed IRS-Model, the model-based analysis
+fundamentally different paradigms that can be used to analyze data. The
+design-based approach incorporates randomness through sampling to
+estimate population parameters. The model-based approach incorporates
+randomness through distributional assumptions to predict realized values
+of a random process. Though these approaches have often been compared in
+the literature both from theoretical and analytical perspectives, our
+contribution lies in studying them in a spatial context while
+implementing spatially balanced sampling. Aside from the theoretical
+differences described, a few analytical findings from the simulation
+study are particularly notable. First, the sampling decision (GRTS vs
+IRS) is most important when using a design-based analysis. Though
+GRTS-Model still outperformed IRS-Model, the model-based analysis
 mitigated much of the inefficiency of the IRS sample. Second,
 independent of the analysis approach, we found no reason to prefer IRS
 over GRTS for sampling spatial data -- GRTS-Design and GRTS-Model
@@ -720,12 +727,12 @@ sampling and analysis was between 90\% and 95\% and closest to 95\% when
 
 There are several benefits and drawbacks of the design-based and
 model-based approaches for finite population spatial data. Some we have
-discuss, but others we have not and they are worthy of consideration in
-future research. Design-based approaches are often computationally
-efficient, while model-based estimation can be computationally
-burdensome, especially for likelihood-based methods such as REML that
-rely on inverting a covariance matrix. The design-based approach also
-more naturally handles binary data, free from the more complicated
+discussed, but others we have not, and they are worthy of consideration
+in future research. Design-based approaches are often computationally
+efficient, while model-based approaches can be computationally
+burdensome, especially for likelihood-based estimation methods like REML
+that rely on inverting a covariance matrix. The design-based approach
+also more naturally handles binary data, free from the more complicated
 logistic regression framework commonly used to analyze binary data in a
 model-based approach. The model-based approach, however, can more
 naturally quantify the relationship between covariates (predictor
@@ -738,11 +745,10 @@ approaches are capable of more efficient small-area estimation than
 design-based approaches by leveraging distributional assumptions in
 areas with few observed sites. Model-based approaches can also compute
 site-by-site predictions at unobserved locations and use them to
-construct informative visualizations. The benefits and drawbacks of both
-approaches, alongside our theoretical and analytical comparisons, can
-motive the process of choosing among them. This is especially true from
-an analysis perspective, as we found that using a spatially balanced
-sampling algorithm benefits both design-based and model-based analyses.
+construct informative visualizations. The benefits and drawbacks of the
+design-based and model-based approaches should be considered alongside
+the particular goals of a study when deciding which approach is most
+appropriate to implement.
 
 \hypertarget{acknowledgments}{%
 \section*{Acknowledgments}\label{acknowledgments}}
