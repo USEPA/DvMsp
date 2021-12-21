@@ -2,15 +2,15 @@ citHeader("To cite this work in publications use:")
 
 citEntry(
   entry    = "Article",
-  title    = "A comparison of design-based and model-based approaches for spatial data",
+  title    = "A comparison of design-based and model-based approaches for finite population spatial data",
   author   = "Michael Dumelle and Matthew Higham and Jay Ver Hoef and Tony Olsen and Lisa Madsen",
   journal  = "In submission",
-  year     = "2022",
+  year     = "2021",
   volume   = "0",
   number   = "0",
   pages    = "0-0",
   url      = "NA",
   textVersion = paste(
-    "Dumelle, Michael., Higham, Matthew., Ver Hoef, Jay., Olsen, Tony., and Madsen, Lisa. (2022). A comparison of design-based and model-based approaches for spatial data. In submission."
+    "Dumelle, Michael., Higham, Matthew., Ver Hoef, Jay., Olsen, Tony., and Madsen, Lisa. (2022). A comparison of design-based and model-based approaches for finite population spatial data. In submission."
   )
 )

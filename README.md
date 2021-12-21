@@ -84,3 +84,31 @@ We have provided a vignette that describes how to use the functions in the suppl
 ```r
 vignette("simulations", "DvMsp")
 ```
+
+### Citation
+
+To obtain the citation associated with this manuscript, run
+```r
+citation("DvMsp")
+```
+
+```
+To cite this work in publications use:
+
+  Dumelle, Michael., Higham, Matthew., Ver Hoef, Jay., Olsen, Tony., and Madsen, Lisa. (2021). A comparison
+  of design-based and model-based approaches for finite population spatial data. In submission.
+
+A BibTeX entry for LaTeX users is
+
+  @Article{,
+    title = {A comparison of design-based and model-based approaches for finite population spatial data},
+    author = {Michael Dumelle and Matthew Higham and Jay Ver Hoef and Tony Olsen and Lisa Madsen},
+    journal = {In submission},
+    year = {2021},
+    volume = {0},
+    number = {0},
+    pages = {0-0},
+    url = {NA},
+  }
+
+```
