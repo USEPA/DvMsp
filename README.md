@@ -82,5 +82,5 @@ system.file("manuscript/figures", package = "DvMsp")
 
 We have provided a vignette that describes how to use the functions in the supplementary R package to perform additional simulations you may be interested in learning about. This vignette can be viewed by running
 ```r
-vignette("simulation-vignette", "DvMsp")
+vignette("simulations", "DvMsp")
 ```

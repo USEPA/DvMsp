@@ -1,0 +1,145 @@
+---
+title: 'Performing design-based versus model-based simulations using the DvMsp R package'
+output: 
+  html_document:
+    theme: flatly
+    highlighted: default 
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+    toc_depth: 2
+    keep_md: yes
+vignette: >
+  %\VignetteIndexEntry{simulations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = TRUE,
+  error = FALSE,
+  comment = "#>", 
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Specifying Parameters for a Simulation
+
+We discuss simulations from 36 combinations of parameters in the manuscript, but practitioners may be interested in other combinations that more closely reflect their population of interest. The purpose of this vignette is to illustrate how to use the functions in the DvMsp R package to investigate performance of design-based estimators and model-based predictors from IRS samples and GRTS samples for any parameter combination. 
+
+There are two primary functions in DvMsp: `sim_pop()`, used to simulate a population; and `sim_trial()`, used to select IRS samples and GRTS samples and then perform design-based and model-based analyses on those samples. `sim_pop()` is called within `sim_trial()`, so the user only needs to know how to use `sim_trial()` to perform simulations. 
+
+The parameters that can be changed in `sim_trial()` are:
+
+* `N`, the number of units in the population.
+* `n`, the number of units sampled.
+* `gridded`, whether the population units are placed in a grid (`TRUE`) or are randomly placed (`FALSE`).
+* `cortype`, the correlation function used to simulate the response of the population units, which is `"Exponential"` by default. Other choices are `"Gaussian"` and `"Spherical"`.
+* `cortype_est`, the possibly mis-specified correlation function used to estimate covariance parameters for the model-based approach. Other choices are `"Gaussian"` and `"Spherical"`.
+* `psill`, the partial sill (dependent random error variance).
+* `range`, the range (the distance-decay rate of the spatial correlation).
+* `nugget` the nugget (independent random error variance).
+* `resptype`, either `"normal"` for Gaussian errors or `"lognormal"` for exponentiated normal errors.
+* `mu`, the mean, which is `0` by default.
+
+The `sim_trial()` function will return a data frame with a rows for IRS-Design, IRS-Model, GRTS-Design, and GRTS-Model. Recorded in the columns are:
+
+* `approach`: the name of the approach used.
+* `seed`: the value of the randomly generated seed (so that results for a trial can be replicated, if desired).
+* `true_mean`: the value of the realized mean.
+* `true_var`:, the value of the realized variance.
+* `estimate`:, the estimate (design-based) or prediction (model-based) of the realized mean.
+* `sd`, the standard error of `estimate`.
+* `lb`, a lower bound for a 95% confidence (design-based) or 95% prediction (model-based) interval for the realized mean.
+* `ub`, an upper bound for a 95% confidence (design-based) or 95% prediction (model-based) interval for the realized mean.
+
+First we load DvMsp.
+```{r}
+library(DvMsp)
+```
+If you want to follow along with the results of this vignette exactly, set a reproducible seed:
+```{r}
+set.seed(1)
+```
+
+Then an example for running `sim_trial()` using one of the parameter settings in the accompanying manuscript is given here:
+
+```{r}
+total_var <- 2
+de_prop <- 0.9
+ie_prop <- 1 - de_prop
+out1 <- sim_trial(
+  N = 900,
+  n = 100,
+  gridded = FALSE,
+  cortype = "Exponential",
+  cortype_est = "Exponential",
+  psill = total_var * de_prop,
+  range = sqrt(2) / 3,
+  nugget = total_var * ie_prop,
+  resptype = "normal",
+  mu = 0
+)
+out1
+```
+
+Each row of the resulting output represents one of the four approaches. The last four columns give the estimate (design-based) or prediction (model-based) for the mean, the standard error, a 95% confidence (design-based) or 95% prediction (model-based) interval lower bound, and a 95% confidence (design-based) or 95% prediction (model-based) interval upper bound. 
+
+We could also create a couple of other variables: 
+
+* `resid`: the realized mean minus the estimate (design-based) or prediction (model-based)
+* `cover`: a `1` if the 95% interval contains the realized mean and a `0` if the 95% interval does not contain the realized mean.
+
+```{r}
+out1 %>% 
+  dplyr::mutate(
+    resid = true_mean - estimate,
+    cover = 1 * (lb <= true_mean & true_mean <= ub)
+  )
+```
+
+Finally, to investigate the properties of the different approaches, we know that we want to repeat this process a large number (2000 in the accompanying manuscript) times. The following code repeats the population generation and estimation 5 times, and can be modified to simulate a larger number of iterations.
+
+```{r}
+n_trials <- 5
+out5 <- purrr::rerun(
+  n_trials, 
+  sim_trial(
+     N = 900,
+     n = 100,
+     gridded = FALSE,
+     cortype = "Exponential",
+     cortype_est = "Exponential",
+     psill = 1.8,
+     range = 2 / 3,
+     nugget = 0.2,
+     resptype = "normal",
+     mu = 0
+  )) %>%
+  dplyr::bind_rows()
+```
+
+Using this output, we can generate tables similar to those that appear in the accompanying manuscript.
+
+```{r}
+out5 %>% 
+  dplyr::mutate(
+    resid = true_mean - estimate,
+    cover = 1 * (lb <= true_mean & true_mean <= ub)) %>%
+  dplyr::group_by(approach) %>%
+  dplyr::summarise(
+    mpbias = mean(resid),
+    rmspe = sqrt(mean(resid ^ 2)),
+    medae = median(abs(resid)),
+    coverage = mean(cover),
+    med_ci_len = median(ub - lb)
+  )
+```
+
+Because of the randomness involved in simulating a population, the tables will not match up exactly. However, with a large number of `n_trials`, the results should be quite close.
+
+
