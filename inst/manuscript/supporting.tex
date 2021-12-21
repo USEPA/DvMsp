@@ -94,9 +94,10 @@ Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
 \hypertarget{sec:simtabs}{%
 \section{Simulation Study Tables}\label{sec:simtabs}}
 
-Recall the four design-analysis combinations and the parameter
-configurations, summarized in Table \ref{tab:designanalysis} and
-\ref{tab:parmtab}, respectively.
+Recall the four sampling-analysis combinations from the simulation
+study, summarized in Table \ref{tab:designanalysis}. Also recall the 36
+parameter configurations from the simulation study, summarized in Table
+\ref{tab:parmtab}.
 
 \begin{table}[ht]
 \centering
@@ -108,7 +109,7 @@ IRS & IRS-Design & IRS-Model \\
   GRTS & GRTS-Design & GRTS-Model \\ 
    \hline
 \end{tabular}
-\caption{\label{tab:designanalysis} Types of Sampling Design and Analysis combinations considered in the simulation study. The rows give the two types of sampling designs while the columns give the two types of analyses.} 
+\caption{\label{tab:designanalysis} Sampling-analysis combinations in the simulation study. The rows give the two types of sampling designs and the columns give the two types of analyses.} 
 \end{table}
 
 \begin{table}[ht]
@@ -121,15 +122,19 @@ Sample Size (n) & 50 & 100 & 200 \\
   Response Type & Normal & Lognormal & - \\ 
    \hline
 \end{tabular}
-\caption{\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2.} 
+\caption{\label{tab:parmtab} Simulation scenario options. All combinations of sample size, location layout, response type, and proportion of dependent random error composed the 36 simulation scenarios. In each simualtion scenario, the total variance was 2.} 
 \end{table}
 
-Next we present a summary table for each of the 36 simulation scenarios.
+Next we present tables summarizing mean estimation bias (design-based)
+or mean prediction bias (model-based), root-mean-squared error
+(design-based) or root-mean-squared-prediction error (model-based), and
+95\% confidence interval coverage (design-based) or 95\% prediction
+interval coverage (model-based) for all 36 simulation scenarios.
 
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -140,12 +145,12 @@ IRS-Design & Gridded & Normal & 0 & 50 & -0.0023 & 0.1968 & 0.9440 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 1.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -156,12 +161,12 @@ IRS-Design & Gridded & Lognormal & 0 & 50 & -0.0036 & 0.2007 & 0.9080 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 2.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -172,12 +177,12 @@ IRS-Design & Random & Normal & 0 & 50 & 0.0019 & 0.1861 & 0.9505 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 3.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -188,12 +193,12 @@ IRS-Design & Random & Lognormal & 0 & 50 & 0.0032 & 0.1843 & 0.9205 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 4.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -204,12 +209,12 @@ IRS-Design & Gridded & Normal & 0.5 & 50 & 0.0025 & 0.1762 & 0.9470 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 5.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -220,12 +225,12 @@ IRS-Design & Gridded & Lognormal & 0.5 & 50 & 0.0004 & 0.1863 & 0.9140 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 6.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -236,12 +241,12 @@ IRS-Design & Random & Normal & 0.5 & 50 & 0.0037 & 0.1657 & 0.9590 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 7.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -252,12 +257,12 @@ IRS-Design & Random & Lognormal & 0.5 & 50 & 0.0023 & 0.1637 & 0.9245 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 8.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -268,12 +273,12 @@ IRS-Design & Gridded & Normal & 0.9 & 50 & 0.0053 & 0.1579 & 0.9470 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 9.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -284,12 +289,12 @@ IRS-Design & Gridded & Lognormal & 0.9 & 50 & 0.0031 & 0.1731 & 0.9220 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 10.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -300,12 +305,12 @@ IRS-Design & Random & Normal & 0.9 & 50 & 0.0062 & 0.1520 & 0.9525 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 11.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -316,12 +321,12 @@ IRS-Design & Random & Lognormal & 0.9 & 50 & 0.0053 & 0.1542 & 0.9325 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 12.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -332,12 +337,12 @@ IRS-Design & Gridded & Normal & 0 & 100 & -0.0029 & 0.1322 & 0.9430 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 13.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -348,12 +353,12 @@ IRS-Design & Gridded & Lognormal & 0 & 100 & -0.0052 & 0.1334 & 0.9335 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 14.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -364,12 +369,12 @@ IRS-Design & Random & Normal & 0 & 100 & -0.0066 & 0.1366 & 0.9405 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 15.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -380,12 +385,12 @@ IRS-Design & Random & Lognormal & 0 & 100 & -0.0051 & 0.1348 & 0.9280 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 16.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -396,12 +401,12 @@ IRS-Design & Gridded & Normal & 0.5 & 100 & -0.0016 & 0.1177 & 0.9540 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 17.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -412,12 +417,12 @@ IRS-Design & Gridded & Lognormal & 0.5 & 100 & -0.0021 & 0.1211 & 0.9445 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 18.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -428,12 +433,12 @@ IRS-Design & Random & Normal & 0.5 & 100 & -0.0064 & 0.1222 & 0.9440 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 19.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -444,12 +449,12 @@ IRS-Design & Random & Lognormal & 0.5 & 100 & -0.0063 & 0.1204 & 0.9355 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 20.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -460,12 +465,12 @@ IRS-Design & Gridded & Normal & 0.9 & 100 & -0.0007 & 0.1059 & 0.9605 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 21.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -476,12 +481,12 @@ IRS-Design & Gridded & Lognormal & 0.9 & 100 & -0.0011 & 0.1092 & 0.9540 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 22.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -492,12 +497,12 @@ IRS-Design & Random & Normal & 0.9 & 100 & -0.0048 & 0.1095 & 0.9430 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 23.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -508,12 +513,12 @@ IRS-Design & Random & Lognormal & 0.9 & 100 & -0.0045 & 0.1110 & 0.9375 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 24.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -524,12 +529,12 @@ IRS-Design & Gridded & Normal & 0 & 200 & 0.0013 & 0.0882 & 0.9550 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 25.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -540,12 +545,12 @@ IRS-Design & Gridded & Lognormal & 0 & 200 & 0.0001 & 0.0880 & 0.9350 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 26.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -556,12 +561,12 @@ IRS-Design & Random & Normal & 0 & 200 & -0.0014 & 0.0893 & 0.9465 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 27.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -572,12 +577,12 @@ IRS-Design & Random & Lognormal & 0 & 200 & -0.0028 & 0.0891 & 0.9425 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 28.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -588,12 +593,12 @@ IRS-Design & Gridded & Normal & 0.5 & 200 & 0.0022 & 0.0788 & 0.9535 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 29.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -604,12 +609,12 @@ IRS-Design & Gridded & Lognormal & 0.5 & 200 & 0.0016 & 0.0816 & 0.9420 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 30.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -620,12 +625,12 @@ IRS-Design & Random & Normal & 0.5 & 200 & -0.0016 & 0.0790 & 0.9480 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 31.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -636,12 +641,12 @@ IRS-Design & Random & Lognormal & 0.5 & 200 & -0.0027 & 0.0809 & 0.9494 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 32.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -652,12 +657,12 @@ IRS-Design & Gridded & Normal & 0.9 & 200 & 0.0021 & 0.0704 & 0.9570 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 33.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -668,12 +673,12 @@ IRS-Design & Gridded & Lognormal & 0.9 & 200 & 0.0014 & 0.0744 & 0.9520 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 34.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -684,12 +689,12 @@ IRS-Design & Random & Normal & 0.9 & 200 & -0.0009 & 0.0725 & 0.9470 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 35.} 
 \end{table}
 \begin{table}[ht]
 \centering
 \scalebox{0.85}{
-\begin{tabular}{lllllrrr}
+\begin{tabular}{lllrrrrr}
   \hline
 Approach & Layout & Response & DE Prop & n & Bias & rMS(P)E & Coverage \\ 
   \hline
@@ -700,7 +705,7 @@ IRS-Design & Random & Lognormal & 0.9 & 200 & -0.0006 & 0.0750 & 0.9393 \\
    \hline
 \end{tabular}
 }
-\caption{Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) for a simulation scenario.} 
+\caption{Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\% interval coverage (Coverage) in simulation scenario 36.} 
 \end{table}
 
 

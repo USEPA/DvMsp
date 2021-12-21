@@ -55,14 +55,14 @@ library(here)
 library(xtable) # latex tables
 ```
 
-Recall the four design-analysis combinations and the parameter configurations, summarized in Table \ref{tab:designanalysis} and \ref{tab:parmtab}, respectively.
+Recall the four sampling-analysis combinations from the simulation study, summarized in Table \ref{tab:designanalysis}. Also recall the 36 parameter configurations from the simulation study, summarized in Table \ref{tab:parmtab}.
 
 ```{r, echo = FALSE, results = "asis"}
 tab <- matrix(c("IRS-Design", "IRS-Model", "GRTS-Design", "GRTS-Model"),
        nrow = 2, byrow = TRUE) %>%
   as.table()
 row.names(tab) <- c("IRS", "GRTS")
-xtab1 <- xtable(tab, col.names = c("Design", "Model"), caption = "\\label{tab:designanalysis} Types of Sampling Design and Analysis combinations considered in the simulation study. The rows give the two types of sampling designs while the columns give the two types of analyses.")
+xtab1 <- xtable(tab, col.names = c("Design", "Model"), caption = "\\label{tab:designanalysis} Sampling-analysis combinations in the simulation study. The rows give the two types of sampling designs and the columns give the two types of analyses.")
 align(xtab1) <- "r|ll"
 names(xtab1) <- c("Design", "Model")
 print(xtab1, comment = FALSE)
@@ -85,19 +85,12 @@ row.names(parm_tab) <- c("Sample Size (n)", "Layout",
 # library(knitr) kable with htlm has trouble with page breaks -- kable with latex harder for me than xtable
 # kable(parm_tab, col.names = c("", "", ""),
 #       caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.")
-parm_xtab <- xtable(parm_tab, caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2.")
+parm_xtab <- xtable(parm_tab, caption = "\\label{tab:parmtab} Simulation scenario options. All combinations of sample size, location layout, response type, and proportion of dependent random error composed the 36 simulation scenarios. In each simualtion scenario, the total variance was 2.")
 align(parm_xtab) <- "r|lll"
 print(parm_xtab, include.colnames = FALSE, hline.after = c(0, nrow(parm_xtab)), comment = FALSE)
 ```
 
-```{r, results = "asis", eval = FALSE}
-sim_one <- read_csv(here("inst", "output", "sim_one", "summ_output.csv"))
-colnames(sim_one) <- c("Approach", "Bias", "RMSE", "MedAE", "Coverage", "PClose", "MedIL")
-sim_one_table <- xtable(sim_one, digits = 4, caption = "Approach, mean bias (Bias), root-mean-squared error (RMSE), median absolute error (MedAE), 95 percent interval coverage (Coverage), proportion of times the approach was closer to the true value (PClose), and median interval length (MedIL)", type = "latex", latex.environments = "center", label = "tab:sim_one")
-print(sim_one_table, include.rownames = FALSE, comment = FALSE)
-```
-
-Next we present a summary table for each of the 36 simulation scenarios.
+Next we present tables summarizing mean estimation bias (design-based) or mean prediction bias (model-based), root-mean-squared error (design-based) or root-mean-squared-prediction error (model-based), and 95% confidence interval coverage (design-based) or 95% prediction interval coverage (model-based) for all 36 simulation scenarios.
 ```{r}
 make_sim_table <- function(table_value) {
   sim_table <- read_csv(here("inst", "output", "simulation_summary", paste0("allsims", table_value, ".csv")))
@@ -131,9 +124,10 @@ sim_table <- sim_table[c(2, 4, 1, 3), ]
 sim_table_out <- xtable(
   sim_table,
   digits = 4,
-  caption = "Approach, layout (Layout), response type (Response) roportion of dependent error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\\% interval coverage (Coverage) for a simulation scenario.",
+  caption = paste0("Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\\% interval coverage (Coverage) in simulation scenario ", table_value, "."),
    type = "latex",
-  latex.environments = "center"
+  latex.environments = "center",
+  align = c("llllrrrrr")
 )
 print(sim_table_out, include.rownames = FALSE, comment = FALSE, scalebox = "0.85")
 }
