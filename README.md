@@ -1,6 +1,6 @@
 # DvMsp
 
-### A Supplementary R Package to "A comparison of design-based and model-based approaches for spatial data"
+### A Supplementary R Package to "A comparison of design-based and model-based approaches for finite population spatial data"
 
 ##### Michael Dumelle<sup>1</sup>, Matt Higham<sup>2</sup>, Jay Ver Hoef<sup>3</sup>, Anthony R. Olsen<sup>1</sup>, Lisa Madsen<sup>4</sup>
 
