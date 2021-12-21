@@ -43,14 +43,14 @@ The script used to perform the analysis of mercury concentration data is located
 system.file("scripts/application.R", package = "DvMsp")
 ```
 
-Scripts used to generate figures are located on your machine in the folder at the file path found by running
+Scripts used to generate figures are located on your machine at the file path found by running
 ```r
 system.file("scripts/figures", package = "DvMsp")
 ```
 
 ### Output
 
-Summaries of the 36 simulation trials are located on your machine in the folder at the file path found by running
+Summaries of the 36 simulation trials are located on your machine at the file path found by running
 ```r
 system.file("output/simulation_summary", package = "DvMsp")
 ```
