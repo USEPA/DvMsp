@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.18)  20 DEC 2021 12:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.18)  20 DEC 2021 16:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -643,32 +643,32 @@ LaTeX Info: Redefining \nameref on input line 63.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-14.
+31.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-14.
+31.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-114.
+131.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-114.
+131.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 114.
+(Font)              <8> on input line 131.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 114.
+(Font)              <6> on input line 131.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 114.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 114
+(Font)              <5> on input line 131.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 131
 .
 
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.f
@@ -679,7 +679,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 a.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 114
+LaTeX Font Info:    Trying to load font information for U+msb on input line 131
 .
 
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.f
@@ -691,7 +691,7 @@ b.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 1
-14.
+31.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -700,25 +700,25 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 114.
+(Font)              <10> on input line 131.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 114.
+(Font)              <7> on input line 131.
 
-Overfull \vbox (16.55457pt too high) has occurred while \output is active []
+Overfull \vbox (19.31003pt too high) has occurred while \output is active []
 
 [1
 
 
 {c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pd
-ftex.map}] [2] [3] [4]
-<figures/dvm_comp.jpeg, id=127, 366.4089pt x 245.718pt>
+ftex.map}] [2] [3] [4] [5]
+<figures/dvm_comp.jpeg, id=131, 366.4089pt x 245.718pt>
 File: figures/dvm_comp.jpeg Graphic file (type jpg)
 <use figures/dvm_comp.jpeg>
-Package pdftex.def Info: figures/dvm_comp.jpeg  used on input line 251.
+Package pdftex.def Info: figures/dvm_comp.jpeg  used on input line 268.
 (pdftex.def)             Requested size: 345.0pt x 231.36113pt.
-[5] [6 <./figures/dvm_comp.jpeg>] [7] [8] [9] [10] [11]
+[6 <./figures/dvm_comp.jpeg>] [7] [8] [9] [10] [11]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-05.
+22.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -730,39 +730,39 @@ Package microtype Info: Loading generic protrusion settings for font family
 <figures/rmspe_eff.jpeg, id=186, 366.4089pt x 317.2653pt>
 File: figures/rmspe_eff.jpeg Graphic file (type jpg)
 <use figures/rmspe_eff.jpeg>
-Package pdftex.def Info: figures/rmspe_eff.jpeg  used on input line 544.
+Package pdftex.def Info: figures/rmspe_eff.jpeg  used on input line 561.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
 [13] [14 <./figures/rmspe_eff.jpeg>]
 <figures/coverage.jpeg, id=205, 366.4089pt x 317.2653pt>
 File: figures/coverage.jpeg Graphic file (type jpg)
 <use figures/coverage.jpeg>
-Package pdftex.def Info: figures/coverage.jpeg  used on input line 581.
+Package pdftex.def Info: figures/coverage.jpeg  used on input line 598.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
 [15] [16 <./figures/coverage.jpeg>]
 <figures/mercury_map.jpeg, id=218, 366.4089pt x 317.2653pt>
 File: figures/mercury_map.jpeg Graphic file (type jpg)
 <use figures/mercury_map.jpeg>
-Package pdftex.def Info: figures/mercury_map.jpeg  used on input line 621.
+Package pdftex.def Info: figures/mercury_map.jpeg  used on input line 638.
 (pdftex.def)             Requested size: 338.09853pt x 292.74933pt.
 <figures/mercury_hist.jpeg, id=219, 366.4089pt x 317.2653pt>
 File: figures/mercury_hist.jpeg Graphic file (type jpg)
 <use figures/mercury_hist.jpeg>
-Package pdftex.def Info: figures/mercury_hist.jpeg  used on input line 627.
+Package pdftex.def Info: figures/mercury_hist.jpeg  used on input line 644.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
 <figures/sv_plot.jpeg, id=220, 366.4089pt x 317.2653pt>
 File: figures/sv_plot.jpeg Graphic file (type jpg)
 <use figures/sv_plot.jpeg>
-Package pdftex.def Info: figures/sv_plot.jpeg  used on input line 633.
+Package pdftex.def Info: figures/sv_plot.jpeg  used on input line 650.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
 [17] [18 <./figures/mercury_map.jpeg> <./figures/mercury_hist.jpeg> <./figures/
 sv_plot.jpeg>] [19] [20] [21] [22] [23] [24]
-Overfull \hbox (2.79321pt too wide) in paragraph at lines 937--940
+Overfull \hbox (2.79321pt too wide) in paragraph at lines 954--957
 [][]\T1/lmr/m/n/10 (-20) USEPA, 2012. Na-tional lakes as-sess-ment 2012. https:
 //www.epa.gov/national-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 937--940
+Underfull \hbox (badness 10000) in paragraph at lines 954--957
 \T1/lmr/m/n/10 (-6) aquatic-resource-surveys/national-results-and-regional-high
 lights-national-lakes-
  []
@@ -772,11 +772,11 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 28CF5B7ADB05DA40575CEF540D4B5A6F;2865.
  ) 
 Here is how much of TeX's memory you used:
- 14578 strings out of 480293
+ 14577 strings out of 480293
  240838 string characters out of 5894541
- 555947 words of memory out of 5000000
- 31855 multiletter control sequences out of 15000+600000
- 491731 words of font info for 185 fonts, out of 8000000 for 9000
+ 556947 words of memory out of 5000000
+ 31852 multiletter control sequences out of 15000+600000
+ 491814 words of font info for 186 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  70i,14n,76p,1007b,539s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-e
@@ -805,7 +805,7 @@ dumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/
 Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.p
 fb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/
 lmtt10.pfb>
-Output written on manuscript.pdf (26 pages, 1005852 bytes).
+Output written on manuscript.pdf (26 pages, 1006754 bytes).
 PDF statistics:
  435 PDF objects out of 1000 (max. 8388607)
  358 compressed objects within 4 object streams
