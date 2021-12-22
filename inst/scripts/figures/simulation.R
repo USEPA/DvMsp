@@ -24,8 +24,11 @@ combo_data <- combo_data %>%
   mutate(resptype = fct_relevel(resptype, c("normal", "lognormal"))) %>%
   group_by(sim) %>%
   mutate(designirsrmspe = if_else(approach == "Design IRS", true = rmspe, false = NA_real_)) %>%
+  mutate(designirsmil = if_else(approach == "Design IRS", true = med_ci_len, false = NA_real_)) %>%
   fill(designirsrmspe, .direction = "downup") %>%
+  fill(designirsmil, .direction = "downup") %>%
   mutate(rel_efficiency = rmspe / designirsrmspe) %>%
+  mutate(mil_efficiency = med_ci_len / designirsmil) %>%
   ungroup() %>%
   mutate(psill_ratio = 1 - nugget_ratio) %>%
   mutate(n_factor = factor(n))
