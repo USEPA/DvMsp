@@ -25,12 +25,7 @@ parm_df <- expand_grid(N, n, psill_ratio,
          psill = total_var * psill_ratio,
          nugget = total_var * nugget_ratio)
 
-# source functions for now
-source("R/sim_pop.R")
-source("R/sim_trial.R")
-
-# library for later
-# library(SpatialDesignVModel)
+library(DvMsp)
 
 ## loop through each row of parm_df (could be done with purrr::pmap() instead)
 for (i in 1:nrow(parm_df)) {
@@ -38,7 +33,7 @@ for (i in 1:nrow(parm_df)) {
   seed <- 1:n_trials
   n_cluster <- detectCores() # find cores (48 on mine)
   cluster <- makeCluster(n_cluster) # make cluster
-  clusterExport(cluster, varlist = c("sim_pop", "covmx_exp"))
+  clusterEvalQ(cluster, library(DvMsp)) # export DvMsp to cluster
   clusterEvalQ(cluster, library(spsurvey)) # export spsurvey to cluster v >= 5.1.0
   clusterEvalQ(cluster, library(sptotal)) # export sptotal to cluster
   clusterEvalQ(cluster, library(dplyr)) # export dplyr to cluster
@@ -89,6 +84,7 @@ for (i in 1:nrow(parm_df)) {
       mpbias = mean(resid),
       rmspe = sqrt(mean(resid^2)),
       medae = median(abs(resid)),
+      mse = mean(sd),
       coverage = mean(cover),
       prcloser = mean(closer),
       med_ci_len = median(ub - lb)
