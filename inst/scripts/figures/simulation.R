@@ -47,6 +47,7 @@ rmspe_eff <- combo_data %>%
   scale_colour_manual(values = colour_scale) +
   theme_bw(base_size = base_size) +
   labs(x = "Sample Size", colour = "Approach", y = "Relative rMS(P)E") +
+  lims(y = c(0.4, 1.1)) +
   theme(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
@@ -63,7 +64,40 @@ if (write_out) {
   )
 }
 
+
 # figure 3
+colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
+resptype_labs <- c(normal = "Response: Normal", lognormal = "Response: Lognormal")
+psill_ratio_labs <- c("0" = "Prop DE: 0", "0.5" = "Prop DE: 0.5", "0.9" = "Prop DE: 0.9")
+mse_eff <- combo_data %>%
+  ggplot(aes(x = n_factor, y = mil_efficiency, colour = approach)) +
+  facet_grid(
+    psill_ratio ~ resptype,
+    labeller = labeller(resptype = resptype_labs, psill_ratio = psill_ratio_labs)
+  ) +
+  geom_jitter(width = 0.24, size = 2) +
+  scale_colour_manual(values = colour_scale) +
+  theme_bw(base_size = base_size) +
+  labs(x = "Sample Size", colour = "Approach", y = "Relative MStdE") +
+  lims(y = c(0.4, 1.1)) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+  )
+
+### rmspe_eff
+if (write_out) {
+  ggsave(
+    plot = mse_eff,
+    file = here("inst", "manuscript", "figures", "mse_eff.jpeg"),
+    dpi = 300,
+    width = 5.07,
+    height = 4.39
+  )
+}
+
+
+# figure 4
 coverage <- combo_data %>%
   ggplot(aes(x = n_factor, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95) +
