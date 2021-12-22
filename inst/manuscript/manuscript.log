@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.22)  22 DEC 2021 13:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.22)  22 DEC 2021 15:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -714,11 +714,11 @@ ftex.map}] [2] [3] [4] [5]
 <figures/dvm_comp.jpeg, id=131, 366.4089pt x 245.718pt>
 File: figures/dvm_comp.jpeg Graphic file (type jpg)
 <use figures/dvm_comp.jpeg>
-Package pdftex.def Info: figures/dvm_comp.jpeg  used on input line 275.
+Package pdftex.def Info: figures/dvm_comp.jpeg  used on input line 274.
 (pdftex.def)             Requested size: 345.0pt x 231.36113pt.
 [6] [7 <./figures/dvm_comp.jpeg>] [8] [9] [10] [11] [12] [13]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-57.
+58.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -730,45 +730,45 @@ Package microtype Info: Loading generic protrusion settings for font family
 <figures/rmspe_eff.jpeg, id=206, 366.4089pt x 317.2653pt>
 File: figures/rmspe_eff.jpeg Graphic file (type jpg)
 <use figures/rmspe_eff.jpeg>
-Package pdftex.def Info: figures/rmspe_eff.jpeg  used on input line 618.
+Package pdftex.def Info: figures/rmspe_eff.jpeg  used on input line 619.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
 [16 <./figures/rmspe_eff.jpeg>]
 <figures/mse_eff.jpeg, id=215, 366.4089pt x 317.2653pt>
 File: figures/mse_eff.jpeg Graphic file (type jpg)
 <use figures/mse_eff.jpeg>
-Package pdftex.def Info: figures/mse_eff.jpeg  used on input line 649.
+Package pdftex.def Info: figures/mse_eff.jpeg  used on input line 650.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
 [17] [18 <./figures/mse_eff.jpeg>]
 <figures/coverage.jpeg, id=226, 366.4089pt x 317.2653pt>
 File: figures/coverage.jpeg Graphic file (type jpg)
 <use figures/coverage.jpeg>
-Package pdftex.def Info: figures/coverage.jpeg  used on input line 671.
+Package pdftex.def Info: figures/coverage.jpeg  used on input line 672.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
 [19 <./figures/coverage.jpeg>]
 <figures/mercury_map.jpeg, id=237, 366.4089pt x 317.2653pt>
 File: figures/mercury_map.jpeg Graphic file (type jpg)
 <use figures/mercury_map.jpeg>
-Package pdftex.def Info: figures/mercury_map.jpeg  used on input line 700.
+Package pdftex.def Info: figures/mercury_map.jpeg  used on input line 701.
 (pdftex.def)             Requested size: 338.09853pt x 292.74933pt.
 <figures/mercury_hist.jpeg, id=238, 366.4089pt x 317.2653pt>
 File: figures/mercury_hist.jpeg Graphic file (type jpg)
 <use figures/mercury_hist.jpeg>
-Package pdftex.def Info: figures/mercury_hist.jpeg  used on input line 706.
+Package pdftex.def Info: figures/mercury_hist.jpeg  used on input line 707.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
 <figures/sv_plot.jpeg, id=239, 366.4089pt x 317.2653pt>
 File: figures/sv_plot.jpeg Graphic file (type jpg)
 <use figures/sv_plot.jpeg>
-Package pdftex.def Info: figures/sv_plot.jpeg  used on input line 712.
+Package pdftex.def Info: figures/sv_plot.jpeg  used on input line 713.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
 [20] [21 <./figures/mercury_map.jpeg> <./figures/mercury_hist.jpeg> <./figures/
 sv_plot.jpeg>] [22] [23] [24] [25] [26] [27]
-Overfull \hbox (2.79321pt too wide) in paragraph at lines 1022--1025
+Overfull \hbox (2.79321pt too wide) in paragraph at lines 1024--1027
 [][]\T1/lmr/m/n/10 (-20) USEPA, 2012. Na-tional lakes as-sess-ment 2012. https:
 //www.epa.gov/national-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1022--1025
+Underfull \hbox (badness 10000) in paragraph at lines 1024--1027
 \T1/lmr/m/n/10 (-6) aquatic-resource-surveys/national-results-and-regional-high
 lights-national-lakes-
  []
@@ -778,11 +778,11 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 4B693B6CF985DF5604D53495B058B30E;2914.
  ) 
 Here is how much of TeX's memory you used:
- 14584 strings out of 480293
- 241014 string characters out of 5894541
+ 14586 strings out of 480293
+ 241038 string characters out of 5894541
  557425 words of memory out of 5000000
  31859 multiletter control sequences out of 15000+600000
- 491632 words of font info for 184 fonts, out of 8000000 for 9000
+ 491686 words of font info for 185 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  70i,14n,76p,1007b,539s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-e
@@ -811,7 +811,7 @@ dumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/
 Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.p
 fb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/
 lmtt10.pfb>
-Output written on manuscript.pdf (28 pages, 1130794 bytes).
+Output written on manuscript.pdf (28 pages, 1130978 bytes).
 PDF statistics:
  447 PDF objects out of 1000 (max. 8388607)
  367 compressed objects within 4 object streams

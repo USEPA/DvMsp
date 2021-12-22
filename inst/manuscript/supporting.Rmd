@@ -1,5 +1,5 @@
 ---
-title: A comparison of design-based and model-based approaches for finite population spatial data -- Supporting Information.
+title: A comparison of design-based and model-based approaches for finite population spatial data -- Supporting information.
 author:
   - name: Michael Dumelle
     affiliation: USEPA
@@ -39,7 +39,7 @@ preamble: >
 output: rticles::elsevier_article
 ---
 
-# Simulation Study Tables {#sec:simtabs}
+# Simulation study tables {#sec:simtabs}
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -90,7 +90,7 @@ align(parm_xtab) <- "r|lll"
 print(parm_xtab, include.colnames = FALSE, hline.after = c(0, nrow(parm_xtab)), comment = FALSE)
 ```
 
-Next we present tables summarizing mean estimation bias (design-based) or mean prediction bias (model-based), mean standard errors, root-mean-squared error (design-based) or root-mean-squared-prediction error (model-based), and 95% confidence interval coverage (design-based) or 95% prediction interval coverage (model-based) for all 36 simulation scenarios.
+Next we present tables summarizing mean estimation bias (design-based) or mean prediction bias (model-based), root-mean-squared error (design-based) or root-mean-squared-prediction error (model-based), mean standard errors, and 95% confidence interval coverage (design-based) or 95% prediction interval coverage (model-based) for all 36 simulation scenarios.
 ```{r}
 make_sim_table <- function(table_value) {
   sim_table <- read_csv(here("inst", "output", "simulation_summary", paste0("allsims", table_value, ".csv")))
