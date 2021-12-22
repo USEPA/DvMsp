@@ -46,7 +46,7 @@ rmspe_eff <- combo_data %>%
   geom_jitter(width = 0.24, size = 2) +
   scale_colour_manual(values = colour_scale) +
   theme_bw(base_size = base_size) +
-  labs(x = "Sample Size", colour = "Approach", y = "Relative Efficiency") +
+  labs(x = "Sample Size", colour = "Approach", y = "Relative rMS(P)E") +
   theme(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),

@@ -447,14 +447,28 @@ contexts, and FBPK tended to perform best.
 \subsection{Simulation Study}\label{sec:mm_sim}}
 
 We used a simulation study to investigate performance of four
-sampling-analysis combinations: Independent Random Sampling (IRS) with a
-design-based analysis, called ``IRS-Design'' (IRS samples are not
-spatially balanced because population units are selected independent of
-their spatial locations); IRS with a model-based analysis, called
-``IRS-Model''; GRTS sampling with a design-based analysis, called
-``GRTS-Design''; and GRTS sampling with a model-based analysis, called
-``GRTS-Model''. These combinations are also provided in Table
-\ref{tab:designanalysis}.
+sampling-analysis combinations. The first sampling-analysis combination
+is IRS-Design. In IRS-Design, samples are selected using the Independent
+Random Sampling (IRS) algorithm. The IRS algorithm ignores the spatial
+locations of the population units, which implies IRS samples are not
+spatially balanced. In IRS-Design, samples are analyzed using the
+design-based approach with an IRS variance estimator that does not
+incorporate the spatial locations of the units in the sample. The second
+sampling-analysis combination is IRS-Model, where samples are selected
+using the IRS algorithm and analyzed using the model-based approach via
+Restricted Maximum Likelihood (REML) estimation (Harville, 1977;
+Patterson and Thompson, 1971; Wolfinger et al., 1994). The third
+sampling-analysis combination is GRTS-Design, where samples are selected
+using the GRTS algorithm and analyzed using the design-based approach
+with the local neighborhood variance estimator. The fourth and final
+sampling-analysis combination is GRTS-Model, where samples are selected
+using the GRTS algorithm and analyzed using the model-based approach via
+REML estimation. These sampling-analysis combinations are also provided
+in Table \ref{tab:designanalysis}. Lastly we note that for both the IRS
+and GRTS samples, equal inclusion probabilities were assumed for all
+population units. When IRS assumes equal inclusion probabilities for all
+population units, the algorithm is equivalent to ``simple random
+sampling.''
 
 \begin{table}[ht]
 \centering
@@ -495,7 +509,7 @@ between two population units in the domain. For the lognormal response
 type, the response was first simulated using the same approach as for
 the normal response type, except that the total variance was 0.6931
 instead of 2. The response was then exponentiated, yielding a lognormal
-random variable whose total variance is 2. The lognormal responses were
+random variable whose total variance was 2. The lognormal responses were
 used to evaluate performance of the sampling-analysis approaches for
 data that were skewed (i.e., not normal).
 
@@ -523,12 +537,10 @@ long-run performance of the combinations by calculating average bias,
 rMS(P)E (root-mean-squared error for the design-based approaches and
 root-mean-squared-prediction error for the model-based approaches), and
 the proportion of times the true mean is contained in its 95\% interval.
-The GRTS algorithm and the local neighborhood variance estimator are
-available in the \texttt{spsurvey} \textbf{\textsf{R}} package (Dumelle
-et al., 2021). FPBK is available in the \texttt{sptotal}
-\textbf{\textsf{R}} package (Higham et al., 2021) and covariance
-parameters were estimated using Restricted Maximum Likelihood (Harville,
-1977; Patterson and Thompson, 1971; Wolfinger et al., 1994).
+The IRS algorithm, IRS variance estimator, GRTS algorithm, and local
+neighborhood variance estimator are available in the \texttt{spsurvey}
+\textbf{\textsf{R}} package (Dumelle et al., 2021). FPBK is available in
+the \texttt{sptotal} \textbf{\textsf{R}} package (Higham et al., 2021).
 
 \hypertarget{sec:mm_app}{%
 \subsection{Application}\label{sec:mm_app}}
@@ -536,19 +548,19 @@ parameters were estimated using Restricted Maximum Likelihood (Harville,
 The United States Environmental Protection Agency (USEPA), states, and
 tribes periodically conduct National Aquatic Research Surveys (NARS) to
 assess the water quality of various bodies of water in the contiguous
-United States. We will use data from the 2012 National Lakes Assessment
+United States. One component of NARS is the National Lakes Assessment
 (NLA), which measures various aspects of lake health and water quality
-(USEPA, 2012). Specifically, we will analyze mercury concentration in
-lakes. Although we can calculate the true mean mercury concentration
-values for the 986 lakes from the 2012 NLA, we will explore whether or
-not we obtain an adequately precise estimate for the realized mean
-mercury concentration if we sample only 100 of the 986 lakes. For each
-of the four familiar sampling-analysis combinations (IRS-Design,
-IRS-Model, GRTS-Design, and GRTS-Model), we estimate (design-based) or
-predict (model-based) the mean mercury concentration and construct 95\%
-confidence (design-based) or 95\% prediction (model-based) intervals
-from this sample of 100 lakes, which we compare to the true mean mercury
-concentration from all 986 lakes.
+(USEPA, 2012). We will analyze mercury concentration data collected at
+986 lakes as part of the 2012 NLA. Although we can calculate the true
+mean mercury concentration values for these 986 lakes, here we will
+explore whether or not we can obtain an adequately precise estimate for
+the realized mean mercury concentration if we sample only 100 of the 986
+lakes. For each of the four familiar sampling-analysis combinations
+(IRS-Design, IRS-Model, GRTS-Design, and GRTS-Model), we estimate
+(design-based) or predict (model-based) the mean mercury concentration
+and construct 95\% confidence (design-based) or 95\% prediction
+(model-based) intervals from this sample of 100 lakes, which we compare
+to the true mean mercury concentration from all 986 lakes.
 
 \hypertarget{sec:results}{%
 \section{Results}\label{sec:results}}
@@ -569,7 +581,7 @@ analysis combinations using the random location layout with
 \end{equation*} When there is no spatial covariance (Fig.
 \ref{fig:figeff}, ``Prop DE: 0'' row), the four sampling-analysis
 combinations have approximately equal rMS(P)E. So using the GRTS
-sampling plan or a model-based analysis does not result in much, if any,
+algorithm or a model-based analysis does not result in much, if any,
 loss in efficiency compared to IRS-Design when there is no spatial
 covariance. When there is spatial covariance (Fig. \ref{fig:figeff},
 ``Prop DE: 0.5'' and ``Prop DE: 0.9'' rows), GRTS-Model tends to perform
@@ -672,12 +684,9 @@ confidence (design-based) or 95\% prediction (model-based) intervals.
 Though we should not generalize these results to other samples from
 these data, we do note a couple of patterns. The design-based IRS
 analysis shows the largest standard error: a likely reason is that this
-is the only approach that does not incorporate any spatial information
-regarding mercury concentration. Both analyses using GRTS sampling have
-lower standard errors than both analyses using IRS sampling. We expect
-that these patterns are consistent with other samples from these data
-because mercury concentration exhibits spatial dependence, so a
-spatially balanced sample should usually yield a lower standard error.
+is the only approach that does not incorporate any spatial locations.
+Additionally, both analyses using GRTS sampling have lower standard
+errors than both analyses using IRS sampling.
 
 \begin{table}[ht]
 \centering
@@ -711,19 +720,19 @@ theoretical differences described, a few analytical findings from the
 simulation study are particularly notable. First, the sampling decision
 (IRS vs GRTS) is most important when using a design-based analysis.
 Though GRTS-Model still outperformed IRS-Model, the model-based analysis
-mitigated much of the inefficiency of the IRS sample. Second,
-independent of the analysis approach, we found no reason to prefer IRS
-over GRTS for sampling spatial data -- GRTS-Design and GRTS-Model
-generally performed at least as well as their IRS counterparts when
-there was no spatial covariance and noticeably better than their IRS
-counterparts when there was spatial covariance. Third, as the strength
-of spatial covariance increases, the gap in rMS(P)E between IRS-Design
-and the other sampling-analysis combinations also increases. Fourth and
-finally, when the response was normal, interval coverage for all
-sampling-analysis combinations was very close to 95\% for all sample
-sizes; when the response was lognormal, interval coverage for all
-sampling and analysis was between 90\% and 95\% and closest to 95\% when
-\(n = 200\).
+mitigated most of the inefficiencies that result from the IRS samples
+lacking spatial balance. Second, independent of the analysis approach,
+we found no reason to prefer IRS over GRTS for sampling spatial data --
+GRTS-Design and GRTS-Model generally performed at least as well as their
+IRS counterparts when there was no spatial covariance and noticeably
+better than their IRS counterparts when there was spatial covariance.
+Third, as the strength of spatial covariance increases, the gap in
+rMS(P)E between IRS-Design and the other sampling-analysis combinations
+also increases. Fourth and finally, when the response was normal,
+interval coverage for all sampling-analysis combinations was very close
+to 95\% for all sample sizes; when the response was lognormal, interval
+coverage for all sampling and analysis was between 90\% and 95\% and
+closest to 95\% when \(n = 200\).
 
 There are several benefits and drawbacks of the design-based and
 model-based approaches for finite population spatial data. Some we have
@@ -745,10 +754,11 @@ Model-based approaches are capable of more efficient small-area
 estimation than design-based approaches by leveraging distributional
 assumptions in areas with few observed sites. Model-based approaches can
 also compute site-by-site predictions at unobserved locations and use
-them to construct informative visualizations. In short, when deciding
-whether the design-based or model-based approach is more appropriate to
-implement, the benefits and drawbacks of each approach should be
-considered alongside the particular goals of the study.
+them to construct informative visualizations like smoothed maps. In
+short, when deciding whether the design-based or model-based approach is
+more appropriate to implement, the benefits and drawbacks of each
+approach should be considered alongside the particular goals of the
+study.
 
 \hypertarget{acknowledgments}{%
 \section*{Acknowledgments}\label{acknowledgments}}
