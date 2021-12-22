@@ -90,7 +90,7 @@ align(parm_xtab) <- "r|lll"
 print(parm_xtab, include.colnames = FALSE, hline.after = c(0, nrow(parm_xtab)), comment = FALSE)
 ```
 
-Next we present tables summarizing mean estimation bias (design-based) or mean prediction bias (model-based), root-mean-squared error (design-based) or root-mean-squared-prediction error (model-based), and 95% confidence interval coverage (design-based) or 95% prediction interval coverage (model-based) for all 36 simulation scenarios.
+Next we present tables summarizing mean estimation bias (design-based) or mean prediction bias (model-based), mean standard errors, root-mean-squared error (design-based) or root-mean-squared-prediction error (model-based), and 95% confidence interval coverage (design-based) or 95% prediction interval coverage (model-based) for all 36 simulation scenarios.
 ```{r}
 make_sim_table <- function(table_value) {
   sim_table <- read_csv(here("inst", "output", "simulation_summary", paste0("allsims", table_value, ".csv")))
@@ -98,11 +98,13 @@ make_sim_table <- function(table_value) {
     dplyr::select(Approach = approach,
                   Layout = gridded,
                   Response = resptype,
-                  `DE Prop` = psill_ratio,
+                  PDE = psill_ratio,
                   n = n,
                   Bias = mpbias,
                   `rMS(P)E` = rmspe,
-                  Coverage = coverage) %>%
+                  MStdE = mse,
+                  Coverage = coverage
+                  ) %>%
     mutate(
      Approach = case_when(
        Approach == "Design GRTS" ~ "GRTS-Design",
@@ -118,18 +120,18 @@ make_sim_table <- function(table_value) {
        Response == "normal" ~ "Normal",
        Response == "lognormal" ~ "Lognormal"
      ),
-     across(c(`DE Prop`, n), as.character)
+     across(c(PDE, n), as.character)
     )
 sim_table <- sim_table[c(2, 4, 1, 3), ]
 sim_table_out <- xtable(
   sim_table,
   digits = 4,
-  caption = paste0("Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DE Prop), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), and 95\\% interval coverage (Coverage) in simulation scenario ", table_value, "."),
+  caption = paste0("Sampling-analysis combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (PDE), sample size (n), mean (prediction) bias (Bias), root-mean-squared-(prediction) error (rMS(P)E), mean standard error (MStdE), and 95\\% interval coverage (Coverage) in simulation scenario ", table_value, "."),
    type = "latex",
   latex.environments = "center",
-  align = c("llllrrrrr")
+  align = c("llllrrrrrr")
 )
-print(sim_table_out, include.rownames = FALSE, comment = FALSE, scalebox = "0.85")
+print(sim_table_out, include.rownames = FALSE, comment = FALSE, scalebox = "0.8")
 }
 ```
 

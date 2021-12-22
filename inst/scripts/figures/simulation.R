@@ -24,11 +24,11 @@ combo_data <- combo_data %>%
   mutate(resptype = fct_relevel(resptype, c("normal", "lognormal"))) %>%
   group_by(sim) %>%
   mutate(designirsrmspe = if_else(approach == "Design IRS", true = rmspe, false = NA_real_)) %>%
-  mutate(designirsmil = if_else(approach == "Design IRS", true = med_ci_len, false = NA_real_)) %>%
+  mutate(designirsmse = if_else(approach == "Design IRS", true = mse, false = NA_real_)) %>%
   fill(designirsrmspe, .direction = "downup") %>%
-  fill(designirsmil, .direction = "downup") %>%
+  fill(designirsmse, .direction = "downup") %>%
   mutate(rel_efficiency = rmspe / designirsrmspe) %>%
-  mutate(mil_efficiency = med_ci_len / designirsmil) %>%
+  mutate(mse_efficiency = mse / designirsmse) %>%
   ungroup() %>%
   mutate(psill_ratio = 1 - nugget_ratio) %>%
   mutate(n_factor = factor(n))
@@ -70,7 +70,7 @@ colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
 resptype_labs <- c(normal = "Response: Normal", lognormal = "Response: Lognormal")
 psill_ratio_labs <- c("0" = "Prop DE: 0", "0.5" = "Prop DE: 0.5", "0.9" = "Prop DE: 0.9")
 mse_eff <- combo_data %>%
-  ggplot(aes(x = n_factor, y = mil_efficiency, colour = approach)) +
+  ggplot(aes(x = n_factor, y = mse_efficiency, colour = approach)) +
   facet_grid(
     psill_ratio ~ resptype,
     labeller = labeller(resptype = resptype_labs, psill_ratio = psill_ratio_labs)
@@ -85,7 +85,7 @@ mse_eff <- combo_data %>%
     panel.grid.minor = element_blank(),
   )
 
-### rmspe_eff
+### mse_eff
 if (write_out) {
   ggsave(
     plot = mse_eff,
