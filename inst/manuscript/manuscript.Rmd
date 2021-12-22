@@ -44,6 +44,10 @@ preamble: >
   \usepackage{caption}
   \usepackage{subcaption}
   \usepackage{setspace}
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \fancyhf{}
+  \chead{Spatial design-based vs model-based}
   \doublespacing
 output: rticles::elsevier_article
 ---

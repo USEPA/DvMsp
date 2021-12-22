@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.22)  22 DEC 2021 15:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.22)  22 DEC 2021 15:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -551,7 +551,21 @@ Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
 ce.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 63
+(c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyhdr/fancyh
+dr.sty
+Package: fancyhdr 2021/01/28 v4.0.1 Extensive control of page headers and foote
+rs
+\f@nch@headwidth=\skip58
+\f@nch@O@elh=\skip59
+\f@nch@O@erh=\skip60
+\f@nch@O@olh=\skip61
+\f@nch@O@orh=\skip62
+\f@nch@O@elf=\skip63
+\f@nch@O@erf=\skip64
+\f@nch@O@olf=\skip65
+\f@nch@O@orf=\skip66
+)
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 66
 .
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -564,24 +578,24 @@ File: l3backend-pdftex.def 2021-12-14 L3 backend support: PDF output (pdfTeX)
 ) (./manuscript.aux)
 \openout1 = `manuscript.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
 
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/ep
 stopdf-base.sty
@@ -594,12 +608,12 @@ topdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 63.
-Package microtype Info: Applying patch `item' on input line 63.
-Package microtype Info: Applying patch `toc' on input line 63.
-Package microtype Info: Applying patch `eqnum' on input line 63.
+LaTeX Info: Redefining \microtypecontext on input line 66.
+Package microtype Info: Applying patch `item' on input line 66.
+Package microtype Info: Applying patch `toc' on input line 66.
+Package microtype Info: Applying patch `eqnum' on input line 66.
 
-Package microtype Warning: Unable to apply patch `footnote' on input line 63.
+Package microtype Warning: Unable to apply patch `footnote' on input line 66.
 
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
@@ -607,7 +621,7 @@ Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 63.
+LaTeX Info: Redefining \showhyphens on input line 66.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -617,7 +631,7 @@ r.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-Package hyperref Info: Link coloring OFF on input line 63.
+Package hyperref Info: Link coloring OFF on input line 66.
 
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/namere
 f.sty
@@ -633,9 +647,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count305
 )
-LaTeX Info: Redefining \ref on input line 63.
-LaTeX Info: Redefining \pageref on input line 63.
-LaTeX Info: Redefining \nameref on input line 63.
+LaTeX Info: Redefining \ref on input line 66.
+LaTeX Info: Redefining \pageref on input line 66.
+LaTeX Info: Redefining \nameref on input line 66.
 (./manuscript.out) (./manuscript.out)
 \@outlinefile=\write4
 \openout4 = `manuscript.out'.
@@ -643,32 +657,32 @@ LaTeX Info: Redefining \nameref on input line 63.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-30.
+33.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-30.
+33.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-130.
+133.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-130.
+133.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 130.
+(Font)              <8> on input line 133.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 130.
+(Font)              <6> on input line 133.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 130.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 130
+(Font)              <5> on input line 133.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 133
 .
 
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.f
@@ -679,7 +693,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 a.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 130
+LaTeX Font Info:    Trying to load font information for U+msb on input line 133
 .
 
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.f
@@ -691,7 +705,7 @@ b.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 1
-30.
+33.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -700,9 +714,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 130.
+(Font)              <10> on input line 133.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 130.
+(Font)              <7> on input line 133.
 
 Overfull \vbox (19.31003pt too high) has occurred while \output is active []
 
@@ -714,11 +728,11 @@ ftex.map}] [2] [3] [4] [5]
 <figures/dvm_comp.jpeg, id=131, 366.4089pt x 245.718pt>
 File: figures/dvm_comp.jpeg Graphic file (type jpg)
 <use figures/dvm_comp.jpeg>
-Package pdftex.def Info: figures/dvm_comp.jpeg  used on input line 274.
+Package pdftex.def Info: figures/dvm_comp.jpeg  used on input line 277.
 (pdftex.def)             Requested size: 345.0pt x 231.36113pt.
 [6] [7 <./figures/dvm_comp.jpeg>] [8] [9] [10] [11] [12] [13]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-58.
+61.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -730,45 +744,45 @@ Package microtype Info: Loading generic protrusion settings for font family
 <figures/rmspe_eff.jpeg, id=206, 366.4089pt x 317.2653pt>
 File: figures/rmspe_eff.jpeg Graphic file (type jpg)
 <use figures/rmspe_eff.jpeg>
-Package pdftex.def Info: figures/rmspe_eff.jpeg  used on input line 619.
+Package pdftex.def Info: figures/rmspe_eff.jpeg  used on input line 622.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
 [16 <./figures/rmspe_eff.jpeg>]
 <figures/mse_eff.jpeg, id=215, 366.4089pt x 317.2653pt>
 File: figures/mse_eff.jpeg Graphic file (type jpg)
 <use figures/mse_eff.jpeg>
-Package pdftex.def Info: figures/mse_eff.jpeg  used on input line 650.
+Package pdftex.def Info: figures/mse_eff.jpeg  used on input line 653.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
 [17] [18 <./figures/mse_eff.jpeg>]
 <figures/coverage.jpeg, id=226, 366.4089pt x 317.2653pt>
 File: figures/coverage.jpeg Graphic file (type jpg)
 <use figures/coverage.jpeg>
-Package pdftex.def Info: figures/coverage.jpeg  used on input line 672.
+Package pdftex.def Info: figures/coverage.jpeg  used on input line 675.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
 [19 <./figures/coverage.jpeg>]
 <figures/mercury_map.jpeg, id=237, 366.4089pt x 317.2653pt>
 File: figures/mercury_map.jpeg Graphic file (type jpg)
 <use figures/mercury_map.jpeg>
-Package pdftex.def Info: figures/mercury_map.jpeg  used on input line 701.
+Package pdftex.def Info: figures/mercury_map.jpeg  used on input line 704.
 (pdftex.def)             Requested size: 338.09853pt x 292.74933pt.
 <figures/mercury_hist.jpeg, id=238, 366.4089pt x 317.2653pt>
 File: figures/mercury_hist.jpeg Graphic file (type jpg)
 <use figures/mercury_hist.jpeg>
-Package pdftex.def Info: figures/mercury_hist.jpeg  used on input line 707.
+Package pdftex.def Info: figures/mercury_hist.jpeg  used on input line 710.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
 <figures/sv_plot.jpeg, id=239, 366.4089pt x 317.2653pt>
 File: figures/sv_plot.jpeg Graphic file (type jpg)
 <use figures/sv_plot.jpeg>
-Package pdftex.def Info: figures/sv_plot.jpeg  used on input line 713.
+Package pdftex.def Info: figures/sv_plot.jpeg  used on input line 716.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
 [20] [21 <./figures/mercury_map.jpeg> <./figures/mercury_hist.jpeg> <./figures/
 sv_plot.jpeg>] [22] [23] [24] [25] [26] [27]
-Overfull \hbox (2.79321pt too wide) in paragraph at lines 1024--1027
+Overfull \hbox (2.79321pt too wide) in paragraph at lines 1027--1030
 [][]\T1/lmr/m/n/10 (-20) USEPA, 2012. Na-tional lakes as-sess-ment 2012. https:
 //www.epa.gov/national-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1024--1027
+Underfull \hbox (badness 10000) in paragraph at lines 1027--1030
 \T1/lmr/m/n/10 (-6) aquatic-resource-surveys/national-results-and-regional-high
 lights-national-lakes-
  []
@@ -778,13 +792,13 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 4B693B6CF985DF5604D53495B058B30E;2914.
  ) 
 Here is how much of TeX's memory you used:
- 14586 strings out of 480293
- 241038 string characters out of 5894541
- 557425 words of memory out of 5000000
- 31859 multiletter control sequences out of 15000+600000
+ 14762 strings out of 480293
+ 243626 string characters out of 5894541
+ 560337 words of memory out of 5000000
+ 32031 multiletter control sequences out of 15000+600000
  491686 words of font info for 185 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 70i,14n,76p,1007b,539s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 70i,14n,76p,1007b,545s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-e
 c.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/
 lm-mathit.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/d
@@ -811,7 +825,7 @@ dumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/
 Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.p
 fb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/
 lmtt10.pfb>
-Output written on manuscript.pdf (28 pages, 1130978 bytes).
+Output written on manuscript.pdf (28 pages, 1132556 bytes).
 PDF statistics:
  447 PDF objects out of 1000 (max. 8388607)
  367 compressed objects within 4 object streams
