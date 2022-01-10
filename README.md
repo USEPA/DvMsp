@@ -69,7 +69,7 @@ The manuscript and supporting information (and auxiliary files used to build the
 system.file("manuscript", package = "DvMsp")
 ```
 
-To view the manuscript, open `manuscript.pdf`. To view the supplementary material, open `supplementary.pdf`.
+To view the manuscript, open `manuscript.pdf` (or visit [here](https://github.com/michaeldumelle/DvMsp/blob/main/inst/manuscript/manuscript.pdf)). To view the supplementary material, open `supplementary.pdf` (or visit [here](https://github.com/michaeldumelle/DvMsp/blob/main/inst/manuscript/supporting.pdf)).
 
 ### Figures
 
