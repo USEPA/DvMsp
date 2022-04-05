@@ -282,6 +282,53 @@ xtab_app <- xtable(res_df_drop, digits = 1, caption = "\\label{tab:appliedtab} F
 print(xtab_app, include.rownames = FALSE, comment = FALSE)
 ```
 
+## New Application
+
+\begin{figure}
+\centering
+\begin{subfigure}{0.98\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/bmmi_map.jpeg}
+  \caption*{}
+  \label{fig:bmmi_map}
+\end{subfigure} \\
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/bmmi_hist.jpeg}
+  \caption*{}
+  \label{fig:bmmi_hist}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/bmmi_sv_plot.jpeg}
+  \caption*{}
+  \label{fig:bmmi_sv_plot}
+\end{subfigure}
+\caption{BMMI visualizations for all 986 lakes in the NLA data. A spatial layout is in the top row, a histogram is in the bottom row and left column, and an empirical semivariogram is in the bottom row and right column.}
+\label{fig:merc}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/data_rmspe_eff.jpeg}
+  \caption{Relative rMS(P)E in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
+  \label{fig:rmspe_eff}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/data_mse_eff.jpeg}
+  \caption{Relative MStdE in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
+  \label{fig:mse_eff}
+\end{figure} 
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/data_coverage.jpeg}
+  \caption{Interval coverage in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.}
+  \label{fig:figconf}
+\end{figure}
+
 # Discussion {#sec:discussion}
 
 The design-based and model-based approaches to statistical inference are fundamentally different paradigms. The design-based approach relies on random sampling to estimate population parameters. The model-based approach relies on distributional assumptions to predict realized values of a stochastic process. Though the model-based approach does not rely on random sampling, it can still be beneficial as a way to guard against preferential sampling. While the design-based and model-based approaches have often been compared in the literature from theoretical and analytical perspectives, our contribution lies in studying them in a spatial context while implementing spatially balanced sampling and the design-based, local neighborhood variance estimator. Aside from the theoretical differences described, a few analytical findings from the simulation study are particularly notable. First, independent of the analysis approach, we found no reason to prefer IRS over GRTS when sampling spatial data -- GRTS-Design and GRTS-Model generally had similar rMS(P)E as their IRS counterparts when there was no spatial covariance and lower rMS(P)E than their IRS counterparts when there was spatial covariance. Second, the sampling decision (IRS vs GRTS) is most important when using a design-based analysis. Though GRTS-Model still had lower rMS(P)E than IRS-Model, the model-based analysis mitigated most of the rMS(P)E inefficiencies that result from the IRS samples lacking spatial balance. Third, as the strength of spatial covariance increases, the gap in rMS(P)E and MStdE between IRS-Design and the other sampling-analysis combinations also increases, likely because IRS-Design is the only combination that ignores spatial locations in sampling and analysis. Fourth and finally, when the response was normal, interval coverage for all sampling-analysis combinations was usually close to 95% for all sample sizes; when the response was lognormal, interval coverage for all sampling-analysis combinations was usually between 90% and 95% and closest to 95% when $n = 200$.
