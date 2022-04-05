@@ -13,7 +13,7 @@
 ### Abstract
 
   1.   The design-based and model-based approaches to frequentist statistical inference rest on fundamentally different foundations. In the design-based approach, inference relies on random sampling. In the model-based approach, inference relies on distributional assumptions. We compare the approaches for finite population spatial data.
-  2. We provide relevant background for the design-based and model-based approaches and then study their performance using simulations and an analysis of real mercury concentration data. In the simulations, a variety of sample sizes, location layouts, dependence structures, and response types are considered. In the simualtions and real data analysis, the population mean is the parameter of interest and performance is measured using statistics like bias, squared error, and interval coverage.
+  2. We provide relevant background for the design-based and model-based approaches and then study their performance using simulations and an analysis of real mercury concentration data. In the simulations, a variety of sample sizes, location layouts, dependence structures, and response types are considered. In the simulations and real data analysis, the population mean is the parameter of interest and performance is measured using statistics like bias, squared error, and interval coverage.
   3. When studying the simulations and mercury concentration data, we found that regardless of the strength of spatial dependence in the data, sampling plans that incorporate spatial locations (spatially balanced samples) generally outperform sampling plans that ignore spatial locations (non-spatially balanced samples). We also found that model-based approaches tend to outperform design-based approaches, even when the data are skewed (and by consequence, the model-based distributional assumptions violated). The performance gap between these approaches is small when spatially balanced samples are used but large when non-spatially balanced samples are used. This suggests that the sampling choice (whether to select a sample that is spatially balanced) is most important when performing design-based inference.
   4. There are many benefits and drawbacks to the design-based and model-based approaches for finite population spatial data that practitioners must consider when choosing between them. We provide relevant background contextualizing each approach and study their properties in a variety of scenarios, making recommendations for use based on the practitioner's goals.
 
@@ -69,7 +69,7 @@ The manuscript and supporting information (and auxiliary files used to build the
 system.file("manuscript", package = "DvMsp")
 ```
 
-To view the manuscript, open `manuscript.pdf`. To view the supplementary material, open `supplementary.pdf`.
+To view the manuscript, open `manuscript.pdf` (or visit [here](https://github.com/michaeldumelle/DvMsp/blob/main/inst/manuscript/manuscript.pdf)). To view the supplementary material, open `supplementary.pdf` (or visit [here](https://github.com/michaeldumelle/DvMsp/blob/main/inst/manuscript/supporting.pdf)).
 
 ### Figures
 
