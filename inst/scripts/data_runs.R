@@ -7,13 +7,13 @@ write_out <- TRUE
 
 n <- c(50, 100, 200)
 vars <- c("TOTALHG_RESULT", "MMI_BENT_NLA12")
-parm_df <- expand_grid(n, vars)
+parm_df <- expand_grid(n = n, var = vars)
 
 data("nla_df")
 
 ## loop through each row of parm_df (could be done with purrr::pmap() instead)
 for (i in 1:nrow(parm_df)) {
-  n_trials <- 16
+  n_trials <- 2000
   seed <- 1:n_trials
   n_cluster <- detectCores() # find cores (48 on mine)
   cluster <- makeCluster(n_cluster) # make cluster
