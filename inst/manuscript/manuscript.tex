@@ -11,6 +11,7 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 \usepackage{graphicx}
+\usepackage{booktabs} % book-quality tables
 %%%%%%%%%%%%%%%% end my additions to header
 
 \usepackage[T1]{fontenc}
@@ -54,31 +55,6 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 
 % Pandoc citation processing
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-% for Pandoc 2.8 to 2.10.1
-\newenvironment{cslreferences}%
-  {}%
-  {\par}
-% For Pandoc 2.11+
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Pandoc header
 
@@ -90,8 +66,8 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{A comparison of design-based and model-based approaches for
-finite population spatial data.}
+  \title{A comparison of design-based and model-based approaches for finite
+population spatial data.}
     \author[USEPA]{Michael Dumelle\corref{1}}
   
     \author[STLAW]{Matt Higham}
@@ -102,53 +78,48 @@ finite population spatial data.}
   
     \author[OSU]{Lisa Madsen}
   
-      \address[USEPA]{United States Environmental Protection Agency, 200
-SW 35th St, Corvallis, Oregon, 97333}
-    \address[STLAW]{Saint Lawrence University Department of Mathematics,
-Computer Science, and Statistics, 23 Romoda Drive, Canton, New York,
-13617}
-    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science
-Center, National Oceanic and Atmospheric Administration, Seattle,
-Washington, 98115}
-    \address[OSU]{Oregon State University Department of Statistics, 239
-Weniger Hall, Corvallis, Oregon, 97331}
-      \cortext[1]{Corresponding Author: Michael Dumelle
-(Dumelle.Michael@epa.gov)}
+      \address[USEPA]{United States Environmental Protection Agency, 200 SW 35th St,
+Corvallis, Oregon, 97333}
+    \address[STLAW]{Saint Lawrence University Department of Mathematics, Computer Science,
+and Statistics, 23 Romoda Drive, Canton, New York, 13617}
+    \address[NOAA]{Marine Mammal Laboratory, Alaska Fisheries Science Center, National
+Oceanic and Atmospheric Administration, Seattle, Washington, 98115}
+    \address[OSU]{Oregon State University Department of Statistics, 239 Weniger Hall,
+Corvallis, Oregon, 97331}
+      \cortext[1]{Corresponding Author: Michael Dumelle (Dumelle.Michael@epa.gov)}
   
   \begin{abstract}
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \tightlist
   \item
-    The design-based and model-based approaches to frequentist
-    statistical inference rest on fundamentally different foundations.
-    In the design-based approach, inference relies on random sampling.
-    In the model-based approach, inference relies on distributional
-    assumptions. We compare the approaches for finite population spatial
-    data.
+    The design-based and model-based approaches to frequentist statistical
+    inference rest on fundamentally different foundations. In the
+    design-based approach, inference relies on random sampling. In the
+    model-based approach, inference relies on distributional assumptions.
+    We compare the approaches for finite population spatial data.
   \item
     We provide relevant background for the design-based and model-based
     approaches and then study their performance using simulations and an
     analysis of real mercury concentration data. In the simulations, a
-    variety of sample sizes, location layouts, dependence structures,
-    and response types are considered. In the simualations and real data
+    variety of sample sizes, location layouts, dependence structures, and
+    response types are considered. In the simualations and real data
     analysis, the population mean is the parameter of interest and
-    performance is measured using statistics like bias, squared error,
-    and interval coverage.
+    performance is measured using statistics like bias, squared error, and
+    interval coverage.
   \item
-    When studying the simulations and mercury concentration data, we
-    found that regardless of the strength of spatial dependence in the
-    data, sampling plans that incorporate spatial locations (spatially
-    balanced samples) generally outperform sampling plans that ignore
-    spatial locations (non-spatially balanced samples). We also found
-    that model-based approaches tend to outperform design-based
-    approaches, even when the data are skewed (and by consequence, the
-    model-based distributional assumptions violated). The performance
-    gap between these approaches is small when spatially balanced
-    samples are used but large when non-spatially balanced samples are
-    used. This suggests that the sampling choice (whether to select a
-    sample that is spatially balanced) is most important when performing
-    design-based inference.
+    When studying the simulations and mercury concentration data, we found
+    that regardless of the strength of spatial dependence in the data,
+    sampling plans that incorporate spatial locations (spatially balanced
+    samples) generally outperform sampling plans that ignore spatial
+    locations (non-spatially balanced samples). We also found that
+    model-based approaches tend to outperform design-based approaches,
+    even when the data are skewed (and by consequence, the model-based
+    distributional assumptions violated). The performance gap between
+    these approaches is small when spatially balanced samples are used but
+    large when non-spatially balanced samples are used. This suggests that
+    the sampling choice (whether to select a sample that is spatially
+    balanced) is most important when performing design-based inference.
   \item
     There are many benefits and drawbacks to the design-based and
     model-based approaches for finite population spatial data that
@@ -195,14 +166,14 @@ comparison of design-based and model-based approaches for spatial data,
 quashing the belief that design-based approaches could not be used for
 spatially correlated data. Since then, there have been several general
 comparisons between design-based and model-based approaches for spatial
-data (Brus and De Gruijter, 1997; Brus, 2021; Ver Hoef, 2002; Ver Hoef,
-2008; Wang et al., 2012). Cooper (2006) reviews the two approaches in an
-ecological context before introducing a ``model-assisted'' variance
-estimator that combines aspects from each approach. In addition to
-Cooper (2006), there has been substantial research and development into
-estimators that use both design-based and model-based principles (see
-e.g., Sterba (2009) and Cicchitelli and Montanari (2012), and see
-Chan-Golston et al. (2020) for a Bayesian approach).
+data (Brus and De Gruijter, 1997; Brus, 2021; Ver Hoef, 2002, 2008; Wang
+et al., 2012). Cooper (2006) reviews the two approaches in an ecological
+context before introducing a ``model-assisted'' variance estimator that
+combines aspects from each approach. In addition to Cooper (2006), there
+has been substantial research and development into estimators that use
+both design-based and model-based principles (see e.g., Sterba (2009)
+and Cicchitelli and Montanari (2012), and see Chan-Golston et al. (2020)
+for a Bayesian approach).
 
 Certainly comparisons between design-based and model-based approaches
 have been studied in spatial contexts. But no numerical comparison has
@@ -946,7 +917,6 @@ for all 36 simulation scenarios.
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-akaike1974new}{}%
 Akaike, H., 1974. A new look at the statistical model identification.
 IEEE Transactions on Automatic Control 19, 716--723.
@@ -985,8 +955,8 @@ inference for finite populations under spatial process settings.
 Environmetrics 31, e2606.
 
 \leavevmode\hypertarget{ref-chiles1999geostatistics}{}%
-Chiles, J.-P., Delfiner, P., 1999. Geostatistics: {Modeling Spatial
-Uncertainty}. {John Wiley \& Sons}, New York.
+Chiles, J.-P., Delfiner, P., 1999. Geostatistics: Modeling Spatial
+Uncertainty. John Wiley \& Sons, New York.
 
 \leavevmode\hypertarget{ref-cicchitelli2012model}{}%
 Cicchitelli, G., Montanari, G.E., 2012. Model-assisted estimation of a
@@ -1005,9 +975,9 @@ samples: A reappraisal of classical sampling theory. Mathematical
 Geology 22, 407--415.
 
 \leavevmode\hypertarget{ref-diggle2010geostatistical}{}%
-Diggle, P.J., Menezes, R., Su, T., 2010. Geostatistical inference under
-preferential sampling. Journal of the Royal Statistical Society: Series
-C (Applied Statistics) 59, 191--232.
+Diggle, P.J., Menezes, R., Su, T.-l., 2010. Geostatistical inference
+under preferential sampling. Journal of the Royal Statistical Society:
+Series C (Applied Statistics) 59, 191--232.
 
 \leavevmode\hypertarget{ref-dumelle2021spsurvey}{}%
 Dumelle, M., Kincaid, T.M., Olsen, A.R., Weber, M.H., 2021. Spsurvey:
@@ -1116,7 +1086,7 @@ wildlife populations. Environmental and Ecological Statistics 15, 3--13.
 
 \leavevmode\hypertarget{ref-ver2013comparison}{}%
 Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
-model to nearest neighbor (k-NN) methods for forestry applications. PlOS
+model to nearest neighbor (k-nn) methods for forestry applications. PlOS
 ONE 8, e59129.
 
 \leavevmode\hypertarget{ref-wang2013design}{}%
@@ -1133,7 +1103,7 @@ Wolfinger, R., Tobias, R., Sall, J., 1994. Computing gaussian
 likelihoods and their derivatives for general linear mixed models. SIAM
 Journal on Scientific Computing 15, 1294--1310.
 
-\end{CSLReferences}
-
 
 \end{document}
+
+
