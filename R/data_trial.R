@@ -14,8 +14,11 @@ data_trial <- function(seed = sample.int(1e7, size = 1), data, var,
 
   # subset data
   data <- data %>%
-  dplyr::select(response = var, x = INDEX_LON_DD, y = INDEX_LAT_DD) %>%
-  na.omit()
+  dplyr::select(SITE_ID, response = var, x = INDEX_LON_DD, y = INDEX_LAT_DD) %>%
+    na.omit() %>%
+    dplyr::group_by(SITE_ID) %>%
+    dplyr::summarize(response = mean(response), x = mean(x), y = mean(y)) %>%
+    dplyr::ungroup()
 
   # make data an sf object for spsurvey
   data_sf <- sf::st_as_sf(data, coords = c("x", "y"), crs = 4269) %>%
@@ -167,7 +170,7 @@ data_trial <- function(seed = sample.int(1e7, size = 1), data, var,
 
   # store realized values
   realized_mean <- mean(data$response)
-  realized_var <- var(data$response) * ((N - 1) / N) * 1 / N
+  realized_var <- var(data$response) * ((N - 1) / N) * 1 / n * (1 - n / N)
 
   # store output
   output <- data.frame(
