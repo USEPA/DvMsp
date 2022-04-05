@@ -1,3 +1,43 @@
+#' Conduct a simulation trial
+#'
+#' Take a sample from and subsequently analyze spatially correlated data
+#' using \enumerate{
+#'          \item GRTS sample, analyzed with GRTS and FPBK
+#'          \item SRS sample, analyzed with traditional SRS and FPBK
+#' }
+#'
+#' @param seed is a random seed, by default a random integer.
+#' @param data is the data frame that contains \code{var} and the coordinates
+#' @param var is the name of the variable to analyze
+#' @param n is the number of data points sampled.
+#' @inheritParams sim_pop
+#' @param cortype_est is the correlation function type used to estimate the
+#' covariance parameters. Available options include
+#' \code{"Exponential"} for the exponential correlation, \code{"Gaussian"} for
+#' the Gaussian correlation, and \code{"Spherical"} for the spherical correlation.
+#' The default is \code{"Exponential"}.
+#' @return a data frame with \itemize{
+#'   \item \code{approach}, the name of th approach (\code{"Degign"}
+#'   or \code{"Model"}).
+#'   \item \code{seed}, a non-random integer seed.
+#'   \item \code{true_mean}, the realized mean from the entire population.
+#'   \item \code{true_var}, the realized variance from the entire population.
+#'   \item \code{estimate}, the estimated/predicted mean.
+#'   \item \code{sd}, the standard error of the estimated/predicted mean.
+#'   \item \code{lb}, a lower 95% confidence bound
+#'   \item \code{ub}, an upper 95% confidence bound.
+#' }
+#'
+#'
+#' @examples
+#' data("nla_df")
+#' data_trial(seed = sample.int(1e7, size = 1), data = nla_df,
+#' var = "TOTALHG_RESULT", n = 50)
+#' @import stats
+#' @import sptotal
+#' @import spsurvey
+#' @importFrom rlang .data
+#' @export
 data_trial <- function(seed = sample.int(1e7, size = 1), data, var,
                        n = 50, cortype_est = "Exponential",
                        ...) {
@@ -9,9 +49,6 @@ data_trial <- function(seed = sample.int(1e7, size = 1), data, var,
   # set a reproducible seed
   set.seed(seed)
 
-  # set N
-  N <- nrow(data)
-
   # subset data
   data <- data %>%
   dplyr::select(SITE_ID, response = var, x = INDEX_LON_DD, y = INDEX_LAT_DD) %>%
@@ -19,6 +56,9 @@ data_trial <- function(seed = sample.int(1e7, size = 1), data, var,
     dplyr::group_by(SITE_ID) %>%
     dplyr::summarize(response = mean(response), x = mean(x), y = mean(y)) %>%
     dplyr::ungroup()
+
+  # set N
+  N <- nrow(data)
 
   # make data an sf object for spsurvey
   data_sf <- sf::st_as_sf(data, coords = c("x", "y"), crs = 4269) %>%

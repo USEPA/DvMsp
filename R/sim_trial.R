@@ -38,7 +38,6 @@
 #' @import spsurvey
 #' @importFrom rlang .data
 #' @export
-
 sim_trial <- function(seed = sample.int(1e7, size = 1),
                     N = 100, n = 50, gridded = TRUE,
                     cortype = "Exponential", psill, range,
