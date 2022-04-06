@@ -134,14 +134,14 @@ data(nla_df)
 
 nla_df %>%
   group_by(SITE_ID) %>%
-  summarise(nonmiss = sum(!is.na(MMI_BENT_NLA12))) %>%
+  summarise(nonmiss = sum(!is.na(MMI_ZOOP_NLA6))) %>%
   ungroup() %>%
   summarise(maxnonmiss = max(nonmiss))
 
-## bmmi never measured twice at the same site.
+## zmmi measured twice at the same site?
 nla_df %>%
   group_by(SITE_ID) %>%
-  summarise(nonmiss = sum(!is.na(MMI_BENT_NLA12))) %>%
+  summarise(nonmiss = sum(!is.na(MMI_ZOOP_NLA6))) %>%
   summarise(sumnomiss = sum(nonmiss == 0))
 
 ## some sites never have HG measured. These will be dropped as well as the duplicate sites.
@@ -150,7 +150,7 @@ nla_nomiss <- nla_df %>%
   group_by(SITE_ID) %>%
   fill(RDis_IX, .direction = "downup") %>%
   ungroup() %>%
-  filter(!is.na(MMI_BENT_NLA12))
+  filter(!is.na(MMI_ZOOP_NLA6))
 
 nla_nomiss_both <- nla_nomiss
 ## check
@@ -162,7 +162,7 @@ nla_nomiss_both %>%
 # average
 nla_nomiss_both <- nla_nomiss_both %>%
   group_by(SITE_ID) %>%
-  summarize(MMI_BENT_NLA12 = mean(MMI_BENT_NLA12), INDEX_LON_DD = mean(INDEX_LON_DD), INDEX_LAT_DD = INDEX_LAT_DD) %>%
+  summarize(MMI_ZOOP_NLA6 = mean(MMI_ZOOP_NLA6), INDEX_LON_DD = mean(INDEX_LON_DD), INDEX_LAT_DD = INDEX_LAT_DD) %>%
   ungroup()
 
 ## transform coordinates
@@ -173,11 +173,11 @@ nla_nomiss_both$xcoords <- coord_list$xy[ ,1]
 nla_nomiss_both$ycoords <- coord_list$xy[ ,2]
 
 ## figure 4a
-bmmi_map <- nla_nomiss_both %>%
+zmmi_map <- nla_nomiss_both %>%
   ggplot(aes(x = xcoords, y = ycoords)) +
-  geom_point(aes(colour = MMI_BENT_NLA12)) +
+  geom_point(aes(colour = MMI_ZOOP_NLA6)) +
   scale_colour_viridis_c() +
-  labs(x = "", y = "", colour = "BMMI") +
+  labs(x = "", y = "", colour = "zmmi") +
   coord_quickmap() +
   theme_bw(base_size = 10) +
   theme(
@@ -189,12 +189,12 @@ bmmi_map <- nla_nomiss_both %>%
     panel.border = element_blank(),
   )
 
-### bmmi_map
+### zmmi_map
 # write out the image
 if (write_out) {
   ggsave(
-    plot = bmmi_map,
-    file = here("inst", "manuscript", "figures", "bmmi_map.jpeg"),
+    plot = zmmi_map,
+    file = here("inst", "manuscript", "figures", "zmmi_map.jpeg"),
     dpi = 300,
     width = 5.07,
     height = 4.39
@@ -202,8 +202,8 @@ if (write_out) {
 }
 
 ## figure 4 b
-bmmi_hist <- nla_nomiss_both %>%
-  ggplot(aes(x = MMI_BENT_NLA12)) +
+zmmi_hist <- nla_nomiss_both %>%
+  ggplot(aes(x = MMI_ZOOP_NLA6)) +
   geom_histogram(bins = 20) +
   labs(x = "Hg", y = "Count") +
   theme_bw(base_size = 18) +
@@ -213,12 +213,12 @@ bmmi_hist <- nla_nomiss_both %>%
     panel.border = element_blank(),
   )
 
-### bmmi_hist
+### zmmi_hist
 # write out the image
 if (write_out) {
   ggsave(
-    plot = bmmi_hist,
-    file = here("inst", "manuscript", "figures", "bmmi_hist.jpeg"),
+    plot = zmmi_hist,
+    file = here("inst", "manuscript", "figures", "zmmi_hist.jpeg"),
     dpi = 300,
     width = 5.07,
     height = 4.39
@@ -226,12 +226,12 @@ if (write_out) {
 }
 
 ## figure 4c
-sv_val <- sv(nla_nomiss_both, "xcoords", "ycoords", "total_hg") # same as residuals because model is mean-only
+sv_val <- sv(nla_nomiss_both, "xcoords", "ycoords", "MMI_ZOOP_NLA6") # same as residuals because model is mean-only
 sv_plot <- sv_val %>%
   ggplot(aes(x = dist, y = gamma * (1/10))) +
   geom_point(size = 3) +
   labs(x = "Distance (Kilometers)", y = "Semi-Variance (Tens)", title = "") +
-  ylim(c(0, 30)) +
+  ylim(c(0, 45)) +
   # scale_size_continuous(name = "Pairs") +
   theme_bw(base_size = 18) +
   theme(
@@ -246,7 +246,7 @@ sv_plot <- sv_val %>%
 if (write_out) {
   ggsave(
     plot = sv_plot,
-    file = here("inst", "manuscript", "figures", "bmmi_sv_plot.jpeg"),
+    file = here("inst", "manuscript", "figures", "zmmi_sv_plot.jpeg"),
     dpi = 300,
     width = 5.07,
     height = 4.39

@@ -6,15 +6,18 @@ library(DvMsp)
 write_out <- TRUE
 
 n <- c(50, 100, 200)
-vars <- c("TOTALHG_RESULT", "MMI_BENT_NLA12")
+vars <- c("TOTALHG_RESULT", "MMI_ZOOP_NLA6")
 parm_df <- expand_grid(n = n, var = vars)
+
+n_trials <- 2000
+# set overall seed
+set.seed(2)
+parm_df$seed <- lapply(seq_len(NROW(parm_df)), function(x) sample(1e9, size = n_trials))
 
 data("nla_df")
 
 ## loop through each row of parm_df (could be done with purrr::pmap() instead)
 for (i in 1:nrow(parm_df)) {
-  n_trials <- 2000
-  seed <- 1:n_trials
   n_cluster <- detectCores() # find cores (48 on mine)
   cluster <- makeCluster(n_cluster) # make cluster
   clusterEvalQ(cluster, library(DvMsp)) # export DvMsp to cluster
@@ -25,7 +28,7 @@ for (i in 1:nrow(parm_df)) {
   parm_df_sim <- parm_df %>% slice(i) ## grab row for ith parameter combo
   sim_output <- parLapply(
     cluster, # the cluster
-    seed, # some seeds
+    unlist(parm_df_sim %>% pull(seed)), # some seeds
     safely(data_trial), # see if any errors
     data = nla_df,
     ## pull each parameter from the single row data frame

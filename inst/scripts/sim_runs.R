@@ -1,5 +1,6 @@
 library(tidyverse)
 library(parallel)
+library(DvMsp)
 
 # write results?
 write_out <- TRUE
@@ -25,12 +26,13 @@ parm_df <- expand_grid(N, n, psill_ratio,
          psill = total_var * psill_ratio,
          nugget = total_var * nugget_ratio)
 
-library(DvMsp)
+n_trials <- 2000
+# set overall seed
+set.seed(2)
+parm_df$seed <- lapply(seq_len(NROW(parm_df)), function(x) sample(1e9, size = n_trials))
 
 ## loop through each row of parm_df (could be done with purrr::pmap() instead)
 for (i in 1:nrow(parm_df)) {
-  n_trials <- 2000
-  seed <- 1:n_trials
   n_cluster <- detectCores() # find cores (48 on mine)
   cluster <- makeCluster(n_cluster) # make cluster
   clusterEvalQ(cluster, library(DvMsp)) # export DvMsp to cluster
@@ -41,7 +43,7 @@ for (i in 1:nrow(parm_df)) {
   parm_df_sim <- parm_df %>% slice(i) ## grab row for ith parameter combo
   sim_output <- parLapply(
     cluster, # the cluster
-    seed, # some seeds
+    unlist(parm_df_sim %>% pull(seed)), # some seeds
     safely(sim_trial), # see if any errors
     ## pull each parameter from the single row data frame
     N = parm_df_sim %>% pull(N), # pop size
