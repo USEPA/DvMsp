@@ -7,11 +7,8 @@
 
 \usepackage{lineno} % add
   \linenumbers % turns line numbering on
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 \usepackage{graphicx}
-\usepackage{booktabs} % book-quality tables
 %%%%%%%%%%%%%%%% end my additions to header
 
 \usepackage[T1]{fontenc}
@@ -54,9 +51,13 @@
 \setcounter{secnumdepth}{5}
 % Pandoc toggle for numbering sections (defaults to be off)
 
-% Pandoc citation processing
 
-% Pandoc header
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
 
 \usepackage{bm} \usepackage{bbm} \usepackage{color} \DeclareMathOperator{\var}{{var}} \DeclareMathOperator{\cov}{{cov}} \usepackage{caption} \usepackage{subcaption} \usepackage{setspace} \usepackage{fancyhdr}
 
@@ -64,6 +65,8 @@
 \doublespacing
 
 \begin{document}
+
+
 \begin{frontmatter}
 
   \title{A comparison of design-based and model-based approaches for finite
@@ -1105,5 +1108,4 @@ Journal on Scientific Computing 15, 1294--1310.
 
 
 \end{document}
-
 
