@@ -20,7 +20,7 @@ combo_data <- combo_data %>%
   mutate(sim = interaction(n, var)) %>% ## , gridded
   mutate(approach = fct_relevel(approach, c("Design IRS", "Model IRS",
                                             "Design GRTS", "Model GRTS"))) %>%
-  mutate(resptype = fct_relevel(var, c("MMI_BENT_NLA12", "TOTALHG_RESULT"))) %>%
+  mutate(resptype = fct_relevel(var, c("MMI_ZOOP_NLA6", "TOTALHG_RESULT"))) %>%
   group_by(sim) %>%
   mutate(designirsrmspe = if_else(approach == "Design IRS", true = rmspe, false = NA_real_)) %>%
   mutate(designirsmse = if_else(approach == "Design IRS", true = mse, false = NA_real_)) %>%
@@ -33,12 +33,12 @@ combo_data <- combo_data %>%
 
 # figure 2
 colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
-resptype_labs <- c(MMI_BENT_NLA12 = "Response: MMI_BENT_NLA12", TOTALHG_RESULT = "Response: TOTALHG_RESULT")
+resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
 rmspe_eff <- combo_data %>%
   ggplot(aes(x = n_factor, y = rel_efficiency, colour = approach)) +
   facet_grid(
-    rows = vars(var)
-    # labeller = labeller(var = resptype_labs)
+    rows = vars(var),
+    labeller = labeller(var = resptype_labs)
   ) +
   geom_jitter(width = 0.24, size = 2) +
   scale_colour_manual(values = colour_scale) +
@@ -64,12 +64,12 @@ if (write_out) {
 
 # figure 3
 colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
-resptype_labs <- c(MMI_BENT_NLA12 = "Response: MMI_BENT_NLA12", TOTALHG_RESULT = "Response: TOTALHG_RESULT")
+resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
 mse_eff <- combo_data %>%
   ggplot(aes(x = n_factor, y = mse_efficiency, colour = approach)) +
   facet_grid(
-    rows = vars(var)
-    # labeller = labeller(var = resptype_labs)
+    rows = vars(var),
+    labeller = labeller(var = resptype_labs)
   ) +
   geom_jitter(width = 0.24, size = 2) +
   scale_colour_manual(values = colour_scale) +
@@ -95,7 +95,7 @@ if (write_out) {
 
 # figure 4
 colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
-resptype_labs <- c(MMI_BENT_NLA12 = "Response: MMI_BENT_NLA12", TOTALHG_RESULT = "Response: TOTALHG_RESULT")
+resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
 coverage <- combo_data %>%
   ggplot(aes(x = n_factor, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95) +
