@@ -158,39 +158,37 @@ to be in the sample (e.g., random sampling). Alternatively, in the
 model-based approach, inference relies on distributional assumptions
 about the underlying stochastic process that generated the sample. Each
 paradigm has a deep historical context (Sterba, 2009) and its own set of
-benefits and drawbacks (Hansen et al., 1983).
+benefits and drawbacks (Hansen et al., 1983). In this manuscript, we
+compare the design-based and model-based approaches for finite
+population spatial data.
 
-Though the design-based and model-based approaches apply to statistical
-inference in a broad sense, we focus on comparing these approaches for
-spatial data. We define spatial data as data that incorporates the
-specific locations of the population units into either the sampling or
-estimation process. De Gruijter and Ter Braak (1990) give an early
-comparison of design-based and model-based approaches for spatial data,
-quashing the belief that design-based approaches could not be used for
-spatially correlated data. Since then, there have been several general
-comparisons between design-based and model-based approaches for spatial
-data (Brus and De Gruijter, 1997; Brus, 2021; Ver Hoef, 2002, 2008; Wang
-et al., 2012). Cooper (2006) reviews the two approaches in an ecological
-context before introducing a ``model-assisted'' variance estimator that
-combines aspects from each approach. In addition to Cooper (2006), there
-has been substantial research and development into estimators that use
-both design-based and model-based principles (see e.g., Sterba (2009)
-and Cicchitelli and Montanari (2012), and see Chan-Golston et al. (2020)
-for a Bayesian approach).
+Spatial data are data that incorporate the locations of the population
+units into either the sampling or estimation process. De Gruijter and
+Ter Braak (1990) and Brus and DeGruijter (1993) give early comparisons
+of design-based and model-based approaches for spatial data, quashing
+the belief that design-based approaches could not be used for spatially
+correlated data. Since then, there have been several general comparisons
+between design-based and model-based approaches for spatial data (Brus
+and De Gruijter, 1997; Brus, 2021; Ver Hoef, 2002, 2008; Wang et al.,
+2012). Cooper (2006) reviews the two approaches in an ecological context
+before introducing a ``model-assisted'' variance estimator that combines
+aspects from each approach. In addition to Cooper (2006), there has been
+substantial research and development into estimators that use both
+design-based and model-based principles (see e.g., Sterba (2009) and
+Cicchitelli and Montanari (2012), and see Chan-Golston et al. (2020) for
+a Bayesian approach).
 
 Certainly comparisons between design-based and model-based approaches
-have been studied in spatial contexts. But no numerical comparison has
-been made between design-based approaches that incorporate spatial
-locations into sampling and analysis and model-based approaches. In this
-manuscript, we compare design-based approaches that incorporate spatial
-locations into sampling and analysis to model-based approaches for
-finite population spatial data. A finite population contains a finite
-number of population units (we assume the finite number is known); an
-example is lakes (treated as a whole with the lake centroid representing
-location) in the contiguous United States. Though here we focus on
-finite populations, the comparisons we discuss generalize to infinite
-populations as well. An infinite population contains an infinite number
-of population units; an example is locations within a single lake.
+have been studied in spatial contexts. Our contribution is comparing
+design-based approaches that incorporate spatial locations into sampling
+and analysis to model-based approaches. Though the broad comparisons we
+draw between design-based and model-based approaches generalize to
+finite and infinite populations, we focus on finite populations. A
+finite population contains a finite number of population units (we
+assume the finite number is known); an example is lakes (treated as a
+whole with the lake centroid representing location) in the contiguous
+United States. An infinite population contains an infinite number of
+population units; an example is locations within a single lake.
 
 The rest of the manuscript is organized as follows. In Section
 \ref{sec:background}, we introduce and provide relevant background for
@@ -305,19 +303,59 @@ and Matei, 2018), Spatially Correlated Poisson Sampling (Grafström,
 Within-Sample-Distance Sampling (Benedetti and Piersimoni, 2017), and
 Halton Iterative Partitioning Sampling (Robertson et al., 2018). In this
 manuscript, we select spatially balanced samples using the Generalized
-Random Tessellation Stratified (GRTS) algorithm because it has several
-attractive properties: the GRTS algorithm accommodates finite and
-infinite sampling frames, equal, unequal, and proportional (to size)
-inclusion probabilities, legacy (historical) sampling (Foster et al.,
-2017), a minimum distance between units in a sample, and replacement
-units (replacement units are population units that can be sampled when a
-population unit originally selected can no longer be sampled). The GRTS
-algorithm selects samples by utilizing a particular mapping between
-two-dimensional and one-dimensional space that preserves proximity
-relationships. Via this mapping, units in two-dimensional space are
-partitioned using a hierarchical address. This hierarchical address is
-used to map population units to a one-dimensional line. On the one
-dimensional line, each population unit's line length equals its
+Random Tessellation Stratified (GRTS) algorithm because it is readily
+available in the \texttt{spsurvey} \textbf{\textsf{R}} package (Dumelle
+et al., 2022) and naturally accommodates finite and infinite sampling
+frames, unequal inclusion probabilities, and replacement units
+(replacement units are population units that can be sampled when a
+population unit originally selected can no longer be sampled).
+
+The GRTS algorithm selects samples by utilizing a particular mapping
+between two-dimensional and one-dimensional space that preserves
+proximity relationships. First the bounding box of the domain is split
+up into four distinct, equally sized squares called level-one cells.
+Each level-one is randomly assigned an level-one address of 0, 1, 2, or
+3. The set of level-one cells is denoted by \(\mathcal{A}_1\) and
+defined as \(\mathcal{A}_1 \equiv \{a_1: a_1 = 0, 1, 2, 3\}\). Within
+each level-one cell, the inclusion probability for each population unit
+is summed, and if any of these sums exceed one, a second level of cells
+is added. Then each level-one cell is split into four distinct, equally
+sized squares called level-two cells. Each level-two cell is randomly
+assigned a level-two address of 0, 1, 2, or 3. The set of level-two
+cells is denoted by \(\mathcal{A}_2\) and defined as
+\(\mathcal{A}_2 \equiv \{a_1a_2: a_1 = 0, 1, 2, 3; a_2 = 0, 1, 2, 3\}\).
+The inclusion probabilities within each level-two cell are summed, and
+if any of these sums exceed one, a third level of cells is added. This
+process continues for \(k\) steps, until all level-\(k\) cells have
+inclusion probability sums no larger than one. Then
+\(\mathcal{A}_k \equiv \{a_1...a_k : a_1 = 0, 1, 2, 3; ...; a_k = 0, 1, 2, 3\}\).
+
+After determining \(\mathcal{A}_k\), it is placed into hierarchical
+order. Hierarchical order is a numeric order that first sorts
+\(\mathcal{A}_k\) by the level-one addresses from smallest to largest,
+then sorts \(\mathcal{A}_k\) by the level-two addresses from smallest to
+largest, and so on. For example, \(\mathcal{A}_2\) in hierarchical order
+is the set
+\(\{00, 01, 02, 03, 10, ..., 13, 20, ..., 23, 30, ..., 33\}\). Because
+hierarchical ordering sorts by level-one cells, then level-two cells,
+and so on, population units that have similar hierarchical addresses
+tend to be nearby one another in space.Next each population unit is
+mapped to a one-dimensional line in hierarchical order where each
+population unit's inclusion probability equals its line-length. If a
+level-\(k\) cell has multiple population units in it, they are randomly
+placed within the cell's respective line segment. A uniform random
+variable is then simulated in \([0, 1]\) and a systematic sample is
+selected on the line, yielding \(n\) sample points for a sample size
+\(n\). Each element in this systematic sample falls on some population
+unit's line segment, and thus that population unit is selected in the
+sample.
+
+The GRTS algorithm selects samples by utilizing a particular mapping
+between two-dimensional and one-dimensional space that preserves
+proximity relationships. Via this mapping, units in two-dimensional
+space are partitioned using a hierarchical address. This hierarchical
+address is used to map population units to a one-dimensional line. On
+the one dimensional line, each population unit's line length equals its
 inclusion probability. Then, a systematic sample of population units is
 selected on the line and mapped back to two-dimensional space, yielding
 the desired sample. Stevens and Olsen (2004) provide more technical
@@ -562,7 +600,7 @@ understand how often our 95\% intervals actually contain the true mean.
 
 The IRS algorithm, IRS variance estimator, GRTS algorithm, and local
 neighborhood variance estimator are available in the \texttt{spsurvey}
-\textbf{\textsf{R}} package (Dumelle et al., 2021). FPBK is available in
+\textbf{\textsf{R}} package (Dumelle et al., 2022). FPBK is available in
 the \texttt{sptotal} \textbf{\textsf{R}} package (Higham et al., 2021).
 
 \hypertarget{sec:mm_app}{%
@@ -779,28 +817,28 @@ IRS-Design & 103.2 & 112.7 & 8.8 & 95.4 & 129.9 \\
   \label{fig:zmmi_sv_plot}
 \end{subfigure}
 \caption{zmmi visualizations for all 986 lakes in the NLA data. A spatial layout is in the top row, a histogram is in the bottom row and left column, and an empirical semivariogram is in the bottom row and right column.}
-\label{fig:merc}
+\label{fig:zmmi}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/data_rmspe_eff.jpeg}
   \caption{Relative rMS(P)E in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
-  \label{fig:rmspe_eff}
+  \label{fig:data_rmspe_eff}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/data_mse_eff.jpeg}
   \caption{Relative MStdE in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
-  \label{fig:mse_eff}
+  \label{fig:data_mse_eff}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/data_coverage.jpeg}
   \caption{Interval coverage in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.}
-  \label{fig:figconf}
+  \label{fig:data_figconf}
 \end{figure}
 
 \hypertarget{sec:discussion}{%
@@ -952,6 +990,11 @@ Brus, D.J., 2021. Statistical approaches for spatial sample survey:
 Persistent misconceptions and new developments. European Journal of Soil
 Science 72, 686--703.
 
+\leavevmode\hypertarget{ref-brus1993design}{}%
+Brus, D.J., DeGruijter, J.J., 1993. Design-based versus model-based
+estimates of spatial means: Theory and application in environmental soil
+science. Environmetrics 4, 123--152.
+
 \leavevmode\hypertarget{ref-chan2020bayesian}{}%
 Chan-Golston, A.M., Banerjee, S., Handcock, M.S., 2020. Bayesian
 inference for finite populations under spatial process settings.
@@ -982,20 +1025,14 @@ Diggle, P.J., Menezes, R., Su, T.-l., 2010. Geostatistical inference
 under preferential sampling. Journal of the Royal Statistical Society:
 Series C (Applied Statistics) 59, 191--232.
 
-\leavevmode\hypertarget{ref-dumelle2021spsurvey}{}%
-Dumelle, M., Kincaid, T.M., Olsen, A.R., Weber, M.H., 2021. Spsurvey:
+\leavevmode\hypertarget{ref-dumelle2022spsurvey}{}%
+Dumelle, M., Kincaid, T.M., Olsen, A.R., Weber, M.H., 2022. Spsurvey:
 Spatial sampling design and analysis.
 
 \leavevmode\hypertarget{ref-fix1989discriminatory}{}%
 Fix, E., Hodges, J.L., 1989. Discriminatory analysis. Nonparametric
 discrimination: Consistency properties. International Statistical
 Review/Revue Internationale de Statistique 57, 238--247.
-
-\leavevmode\hypertarget{ref-foster2017spatially}{}%
-Foster, S.D., Hosack, G.R., Lawrence, E., Przeslawski, R., Hedge, P.,
-Caley, M.J., Barrett, N.S., Williams, A., Li, J., Lynch, T., others,
-2017. Spatially balanced designs that incorporate legacy sites. Methods
-in Ecology and Evolution 8, 1433--1442.
 
 \leavevmode\hypertarget{ref-grafstrom2012spatiallypoisson}{}%
 Grafström, A., 2012. Spatially correlated poisson sampling. Journal of
