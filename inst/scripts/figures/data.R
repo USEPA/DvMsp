@@ -31,6 +31,49 @@ combo_data <- combo_data %>%
   ungroup() %>%
   mutate(n_factor = factor(n))
 
+# create adjusted factor
+combo_data <- combo_data %>%
+  mutate(n_factor_adj = case_when(
+    n == 50 & approach == "Design IRS" ~ 35,
+    n == 50 & approach == "Model IRS" ~ 45,
+    n == 50 & approach == "Design GRTS" ~ 55,
+    n == 50 & approach == "Model GRTS" ~ 65,
+    n == 100 & approach == "Design IRS" ~ 85,
+    n == 100 & approach == "Model IRS" ~ 95,
+    n == 100 & approach == "Design GRTS" ~ 105,
+    n == 100 & approach == "Model GRTS" ~ 115,
+    n == 200 & approach == "Design IRS" ~ 135,
+    n == 200 & approach == "Model IRS" ~ 145,
+    n == 200 & approach == "Design GRTS" ~ 155,
+    n == 200 & approach == "Model GRTS" ~ 165,
+    TRUE ~ NA_real_
+  ))
+
+combo_data <- combo_data %>%
+  pivot_longer(cols = c(rel_efficiency, coverage), names_to = "stat", values_to = "value")
+colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
+resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
+stat_labs <- c(rel_efficiency = "Relative rMS(P)E", coverage = "Interval Coverage")
+rmspe_eff <- combo_data %>%
+  ggplot(aes(x = n_factor_adj, y = value, colour = approach)) +
+  facet_grid(
+    stat ~ var,
+    labeller = labeller(var = resptype_labs, stat = stat_labs)
+  ) +
+  scale_colour_manual(values = colour_scale) +
+  geom_point(size = 2) +
+  geom_vline(xintercept = c(75, 125), lty = "solid") +
+  scale_x_continuous(breaks = c(50, 100, 150), labels = c("50", "100", "200")) +
+  theme_bw(base_size = base_size) +
+  labs(x = "Sample Size", colour = "Approach", y = "Relative rMS(P)E") +
+  # lims(y = c(0.4, 1.1)) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+  )
+
+
+
 # figure 2
 colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
 resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")

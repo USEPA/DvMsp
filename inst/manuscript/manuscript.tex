@@ -103,26 +103,25 @@ Corvallis, Oregon, 97331}
     We compare the approaches for finite population spatial data.
   \item
     We provide relevant background for the design-based and model-based
-    approaches and then study their performance using simulations and an
-    analysis of real mercury concentration data. In the simulations, a
-    variety of sample sizes, location layouts, dependence structures, and
-    response types are considered. In the simualations and real data
-    analysis, the population mean is the parameter of interest and
-    performance is measured using statistics like bias, squared error, and
-    interval coverage.
+    approaches and then study their performance using simulated and real
+    data. In the simulated data, a variety of sample sizes, location
+    layouts, dependence structures, and response types are considered. In
+    the simulated and real data, the population mean is the parameter of
+    interest and performance is measured using statistics like bias,
+    squared error, and interval coverage.
   \item
-    When studying the simulations and mercury concentration data, we found
-    that regardless of the strength of spatial dependence in the data,
-    sampling plans that incorporate spatial locations (spatially balanced
-    samples) generally outperform sampling plans that ignore spatial
-    locations (non-spatially balanced samples). We also found that
+    When studying the simulated and real data, we found that regardless of
+    the strength of spatial dependence in the data, the Generalized Random
+    Tessellation Stratified (GRTS) algorithm, which explicitly
+    incorporates spatial locations into sampling, tends to outperform the
+    Simple Random Sampling (SRS) algorithm, which does not explicitly
+    incorporate spatial locations into sampling. We also found that
     model-based approaches tend to outperform design-based approaches,
-    even when the data are skewed (and by consequence, the model-based
-    distributional assumptions violated). The performance gap between
-    these approaches is small when spatially balanced samples are used but
-    large when non-spatially balanced samples are used. This suggests that
-    the sampling choice (whether to select a sample that is spatially
-    balanced) is most important when performing design-based inference.
+    even for skewed data where the model-based distributional assumptions
+    are violated. The performance gap between these approaches is small
+    GRTS samples are used but large when SRS samples are used. This
+    suggests that the sampling choice (whether to use GRTS or SRS) is most
+    important when performing design-based inference.
   \item
     There are many benefits and drawbacks to the design-based and
     model-based approaches for finite population spatial data that
@@ -215,20 +214,28 @@ Approaches}\label{subsec:dvm_compare}}
 
 The design-based approach assumes the population is fixed. Randomness is
 incorporated via the selection of population units according to a
-sampling design. A sampling design assigns a positive probability of
+sampling design. A sampling design assigns a non-zero probability of
 inclusion (inclusion probability) in the sample to each population unit.
 These inclusion probabilities are later used to estimate population
 parameters. Some examples of commonly used sampling designs include
 simple random sampling, stratified random sampling, and cluster
 sampling.
 
-When sampling designs incorporate spatial locations into sampling, we
-call the resulting samples ``spatially balanced.'' One approach to
-selecting spatially balanced samples is the Generalized Random
-Tessellation Stratified (GRTS) algorithm (Stevens and Olsen, 2004),
-which we discuss in more detail in Section \ref{subsec:spb_design}. When
-sampling designs do not incorporate spatial locations into sampling, we
-call the resulting samples ``non-spatially balanced.''
+When samples are chosen in a manner such that the layout of sampled
+units reflects the layout of the population units, we call the resulting
+sample ``spatially balanced.'' By ``reflecting the layout of the
+population units'', we mean that if population units are concentrated in
+specific areas, the units in the sample should be concentrated in the
+same areas. Because spatially balanced samples reflect the layout of the
+population units, they are not necessarily ``spread out'' in space in
+some equidistant manner.
+
+One approach to selecting spatially balanced samples is the Generalized
+Random Tessellation Stratified (GRTS) algorithm (Stevens and Olsen,
+2004), which we discuss in more detail in Section
+\ref{subsec:spb_design}. When sampling designs do not incorporate
+spatial locations into sampling, we call the resulting samples
+``non-spatially balanced.''
 
 Fundamentally, the design-based approach combines the randomness of the
 sampling design with the data collected via the sample to justify the
@@ -262,8 +269,8 @@ Instead of estimating fixed, unknown population parameters, as in the
 design-based approach, often the goal of model-based inference is to
 predict a realized variable, or value. For example, suppose the realized
 mean of all population units is the value of interest. Instead of a
-fixed, unknown mean, we are the value of the mean, a random variable.
-Prediction intervals are then derived using assumptions of the
+fixed, unknown mean, we are predicting the value of the mean, a random
+variable. Prediction intervals are then derived using assumptions of the
 data-generating stochastic process. If we repeatedly generate response
 values from the same process and select samples, then 95\% of all 95\%
 prediction intervals constructed from a procedure with appropriate
@@ -285,10 +292,9 @@ approaches (Ver Hoef (2002) and Brus (2021) provide similar figures).
 Analysis}\label{subsec:spb_design}}
 
 We previously mentioned that the design-based approach can be used to
-select spatially balanced samples (samples that incorporate spatial
-locations of the population units). Spatially balanced samples are
-useful because parameter estimates from these samples tend to vary less
-than parameter estimates from samples that are not spatially balanced
+select spatially balanced samples. Spatially balanced samples are useful
+because parameter estimates from these samples tend to vary less than
+parameter estimates from samples that are not spatially balanced
 (Barabesi and Franceschi, 2011; Benedetti et al., 2017; Grafström and
 Lundström, 2013; Robertson et al., 2013; Stevens and Olsen, 2004; Wang
 et al., 2013). The first spatially balanced sampling algorithm to see
@@ -348,18 +354,8 @@ variable is then simulated in \([0, 1]\) and a systematic sample is
 selected on the line, yielding \(n\) sample points for a sample size
 \(n\). Each element in this systematic sample falls on some population
 unit's line segment, and thus that population unit is selected in the
-sample.
-
-The GRTS algorithm selects samples by utilizing a particular mapping
-between two-dimensional and one-dimensional space that preserves
-proximity relationships. Via this mapping, units in two-dimensional
-space are partitioned using a hierarchical address. This hierarchical
-address is used to map population units to a one-dimensional line. On
-the one dimensional line, each population unit's line length equals its
-inclusion probability. Then, a systematic sample of population units is
-selected on the line and mapped back to two-dimensional space, yielding
-the desired sample. Stevens and Olsen (2004) provide more technical
-details.
+sample. For further details regarding the GRTS algorithm, see Stevens
+and Olsen (2004).
 
 After selecting a sample and collecting data, unbiased estimates of
 population means and totals can be obtained using the Horvitz-Thompson
@@ -378,16 +374,20 @@ Horvitz and Thompson (1952) and Sen (1953) provide variance estimators
 for \(\hat{\tau}_{ht}\), but these estimators have two drawbacks. First,
 they rely on calculating \(\pi_{ij}\), the probability that population
 unit \(i\) and population unit \(j\) are both in the sample -- this
-quantity can be challenging if not impossible to calculate analytically.
-Second, these estimators ignore the spatial locations of the population
-units. To address these two drawbacks simultaneously, Stevens and Olsen
-(2003) proposed the local neighborhood variance estimator. The local
-neighborhood variance estimator does not rely on \(\pi_{ij}\) and
-incorporates spatial locations -- for technical details see Stevens and
-Olsen (2003). Stevens and Olsen (2003) show the local neighborhood
-variance estimator tends to reduce the estimated variance of
-\(\hat{\tau}\) and yield more precise (narrower) confidence intervals
-compared to variance estimators that ignore spatial locations.
+quantity can be challenging if not impossible to calculate analytically
+for GRTS samples. Second, these estimators ignore the spatial locations
+of the population units. To address these two drawbacks simultaneously,
+Stevens and Olsen (2003) proposed the local neighborhood variance
+estimator. The local neighborhood variance estimator does not rely on
+\(\pi_{ij}\) and estimates the variance of \(\hat{\tau}\) conditional on
+the random properties of the GRTS sample -- the idea being that this
+conditioning should yield a more precise estimate of \(\hat{\tau}\).
+They show that the each observation's contribution to the overall
+variance is dominated by local variation. Thus the local neighborhood
+variance estimator is a weighted sum of variance estimates from each
+observation's local neighborhood. These local neighborhoods contain
+observation itself and its three nearest neighbors. For more details,
+see Stevens and Olsen (2003).
 
 \hypertarget{finite-population-block-kriging}{%
 \subsubsection{Finite Population Block
@@ -397,7 +397,7 @@ Finite Population Block Kriging (FPBK) is a model-based approach that
 expands the geostatistical Kriging framework to the finite population
 setting (Ver Hoef, 2008). Instead of developing inference based on a
 specific sampling design, we assume the data are generated by a spatial
-stochastic process. We summarize some of the basic principles of FBPK
+stochastic process. We summarize some of the basic principles of FPBK
 next -- for technical details, see Ver Hoef (2008). Let
 \({\mathbf{z} \equiv \{\text{z}(s_1), \text{z}(s_2), . . . , \text{z}(s_N) \}}\)
 be an \(N \times 1\) response vector at locations \(s_1\), \(s_2\), . .
@@ -432,7 +432,7 @@ and \(\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'\), where
 \(\bm{\delta}_s\) and \(\bm{\delta}_u\) are random errors for the
 sampled and unsampled population units, respectively.
 
-FBPK assumes \(\bm{\delta}\) in Equation\(~\)\ref{equation:Zmarginal}
+FPBK assumes \(\bm{\delta}\) in Equation\(~\)\ref{equation:Zmarginal}
 has mean-zero and a spatial dependence structure that can be modeled
 using a covariance function. This covariance function is commonly
 assumed to be non-negative, second-order stationary (depending only on
@@ -454,44 +454,61 @@ covariance functions can be used to model \(\bm{\delta}\) (Cressie,
 \sigma^2_{1} + \sigma^2_2 & h_{i,j} = 0
 \end{cases}
 ,
-\end{align} where \(\sigma^2_{1}\) is the variance parameter quantifying
-the variability that is dependent (coarse-scale), \(\sigma^2_{2}\) is
-the variance parameter quantifying the variability that is independent
-(fine-scale), \(\phi\) is the range parameter measuring the
+\end{align} where \(\sigma^2_{1}\) is the variance parameter that
+quantifies the spatially dependent variability, \(\sigma^2_{2}\) is the
+variance parameter the quantifies that spatially independent
+variability, \(\phi\) is the range parameter measuring the
 distance-decay rate of the covariance, and \(h_{i,j}\) is the Euclidean
-distance between population units \(i\) and \(j\). The proportion of
-variability attributable to dependent random error is
-\(\sigma^2_{1} / (\sigma^2_{1} + \sigma^2_{2})\). Similarly, the
-proportion of variability attributable to independent random error is
-\(\sigma^2_{2} / (\sigma^2_{1} + \sigma^2_{2})\). Finally we note that
-\(\sigma^2_{1}\) and \(\sigma^2_{2}\) are often called the partial sill
-and nugget, respectively.
+distance between population units \(i\) and \(j\). In geostatistical
+literature, \(\sigma^2_{1}\) is often called the partial sill and
+\(\sigma^2_{2}\) is often called the nugget.
 
-With the above model formulation, the Best Linear Unbiased Predictor
-(BLUP) for \(f(\mathbf{b}'\mathbf{z})\) and its prediction variance can
-be computed. While details of the derivation are in Ver Hoef (2008), we
-note here that the predictor and its variance are both moment-based,
-meaning that they do not rely on any distributional assumptions.
-Distributional assumptions are used, however, when constructing
-prediction intervals.
+The parameters in Equation\(~\)\ref{equation:Zmarginal} can be estimated
+using a variety of techniques, but we focus on using restricted maximum
+likelihood (Harville, 1977; Patterson and Thompson, 1971; Wolfinger et
+al., 1994). REML is preferred over maximum likelihood (ML) because ML
+estimates can be badly biased for small sample sizes, due to the fact
+that ML makes no adjustment for the simultaneous estimation of
+\(\bm{\beta}\) and \(\bm{\delta}\) (Patterson and Thompson, 1971). Minus
+twice the REML log-likelihood of the sampled sites is given by
+\begin{equation}\label{equation:reml}
+  \ln|\bm{\Sigma}| + (\bm{z}_s - \bm{X}_s \bm{\tilde{\beta}})^T \bm{\Sigma}_{ss}^{-1}(\bm{z}_s - \bm{X}_s \bm{\tilde{\beta}}) + \ln|\bm{X}_s^T \bm{\Sigma}_{ss}^{-1} \bm{X}_s| + (n - p) \ln(2 \pi) ,
+\end{equation} where
+\(\bm{\tilde{\beta}} = (\bm{X}_s^T \bm{\Sigma}_{ss}^{-1} \bm{X}_s)^{-1} \bm{X}_s^T \bm{\Sigma}_{ss}^{-1} \bm{z}_s\)
+and \(\bm{\Sigma}_{ss}\) is the covariance matrix of the sampled sites.
+Minimizing Equation\(~\)\ref{equation:reml} yields
+\(\bm{\hat{\delta}}_{reml}\), the REML estimates of \(\bm{\delta}\).
+Then \(\bm{\beta}_{reml}\), the REML estimate of \(\bm{\beta}\), is
+given by
+\((\bm{X}_s^T \bm{\hat{\Sigma}}_{ss}^{-1} \bm{X})^{-1} \bm{X}_s^T \bm{\hat{\Sigma}}_{ss}^{-1} \bm{z}_s\),
+where \(\bm{\hat{\Sigma}}_{ss}\) is \(\bm{\Sigma}_{ss}\) evaluated at
+\(\bm{\hat{\delta}}_{reml}\).
+
+With the model formulation in Equation\(~\)\ref{equation:Zmarginal}, the
+Best Linear Unbiased Predictor (BLUP) for \(f(\mathbf{b}'\mathbf{z})\)
+and its prediction variance can be computed. While details of the
+derivation are in Ver Hoef (2008), we note here that the predictor and
+its variance are both moment-based, meaning that they do not rely on any
+distributional assumptions. Distributional assumptions are used,
+however, when constructing prediction intervals.
 
 Other approaches, such as k-nearest-neighbors (Fix and Hodges, 1989; Ver
 Hoef and Temesgen, 2013) and random forest (Breiman, 2001), among
 others, could also be used to obtain predictions for a mean or total
 from finite population spatial data. Compared to the k-nearest-neighbors
-and random forest approach, we prefer FBPK because it is model-based and
+and random forest approach, we prefer FPBK because it is model-based and
 relies on theoretically-based variance estimators leveraging the model's
 spatial covariance structure, whereas k-nearest-neighbors and random
 forests use ad-hoc variance estimators (Ver Hoef and Temesgen, 2013).
-Additionally, Ver Hoef and Temesgen (2013) studied compared FBPK,
+Additionally, Ver Hoef and Temesgen (2013) compared FPBK,
 k-nearest-neighbors, and random forest in a variety of spatial data
-contexts, and FBPK tended to perform best.
+contexts, and FPBK tended to perform best.
 
 \hypertarget{sec:mm}{%
 \section{Materials and Methods}\label{sec:mm}}
 
 \hypertarget{sec:mm_sim}{%
-\subsection{Simulation Study}\label{sec:mm_sim}}
+\subsection{Simulated Data}\label{sec:mm_sim}}
 
 We used a simulation study to investigate performance of four
 sampling-analysis combinations. The first sampling-analysis combination
@@ -503,21 +520,23 @@ design-based approach via the Horvitz-Thompson mean estimator and an IRS
 variance estimator that ignored the spatial locations of the units in
 the sample. The second sampling-analysis combination was IRS-Model,
 where samples were selected with the IRS algorithm and analyzed using
-the model-based approach via Restricted Maximum Likelihood (REML)
-estimation (Harville, 1977; Patterson and Thompson, 1971; Wolfinger et
-al., 1994). The third sampling-analysis combination was GRTS-Design,
-where samples were selected with the GRTS algorithm and analyzed using
-the design-based approach via the Horvitz-Thompson mean estimator and
-the local neighborhood variance estimator (which does incorporate the
-spatial locations of the units in the sample). The fourth and final
-sampling-analysis combination was GRTS-Model, where samples were
-selected with the GRTS algorithm and analyzed using the model-based
-approach via REML estimation. These sampling-analysis combinations are
-also provided in Table \ref{tab:designanalysis}. Lastly we note that for
-both the IRS and GRTS samples, equal inclusion probabilities were
-assumed for all population units. When IRS assumes equal inclusion
-probabilities for all population units, the algorithm is equivalent to
-simple random sampling (SRS).
+the model-based approach while estimating the covariance parameters
+(\(\bm{\delta}\)) and fixed effects (\(\bm{\beta}\) using restricted
+maximum likelihood (REML). The third sampling-analysis combination was
+GRTS-Design, where samples were selected with the GRTS algorithm and
+analyzed using the design-based approach via the Horvitz-Thompson mean
+estimator and the local neighborhood variance estimator (which does
+incorporate the spatial locations of the units in the sample). The
+fourth and final sampling-analysis combination was GRTS-Model, where
+samples were selected with the GRTS algorithm and analyzed using the
+model-based approach while estimating the covariance parameters
+(\(\bm{\delta}\)) and fixed effects (\(\bm{\beta}\) using restricted
+maximum likelihood (REML). These sampling-analysis combinations are also
+provided in Table \ref{tab:designanalysis}. Lastly we note that for both
+the IRS and GRTS samples, equal inclusion probabilities were assumed for
+all population units. When IRS assumes equal inclusion probabilities for
+all population units, the algorithm is equivalent to simple random
+sampling (SRS).
 
 \begin{table}[ht]
 \centering
@@ -531,6 +550,8 @@ IRS & IRS-Design & IRS-Model \\
 \end{tabular}
 \caption{\label{tab:designanalysis} Sampling-analysis combinations in the simulation study. The rows give the two types of sampling designs and the columns give the two types of analyses.} 
 \end{table}
+
+CHANGE LOGNORMAL VERBAGE TO SKEWED
 
 Performance for the four sampling-analysis combinations was evaluated in
 36 different simulation scenarios. The 36 scenarios resulted from the
@@ -603,8 +624,26 @@ neighborhood variance estimator are available in the \texttt{spsurvey}
 \textbf{\textsf{R}} package (Dumelle et al., 2022). FPBK is available in
 the \texttt{sptotal} \textbf{\textsf{R}} package (Higham et al., 2021).
 
+\begin{figure}
+\centering
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/symm_pop_hist.jpeg}
+  \caption{}
+  \label{fig:symm_pop_hist}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/skew_pop_hist.jpeg}
+  \caption{}
+  \label{fig:skew_pop_hist}
+\end{subfigure}
+\caption{Histograms of an example population realization for the normal (a) and skewed (b) scenarios for the simulated data.}
+\label{fig:sim_pops}
+\end{figure}
+
 \hypertarget{sec:mm_app}{%
-\subsection{Application}\label{sec:mm_app}}
+\subsection{National Lakes Assessment Data}\label{sec:mm_app}}
 
 The United States Environmental Protection Agency (USEPA), states, and
 tribes periodically conduct National Aquatic Research Surveys (NARS) to
@@ -627,7 +666,7 @@ mercury concentration from all 986 lakes.
 \section{Results}\label{sec:results}}
 
 \hypertarget{sec:r_sim}{%
-\subsection{Simulation Study}\label{sec:r_sim}}
+\subsection{Simulated Data}\label{sec:r_sim}}
 
 The mean bias was nearly zero for all four sampling-analysis
 combinations in all 36 scenarios, so we omit a more detailed summary of
@@ -689,13 +728,6 @@ conclusions are similar to those observed in the grid location layout,
 so we omit a grid location layout figure here. Tables for MStdE in all
 36 simulation scenarios are provided in the supporting information.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/mse_eff.jpeg}
-  \caption{Relative MStdE in the simulation study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
-  \label{fig:mse_eff}
-\end{figure}
-
 Fig. \ref{fig:figconf} shows the 95\% interval coverage for each of the
 four sampling-analysis combinations in the random location layout.
 Within each scenario, the sampling-analysis combinations tend to have
@@ -719,7 +751,7 @@ simulation scenarios are provided in the supporting information.
 \end{figure}
 
 \hypertarget{sec:r_app}{%
-\subsection{Application}\label{sec:r_app}}
+\subsection{National Lakes Assessment DAta}\label{sec:r_app}}
 
 Fig. \ref{fig:merc} shows a map and histogram of mercury concentration
 in all 986 NLA lakes. The map shows mercury concentration exhibits some
@@ -882,28 +914,32 @@ in future research. Design-based approaches are often computationally
 efficient, while model-based approaches can be computationally
 burdensome, especially for likelihood-based estimation methods like REML
 that rely on inverting a covariance matrix. The design-based approach
-also more naturally handles binary data, free from the more complicated
-logistic regression framework commonly used to analyze binary data in a
-model-based approach. The model-based approach, however, can more
-naturally quantify the relationship between covariates (predictor
-variables) and the response variable. The model-based approach also
-yields estimated spatial covariance parameters, which help better
-understand the dependence structure in the stochastic process of study.
-Model selection is also possible using model-based approaches and
-criteria such as cross validation, likelihood ratio tests, or AIC
-(Akaike, 1974). Model-based approaches are capable of more efficient
-small-area estimation than design-based approaches by leveraging
-distributional assumptions in areas with few observed units. Model-based
-approaches can also compute unit-by-unit predictions at unobserved
-locations and use them to construct informative visualizations like
-smoothed maps. In short, when deciding whether the design-based or
-model-based approach is more appropriate to implement, the benefits and
-drawbacks of each approach should be considered alongside the particular
-goals of the study.
+easily handles binary data through a straightforward application of the
+Horvitz-Thompson estimator. In contrast, analyzing binary data using a
+model-based approach generally requires a logistic mixed regression
+model, which can be challenging to estimate and interpret (Bolker et
+al., 2009). The model-based approach, however, can more naturally
+quantify the relationship between covariates (predictor variables) and
+the response variable. The model-based approach also yields estimated
+spatial covariance parameters, which help better understand the
+dependence structure in the stochastic process of study. Model selection
+is also possible using model-based approaches and criteria such as cross
+validation, likelihood ratio tests, or AIC (Akaike, 1974). Model-based
+approaches are capable of more efficient small-area estimation than
+design-based approaches by leveraging distributional assumptions in
+areas with few observed units. Model-based approaches can also compute
+unit-by-unit predictions at unobserved locations and use them to
+construct informative visualizations like smoothed maps. In short, when
+deciding whether the design-based or model-based approach is more
+appropriate to implement, the benefits and drawbacks of each approach
+should be considered alongside the particular goals of the study.
 
 \hypertarget{acknowledgments}{%
 \section*{Acknowledgments}\label{acknowledgments}}
 \addcontentsline{toc}{section}{Acknowledgments}
+
+We would like to thank the editors and anonymous reviewers for their
+thoughtful comments which we feel greatly improved the manuscript.
 
 The views expressed in this manuscript are those of the authors and do
 not necessarily represent the views or policies of the U.S.
@@ -976,6 +1012,12 @@ Biometrical Journal 59, 1067--1084.
 Benedetti, R., Piersimoni, F., Postiglione, P., 2017. Spatially balanced
 sampling: A review and a reappraisal. International Statistical Review
 85, 439--454.
+
+\leavevmode\hypertarget{ref-bolker2009generalized}{}%
+Bolker, B.M., Brooks, M.E., Clark, C.J., Geange, S.W., Poulsen, J.R.,
+Stevens, M.H.H., White, J.-S.S., 2009. Generalized linear mixed models:
+A practical guide for ecology and evolution. Trends in ecology \&
+evolution 24, 127--135.
 
 \leavevmode\hypertarget{ref-breiman2001random}{}%
 Breiman, L., 2001. Random forests. Machine Learning 45, 5--32.
