@@ -153,13 +153,13 @@ units -- this subset is called a sample. There are two general
 approaches for using samples to make frequentist statistical inferences
 about a population: design-based and model-based. In the design-based
 approach, inference relies on randomly assigning some population units
-to be in the sample (e.g., random sampling). Alternatively, in the
-model-based approach, inference relies on distributional assumptions
-about the underlying stochastic process that generated the sample. Each
-paradigm has a deep historical context (Sterba, 2009) and its own set of
-benefits and drawbacks (Hansen et al., 1983). In this manuscript, we
-compare the design-based and model-based approaches for finite
-population spatial data.
+to be in the sample (random sampling). Alternatively, in the model-based
+approach, inference relies on distributional assumptions about the
+underlying stochastic process that generated the sample. Each paradigm
+has a deep historical context (Sterba, 2009) and its own set of benefits
+and drawbacks (Hansen et al., 1983). In this manuscript, we compare the
+design-based and model-based approaches for finite population spatial
+data.
 
 Spatial data are data that incorporate the locations of the population
 units into either the sampling or estimation process. De Gruijter and
@@ -174,8 +174,8 @@ before introducing a ``model-assisted'' variance estimator that combines
 aspects from each approach. In addition to Cooper (2006), there has been
 substantial research and development into estimators that use both
 design-based and model-based principles (see e.g., Sterba (2009) and
-Cicchitelli and Montanari (2012), and see Chan-Golston et al. (2020) for
-a Bayesian approach).
+Cicchitelli and Montanari (2012), and for Bayesian approaches, see
+Chan-Golston et al. (2020) and Hofman and Brus (2021)).
 
 Certainly comparisons between design-based and model-based approaches
 have been studied in spatial contexts. Our contribution is comparing
@@ -267,18 +267,19 @@ relies on these inclusion probabilities to analyze the sample).
 
 Instead of estimating fixed, unknown population parameters, as in the
 design-based approach, often the goal of model-based inference is to
-predict a realized variable, or value. For example, suppose the realized
-mean of all population units is the value of interest. Instead of a
-fixed, unknown mean, we are predicting the value of the mean, a random
-variable. Prediction intervals are then derived using assumptions of the
-data-generating stochastic process. If we repeatedly generate response
-values from the same process and select samples, then 95\% of all 95\%
-prediction intervals constructed from a procedure with appropriate
-coverage will contain their respective realized means. Cressie (1993)
-and Schabenberger and Gotway (2017) provide thorough reviews of
-model-based approaches for spatial data. In Fig. \ref{fig:fig1}, we
-provide a visual comparison of the design-based and model-based
-approaches (Ver Hoef (2002) and Brus (2021) provide similar figures).
+predict a realized variable. For example, suppose the realized mean of
+all population units (the realized population mean) is the variable of
+interest. Instead of a fixed, unknown mean, we are predicting the value
+of the mean, a random variable. Prediction intervals are then derived
+using assumptions of the data-generating stochastic process. If we
+repeatedly generate response values from the same process and select
+samples, then 95\% of all 95\% prediction intervals constructed from a
+procedure with appropriate coverage will contain their respective
+realized means. Cressie (1993) and Schabenberger and Gotway (2017)
+provide thorough reviews of model-based approaches for spatial data. In
+Fig. \ref{fig:fig1}, we provide a visual comparison of the design-based
+and model-based approaches (Ver Hoef (2002) and Brus (2021) provide
+similar figures).
 
 \begin{figure}
   \centering
@@ -436,16 +437,16 @@ FPBK assumes \(\bm{\delta}\) in Equation\(~\)\ref{equation:Zmarginal}
 has mean-zero and a spatial dependence structure that can be modeled
 using a covariance function. This covariance function is commonly
 assumed to be non-negative, second-order stationary (depending only on
-the distance between population units), isotropic (independent of
-direction), and decay with distance between population units (Cressie,
-1993). Henceforth, it is implied that we have made these same
-assumptions regarding \(\bm{\delta}\), though Chiles and Delfiner
-(1999), pp.~80-93 discuss covariance functions that are not second-order
-stationary, not isotropic, or not either. A variety of flexible
-covariance functions can be used to model \(\bm{\delta}\) (Cressie,
-1993); one example is the exponential covariance function (Cressie
-(1993) provides a thorough list of spatial covariance functions). The
-\(i,j\)th element of the exponential covariance matrix,
+the separation vector (e.g., distance) between population units),
+isotropic (independent of direction), and decay with distance between
+population units (Cressie, 1993). Henceforth, it is implied that we have
+made these same assumptions regarding \(\bm{\delta}\), though Chiles and
+Delfiner (1999), pp.~80-93 discuss covariance functions that are not
+second-order stationary, not isotropic, or not either. A variety of
+flexible covariance functions can be used to model \(\bm{\delta}\)
+(Cressie, 1993); one example is the exponential covariance function
+(Cressie (1993) provides a thorough list of spatial covariance
+functions). The \(i,j\)th element of the exponential covariance matrix,
 \(\mathop{\mathrm{{cov}}}(\bm{\delta})\), is \mbox{}
 \begin{align}\label{equation:expcov}
 \mathop{\mathrm{{cov}}}(\delta_i, \delta_j) = 
@@ -457,11 +458,12 @@ covariance functions can be used to model \(\bm{\delta}\) (Cressie,
 \end{align} where \(\sigma^2_{1}\) is the variance parameter that
 quantifies the spatially dependent variability, \(\sigma^2_{2}\) is the
 variance parameter the quantifies that spatially independent
-variability, \(\phi\) is the range parameter measuring the
+variability, \(\phi\) is the distance parameter that measures the
 distance-decay rate of the covariance, and \(h_{i,j}\) is the Euclidean
 distance between population units \(i\) and \(j\). In geostatistical
-literature, \(\sigma^2_{1}\) is often called the partial sill and
-\(\sigma^2_{2}\) is often called the nugget.
+literature, \(\sigma^2_{1}\) is often called the partial sill,
+\(\sigma^2_{2}\) is often called the nugget, and \(\phi\) is often
+called the range.
 
 The parameters in Equation\(~\)\ref{equation:Zmarginal} can be estimated
 using a variety of techniques, but we focus on using restricted maximum
@@ -551,23 +553,23 @@ IRS & IRS-Design & IRS-Model \\
 \caption{\label{tab:designanalysis} Sampling-analysis combinations in the simulation study. The rows give the two types of sampling designs and the columns give the two types of analyses.} 
 \end{table}
 
-CHANGE LOGNORMAL VERBAGE TO SKEWED
+CHANGE LOGNORMAL VERBAGE TO SKEWED -- look for DRE acronym
 
 Performance for the four sampling-analysis combinations was evaluated in
 36 different simulation scenarios. The 36 scenarios resulted from the
 crossing of three sample sizes, two location layouts (of the population
 units), two response types, and three proportions of dependent random
-error. The three sample sizes (\(n\)) were \(n = 50, n = 100,\) and
-\(n = 200\). Samples were always selected from a population size (\(N\))
-of \(N = 900\). The two location layouts were random and gridded.
-Locations in the random layout were randomly generated inside the unit
-square (\([0, 1] \times [0, 1]\)). Locations in the gridded layout were
-placed on a fixed, equally spaced grid inside the unit square. The two
-response types were normal and lognormal. For the normal response type,
-the response was simulated using mean-zero random errors with the
-exponential covariance (Equation\(~\)\ref{equation:expcov}) for varying
-proportions of dependent random error. The proportion of dependent
-random error is represented by
+error (DRE). The three sample sizes (\(n\)) were \(n = 50, n = 100,\)
+and \(n = 200\). Samples were always selected from a population size
+(\(N\)) of \(N = 900\). The two location layouts were random and
+gridded. Locations in the random layout were randomly generated inside
+the unit square (\([0, 1] \times [0, 1]\)). Locations in the gridded
+layout were placed on a fixed, equally spaced grid inside the unit
+square. The two response types were normal and lognormal. For the normal
+response type, the response was simulated using mean-zero random errors
+with the exponential covariance (Equation\(~\)\ref{equation:expcov}) for
+varying proportions of dependent random error. The proportion of
+dependent random error is represented by
 \(\sigma^2_1 / (\sigma^2_1 + \sigma^2_2)\), where \(\sigma^2_1\) and
 \(\sigma^2_2\) are the dependent random error variance (partial sill)
 and independent random error variance (nugget) from
@@ -629,16 +631,16 @@ the \texttt{sptotal} \textbf{\textsf{R}} package (Higham et al., 2021).
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/symm_pop_hist.jpeg}
-  \caption{}
+  \caption{Histogram of a single realized population for the normal response.}
   \label{fig:symm_pop_hist}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/skew_pop_hist.jpeg}
-  \caption{}
+  \caption{Histogram of a single realized population for the skewed response.}
   \label{fig:skew_pop_hist}
 \end{subfigure}
-\caption{Histograms of an example population realization for the normal (a) and skewed (b) scenarios for the simulated data.}
+\caption{Histograms realized populations for the simulated data.}
 \label{fig:sim_pops}
 \end{figure}
 
@@ -770,30 +772,6 @@ empirical semivariogram in Fig. \ref{fig:merc} suggests that mercury
 concentration exhibits spatial dependence. Lastly we note that the true
 mean mercury concentration in the 986 NLA lakes is 103.2 ng / g.
 
-\begin{figure}
-\centering
-\begin{subfigure}{0.98\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/mercury_map.jpeg}
-  \caption*{}
-  \label{fig:mercury_map}
-\end{subfigure} \\
-\begin{subfigure}{0.49\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/mercury_hist.jpeg}
-  \caption*{}
-  \label{fig:mercury_hist}
-\end{subfigure}
-\begin{subfigure}{0.49\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/sv_plot.jpeg}
-  \caption*{}
-  \label{fig:sv_plot}
-\end{subfigure}
-\caption{Mercury concentration (Hg) visualizations for all 986 lakes in the NLA data. A spatial layout is in the top row, a histogram is in the bottom row and left column, and an empirical semivariogram is in the bottom row and right column.}
-\label{fig:merc}
-\end{figure}
-
 We selected a single IRS sample and a single GRTS sample and estimated
 (design-based) or predicted (model-based) the mean mercury concentration
 and constructed 95\% confidence (design-based) and 95\% (model-based)
@@ -830,25 +808,43 @@ IRS-Design & 103.2 & 112.7 & 8.8 & 95.4 & 129.9 \\
 
 \begin{figure}
 \centering
-\begin{subfigure}{0.98\textwidth}
+\begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/zmmi_map.jpeg}
-  \caption*{}
+  \caption{Spatial map of the ZMMI population.}
   \label{fig:zmmi_map}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_map.jpeg}
+  \caption{Spatial map of mercury (Hg) population.}
+  \label{fig:mercury_map}
 \end{subfigure} \\
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/zmmi_hist.jpeg}
-  \caption*{}
+  \caption{Histogram of the ZMMI population.}
   \label{fig:zmmi_hist}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
   \centering
-  \includegraphics[width = 1\linewidth]{figures/zmmi_sv_plot.jpeg}
-  \caption*{}
+  \includegraphics[width = 1\linewidth]{figures/mercury_hist.jpeg}
+  \caption{Histogram of the mercury (Hg) population.}
+  \label{fig:mercury_hist}
+\end{subfigure} \\
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/zmmi_sv.jpeg}
+  \caption{Semivariogram of the ZMMI population.}
   \label{fig:zmmi_sv_plot}
 \end{subfigure}
-\caption{zmmi visualizations for all 986 lakes in the NLA data. A spatial layout is in the top row, a histogram is in the bottom row and left column, and an empirical semivariogram is in the bottom row and right column.}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_sv.jpeg}
+  \caption{Semivariogram of the mercury (Hg) population.}
+  \label{fig:mercury_sv_plot}
+\end{subfigure}
+\caption{Exploratory graphics of the ZMMI and mercury (Hg) populations in the National Lakes Assessment (NLA) 2012 data.}
 \label{fig:zmmi}
 \end{figure}
 
@@ -868,6 +864,8 @@ IRS-Design & 103.2 & 112.7 & 8.8 & 95.4 & 129.9 \\
 
 \hypertarget{sec:discussion}{%
 \section{Discussion}\label{sec:discussion}}
+
+ADD EXTRAS LIKE ANISOTROPY AND UNEQUAL INCLUSION PROBABILITIES
 
 The design-based and model-based approaches to statistical inference are
 fundamentally different paradigms. The design-based approach relies on
@@ -932,7 +930,7 @@ should be considered alongside the particular goals of the study.
 \addcontentsline{toc}{section}{Acknowledgments}
 
 We would like to thank the editors and anonymous reviewers for their
-thoughtful comments which we feel greatly improved the manuscript.
+thoughtful comments which greatly improved the manuscript.
 
 The views expressed in this manuscript are those of the authors and do
 not necessarily represent the views or policies of the U.S.
@@ -1098,6 +1096,12 @@ Statistical Association 72, 320--338.
 \leavevmode\hypertarget{ref-higham2021sptotal}{}%
 Higham, M., Ver Hoef, J., Frank, B., Dumelle, M., 2021. Sptotal:
 Predicting totals and weighted sums from spatial data.
+
+\leavevmode\hypertarget{ref-hofman2021many}{}%
+Hofman, S.C., Brus, D., 2021. How many sampling points are needed to
+estimate the mean nitrate-n content of agricultural fields? A
+geostatistical simulation approach with uncertain variograms. Geoderma
+385, 114816.
 
 \leavevmode\hypertarget{ref-horvitz1952generalization}{}%
 Horvitz, D.G., Thompson, D.J., 1952. A generalization of sampling

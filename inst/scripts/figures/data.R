@@ -79,7 +79,8 @@ combo_data <- combo_data %>%
 # colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
 # colour_scale <- palette(hcl.colors(4, "viridis"))
 colour_scale <- unname(palette.colors(palette = "Okabe-Ito")[1:4])
-resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
+# resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
+resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: ZMMI", TOTALHG_RESULT = "Response: Hg")
 rmspe_eff <- combo_data %>%
   ggplot(aes(x = n_factor_adj, y = rel_efficiency, colour = approach)) +
   facet_grid(
@@ -166,7 +167,8 @@ if (write_out) {
 # colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
 # colour_scale <- palette(hcl.colors(4, "viridis"))
 colour_scale <- unname(palette.colors(palette = "Okabe-Ito")[1:4])
-resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
+# resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
+resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: ZMMI", TOTALHG_RESULT = "Response: Hg")
 coverage <- combo_data %>%
   ggplot(aes(x = n_factor_adj, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95, lty = "dashed") +

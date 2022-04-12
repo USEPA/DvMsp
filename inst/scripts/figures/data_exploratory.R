@@ -53,10 +53,10 @@ nla_nomiss_both$ycoords <- coord_list$xy[ ,2]
 mercury_map <- nla_nomiss_both %>%
   ggplot(aes(x = xcoords, y = ycoords)) +
   geom_point(aes(colour = total_hg)) +
-  scale_colour_viridis_c() +
+  scale_colour_viridis_c(breaks = c(250, 500, 750)) +
   labs(x = "", y = "", colour = "Hg") +
   coord_quickmap() +
-  theme_bw(base_size = 10) +
+  theme_bw(base_size = 18) +
   theme(
     axis.text.x = element_blank(),
     axis.text.y = element_blank(),
@@ -107,7 +107,7 @@ sv_val <- sv(nla_nomiss_both, "xcoords", "ycoords", "total_hg") # same as residu
 sv_plot <- sv_val %>%
   ggplot(aes(x = dist, y = gamma * (1/1000))) +
   geom_point(size = 3) +
-  labs(x = "Distance (Kilometers)", y = "Semi-Variance (Thousands)", title = "") +
+  labs(x = "Distance (Kilometers)", y = "Hg Semi-Variance (Thousands)", title = "") +
   ylim(c(0, 15)) +
   # scale_size_continuous(name = "Pairs") +
   theme_bw(base_size = 18) +
@@ -123,7 +123,7 @@ sv_plot <- sv_val %>%
 if (write_out) {
   ggsave(
     plot = sv_plot,
-    file = here("inst", "manuscript", "figures", "sv_plot.jpeg"),
+    file = here("inst", "manuscript", "figures", "mercury_sv.jpeg"),
     dpi = 300,
     width = 5.07,
     height = 4.39
@@ -177,9 +177,9 @@ zmmi_map <- nla_nomiss_both %>%
   ggplot(aes(x = xcoords, y = ycoords)) +
   geom_point(aes(colour = MMI_ZOOP_NLA6)) +
   scale_colour_viridis_c() +
-  labs(x = "", y = "", colour = "zmmi") +
+  labs(x = "", y = "", colour = "ZMMI") +
   coord_quickmap() +
-  theme_bw(base_size = 10) +
+  theme_bw(base_size = 18) +
   theme(
     axis.text.x = element_blank(),
     axis.text.y = element_blank(),
@@ -205,7 +205,7 @@ if (write_out) {
 zmmi_hist <- nla_nomiss_both %>%
   ggplot(aes(x = MMI_ZOOP_NLA6)) +
   geom_histogram(bins = 20) +
-  labs(x = "Hg", y = "Count") +
+  labs(x = "ZMMI", y = "Count") +
   theme_bw(base_size = 18) +
   theme(
     panel.grid.major = element_blank(),
@@ -230,7 +230,7 @@ sv_val <- sv(nla_nomiss_both, "xcoords", "ycoords", "MMI_ZOOP_NLA6") # same as r
 sv_plot <- sv_val %>%
   ggplot(aes(x = dist, y = gamma * (1/10))) +
   geom_point(size = 3) +
-  labs(x = "Distance (Kilometers)", y = "Semi-Variance (Tens)", title = "") +
+  labs(x = "Distance (Kilometers)", y = "ZMMI Semi-Variance (Tens)", title = "") +
   ylim(c(0, 45)) +
   # scale_size_continuous(name = "Pairs") +
   theme_bw(base_size = 18) +
@@ -246,7 +246,7 @@ sv_plot <- sv_val %>%
 if (write_out) {
   ggsave(
     plot = sv_plot,
-    file = here("inst", "manuscript", "figures", "zmmi_sv_plot.jpeg"),
+    file = here("inst", "manuscript", "figures", "zmmi_sv.jpeg"),
     dpi = 300,
     width = 5.07,
     height = 4.39

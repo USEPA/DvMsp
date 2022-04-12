@@ -74,11 +74,11 @@ library(xtable) # latex tables
 
 <!-- Brief introduction to model based and design based -->
 
-When data cannot be collected for all units in a population (i.e., population units), data are collected on a subset of the population units -- this subset is called a sample. There are two general approaches for using samples to make frequentist statistical inferences about a population: design-based and model-based.  In the design-based approach, inference relies on randomly assigning some population units to be in the sample (e.g., random sampling). Alternatively, in the model-based approach, inference relies on distributional assumptions about the underlying stochastic process that generated the sample. Each paradigm has a deep historical context [@sterba2009alternative] and its own set of benefits and drawbacks [@hansen1983evaluation]. In this manuscript, we compare the design-based and model-based approaches for finite population spatial data.
+When data cannot be collected for all units in a population (i.e., population units), data are collected on a subset of the population units -- this subset is called a sample. There are two general approaches for using samples to make frequentist statistical inferences about a population: design-based and model-based.  In the design-based approach, inference relies on randomly assigning some population units to be in the sample (random sampling). Alternatively, in the model-based approach, inference relies on distributional assumptions about the underlying stochastic process that generated the sample. Each paradigm has a deep historical context [@sterba2009alternative] and its own set of benefits and drawbacks [@hansen1983evaluation]. In this manuscript, we compare the design-based and model-based approaches for finite population spatial data.
 
 <!-- Shift focus to spatial data -->
 
-Spatial data are data that incorporate the locations of the population units into either the sampling or estimation process. @de1990model and @brus1993design give early comparisons of design-based and model-based approaches for spatial data, quashing the belief that design-based approaches could not be used for spatially correlated data. Since then, there have been several general comparisons between design-based and model-based approaches for spatial data [@brus1997random; @verhoef2002sampling; @verhoef2008spatial; @wang2012review; @brus2021statistical]. @cooper2006sampling reviews the two approaches in an ecological context before introducing a "model-assisted" variance estimator that combines aspects from each approach. In addition to @cooper2006sampling, there has been substantial research and development into estimators that use both design-based and model-based principles (see e.g., @sterba2009alternative and @cicchitelli2012model, and see @chan2020bayesian for a Bayesian approach).
+Spatial data are data that incorporate the locations of the population units into either the sampling or estimation process. @de1990model and @brus1993design give early comparisons of design-based and model-based approaches for spatial data, quashing the belief that design-based approaches could not be used for spatially correlated data. Since then, there have been several general comparisons between design-based and model-based approaches for spatial data [@brus1997random; @verhoef2002sampling; @verhoef2008spatial; @wang2012review; @brus2021statistical]. @cooper2006sampling reviews the two approaches in an ecological context before introducing a "model-assisted" variance estimator that combines aspects from each approach. In addition to @cooper2006sampling, there has been substantial research and development into estimators that use both design-based and model-based principles (see e.g., @sterba2009alternative and @cicchitelli2012model, and for Bayesian approaches, see @chan2020bayesian and @hofman2021many).
 
 <!-- Paragraph about the contribution of the manuscript and outlining the rest -->
 Certainly comparisons between design-based and model-based approaches have been studied in spatial contexts. Our contribution is comparing design-based approaches that incorporate spatial locations into sampling and analysis to model-based approaches. Though the broad comparisons we draw between design-based and model-based approaches generalize to finite and infinite populations, we focus on finite populations.  A finite population contains a finite number of population units (we assume the finite number is known); an example is lakes (treated as a whole with the lake centroid representing location) in the contiguous United States.  An infinite population contains an infinite number of population units; an example is locations within a single lake. 
@@ -101,7 +101,7 @@ Fundamentally, the design-based approach combines the randomness of the sampling
 
 The model-based approach assumes the sample is a random realization of a data-generating stochastic process. Randomness is formally incorporated through distributional assumptions on this process. Strictly speaking, randomness need not be incorporated through random sampling, though @diggle2010geostatistical warn against preferential sampling. Preferential sampling occurs when the process generating the data locations and the process being modeled are not independent of one another. To guard against preferential sampling, model-based approaches often still implement some form of random sampling. When model-based approaches implement random sampling, the inclusion probabilities are ignored when analyzing the sample (in contrast to the design-based approach, which relies on these inclusion probabilities to analyze the sample).
 
-Instead of estimating fixed, unknown population parameters, as in the design-based approach, often the goal of model-based inference is to predict a realized variable, or value. For example, suppose the realized mean of all population units is the value of interest. Instead of a fixed, unknown mean, we are predicting the value of the mean, a random variable. Prediction intervals are then derived using assumptions of the data-generating stochastic process. If we repeatedly generate response values from the same process and select samples, then 95% of all 95% prediction intervals constructed from a procedure with appropriate coverage will contain their respective realized means. @cressie1993statistics and @schabenberger2017statistical provide thorough reviews of model-based approaches for spatial data. In Fig. \ref{fig:fig1}, we provide a visual comparison of the design-based and model-based approaches (@verhoef2002sampling and @brus2021statistical provide similar figures).
+Instead of estimating fixed, unknown population parameters, as in the design-based approach, often the goal of model-based inference is to predict a realized variable. For example, suppose the realized mean of all population units (the realized population mean) is the variable of interest. Instead of a fixed, unknown mean, we are predicting the value of the mean, a random variable. Prediction intervals are then derived using assumptions of the data-generating stochastic process. If we repeatedly generate response values from the same process and select samples, then 95% of all 95% prediction intervals constructed from a procedure with appropriate coverage will contain their respective realized means. @cressie1993statistics and @schabenberger2017statistical provide thorough reviews of model-based approaches for spatial data. In Fig. \ref{fig:fig1}, we provide a visual comparison of the design-based and model-based approaches (@verhoef2002sampling and @brus2021statistical provide similar figures).
 
 \begin{figure}
   \centering
@@ -148,7 +148,7 @@ Finite Population Block Kriging (FPBK) is a model-based approach that expands th
 \end{equation}
 where $\mathbf{X}_s$ and $\mathbf{X}_u$ are the design matrices for the sampled and unsampled population units, respectively, $\bm{\beta}$ is the parameter vector of fixed effects, and $\bm{\delta} \equiv [\bm{\delta}_s \,\, \bm{\delta}_u]'$, where $\bm{\delta}_s$ and $\bm{\delta}_u$ are random errors for the sampled and unsampled population units, respectively. 
 
-FPBK assumes $\bm{\delta}$ in Equation$~$\ref{equation:Zmarginal} has mean-zero and a spatial dependence structure that can be modeled using a covariance function. This covariance function is commonly assumed to be non-negative, second-order stationary (depending only on the distance between population units), isotropic (independent of direction), and decay with distance between population units [@cressie1993statistics]. Henceforth, it is implied that we have made these same assumptions regarding $\bm{\delta}$, though @chiles1999geostatistics, pp. 80-93 discuss covariance functions that are not second-order stationary, not isotropic, or not either. A variety of flexible covariance functions can be used to model $\bm{\delta}$ [@cressie1993statistics]; one example is the exponential covariance function (@cressie1993statistics provides a thorough list of spatial covariance functions). The $i,j$th element of the exponential covariance matrix, $\cov(\bm{\delta})$, is
+FPBK assumes $\bm{\delta}$ in Equation$~$\ref{equation:Zmarginal} has mean-zero and a spatial dependence structure that can be modeled using a covariance function. This covariance function is commonly assumed to be non-negative, second-order stationary (depending only on the separation vector (e.g., distance) between population units), isotropic (independent of direction), and decay with distance between population units [@cressie1993statistics]. Henceforth, it is implied that we have made these same assumptions regarding $\bm{\delta}$, though @chiles1999geostatistics, pp. 80-93 discuss covariance functions that are not second-order stationary, not isotropic, or not either. A variety of flexible covariance functions can be used to model $\bm{\delta}$ [@cressie1993statistics]; one example is the exponential covariance function (@cressie1993statistics provides a thorough list of spatial covariance functions). The $i,j$th element of the exponential covariance matrix, $\cov(\bm{\delta})$, is
 \mbox{}
 \begin{align}\label{equation:expcov}
 \cov(\delta_i, \delta_j) = 
@@ -158,7 +158,7 @@ FPBK assumes $\bm{\delta}$ in Equation$~$\ref{equation:Zmarginal} has mean-zero 
 \end{cases}
 ,
 \end{align}
-where $\sigma^2_{1}$ is the variance parameter that quantifies the spatially dependent variability, $\sigma^2_{2}$ is the variance parameter the quantifies that spatially independent variability, $\phi$ is the range parameter measuring the distance-decay rate of the covariance, and $h_{i,j}$ is the Euclidean distance between population units $i$ and $j$. In geostatistical literature, $\sigma^2_{1}$ is often called the partial sill and $\sigma^2_{2}$ is often called the nugget. 
+where $\sigma^2_{1}$ is the variance parameter that quantifies the spatially dependent variability, $\sigma^2_{2}$ is the variance parameter the quantifies that spatially independent variability, $\phi$ is the distance parameter that measures the distance-decay rate of the covariance, and $h_{i,j}$ is the Euclidean distance between population units $i$ and $j$. In geostatistical literature, $\sigma^2_{1}$ is often called the partial sill, $\sigma^2_{2}$ is often called the nugget, and $\phi$ is often called the range. 
 
 The parameters in Equation$~$\ref{equation:Zmarginal} can be estimated using a variety of techniques, but we focus on using restricted maximum likelihood [@patterson1971recovery; @harville1977maximum; @wolfinger1994computing]. REML is preferred over maximum likelihood (ML) because ML estimates can be badly biased for small sample sizes, due to the fact that ML makes no adjustment for the simultaneous estimation of $\bm{\beta}$ and $\bm{\delta}$ [@patterson1971recovery].  Minus twice the REML log-likelihood of the sampled sites is given by
 \begin{equation}\label{equation:reml}
@@ -191,9 +191,9 @@ print(xtab1, comment = FALSE)
 ## made "by hand."
 ```
 
-CHANGE LOGNORMAL VERBAGE TO SKEWED
+CHANGE LOGNORMAL VERBAGE TO SKEWED -- look for DRE acronym
 
-Performance for the four sampling-analysis combinations was evaluated in 36 different simulation scenarios. The 36 scenarios resulted from the crossing of three sample sizes, two location layouts (of the population units), two response types, and three proportions of dependent random error. The three sample sizes ($n$) were $n = 50, n = 100,$ and $n = 200$. Samples were always selected from a population size ($N$) of $N = 900$. The two location layouts were random and gridded. Locations in the random layout were randomly generated inside the unit square ($[0, 1] \times [0, 1]$). Locations in the gridded layout were placed on a fixed, equally spaced grid inside the unit square. The two response types were normal and lognormal. For the normal response type, the response was simulated using mean-zero random errors with the exponential covariance (Equation$~$\ref{equation:expcov}) for varying proportions of dependent random error. The proportion of dependent random error is represented by $\sigma^2_1 / (\sigma^2_1 + \sigma^2_2)$, where $\sigma^2_1$ and $\sigma^2_2$ are the dependent random error variance (partial sill) and independent random error variance (nugget) from Equation$~$\ref{equation:expcov}, respectively. The total variance, $\sigma^2_1 + \sigma^2_2$, was always 2. The range was always $\sqrt{2} / 3$, chosen so that the correlation in the dependent random error decayed to nearly zero at $\sqrt{2}$, the largest possible distance between two population units in the domain. For the lognormal response type, the response was first simulated using the same approach as for the normal response type, except that the total variance was 0.6931 instead of 2. The response was then exponentiated, yielding a lognormal random variable whose total variance was 2. The lognormal responses were used to evaluate performance of the sampling-analysis approaches for data that were skewed (i.e., not normal).
+Performance for the four sampling-analysis combinations was evaluated in 36 different simulation scenarios. The 36 scenarios resulted from the crossing of three sample sizes, two location layouts (of the population units), two response types, and three proportions of dependent random error (DRE). The three sample sizes ($n$) were $n = 50, n = 100,$ and $n = 200$. Samples were always selected from a population size ($N$) of $N = 900$. The two location layouts were random and gridded. Locations in the random layout were randomly generated inside the unit square ($[0, 1] \times [0, 1]$). Locations in the gridded layout were placed on a fixed, equally spaced grid inside the unit square. The two response types were normal and lognormal. For the normal response type, the response was simulated using mean-zero random errors with the exponential covariance (Equation$~$\ref{equation:expcov}) for varying proportions of dependent random error. The proportion of dependent random error is represented by $\sigma^2_1 / (\sigma^2_1 + \sigma^2_2)$, where $\sigma^2_1$ and $\sigma^2_2$ are the dependent random error variance (partial sill) and independent random error variance (nugget) from Equation$~$\ref{equation:expcov}, respectively. The total variance, $\sigma^2_1 + \sigma^2_2$, was always 2. The range was always $\sqrt{2} / 3$, chosen so that the correlation in the dependent random error decayed to nearly zero at $\sqrt{2}$, the largest possible distance between two population units in the domain. For the lognormal response type, the response was first simulated using the same approach as for the normal response type, except that the total variance was 0.6931 instead of 2. The response was then exponentiated, yielding a lognormal random variable whose total variance was 2. The lognormal responses were used to evaluate performance of the sampling-analysis approaches for data that were skewed (i.e., not normal).
 
 ```{r, echo = FALSE, results = "asis"}
 n <- c("50", "100", "200")
@@ -219,16 +219,16 @@ The IRS algorithm, IRS variance estimator, GRTS algorithm, and local neighborhoo
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/symm_pop_hist.jpeg}
-  \caption{}
+  \caption{Histogram of a single realized population for the normal response.}
   \label{fig:symm_pop_hist}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/skew_pop_hist.jpeg}
-  \caption{}
+  \caption{Histogram of a single realized population for the skewed response.}
   \label{fig:skew_pop_hist}
 \end{subfigure}
-\caption{Histograms of an example population realization for the normal (a) and skewed (b) scenarios for the simulated data.}
+\caption{Histograms realized populations for the simulated data.}
 \label{fig:sim_pops}
 \end{figure}
 
@@ -273,29 +273,6 @@ Fig. \ref{fig:figconf} shows the 95% interval coverage for each of the four samp
 ## National Lakes Assessment DAta {#sec:r_app}
 
 Fig. \ref{fig:merc} shows a map and histogram of mercury concentration in all 986 NLA lakes. The map shows mercury concentration exhibits some spatial patterning, with high mercury concentrations in the northeast and north central United States. The histogram shows that mercury concentration is right-skewed, with most lakes having a low value of mercury concentration but a few having a much higher concentration.  Fig. \ref{fig:merc} also shows mercury concentration's empirical semivariogram. The empirical semivariogram can be used as a tool to visualize spatial dependence. It quantifies the mean of the halved squared differences (semivariance) among all pairs of mercury concentrations at different distances apart. When a process has spatial covariance (exhibits spatial dependence), the mean semivariance tends to be smaller at small distances and larger at large distances. The empirical semivariogram in Fig. \ref{fig:merc} suggests that mercury concentration exhibits spatial dependence. Lastly we note that the true mean mercury concentration in the 986 NLA lakes is 103.2 ng / g.
-\begin{figure}
-\centering
-\begin{subfigure}{0.98\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/mercury_map.jpeg}
-  \caption*{}
-  \label{fig:mercury_map}
-\end{subfigure} \\
-\begin{subfigure}{0.49\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/mercury_hist.jpeg}
-  \caption*{}
-  \label{fig:mercury_hist}
-\end{subfigure}
-\begin{subfigure}{0.49\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/sv_plot.jpeg}
-  \caption*{}
-  \label{fig:sv_plot}
-\end{subfigure}
-\caption{Mercury concentration (Hg) visualizations for all 986 lakes in the NLA data. A spatial layout is in the top row, a histogram is in the bottom row and left column, and an empirical semivariogram is in the bottom row and right column.}
-\label{fig:merc}
-\end{figure}
 
 We selected a single IRS sample and a single GRTS sample and estimated (design-based) or predicted (model-based) the mean mercury concentration and constructed 95% confidence (design-based) and 95% (model-based) prediction intervals. For the model-based analyses, the exponential covariance was used. Table \ref{tab:appliedtab} shows the results from these analyses. Though we should not generalize these results to other samples from this population, we do mention a few findings. First, IRS-Design has the largest standard error. Second, compared to IRS-Design and IRS-Model, GRTS-Design and GRTS-Model are much closer to the true mean mercury concentration (have bias closer to zero) and have much lower standard errors (more precise intervals). Third, GRTS-Model has the least amount of bias and the lowest standard error (most precise interval). Finally, we note that for all sampling-analysis combinations, the true mean mercury concentration (103.2 ng / g) is within the bounds of the combination's 95% interval.
 
@@ -311,27 +288,46 @@ print(xtab_app, include.rownames = FALSE, comment = FALSE)
 
 ## New Application
 
+
 \begin{figure}
 \centering
-\begin{subfigure}{0.98\textwidth}
+\begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/zmmi_map.jpeg}
-  \caption*{}
+  \caption{Spatial map of the ZMMI population.}
   \label{fig:zmmi_map}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_map.jpeg}
+  \caption{Spatial map of mercury (Hg) population.}
+  \label{fig:mercury_map}
 \end{subfigure} \\
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/zmmi_hist.jpeg}
-  \caption*{}
+  \caption{Histogram of the ZMMI population.}
   \label{fig:zmmi_hist}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
   \centering
-  \includegraphics[width = 1\linewidth]{figures/zmmi_sv_plot.jpeg}
-  \caption*{}
+  \includegraphics[width = 1\linewidth]{figures/mercury_hist.jpeg}
+  \caption{Histogram of the mercury (Hg) population.}
+  \label{fig:mercury_hist}
+\end{subfigure} \\
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/zmmi_sv.jpeg}
+  \caption{Semivariogram of the ZMMI population.}
   \label{fig:zmmi_sv_plot}
 \end{subfigure}
-\caption{zmmi visualizations for all 986 lakes in the NLA data. A spatial layout is in the top row, a histogram is in the bottom row and left column, and an empirical semivariogram is in the bottom row and right column.}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_sv.jpeg}
+  \caption{Semivariogram of the mercury (Hg) population.}
+  \label{fig:mercury_sv_plot}
+\end{subfigure}
+\caption{Exploratory graphics of the ZMMI and mercury (Hg) populations in the National Lakes Assessment (NLA) 2012 data.}
 \label{fig:zmmi}
 \end{figure}
 
@@ -352,13 +348,15 @@ print(xtab_app, include.rownames = FALSE, comment = FALSE)
 
 # Discussion {#sec:discussion}
 
+ADD EXTRAS LIKE ANISOTROPY AND UNEQUAL INCLUSION PROBABILITIES
+
 The design-based and model-based approaches to statistical inference are fundamentally different paradigms. The design-based approach relies on random sampling to estimate population parameters. The model-based approach relies on distributional assumptions to predict realized values of a stochastic process. Though the model-based approach does not rely on random sampling, it can still be beneficial as a way to guard against preferential sampling. While the design-based and model-based approaches have often been compared in the literature from theoretical and analytical perspectives, our contribution lies in studying them in a spatial context while implementing spatially balanced sampling and the design-based, local neighborhood variance estimator. Aside from the theoretical differences described, a few analytical findings from the simulation study are particularly notable. First, independent of the analysis approach, we found no reason to prefer IRS over GRTS when sampling spatial data -- GRTS-Design and GRTS-Model generally had similar rMS(P)E as their IRS counterparts when there was no spatial covariance and lower rMS(P)E than their IRS counterparts when there was spatial covariance. Second, the sampling decision (IRS vs GRTS) is most important when using a design-based analysis. Though GRTS-Model still had lower rMS(P)E than IRS-Model, the model-based analysis mitigated most of the rMS(P)E inefficiencies that result from the IRS samples lacking spatial balance. Third, as the strength of spatial covariance increases, the gap in rMS(P)E and MStdE between IRS-Design and the other sampling-analysis combinations also increases, likely because IRS-Design is the only combination that ignores spatial locations in sampling and analysis. Fourth and finally, when the response was normal, interval coverage for all sampling-analysis combinations was usually close to 95% for all sample sizes; when the response was lognormal, interval coverage for all sampling-analysis combinations was usually between 90% and 95% and closest to 95% when $n = 200$.
 
 There are several benefits and drawbacks of the design-based and model-based approaches for finite population spatial data. Some we have discussed, but others we have not, and they are worthy of consideration in future research.  Design-based approaches are often computationally efficient, while model-based approaches can be computationally burdensome, especially for likelihood-based estimation methods like REML that rely on inverting a covariance matrix. The design-based approach easily handles binary data through a straightforward application of the Horvitz-Thompson estimator. In contrast, analyzing binary data using a model-based approach generally requires a logistic mixed regression model, which can be challenging to estimate and interpret [@bolker2009generalized]. The model-based approach, however, can more naturally quantify the relationship between covariates (predictor variables) and the response variable. The model-based approach also yields estimated spatial covariance parameters, which help better understand the dependence structure in the stochastic process of study. Model selection is also possible using model-based approaches and criteria such as cross validation, likelihood ratio tests, or AIC [@akaike1974new]. Model-based approaches are capable of more efficient small-area estimation than design-based approaches by leveraging distributional assumptions in areas with few observed units. Model-based approaches can also compute unit-by-unit predictions at unobserved locations and use them to construct informative visualizations like smoothed maps. In short, when deciding whether the design-based or model-based approach is more appropriate to implement, the benefits and drawbacks of each approach should be considered alongside the particular goals of the study.
 
 # Acknowledgments {.unnumbered}
 
-We would like to thank the editors and anonymous reviewers for their thoughtful comments which we feel greatly improved the manuscript.
+We would like to thank the editors and anonymous reviewers for their thoughtful comments which greatly improved the manuscript.
 
 The views expressed in this manuscript are those of the authors and do not necessarily represent the views or policies of the U.S. Environmental Protection Agency or the National Oceanic and Atmospheric Administration. Any mention of trade names, products, or services does not imply an endorsement by the U.S. government, the U.S. Environmental Protection Agency, or the National Oceanic and Atmospheric Administration. The U.S. Environmental Protection Agency and National Oceanic and Atmospheric Administration do not endorse any commercial products, services, or enterprises.
 
