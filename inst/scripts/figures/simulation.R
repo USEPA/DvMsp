@@ -52,7 +52,9 @@ combo_data <- combo_data %>%
   ))
 
 # figure 2
-colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
+# colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
+# colour_scale <- palette(hcl.colors(4, "viridis"))
+colour_scale <- unname(palette.colors(palette = "Okabe-Ito")[1:4])
 resptype_labs <- c(normal = "Response: Normal", lognormal = "Response: Skewed")
 psill_ratio_labs <- c("0" = "Prop DE: 0", "0.5" = "Prop DE: 0.5", "0.9" = "Prop DE: 0.9")
 rmspe_eff <- combo_data %>%
@@ -65,9 +67,10 @@ rmspe_eff <- combo_data %>%
   geom_point(size = 2) +
   geom_vline(xintercept = c(75, 125), lty = "solid") +
   scale_x_continuous(breaks = c(50, 100, 150), labels = c("50", "100", "200")) +
+  scale_y_continuous(breaks = c(0.5, 0.75, 1), labels = c("0.50", "0.75", "1.00"), limits = c(0.5, 1.1)) +
   theme_bw(base_size = base_size) +
   labs(x = "Sample Size", colour = "Approach", y = "Relative rMS(P)E") +
-  lims(y = c(0.4, 1.1)) +
+  # lims(y = c(0.5, 1.1)) +
   theme(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
@@ -159,6 +162,9 @@ if (write_out) {
 # }
 
 # figure 4
+# colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
+# colour_scale <- palette(hcl.colors(4, "viridis"))
+colour_scale <- unname(palette.colors(palette = "Okabe-Ito")[1:4])
 coverage <- combo_data %>%
   ggplot(aes(x = n_factor_adj, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95, lty = "dashed") +

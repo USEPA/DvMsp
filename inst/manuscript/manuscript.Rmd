@@ -342,12 +342,6 @@ print(xtab_app, include.rownames = FALSE, comment = FALSE)
   \label{fig:data_rmspe_eff}
 \end{figure}
 
-\begin{figure}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/data_mse_eff.jpeg}
-  \caption{Relative MStdE in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
-  \label{fig:data_mse_eff}
-\end{figure} 
 
 \begin{figure}
   \centering
