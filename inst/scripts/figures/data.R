@@ -50,6 +50,16 @@ combo_data <- combo_data %>%
     TRUE ~ NA_real_
   ))
 
+# new approach variable
+combo_data <- combo_data %>%
+  mutate(approach = case_when(
+    approach == "Design IRS" ~ "SRS-DB",
+    approach == "Model IRS" ~ "SRS-MB",
+    approach == "Design GRTS" ~ "GRTS-DB",
+    approach == "Model GRTS" ~ "GRTS-MB"
+  ) %>% factor(levels = c("SRS-DB", "SRS-MB", "GRTS-DB", "GRTS-MB")))
+
+
 # combo_data <- combo_data %>%
 #   pivot_longer(cols = c(rel_efficiency, coverage), names_to = "stat", values_to = "value")
 # colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")

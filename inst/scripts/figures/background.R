@@ -51,7 +51,7 @@ d1 <- pop_df %>%
     show.legend = FALSE,
     stroke = 1.5
   ) +
-  labs(title = "Design 1", colour = "Response") +
+  labs(title = "Sample 1", colour = "Response") +
   theme_bw(base_size = base_size) +
   theme(
     axis.title = element_blank(),
@@ -75,7 +75,7 @@ d2 <- pop_df %>%
     show.legend = FALSE,
     stroke = 1.5
   ) +
-  labs(title = "Design 2", colour = "Response") +
+  labs(title = "Sample 2", colour = "Response") +
   theme_bw(base_size = base_size) +
   theme(
     axis.title = element_blank(),
@@ -99,7 +99,7 @@ d3 <- pop_df %>%
     show.legend = FALSE,
     stroke = 1.5
   ) +
-  labs(title = "Design 3", colour = "Response") +
+  labs(title = "Sample 3", colour = "Response") +
   theme_bw(base_size = base_size) +
   theme(
     axis.title = element_blank(),
@@ -132,7 +132,7 @@ m1 <- pop_df_mod %>%
     show.legend = FALSE,
     stroke = 1.5
   ) +
-  labs(title = "Model 1", colour = "Response") +
+  labs(title = "Population 1", colour = "Response") +
   theme_bw(base_size = base_size) +
   theme(
     axis.title = element_blank(),
@@ -156,7 +156,7 @@ m2 <- pop_df_mod2 %>%
     show.legend = FALSE,
     stroke = 1.5
   ) +
-  labs(title = "Model 2", colour = "Response") +
+  labs(title = "Population 2", colour = "Response") +
   theme_bw(base_size = base_size) +
   theme(
     axis.title = element_blank(),
@@ -180,7 +180,7 @@ m3 <- pop_df_mod3 %>%
     show.legend = FALSE,
     stroke = 1.5
   ) +
-  labs(title = "Model 3", colour = "Response") +
+  labs(title = "Population 3", colour = "Response") +
   theme_bw(base_size = base_size) +
   theme(
     axis.title = element_blank(),

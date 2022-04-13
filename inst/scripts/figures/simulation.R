@@ -51,6 +51,15 @@ combo_data <- combo_data %>%
     TRUE ~ NA_real_
   ))
 
+# new approach variable
+combo_data <- combo_data %>%
+  mutate(approach = case_when(
+    approach == "Design IRS" ~ "SRS-DB",
+    approach == "Model IRS" ~ "SRS-MB",
+    approach == "Design GRTS" ~ "GRTS-DB",
+    approach == "Model GRTS" ~ "GRTS-MB"
+  ) %>% factor(levels = c("SRS-DB", "SRS-MB", "GRTS-DB", "GRTS-MB")))
+
 # figure 2
 # colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
 # colour_scale <- palette(hcl.colors(4, "viridis"))

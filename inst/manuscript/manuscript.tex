@@ -168,14 +168,14 @@ of design-based and model-based approaches for spatial data, quashing
 the belief that design-based approaches could not be used for spatially
 correlated data. Since then, there have been several general comparisons
 between design-based and model-based approaches for spatial data (Brus
-and De Gruijter, 1997; Brus, 2021; Ver Hoef, 2002, 2008; Wang et al.,
-2012). Cooper (2006) reviews the two approaches in an ecological context
-before introducing a ``model-assisted'' variance estimator that combines
-aspects from each approach. In addition to Cooper (2006), there has been
-substantial research and development into estimators that use both
-design-based and model-based principles (see e.g., Sterba (2009) and
-Cicchitelli and Montanari (2012), and for Bayesian approaches, see
-Chan-Golston et al. (2020) and Hofman and Brus (2021)).
+and De Gruijter, 1997; Brus, 2021; Ver Hoef, 2002, 2008). Cooper (2006)
+reviews the two approaches in an ecological context before introducing a
+``model-assisted'' variance estimator that combines aspects from each
+approach. In addition to Cooper (2006), there has been substantial
+research and development into estimators that use both design-based and
+model-based principles (see e.g., Sterba (2009) and Cicchitelli and
+Montanari (2012), and for Bayesian approaches, see Chan-Golston et al.
+(2020) and Hofman and Brus (2021)).
 
 Certainly comparisons between design-based and model-based approaches
 have been studied in spatial contexts. Our contribution is comparing
@@ -214,12 +214,13 @@ Approaches}\label{subsec:dvm_compare}}
 
 The design-based approach assumes the population is fixed. Randomness is
 incorporated via the selection of population units according to a
-sampling design. A sampling design assigns a non-zero probability of
-inclusion (inclusion probability) in the sample to each population unit.
-These inclusion probabilities are later used to estimate population
-parameters. Some examples of commonly used sampling designs include
-simple random sampling, stratified random sampling, and cluster
-sampling.
+sampling design. A sampling design assigns a probability of selection to
+each sample (a subset of population units). Some examples of commonly
+used sampling designs include simple random sampling, stratified random
+sampling, and cluster sampling. The inclusion probability of a
+population unit follows by summing each population unit's probability of
+selection in each sample containing that population unit. Inclusion
+probabilities are later used to estimate population parameters.
 
 When samples are chosen in a manner such that the layout of sampled
 units reflects the layout of the population units, we call the resulting
@@ -228,14 +229,10 @@ population units'', we mean that if population units are concentrated in
 specific areas, the units in the sample should be concentrated in the
 same areas. Because spatially balanced samples reflect the layout of the
 population units, they are not necessarily ``spread out'' in space in
-some equidistant manner.
-
-One approach to selecting spatially balanced samples is the Generalized
-Random Tessellation Stratified (GRTS) algorithm (Stevens and Olsen,
-2004), which we discuss in more detail in Section
-\ref{subsec:spb_design}. When sampling designs do not incorporate
-spatial locations into sampling, we call the resulting samples
-``non-spatially balanced.''
+some equidistant manner. One approach to selecting spatially balanced
+samples is the Generalized Random Tessellation Stratified (GRTS)
+algorithm (Stevens and Olsen, 2004), which we discuss in more detail in
+Section \ref{subsec:spb_design}.
 
 Fundamentally, the design-based approach combines the randomness of the
 sampling design with the data collected via the sample to justify the
@@ -252,18 +249,20 @@ with appropriate coverage will contain the true fixed population mean.
 Särndal et al. (2003) and Lohr (2009) provide thorough reviews of the
 design-based approach.
 
-The model-based approach assumes the sample is a random realization of a
-data-generating stochastic process. Randomness is formally incorporated
-through distributional assumptions on this process. Strictly speaking,
-randomness need not be incorporated through random sampling, though
-Diggle et al. (2010) warn against preferential sampling. Preferential
-sampling occurs when the process generating the data locations and the
-process being modeled are not independent of one another. To guard
-against preferential sampling, model-based approaches often still
-implement some form of random sampling. When model-based approaches
-implement random sampling, the inclusion probabilities are ignored when
-analyzing the sample (in contrast to the design-based approach, which
-relies on these inclusion probabilities to analyze the sample).
+The model-based approach assumes the population is a random realization
+of a data-generating stochastic process called a superpopulation.
+Randomness is formally incorporated through distributional assumptions
+on the superpopulation. Strictly speaking, randomness need not be
+incorporated through random sampling, though Diggle et al. (2010) warn
+against preferential sampling. Preferential sampling occurs when the
+process generating the data locations and the process being modeled are
+not independent of one another. To guard against preferential sampling,
+model-based approaches can implement some form of random sampling,
+though it is common for model-based approaches to not implement random
+sampling. When model-based approaches do implement random sampling, the
+inclusion probabilities are ignored when analyzing the sample (in
+contrast to the design-based approach, which relies on these inclusion
+probabilities to analyze the sample).
 
 Instead of estimating fixed, unknown population parameters, as in the
 design-based approach, often the goal of model-based inference is to
@@ -304,18 +303,20 @@ algorithm (Stevens and Olsen, 2004). To quantify the spatial balance of
 a sample, Stevens and Olsen (2004) proposed loss metrics based on
 Voronoi polygons (Dirichlet Tessellations). After the GRTS algorithm was
 developed, several other spatially balanced sampling algorithms emerged,
-including the Local Pivotal Method (Grafström et al., 2012; Grafström
-and Matei, 2018), Spatially Correlated Poisson Sampling (Grafström,
-2012), Balanced Acceptance Sampling (Robertson et al., 2013),
-Within-Sample-Distance Sampling (Benedetti and Piersimoni, 2017), and
-Halton Iterative Partitioning Sampling (Robertson et al., 2018). In this
-manuscript, we select spatially balanced samples using the Generalized
-Random Tessellation Stratified (GRTS) algorithm because it is readily
-available in the \texttt{spsurvey} \textbf{\textsf{R}} package (Dumelle
-et al., 2022) and naturally accommodates finite and infinite sampling
-frames, unequal inclusion probabilities, and replacement units
-(replacement units are population units that can be sampled when a
-population unit originally selected can no longer be sampled).
+including stratified sampling with compact geographical strata Walvoort
+et al. (2010), the Local Pivotal Method (Grafström et al., 2012;
+Grafström and Matei, 2018), Spatially Correlated Poisson Sampling
+(Grafström, 2012), Balanced Acceptance Sampling (Robertson et al.,
+2013), Within-Sample-Distance Sampling (Benedetti and Piersimoni, 2017),
+and Halton Iterative Partitioning Sampling (Robertson et al., 2018). In
+this manuscript, we select spatially balanced samples using the
+Generalized Random Tessellation Stratified (GRTS) algorithm because it
+is readily available in the \texttt{spsurvey} \textbf{\textsf{R}}
+package (Dumelle et al., 2022) and naturally accommodates finite and
+infinite sampling frames, unequal inclusion probabilities, and
+replacement units (replacement units are population units that can be
+sampled when a population unit originally selected can no longer be
+sampled).
 
 The GRTS algorithm selects samples by utilizing a particular mapping
 between two-dimensional and one-dimensional space that preserves
@@ -376,19 +377,19 @@ for \(\hat{\tau}_{ht}\), but these estimators have two drawbacks. First,
 they rely on calculating \(\pi_{ij}\), the probability that population
 unit \(i\) and population unit \(j\) are both in the sample -- this
 quantity can be challenging if not impossible to calculate analytically
-for GRTS samples. Second, these estimators ignore the spatial locations
-of the population units. To address these two drawbacks simultaneously,
-Stevens and Olsen (2003) proposed the local neighborhood variance
-estimator. The local neighborhood variance estimator does not rely on
-\(\pi_{ij}\) and estimates the variance of \(\hat{\tau}\) conditional on
-the random properties of the GRTS sample -- the idea being that this
-conditioning should yield a more precise estimate of \(\hat{\tau}\).
-They show that the each observation's contribution to the overall
-variance is dominated by local variation. Thus the local neighborhood
-variance estimator is a weighted sum of variance estimates from each
-observation's local neighborhood. These local neighborhoods contain
-observation itself and its three nearest neighbors. For more details,
-see Stevens and Olsen (2003).
+for GRTS samples. Second, these estimators tend to ignore the spatial
+locations of the population units. To address these two drawbacks
+simultaneously, Stevens and Olsen (2003) proposed the local neighborhood
+variance estimator. The local neighborhood variance estimator does not
+rely on \(\pi_{ij}\) and estimates the variance of \(\hat{\tau}\)
+conditional on the random properties of the GRTS sample -- the idea
+being that this conditioning should yield a more precise estimate of
+\(\hat{\tau}\). They show that the each observation's contribution to
+the overall variance is dominated by local variation. Thus the local
+neighborhood variance estimator is a weighted sum of variance estimates
+from each observation's local neighborhood. These local neighborhoods
+contain observation itself and its three nearest neighbors. For more
+details, see Stevens and Olsen (2003).
 
 \hypertarget{finite-population-block-kriging}{%
 \subsubsection{Finite Population Block
@@ -511,6 +512,13 @@ contexts, and FPBK tended to perform best.
 
 \hypertarget{sec:mm_sim}{%
 \subsection{Simulated Data}\label{sec:mm_sim}}
+
+REWRITE AS SIMPLE RANDOM SAMPLING AND WITHOUT REPLACEMENT
+
+USE SRS / GRTS - DB / MB
+
+ADD LOHR REFERENCE AND FORM FOR SRS VARIANCE WITHOUT REPLACEMENT WITH
+FPC
 
 We used a simulation study to investigate performance of four
 sampling-analysis combinations. The first sampling-analysis combination
@@ -755,6 +763,8 @@ simulation scenarios are provided in the supporting information.
 \hypertarget{sec:r_app}{%
 \subsection{National Lakes Assessment DAta}\label{sec:r_app}}
 
+USE MERCURY UNITS
+
 Fig. \ref{fig:merc} shows a map and histogram of mercury concentration
 in all 986 NLA lakes. The map shows mercury concentration exhibits some
 spatial patterning, with high mercury concentrations in the northeast
@@ -909,21 +919,27 @@ easily handles binary data through a straightforward application of the
 Horvitz-Thompson estimator. In contrast, analyzing binary data using a
 model-based approach generally requires a logistic mixed regression
 model, which can be challenging to estimate and interpret (Bolker et
-al., 2009). The model-based approach, however, can more naturally
-quantify the relationship between covariates (predictor variables) and
-the response variable. The model-based approach also yields estimated
-spatial covariance parameters, which help better understand the
-dependence structure in the stochastic process of study. Model selection
-is also possible using model-based approaches and criteria such as cross
-validation, likelihood ratio tests, or AIC (Akaike, 1974). Model-based
-approaches are capable of more efficient small-area estimation than
-design-based approaches by leveraging distributional assumptions in
-areas with few observed units. Model-based approaches can also compute
-unit-by-unit predictions at unobserved locations and use them to
-construct informative visualizations like smoothed maps. In short, when
-deciding whether the design-based or model-based approach is more
-appropriate to implement, the benefits and drawbacks of each approach
-should be considered alongside the particular goals of the study.
+al., 2009). The design-based approach yields valid results because the
+sampling plan and inclusion probabilities are specified directly by the
+researcher, while the model-based approach may not yield valid results
+if the assumptions made do not not accurately capture reailty. The
+model-based approach, however, can more naturally quantify the
+relationship between covariates (predictor variables) and the response
+variable. The model-based approach also yields estimated spatial
+covariance parameters, which help better understand the dependence
+structure in the process in study. Model selection is also possible
+using model-based approaches and criteria such as cross validation,
+likelihood ratio tests, or AIC (Akaike, 1974). Model-based approaches
+are capable of more efficient small-area estimation than design-based
+approaches by leveraging distributional assumptions in areas with few
+observed units. Model-based approaches can also compute unit-by-unit
+predictions at unobserved locations and use them to construct
+informative visualizations like smoothed maps. Brus and De Gruijter
+(1997) provide a more thorough discussion regarding the benefits and
+drawbacks of the two approaches. In short, when deciding whether the
+design-based or model-based approach is more appropriate to implement,
+the benefits and drawbacks of each approach should be considered
+alongside the particular goals of the study.
 
 \hypertarget{acknowledgments}{%
 \section*{Acknowledgments}\label{acknowledgments}}
@@ -1168,14 +1184,15 @@ Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
 model to nearest neighbor (k-nn) methods for forestry applications. PlOS
 ONE 8, e59129.
 
+\leavevmode\hypertarget{ref-walvoort2010r}{}%
+Walvoort, D.J., Brus, D., De Gruijter, J., 2010. An r package for
+spatial coverage sampling and random sampling from compact geographical
+strata by k-means. Computers \& geosciences 36, 1261--1267.
+
 \leavevmode\hypertarget{ref-wang2013design}{}%
 Wang, J.-F., Jiang, C.-S., Hu, M.-G., Cao, Z.-D., Guo, Y.-S., Li, L.-F.,
 Liu, T.-J., Meng, B., 2013. Design-based spatial sampling: Theory and
 implementation. Environmental Modelling \& Software 40, 280--288.
-
-\leavevmode\hypertarget{ref-wang2012review}{}%
-Wang, J.-F., Stein, A., Gao, B.-B., Ge, Y., 2012. A review of spatial
-sampling. Spatial Statistics 2, 1--14.
 
 \leavevmode\hypertarget{ref-wolfinger1994computing}{}%
 Wolfinger, R., Tobias, R., Sall, J., 1994. Computing gaussian

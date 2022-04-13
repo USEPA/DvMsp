@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.12)  12 APR 2022 08:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.12)  12 APR 2022 17:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -538,7 +538,7 @@ Overfull \vbox (19.31003pt too high) has occurred while \output is active []
 <figures/dvm_comp.jpeg, id=135, 366.4089pt x 245.718pt>
 File: figures/dvm_comp.jpeg Graphic file (type jpg)
 <use figures/dvm_comp.jpeg>
-Package pdftex.def Info: figures/dvm_comp.jpeg  used on input line 286.
+Package pdftex.def Info: figures/dvm_comp.jpeg  used on input line 285.
 (pdftex.def)             Requested size: 345.0pt x 231.36113pt.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 314.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
@@ -549,12 +549,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 [6] [7 <./figures/dvm_comp.jpeg>] [8]
-Overfull \hbox (56.18565pt too wide) in paragraph at lines 340--360
+Overfull \hbox (56.18565pt too wide) in paragraph at lines 341--361
 \T1/lmr/m/n/10 (-20) on. For ex-am-ple, $\OMS/lmsy/m/n/10 A[]$ \T1/lmr/m/n/10 (-20) in hi-er-ar-chi-cal or-der is the set $\OMS/lmsy/m/n/10 f\OT1/lmr/m/n/10 (-20) 00\OML/lmm/m/it/10 ; \OT1/lmr/m/n/10 (-20) 01\OML/lmm/m/it/10 ; \OT1/lmr/m/n/10 (-20) 02\OML/lmm/m/it/10 ; \OT1/lmr/m/n/10 (-20) 03\OML/lmm/m/it/10 ; \OT1/lmr/m/n/10 (-20) 10\OML/lmm/m/it/10 ; :::; \OT1/lmr/m/n/10 (-20) 13\OML/lmm/m/it/10 ; \OT1/lmr/m/n/10 (-20) 20\OML/lmm/m/it/10 ; :::; \OT1/lmr/m/n/10 (-20) 23\OML/lmm/m/it/10 ; \OT1/lmr/m/n/10 (-20) 30\OML/lmm/m/it/10 ; :::; \OT1/lmr/m/n/10 (-20) 33\OMS/lmsy/m/n/10 g$\T1/lmr/m/n/10 (-20) .
  []
 
 [9] [10] [11] [12] [13]
-Overfull \hbox (0.30687pt too wide) in paragraph at lines 556--557
+Overfull \hbox (0.30687pt too wide) in paragraph at lines 564--565
 []\T1/lmr/m/n/10 (-20) CHANGE LOG-NOR-MAL VERBAGE TO SKEWED -- look for DRE acronym 
  []
 
@@ -562,95 +562,96 @@ Overfull \hbox (0.30687pt too wide) in paragraph at lines 556--557
 <figures/symm_pop_hist.jpeg, id=207, 366.4089pt x 317.2653pt>
 File: figures/symm_pop_hist.jpeg Graphic file (type jpg)
 <use figures/symm_pop_hist.jpeg>
-Package pdftex.def Info: figures/symm_pop_hist.jpeg  used on input line 633.
+Package pdftex.def Info: figures/symm_pop_hist.jpeg  used on input line 641.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
 <figures/skew_pop_hist.jpeg, id=208, 366.4089pt x 317.2653pt>
 File: figures/skew_pop_hist.jpeg Graphic file (type jpg)
 <use figures/skew_pop_hist.jpeg>
-Package pdftex.def Info: figures/skew_pop_hist.jpeg  used on input line 639.
+Package pdftex.def Info: figures/skew_pop_hist.jpeg  used on input line 647.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
 [16 <./figures/symm_pop_hist.jpeg> <./figures/skew_pop_hist.jpeg>] [17]
 <figures/rmspe_eff.jpeg, id=225, 366.4089pt x 317.2653pt>
 File: figures/rmspe_eff.jpeg Graphic file (type jpg)
 <use figures/rmspe_eff.jpeg>
-Package pdftex.def Info: figures/rmspe_eff.jpeg  used on input line 704.
+Package pdftex.def Info: figures/rmspe_eff.jpeg  used on input line 712.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
 
-LaTeX Warning: Reference `fig:mse_eff' on page 18 undefined on input line 709.
+LaTeX Warning: Reference `fig:mse_eff' on page 18 undefined on input line 717.
 
 
-LaTeX Warning: Reference `fig:mse_eff' on page 18 undefined on input line 726.
+LaTeX Warning: Reference `fig:mse_eff' on page 18 undefined on input line 734.
 
 
-LaTeX Warning: Reference `fig:mse_eff' on page 18 undefined on input line 728.
+LaTeX Warning: Reference `fig:mse_eff' on page 18 undefined on input line 736.
 
-[18 <./figures/rmspe_eff.jpeg>] [19]
-<figures/coverage.jpeg, id=237, 366.4089pt x 317.2653pt>
+[18] [19 <./figures/rmspe_eff.jpeg>]
+<figures/coverage.jpeg, id=236, 366.4089pt x 317.2653pt>
 File: figures/coverage.jpeg Graphic file (type jpg)
 <use figures/coverage.jpeg>
-Package pdftex.def Info: figures/coverage.jpeg  used on input line 750.
+Package pdftex.def Info: figures/coverage.jpeg  used on input line 758.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
 
-LaTeX Warning: Reference `fig:merc' on page 20 undefined on input line 758.
+LaTeX Warning: Reference `fig:merc' on page 20 undefined on input line 768.
 
 
-LaTeX Warning: Reference `fig:merc' on page 20 undefined on input line 764.
+LaTeX Warning: Reference `fig:merc' on page 20 undefined on input line 774.
 
 
-LaTeX Warning: Reference `fig:merc' on page 20 undefined on input line 771.
+LaTeX Warning: Reference `fig:merc' on page 20 undefined on input line 781.
 
-[20 <./figures/coverage.jpeg>] [21]
-<figures/zmmi_map.jpeg, id=250, 366.4089pt x 317.2653pt>
+[20] [21 <./figures/coverage.jpeg>]
+<figures/zmmi_map.jpeg, id=248, 366.4089pt x 317.2653pt>
 File: figures/zmmi_map.jpeg Graphic file (type jpg)
 <use figures/zmmi_map.jpeg>
-Package pdftex.def Info: figures/zmmi_map.jpeg  used on input line 813.
+Package pdftex.def Info: figures/zmmi_map.jpeg  used on input line 823.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/mercury_map.jpeg, id=251, 366.4089pt x 317.2653pt>
+<figures/mercury_map.jpeg, id=249, 366.4089pt x 317.2653pt>
 File: figures/mercury_map.jpeg Graphic file (type jpg)
 <use figures/mercury_map.jpeg>
-Package pdftex.def Info: figures/mercury_map.jpeg  used on input line 819.
+Package pdftex.def Info: figures/mercury_map.jpeg  used on input line 829.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/zmmi_hist.jpeg, id=252, 366.4089pt x 317.2653pt>
+<figures/zmmi_hist.jpeg, id=250, 366.4089pt x 317.2653pt>
 File: figures/zmmi_hist.jpeg Graphic file (type jpg)
 <use figures/zmmi_hist.jpeg>
-Package pdftex.def Info: figures/zmmi_hist.jpeg  used on input line 825.
+Package pdftex.def Info: figures/zmmi_hist.jpeg  used on input line 835.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/mercury_hist.jpeg, id=253, 366.4089pt x 317.2653pt>
+<figures/mercury_hist.jpeg, id=251, 366.4089pt x 317.2653pt>
 File: figures/mercury_hist.jpeg Graphic file (type jpg)
 <use figures/mercury_hist.jpeg>
-Package pdftex.def Info: figures/mercury_hist.jpeg  used on input line 831.
+Package pdftex.def Info: figures/mercury_hist.jpeg  used on input line 841.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/zmmi_sv.jpeg, id=254, 366.4089pt x 317.2653pt>
+<figures/zmmi_sv.jpeg, id=252, 366.4089pt x 317.2653pt>
 File: figures/zmmi_sv.jpeg Graphic file (type jpg)
 <use figures/zmmi_sv.jpeg>
-Package pdftex.def Info: figures/zmmi_sv.jpeg  used on input line 837.
+Package pdftex.def Info: figures/zmmi_sv.jpeg  used on input line 847.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/mercury_sv.jpeg, id=255, 366.4089pt x 317.2653pt>
+<figures/mercury_sv.jpeg, id=253, 366.4089pt x 317.2653pt>
 File: figures/mercury_sv.jpeg Graphic file (type jpg)
 <use figures/mercury_sv.jpeg>
-Package pdftex.def Info: figures/mercury_sv.jpeg  used on input line 843.
+Package pdftex.def Info: figures/mercury_sv.jpeg  used on input line 853.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/data_rmspe_eff.jpeg, id=256, 366.4089pt x 136.5903pt>
+[22]
+<figures/data_rmspe_eff.jpeg, id=260, 366.4089pt x 136.5903pt>
 File: figures/data_rmspe_eff.jpeg Graphic file (type jpg)
 <use figures/data_rmspe_eff.jpeg>
-Package pdftex.def Info: figures/data_rmspe_eff.jpeg  used on input line 853.
+Package pdftex.def Info: figures/data_rmspe_eff.jpeg  used on input line 863.
 (pdftex.def)             Requested size: 345.0pt x 128.60956pt.
-<figures/data_coverage.jpeg, id=257, 366.4089pt x 136.5903pt>
+<figures/data_coverage.jpeg, id=261, 366.4089pt x 136.5903pt>
 File: figures/data_coverage.jpeg Graphic file (type jpg)
 <use figures/data_coverage.jpeg>
-Package pdftex.def Info: figures/data_coverage.jpeg  used on input line 860.
+Package pdftex.def Info: figures/data_coverage.jpeg  used on input line 870.
 (pdftex.def)             Requested size: 345.0pt x 128.60956pt.
-[22] [23 <./figures/zmmi_map.jpeg> <./figures/mercury_map.jpeg> <./figures/zmmi_hist.jpeg> <./figures/mercury_hist.jpeg> <./figures/zmmi_sv.jpeg> <./figures/mercury_sv.jpeg>] [24 <./figures/data_rmspe_eff.jpeg> <./figures/data_coverage.jpeg>] [25] [26] [27] [28] [29]
-Overfull \hbox (2.79321pt too wide) in paragraph at lines 1154--1157
+[23] [24 <./figures/zmmi_map.jpeg> <./figures/mercury_map.jpeg> <./figures/zmmi_hist.jpeg> <./figures/mercury_hist.jpeg> <./figures/zmmi_sv.jpeg> <./figures/mercury_sv.jpeg>] [25 <./figures/data_rmspe_eff.jpeg> <./figures/data_coverage.jpeg>] [26] [27] [28] [29] [30]
+Overfull \hbox (2.79321pt too wide) in paragraph at lines 1170--1173
 [][]\T1/lmr/m/n/10 (-20) USEPA, 2012. Na-tional lakes as-sess-ment 2012. https://www.epa.gov/national-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1154--1157
+Underfull \hbox (badness 10000) in paragraph at lines 1170--1173
 \T1/lmr/m/n/10 (-6) aquatic-resource-surveys/national-results-and-regional-highlights-national-lakes-
  []
 
-[30] [31] (./manuscript.aux)
+[31] [32] (./manuscript.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -658,18 +659,18 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 8D1B6DAB024B441ABE5993634EE6F0C0;3238.
  ) 
 Here is how much of TeX's memory you used:
- 14830 strings out of 480178
- 245328 string characters out of 5890432
+ 14831 strings out of 480178
+ 245334 string characters out of 5890432
  555540 words of memory out of 5000000
  32195 multiletter control sequences out of 15000+600000
  557765 words of font info for 189 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  70i,14n,76p,1007b,544s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmib10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on manuscript.pdf (31 pages, 1560893 bytes).
+Output written on manuscript.pdf (32 pages, 1545421 bytes).
 PDF statistics:
- 475 PDF objects out of 1000 (max. 8388607)
- 386 compressed objects within 4 object streams
- 140 named destinations out of 1000 (max. 500000)
+ 479 PDF objects out of 1000 (max. 8388607)
+ 389 compressed objects within 4 object streams
+ 141 named destinations out of 1000 (max. 500000)
  45794 words of extra memory for PDF output out of 51595 (max. 10000000)
 
