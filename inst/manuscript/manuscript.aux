@@ -32,9 +32,9 @@
 \newlabel{subsec:dvm_compare}{{1.1.1}{4}{Comparing Design-Based and Model-Based Approaches}{subsubsection.1.1.1}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.2}Spatially Balanced Design and Analysis}{6}{subsubsection.1.1.2}\protected@file@percent }
 \newlabel{subsec:spb_design}{{1.1.2}{6}{Spatially Balanced Design and Analysis}{subsubsection.1.1.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces A visual comparison of the design-based and model-based approaches. In the top row, the design-based approach is highlighted. There is one fixed population with nine population units and three random samples of size four (points circled are those sampled). The response values at each site are fixed, but we obtain different estimates for the mean response in each random sample. In the bottom row, the model-based approach is highlighted. There are three realizations of the same data-generating stochastic process that are all sampled at the same four locations. The data-generating stochastic process has a single mean, but the mean of the nine population units is different in each of the three realizations.\relax }}{7}{figure.caption.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces A visual comparison of the design-based and model-based approaches. In the top row, the design-based approach is highlighted. There is one fixed population with nine population units and three random samples of size four (points circled are those sampled). The response values at each site are fixed. In the bottom row, the model-based approach is highlighted. There are three realizations of the same data-generating stochastic process that are all sampled at the same four locations. The response values at each site are random.\relax }}{7}{figure.caption.2}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:fig1}{{1}{7}{A visual comparison of the design-based and model-based approaches. In the top row, the design-based approach is highlighted. There is one fixed population with nine population units and three random samples of size four (points circled are those sampled). The response values at each site are fixed, but we obtain different estimates for the mean response in each random sample. In the bottom row, the model-based approach is highlighted. There are three realizations of the same data-generating stochastic process that are all sampled at the same four locations. The data-generating stochastic process has a single mean, but the mean of the nine population units is different in each of the three realizations.\relax }{figure.caption.2}{}}
+\newlabel{fig:fig1}{{1}{7}{A visual comparison of the design-based and model-based approaches. In the top row, the design-based approach is highlighted. There is one fixed population with nine population units and three random samples of size four (points circled are those sampled). The response values at each site are fixed. In the bottom row, the model-based approach is highlighted. There are three realizations of the same data-generating stochastic process that are all sampled at the same four locations. The response values at each site are random.\relax }{figure.caption.2}{}}
 \newlabel{eq:ht}{{1}{9}{Spatially Balanced Design and Analysis}{equation.1.1}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.3}Finite Population Block Kriging}{10}{subsubsection.1.1.3}\protected@file@percent }
 \newlabel{finite-population-block-kriging}{{1.1.3}{10}{Finite Population Block Kriging}{subsubsection.1.1.3}{}}
@@ -43,64 +43,61 @@
 \newlabel{equation:reml}{{4}{12}{Finite Population Block Kriging}{equation.1.4}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Materials and Methods}{13}{section.2}\protected@file@percent }
 \newlabel{sec:mm}{{2}{13}{Materials and Methods}{section.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Simulated Data}{13}{subsection.2.1}\protected@file@percent }
-\newlabel{sec:mm_sim}{{2.1}{13}{Simulated Data}{subsection.2.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces  Sampling-analysis combinations in the simulation study. The rows give the two types of sampling designs and the columns give the two types of analyses.\relax }}{14}{table.caption.3}\protected@file@percent }
-\newlabel{tab:designanalysis}{{1}{14}{Sampling-analysis combinations in the simulation study. The rows give the two types of sampling designs and the columns give the two types of analyses.\relax }{table.caption.3}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces  Simulation scenario options. All combinations of sample size, location layout, response type, and proportion of dependent random error composed the 36 simulation scenarios. In each simualtion scenario, the total variance was 2.\relax }}{15}{table.caption.4}\protected@file@percent }
-\newlabel{tab:parmtab}{{2}{15}{Simulation scenario options. All combinations of sample size, location layout, response type, and proportion of dependent random error composed the 36 simulation scenarios. In each simualtion scenario, the total variance was 2.\relax }{table.caption.4}{}}
-\newlabel{fig:symm_pop_hist}{{2a}{16}{Histogram of a single realized population for the normal response.\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:symm_pop_hist}{{a}{16}{Histogram of a single realized population for the normal response.\relax }{figure.caption.5}{}}
-\newlabel{fig:skew_pop_hist}{{2b}{16}{Histogram of a single realized population for the skewed response.\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:skew_pop_hist}{{b}{16}{Histogram of a single realized population for the skewed response.\relax }{figure.caption.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Histograms realized populations for the simulated data.\relax }}{16}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:sim_pops}{{2}{16}{Histograms realized populations for the simulated data.\relax }{figure.caption.5}{}}
+\newlabel{equation:srs_var}{{5}{13}{Materials and Methods}{equation.2.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Simulated Data}{14}{subsection.2.1}\protected@file@percent }
+\newlabel{sec:mm_sim}{{2.1}{14}{Simulated Data}{subsection.2.1}{}}
+\newlabel{fig:symm_pop_hist}{{2a}{15}{Histogram of a realized population for the normal response.\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:symm_pop_hist}{{a}{15}{Histogram of a realized population for the normal response.\relax }{figure.caption.3}{}}
+\newlabel{fig:skew_pop_hist}{{2b}{15}{Histogram of a realized population for the skewed response.\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:skew_pop_hist}{{b}{15}{Histogram of a realized population for the skewed response.\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Histograms of realized populations simulated for the normal and skewed resposnes using the random layout and 50\% DRE.\relax }}{15}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:sim_pops}{{2}{15}{Histograms of realized populations simulated for the normal and skewed resposnes using the random layout and 50\% DRE.\relax }{figure.caption.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}National Lakes Assessment Data}{16}{subsection.2.2}\protected@file@percent }
 \newlabel{sec:mm_app}{{2.2}{16}{National Lakes Assessment Data}{subsection.2.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Results}{17}{section.3}\protected@file@percent }
 \newlabel{sec:results}{{3}{17}{Results}{section.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Simulated Data}{17}{subsection.3.1}\protected@file@percent }
 \newlabel{sec:r_sim}{{3.1}{17}{Simulated Data}{subsection.3.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Relative rMS(P)E in the simulation study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.\relax }}{19}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:rmspe_eff}{{3}{19}{Relative rMS(P)E in the simulation study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.\relax }{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}National Lakes Assessment DAta}{20}{subsection.3.2}\protected@file@percent }
-\newlabel{sec:r_app}{{3.2}{20}{National Lakes Assessment DAta}{subsection.3.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Interval coverage in the simulation study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.\relax }}{21}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:figconf}{{4}{21}{Interval coverage in the simulation study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.\relax }{figure.caption.7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces  For each sampling-analysis combination (Approach), the true mean mercury concentration (True Mean), estimates/predictions (Est/Pred), standard errors (SE), lower 95\% interval bounds (95\% LB), and upper 95\% interval bounds (95\% UB) for mean mercury concentration computed using a sample of 100 lakes in the NLA data.\relax }}{22}{table.caption.8}\protected@file@percent }
-\newlabel{tab:appliedtab}{{3}{22}{For each sampling-analysis combination (Approach), the true mean mercury concentration (True Mean), estimates/predictions (Est/Pred), standard errors (SE), lower 95\% interval bounds (95\% LB), and upper 95\% interval bounds (95\% UB) for mean mercury concentration computed using a sample of 100 lakes in the NLA data.\relax }{table.caption.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}New Application}{23}{subsection.3.3}\protected@file@percent }
-\newlabel{new-application}{{3.3}{23}{New Application}{subsection.3.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion}{23}{section.4}\protected@file@percent }
-\newlabel{sec:discussion}{{4}{23}{Discussion}{section.4}{}}
-\newlabel{fig:zmmi_map}{{5a}{24}{Spatial map of the ZMMI population.\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:zmmi_map}{{a}{24}{Spatial map of the ZMMI population.\relax }{figure.caption.9}{}}
-\newlabel{fig:mercury_map}{{5b}{24}{Spatial map of mercury (Hg) population.\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:mercury_map}{{b}{24}{Spatial map of mercury (Hg) population.\relax }{figure.caption.9}{}}
-\newlabel{fig:zmmi_hist}{{5c}{24}{Histogram of the ZMMI population.\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:zmmi_hist}{{c}{24}{Histogram of the ZMMI population.\relax }{figure.caption.9}{}}
-\newlabel{fig:mercury_hist}{{5d}{24}{Histogram of the mercury (Hg) population.\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:mercury_hist}{{d}{24}{Histogram of the mercury (Hg) population.\relax }{figure.caption.9}{}}
-\newlabel{fig:zmmi_sv_plot}{{5e}{24}{Semivariogram of the ZMMI population.\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:zmmi_sv_plot}{{e}{24}{Semivariogram of the ZMMI population.\relax }{figure.caption.9}{}}
-\newlabel{fig:mercury_sv_plot}{{5f}{24}{Semivariogram of the mercury (Hg) population.\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:mercury_sv_plot}{{f}{24}{Semivariogram of the mercury (Hg) population.\relax }{figure.caption.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Exploratory graphics of the ZMMI and mercury (Hg) populations in the National Lakes Assessment (NLA) 2012 data.\relax }}{24}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:zmmi}{{5}{24}{Exploratory graphics of the ZMMI and mercury (Hg) populations in the National Lakes Assessment (NLA) 2012 data.\relax }{figure.caption.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Relative rMS(P)E in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.\relax }}{25}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:data_rmspe_eff}{{6}{25}{Relative rMS(P)E in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.\relax }{figure.caption.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Interval coverage in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.\relax }}{25}{figure.caption.11}\protected@file@percent }
-\newlabel{fig:data_figconf}{{7}{25}{Interval coverage in the data study for the four sampling-analysis combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.\relax }{figure.caption.11}{}}
-\newlabel{acknowledgments}{{4}{27}{Acknowledgments}{section*.12}{}}
-\@writefile{toc}{\contentsline {section}{Acknowledgments}{27}{section*.12}\protected@file@percent }
-\newlabel{conflict-of-interest-statement}{{4}{27}{Conflict of Interest Statement}{section*.13}{}}
-\@writefile{toc}{\contentsline {section}{Conflict of Interest Statement}{27}{section*.13}\protected@file@percent }
-\newlabel{author-contribution-statement}{{4}{27}{Author Contribution Statement}{section*.14}{}}
-\@writefile{toc}{\contentsline {section}{Author Contribution Statement}{27}{section*.14}\protected@file@percent }
-\newlabel{data-and-code-availability}{{4}{28}{Data and Code Availability}{section*.15}{}}
-\@writefile{toc}{\contentsline {section}{Data and Code Availability}{28}{section*.15}\protected@file@percent }
-\newlabel{supporting-information}{{4}{28}{Supporting Information}{section*.16}{}}
-\@writefile{toc}{\contentsline {section}{Supporting Information}{28}{section*.16}\protected@file@percent }
-\newlabel{references}{{4}{28}{References}{section*.17}{}}
-\@writefile{toc}{\contentsline {section}{References}{28}{section*.17}\protected@file@percent }
-\gdef \@abspage@last{32}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Relative rMS(P)E in the simulation study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.\relax }}{18}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:rmspe_eff}{{3}{18}{Relative rMS(P)E in the simulation study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.\relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Interval coverage in the simulation study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.\relax }}{20}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:figconf}{{4}{20}{Interval coverage in the simulation study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.\relax }{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}National Lakes Assessment DAta}{21}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:r_app}{{3.2}{21}{National Lakes Assessment DAta}{subsection.3.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces  For each sampling-inference combination (Approach), the true mean mercury concentration (True Mean), estimates/predictions (Est/Pred), standard errors (SE), lower 95\% interval bounds (95\% LB), and upper 95\% interval bounds (95\% UB) for mean mercury concentration computed using a sample of 100 lakes in the NLA data.\relax }}{22}{table.caption.6}\protected@file@percent }
+\newlabel{tab:appliedtab}{{1}{22}{For each sampling-inference combination (Approach), the true mean mercury concentration (True Mean), estimates/predictions (Est/Pred), standard errors (SE), lower 95\% interval bounds (95\% LB), and upper 95\% interval bounds (95\% UB) for mean mercury concentration computed using a sample of 100 lakes in the NLA data.\relax }{table.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}New Application}{22}{subsection.3.3}\protected@file@percent }
+\newlabel{new-application}{{3.3}{22}{New Application}{subsection.3.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion}{22}{section.4}\protected@file@percent }
+\newlabel{sec:discussion}{{4}{22}{Discussion}{section.4}{}}
+\newlabel{fig:zmmi_map}{{5a}{23}{Spatial map of the ZMMI population.\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:zmmi_map}{{a}{23}{Spatial map of the ZMMI population.\relax }{figure.caption.7}{}}
+\newlabel{fig:mercury_map}{{5b}{23}{Spatial map of mercury (Hg) population.\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:mercury_map}{{b}{23}{Spatial map of mercury (Hg) population.\relax }{figure.caption.7}{}}
+\newlabel{fig:zmmi_hist}{{5c}{23}{Histogram of the ZMMI population.\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:zmmi_hist}{{c}{23}{Histogram of the ZMMI population.\relax }{figure.caption.7}{}}
+\newlabel{fig:mercury_hist}{{5d}{23}{Histogram of the mercury (Hg) population.\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:mercury_hist}{{d}{23}{Histogram of the mercury (Hg) population.\relax }{figure.caption.7}{}}
+\newlabel{fig:zmmi_sv_plot}{{5e}{23}{Semivariogram of the ZMMI population.\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:zmmi_sv_plot}{{e}{23}{Semivariogram of the ZMMI population.\relax }{figure.caption.7}{}}
+\newlabel{fig:mercury_sv_plot}{{5f}{23}{Semivariogram of the mercury (Hg) population.\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:mercury_sv_plot}{{f}{23}{Semivariogram of the mercury (Hg) population.\relax }{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Exploratory graphics of the ZMMI and mercury (Hg) populations in the National Lakes Assessment (NLA) 2012 data.\relax }}{23}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:zmmi}{{5}{23}{Exploratory graphics of the ZMMI and mercury (Hg) populations in the National Lakes Assessment (NLA) 2012 data.\relax }{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Relative rMS(P)E in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.\relax }}{24}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:data_rmspe_eff}{{6}{24}{Relative rMS(P)E in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.\relax }{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Interval coverage in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.\relax }}{24}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:data_figconf}{{7}{24}{Interval coverage in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.\relax }{figure.caption.9}{}}
+\newlabel{acknowledgments}{{4}{26}{Acknowledgments}{section*.10}{}}
+\@writefile{toc}{\contentsline {section}{Acknowledgments}{26}{section*.10}\protected@file@percent }
+\newlabel{conflict-of-interest-statement}{{4}{27}{Conflict of Interest Statement}{section*.11}{}}
+\@writefile{toc}{\contentsline {section}{Conflict of Interest Statement}{27}{section*.11}\protected@file@percent }
+\newlabel{author-contribution-statement}{{4}{27}{Author Contribution Statement}{section*.12}{}}
+\@writefile{toc}{\contentsline {section}{Author Contribution Statement}{27}{section*.12}\protected@file@percent }
+\newlabel{data-and-code-availability}{{4}{27}{Data and Code Availability}{section*.13}{}}
+\@writefile{toc}{\contentsline {section}{Data and Code Availability}{27}{section*.13}\protected@file@percent }
+\newlabel{supporting-information}{{4}{27}{Supporting Information}{section*.14}{}}
+\@writefile{toc}{\contentsline {section}{Supporting Information}{27}{section*.14}\protected@file@percent }
+\newlabel{references}{{4}{27}{References}{section*.15}{}}
+\@writefile{toc}{\contentsline {section}{References}{27}{section*.15}\protected@file@percent }
+\gdef \@abspage@last{31}
