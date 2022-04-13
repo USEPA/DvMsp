@@ -549,8 +549,6 @@ we were in control of only the random sampling process.
 \hypertarget{sec:mm_sim}{%
 \subsection{Simulated Data}\label{sec:mm_sim}}
 
-CHANGE LOGNORMAL VERBAGE TO SKEWED -- look for DRE acronym
-
 We evaluated performance of the four sampling-inference combinations in
 36 different simulation scenarios. The 36 scenarios resulted from the
 crossing of three sample sizes, two location layouts (of the population
@@ -641,19 +639,22 @@ For ZMMI, data were collected at 1035 unique lakes. At less than 10\% of
 lakes, two ZMMI replicates were collected. These were averaged for the
 purposes of our study so that each lake had one measurement for ZMMI.
 For Hg ppb, data were collected at 995 unique lakes (and there were no
-replicates like for ZMMI). The ZMMI and Hg ppb data are shown spatially
-and as a histogram in Figure \ref{fig:zmmi}. The ZMMI data are
-relatively symmetric, and the Hg ppb data are skewed. Also in Figure
+replicates like for ZMMI). The ZMMI and Hg ppb data are shown as spatial
+maps and as histograms in Figure \ref{fig:zmmi}. The ZMMI data tend to
+be highest near the coasts, lowest in the Central United States, higher
+near the coasts, are relatively symmetric, and have a mean of 55.05. The
+Hg ppb data tend to be highest in the Northeastern United States, lowest
+elsewhere, are skewed, and have a mean of 103.16 ppb. Also in Figure
 \ref{fig:zmmi} are separate spatial semivariograms for ZMMI and Hg ppb.
-The spatial semivariogram quantifies the average squared differences
-(semivariance) of responses whose separation (distance) falls within
-some distance class. The spatial semivariance is closely related to the
-spatial covariance, and spatial semivariograms are often used to gauge
-the strength of spatial dependence in data. Both ZMMI and Hg ppb seem to
-have moderately strong spatial dependence (Figure \ref{fig:zmmi}), as
-the semivariance increases steadily with distance (meaning that
-observations nearby one another tend to be more similar than
-observations far apart from one another).
+The spatial semivariogram quantifies the the halved average squared
+differences (semivariance) of responses whose separation (distance)
+falls within some distance class. The spatial semivariance is closely
+related to the spatial covariance, and spatial semivariograms are often
+used to gauge the strength of spatial dependence in data. Both ZMMI and
+Hg ppb seem to have moderately strong spatial dependence (Figure
+\ref{fig:zmmi}), as the semivariance increases steadily with distance
+(meaning that observations nearby one another tend to be more similar
+than observations far apart from one another).
 
 \begin{figure}
 \centering
@@ -700,11 +701,12 @@ observations far apart from one another).
 We studied performance of the four sampling-inference combinations by
 selecting 2000 random IRS and GRTS samples of size \(n = 50\),
 \(n = 100\), and \(n = 200\) from the realized ZMMI and Hg ppb
-populations and then analyzing the samples using MB and DB inference. We
-used the same evaluation metrics as for the simulated data: mean bias,
-RMSE, and interval coverage. Mean bias is taken as the average deviation
-between each sample's estimated (or predicted) mean and the population
-mean (of ZMMI or Hg ppb):
+populations and then analyzing the samples using MB and DB inference. In
+total, there were six separate scenarios (two responses and three sample
+sizes). We used the same evaluation metrics as for the simulated data:
+mean bias, RMSE, and interval coverage. Mean bias is taken as the
+average deviation between each sample's estimated (or predicted) mean
+and the population mean (of ZMMI or Hg ppb):
 \(\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu)\), where \(i\)
 indexes simulation trials and \(\mu\) is the population mean.
 Root-mean-squared error is taken as the square root of the average
@@ -721,140 +723,76 @@ interval. These intervals are constructed using the normal distribution.
 \hypertarget{sec:r_sim}{%
 \subsection{Simulated Data}\label{sec:r_sim}}
 
-The mean bias was nearly zero for all four sampling-inference
-combinations in all 36 scenarios, so we omit a more detailed summary of
-those results here. Tables for mean bias in all 36 simulation scenarios
-are provided in the supporting information.
+Mean bias was nearly zero for all four sampling-inference combinations
+in all 36 scenarios, so we omit a more detailed summary of those results
+here. Tables for mean bias in all 36 simulation scenarios are provided
+in the supporting information.
 
-Fig. \ref{fig:rmspe_eff} shows the relative rMS(P)E of the four sampling
-analysis combinations using the random location layout with
-``IRS-Design'' as the baseline. The relative rMS(P)E is defined as
-\begin{equation*}
-\frac{\text{rMS(P)E of sampling-inference combination}}{\text{rMS(P)E of IRS-Design}},
-\end{equation*} When there is no spatial covariance (Fig.
-\ref{fig:rmspe_eff}, ``Prop DE: 0'' row), the four sampling-inference
-combinations have approximately equal rMS(P)E. In these scenarios, using
-the GRTS algorithm or a model-based analysis does not increase
-efficiency compared to IRS-Design. When there is spatial covariance
-(Fig. \ref{fig:rmspe_eff}, ``Prop DE: 0.5'' and ``Prop DE: 0.9'' rows),
-GRTS-Model tends to have the lowest rMS(P)E, followed by GRTS-Design,
-IRS-Model, and finally IRS-Design, though the difference in relative
-rMS(P)E among GRTS-Model, GRTS-Design, and IRS-Model is relatively
-small. As the strength of spatial covariance increases, the gap in
-rMS(P)E between IRS-Design and the other sampling-inference combinations
-widens. Finally we note that when there is spatial covariance, IRS-Model
-has a much lower rMS(P)E than IRS-Design, suggesting that the poor
-design properties of IRS are largely mitigated by the model-based
-analysis. These rMS(P)E conclusions are similar to those observed in the
-grid location layout, so we omit a grid location layout figure here.
-Tables for rMS(P)E in all 36 simulation scenarios are provided in the
-supporting information.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/rmspe_eff.jpeg}
-  \caption{Relative rMS(P)E in the simulation study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
-  \label{fig:rmspe_eff}
-\end{figure}
-
-Fig. \ref{fig:mse_eff} shows the relative MStdE of the four
-sampling-inference combinations using the random location layout with
-``IRS-Design'' as the baseline. The relative MStdE is defined as
-\begin{equation*}
-\frac{\text{MStdE of sampling-inference combination}}{\text{MStdE of IRS-Design}},
-\end{equation*} Many general takeaways regarding MStdE are similar to
-general takeaways regarding rMS(P)E: there seems to be no benefit to
-using IRS, even when there is no spatial covariance; as the strength of
-spatial covariance increases, the gap in MStdE between IRS-Design and
-the other sampling-inference combinations widens; and IRS-Model
-outperforms IRS-Design by a noticeable margin. These fact that the
-rMS(P)E and MStdE findings are similar is not particularly surprising
-because the mean bias for all sampling-inference combinations was nearly
-zero, thus rMS(P)E is driven by the standard error of the estimators
-(design-based) or predictors (model-based). We do note that between
-GRTS-Design and GRTS-Model, GRTS-Design had lower MStdE when there was
-no spatial covariance or a medium amount of spatial covariance (Fig.
-\ref{fig:mse_eff}, ``Prop DE: 0'' and ``Prop DE: 0.5'' rows), and
-GRTS-Model had lower MStdE when there was a high amount of spatial
-covariance (Fig. \ref{fig:mse_eff}, ``Prop DE: 0.9'' row). These MStdE
-conclusions are similar to those observed in the grid location layout,
-so we omit a grid location layout figure here. Tables for MStdE in all
-36 simulation scenarios are provided in the supporting information.
-
-Fig. \ref{fig:figconf} shows the 95\% interval coverage for each of the
-four sampling-inference combinations in the random location layout.
-Within each scenario, the sampling-inference combinations tend to have
-fairly similar interval coverage, though when \(n = 50\) or \(n = 100\),
-GRTS-Design coverage is usually a few percentage points lower than the
-other combinations. Coverage in the normal response scenarios was
-usually near 95\%, while coverage in the lognormal response scenarios
-usually varied from 90\% to 95\% but increased with the sample size. At
-a sample size of 200, all four sampling-inference combinations had
-approximately 95\% interval coverage in both response scenarios for all
-dependent error proportions. These interval coverage conclusions are
-similar to those observed in the grid location layout, so we omit a grid
-location layout figure here. Tables for interval coverage in all 36
+We define the relative RMSE as a ratio with numerator given by the RMSE
+for a sampling-inference combination and the denominator given by the
+RMSE for SRS-DB. Relative RMSEs for the random location layout are
+provided in Fig. \ref{fig:rmspe_eff}. When there is no spatial
+covariance (Fig. \ref{fig:rmspe_eff}, ``DRE\%: 0\%''), the four
+sampling-inference combinations have approximately equal RMSE. In these
+scenarios, using GRTS sampling or model-based inference does not
+generally increase efficiency compared to SRS-DB. When there is spatial
+covariance (Fig. \ref{fig:rmspe_eff}, ``DRE\%: 0\%'' and ``DRE\%:
+50\%''), GRTS-MB tends to have the lowest RMSE, followed by GRTS-DB,
+SRS-MB, and finally SRS-DB, though the difference in relative RMSE among
+GRTS-MB, GRTS-DB, and SRS-MB is small. As the strength of spatial
+covariance increases, the gap in RMSE between SRS-DB and the other
+sampling-inference combinations widens. Finally we note that when there
+is spatial covariance, SRS-MB has a much lower RMSE than SRS-DB,
+suggesting that the lack of efficiency from SRS is largely mitigated by
+model-based inference. These RMSE conclusions are similar to those
+observed in the grid location layout, so we omit a figure and discussion
+regarding the grid location layout here. Tables for RMSE in all 36
 simulation scenarios are provided in the supporting information.
 
 \begin{figure}
   \centering
+  \includegraphics[width = 1\linewidth]{figures/rmspe_eff.jpeg}
+  \caption{Relative RMSE in the simulation study for the four sampling-inference combinations and three sample sizes in the random location layout. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black lines separate the sample sizes}
+  \label{fig:rmspe_eff}
+\end{figure}
+
+Fig. \ref{fig:figconf} shows 95\% interval coverage for each of the four
+sampling-inference combinations in the random location layout. Within
+each simulation scenario, all sampling-inference combinations tend to
+have fairly similar interval coverage, though when \(n = 50\) or
+\(n = 100\), GRTS-DB coverage is usually a few percentage points lower
+than the other combinations, which suggests that the local neighborhood
+variance estimate may be slightly too small for small \(n\). Coverage in
+the normal response scenarios was usually near 95\%, while coverage in
+the skewed response scenarios usually varied from 90\% to 95\% but
+increased with the sample size. At a sample size of 200, all four
+sampling-inference combinations had approximately 95\% interval coverage
+in both response scenarios for all dependent error proportions. These
+interval coverage conclusions are similar to those observed in the grid
+location layout, so we omit a figure and discussion regarding the grid
+location layout here. Tables for interval coverage in all 36 simulation
+scenarios are provided in the supporting information.
+
+\begin{figure}
+  \centering
   \includegraphics[width = 1\linewidth]{figures/coverage.jpeg}
-  \caption{Interval coverage in the simulation study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.}
+  \caption{Interval coverage in the simulation study for the four sampling-inference combinations and three sample sizes in the random location layout. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid black lines separate the sample sizes and the dashed black lines represent 95\% coverage.}
   \label{fig:figconf}
 \end{figure}
 
 \hypertarget{sec:r_app}{%
-\subsection{National Lakes Assessment DAta}\label{sec:r_app}}
+\subsection{National Lakes Assessment (Real) Data}\label{sec:r_app}}
 
-USE MERCURY UNITS
+Mean bias was nearly zero for all four sampling-inference combinations
+in all six scenarios, so we omit a more detailed summary of those
+results here. Tables for mean bias in all six simulations scenarios are
+provided in the supporting information.
 
-Fig. \ref{fig:merc} shows a map and histogram of mercury concentration
-in all 986 NLA lakes. The map shows mercury concentration exhibits some
-spatial patterning, with high mercury concentrations in the northeast
-and north central United States. The histogram shows that mercury
-concentration is right-skewed, with most lakes having a low value of
-mercury concentration but a few having a much higher concentration. Fig.
-\ref{fig:merc} also shows mercury concentration's empirical
-semivariogram. The empirical semivariogram can be used as a tool to
-visualize spatial dependence. It quantifies the mean of the halved
-squared differences (semivariance) among all pairs of mercury
-concentrations at different distances apart. When a process has spatial
-covariance (exhibits spatial dependence), the mean semivariance tends to
-be smaller at small distances and larger at large distances. The
-empirical semivariogram in Fig. \ref{fig:merc} suggests that mercury
-concentration exhibits spatial dependence. Lastly we note that the true
-mean mercury concentration in the 986 NLA lakes is 103.2 ng / g.
+Talk about RMSE
 
-We selected a single IRS sample and a single GRTS sample and estimated
-(design-based) or predicted (model-based) the mean mercury concentration
-and constructed 95\% confidence (design-based) and 95\% (model-based)
-prediction intervals. For the model-based analyses, the exponential
-covariance was used. Table \ref{tab:appliedtab} shows the results from
-these analyses. Though we should not generalize these results to other
-samples from this population, we do mention a few findings. First,
-IRS-Design has the largest standard error. Second, compared to
-IRS-Design and IRS-Model, GRTS-Design and GRTS-Model are much closer to
-the true mean mercury concentration (have bias closer to zero) and have
-much lower standard errors (more precise intervals). Third, GRTS-Model
-has the least amount of bias and the lowest standard error (most precise
-interval). Finally, we note that for all sampling-inference
-combinations, the true mean mercury concentration (103.2 ng / g) is
-within the bounds of the combination's 95\% interval.
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{lrrrrr}
-  \hline
-Approach & True Mean & Est/Pred & SE & 95\% LB & 95\% UB \\ 
-  \hline
-IRS-Design & 103.2 & 112.7 & 8.8 & 95.4 & 129.9 \\ 
-  IRS-Model & 103.2 & 110.5 & 7.9 & 95.0 & 125.9 \\ 
-  GRTS-Design & 103.2 & 101.8 & 6.1 & 89.8 & 113.7 \\ 
-  GRTS-Model & 103.2 & 102.3 & 5.9 & 90.8 & 113.9 \\ 
-   \hline
-\end{tabular}
-\caption{\label{tab:appliedtab} For each sampling-inference combination (Approach), the true mean mercury concentration (True Mean), estimates/predictions (Est/Pred), standard errors (SE), lower 95\% interval bounds (95\% LB), and upper 95\% interval bounds (95\% UB) for mean mercury concentration computed using a sample of 100 lakes in the NLA data.} 
-\end{table}
+Talk about interval coverage -- mention how the model-based assumptions
+of coverage are not really satisfied here, but they can be thought of as
+``approximate''.
 
 \hypertarget{new-application}{%
 \subsection{New Application}\label{new-application}}
@@ -862,7 +800,7 @@ IRS-Design & 103.2 & 112.7 & 8.8 & 95.4 & 129.9 \\
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/data_rmspe_eff.jpeg}
-  \caption{Relative rMS(P)E in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
+  \caption{Relative RMSE in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
   \label{fig:data_rmspe_eff}
 \end{figure}
 
@@ -892,22 +830,22 @@ design-based, local neighborhood variance estimator. Aside from the
 theoretical differences described, a few analytical findings from the
 simulation study are particularly notable. First, independent of the
 analysis approach, we found no reason to prefer IRS over GRTS when
-sampling spatial data -- GRTS-Design and GRTS-Model generally had
-similar rMS(P)E as their IRS counterparts when there was no spatial
-covariance and lower rMS(P)E than their IRS counterparts when there was
-spatial covariance. Second, the sampling decision (IRS vs GRTS) is most
-important when using a design-based analysis. Though GRTS-Model still
-had lower rMS(P)E than IRS-Model, the model-based analysis mitigated
-most of the rMS(P)E inefficiencies that result from the IRS samples
-lacking spatial balance. Third, as the strength of spatial covariance
-increases, the gap in rMS(P)E and MStdE between IRS-Design and the other
-sampling-inference combinations also increases, likely because
-IRS-Design is the only combination that ignores spatial locations in
-sampling and analysis. Fourth and finally, when the response was normal,
-interval coverage for all sampling-inference combinations was usually
-close to 95\% for all sample sizes; when the response was lognormal,
-interval coverage for all sampling-inference combinations was usually
-between 90\% and 95\% and closest to 95\% when \(n = 200\).
+sampling spatial data -- GRTS-DB and GRTS-MB generally had similar RMSE
+as their IRS counterparts when there was no spatial covariance and lower
+RMSE than their IRS counterparts when there was spatial covariance.
+Second, the sampling decision (IRS vs GRTS) is most important when using
+a design-based analysis. Though GRTS-MB still had lower RMSE than
+SRS-MB, the model-based analysis mitigated most of the RMSE
+inefficiencies that result from the IRS samples lacking spatial balance.
+Third, as the strength of spatial covariance increases, the gap in RMSE
+and MStdE between SRS-DB and the other sampling-inference combinations
+also increases, likely because SRS-DB is the only combination that
+ignores spatial locations in sampling and analysis. Fourth and finally,
+when the response was normal, interval coverage for all
+sampling-inference combinations was usually close to 95\% for all sample
+sizes; when the response was lognormal, interval coverage for all
+sampling-inference combinations was usually between 90\% and 95\% and
+closest to 95\% when \(n = 200\).
 
 AT LEAST HAVE DISCUSSION ABOUT MODEL BASED ASSUMPTIONS AND MOVE VALIDITY
 COMMENTS TO RESULTS SECTION.
