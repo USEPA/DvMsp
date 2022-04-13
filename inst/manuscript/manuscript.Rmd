@@ -236,9 +236,55 @@ We evaluated performance of the four sampling-inference combinations in 36 diffe
 
 In each of the 36 simulation scenarios, there were 2000 independent simulation trials. Within each simulation scenario and trial, IRS and GRTS samples were selected and then design-based and model-based analyses were used to estimate (design-based) or predict (model-based) the mean and construct 95% confidence (design-based) or 95% prediction (model-based) intervals. With the model-based analyses, covariance parameters were estimated (using REML) separately for each trial.  After all 2000 trials, we summarized the long-run performance of the sampling-inference combination in each scenario by calculating mean bias, root-mean-squared error, and interval coverage. Mean bias is taken as the average deviation between each trial's estimated (or predicted) mean and its realized mean: $\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu_i)$, where $i$ indexes simulation trials. Root-mean-squared error is taken as the square root of the average squared deviation between each trial's estimated (or predicted) mean and its realized mean: $\sqrt{\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu_i)^2}$. Interval coverage is taken as the proportion of simulation trials where the realized mean is contained in its 95% confidence (or prediction) interval. These intervals are constructed using the normal distribution -- justification comes from the asymptotic normality of means via the central limit theorem (under some assumptions). Quantifying these metrics is important because together, they give us an idea of the accuracy (mean bias), spread (RMSE), and validity (interval coverage) of the sampling-inference combinations.
 
-## National Lakes Assessment Data {#sec:mm_app}
+## National Lakes Assessment (Real) Data {#sec:mm_app}
 
-The United States Environmental Protection Agency (USEPA), states, and tribes periodically conduct National Aquatic Research Surveys (NARS) to assess the water quality of various bodies of water in the contiguous United States. One component of NARS is the National Lakes Assessment (NLA), which measures various aspects of lake health and water quality. We will analyze mercury concentration data collected at 986 lakes from the 2012 NLA. Although we can calculate the true mean mercury concentration values for these 986 lakes, here we will explore whether or not we can obtain an adequately precise estimate (design-based) or prediction (model-based) for the realized mean mercury concentration if we sample only 100 of the 986 lakes. For each of the four familiar sampling-inference combinations (IRS-Design, IRS-Model, GRTS-Design, and GRTS-Model), we estimate (design-based) or predict (model-based) the mean mercury concentration and construct 95% intervals from this sample of 100 lakes and compare to the true mean mercury concentration from all 986 lakes.
+The United States Environmental Protection Agency (USEPA), states, and tribes periodically conduct National Aquatic Research Surveys (NARS) to assess the water quality of various bodies of water in the contiguous United States. One component of NARS is the National Lakes Assessment (NLA), which measures various aspects of lake health and water quality. We focus on analyzing zooplankton multi-metric indices (ZMMI) and mercury concentrations in parts per billion (Hg ppb) from the 2012 NLA. For ZMMI, data were collected at 1035 unique lakes. At less than 10% of lakes, two ZMMI replicates were collected. These were averaged for the purposes of our study so that each lake had one measurement for ZMMI. For Hg ppb, data were collected at 995 unique lakes (and there were no replicates like for ZMMI). The ZMMI and Hg ppb data are shown spatially and as a histogram in Figure \ref{fig:zmmi}. The ZMMI data are relatively symmetric, and the Hg ppb data are skewed. Also in Figure \ref{fig:zmmi} are separate spatial semivariograms for ZMMI and Hg ppb. The spatial semivariogram quantifies the average squared differences (semivariance) of responses whose separation (distance) falls within some distance class. The spatial semivariance is closely related to the spatial covariance, and spatial semivariograms are often used to gauge the strength of spatial dependence in data. Both ZMMI and Hg ppb seem to have moderately strong spatial dependence (Figure \ref{fig:zmmi}), as the semivariance increases steadily with distance (meaning that observations nearby one another tend to be more similar than observations far apart from one another).
+
+
+
+\begin{figure}
+\centering
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/zmmi_map.jpeg}
+  \caption{Spatial map of the ZMMI population.}
+  \label{fig:zmmi_map}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_map.jpeg}
+  \caption{Spatial map of mercury (Hg ppb) population.}
+  \label{fig:mercury_map}
+\end{subfigure} \\
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/zmmi_hist.jpeg}
+  \caption{Histogram of the ZMMI population.}
+  \label{fig:zmmi_hist}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_hist.jpeg}
+  \caption{Histogram of the mercury (Hg ppb) population.}
+  \label{fig:mercury_hist}
+\end{subfigure} \\
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/zmmi_sv.jpeg}
+  \caption{Semivariogram of the ZMMI population.}
+  \label{fig:zmmi_sv_plot}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/mercury_sv.jpeg}
+  \caption{Semivariogram of the mercury (Hg ppb) population.}
+  \label{fig:mercury_sv_plot}
+\end{subfigure}
+\caption{Exploratory graphics of the ZMMI and mercury (Hg ppb) populations in the National Lakes Assessment (NLA) 2012 data.}
+\label{fig:zmmi}
+\end{figure}
+
+We studied performance of the four sampling-inference combinations by selecting 2000 random IRS and GRTS samples of size $n = 50$, $n = 100$, and $n = 200$ from the realized ZMMI and Hg ppb populations and then analyzing the samples using MB and DB inference. We used the same evaluation metrics as for the simulated data: mean bias, RMSE, and interval coverage. Mean bias is taken as the average deviation between each sample's estimated (or predicted) mean and the population mean (of ZMMI or Hg ppb): $\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu)$, where $i$ indexes simulation trials and $\mu$ is the population mean. Root-mean-squared error is taken as the square root of the average squared deviation between each sample's estimated (or predicted) mean and its population mean: $\sqrt{\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu)^2}$. Interval coverage is taken as the proportion of simulation trials where the population mean is contained in its 95% confidence (or prediction) interval. These intervals are constructed using the normal distribution.
 
 # Results {#sec:results}
 
@@ -293,47 +339,6 @@ print(xtab_app, include.rownames = FALSE, comment = FALSE)
 ## New Application
 
 
-\begin{figure}
-\centering
-\begin{subfigure}{0.49\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/zmmi_map.jpeg}
-  \caption{Spatial map of the ZMMI population.}
-  \label{fig:zmmi_map}
-\end{subfigure}
-\begin{subfigure}{0.49\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/mercury_map.jpeg}
-  \caption{Spatial map of mercury (Hg) population.}
-  \label{fig:mercury_map}
-\end{subfigure} \\
-\begin{subfigure}{0.49\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/zmmi_hist.jpeg}
-  \caption{Histogram of the ZMMI population.}
-  \label{fig:zmmi_hist}
-\end{subfigure}
-\begin{subfigure}{0.49\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/mercury_hist.jpeg}
-  \caption{Histogram of the mercury (Hg) population.}
-  \label{fig:mercury_hist}
-\end{subfigure} \\
-\begin{subfigure}{0.49\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/zmmi_sv.jpeg}
-  \caption{Semivariogram of the ZMMI population.}
-  \label{fig:zmmi_sv_plot}
-\end{subfigure}
-\begin{subfigure}{0.49\textwidth}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/mercury_sv.jpeg}
-  \caption{Semivariogram of the mercury (Hg) population.}
-  \label{fig:mercury_sv_plot}
-\end{subfigure}
-\caption{Exploratory graphics of the ZMMI and mercury (Hg) populations in the National Lakes Assessment (NLA) 2012 data.}
-\label{fig:zmmi}
-\end{figure}
 
 \begin{figure}
   \centering

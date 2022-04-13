@@ -90,7 +90,7 @@ combo_data <- combo_data %>%
 # colour_scale <- palette(hcl.colors(4, "viridis"))
 colour_scale <- unname(palette.colors(palette = "Okabe-Ito")[1:4])
 # resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
-resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: ZMMI", TOTALHG_RESULT = "Response: Hg")
+resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: ZMMI", TOTALHG_RESULT = "Response: Hg ppb")
 rmspe_eff <- combo_data %>%
   ggplot(aes(x = n_factor_adj, y = rel_efficiency, colour = approach)) +
   facet_grid(
@@ -103,7 +103,7 @@ rmspe_eff <- combo_data %>%
   scale_x_continuous(breaks = c(50, 100, 150), labels = c("50", "100", "200")) +
   scale_y_continuous(breaks = c(0.5, 0.75, 1), labels = c("0.50", "0.75", "1.00"), limits = c(0.5, 1.1)) +
   theme_bw(base_size = base_size) +
-  labs(x = "Sample Size", colour = "Approach", y = "Relative rMS(P)E") +
+  labs(x = "Sample Size", colour = "Approach", y = "Relative RMSE") +
   theme(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
@@ -178,7 +178,7 @@ if (write_out) {
 # colour_scale <- palette(hcl.colors(4, "viridis"))
 colour_scale <- unname(palette.colors(palette = "Okabe-Ito")[1:4])
 # resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
-resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: ZMMI", TOTALHG_RESULT = "Response: Hg")
+resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: ZMMI", TOTALHG_RESULT = "Response: Hg ppb")
 coverage <- combo_data %>%
   ggplot(aes(x = n_factor_adj, y = coverage, colour = approach)) +
   geom_hline(yintercept = 0.95, lty = "dashed") +

@@ -65,7 +65,7 @@ combo_data <- combo_data %>%
 # colour_scale <- palette(hcl.colors(4, "viridis"))
 colour_scale <- unname(palette.colors(palette = "Okabe-Ito")[1:4])
 resptype_labs <- c(normal = "Response: Normal", lognormal = "Response: Skewed")
-psill_ratio_labs <- c("0" = "Prop DRE: 0", "0.5" = "Prop DRE: 0.5", "0.9" = "Prop DRE: 0.9")
+psill_ratio_labs <- c("0" = "DRE%: 0%", "0.5" = "DRE%: 50%", "0.9" = "DRE%: 90%")
 rmspe_eff <- combo_data %>%
   ggplot(aes(x = n_factor_adj, y = rel_efficiency, colour = approach)) +
   facet_grid(
@@ -78,7 +78,7 @@ rmspe_eff <- combo_data %>%
   scale_x_continuous(breaks = c(50, 100, 150), labels = c("50", "100", "200")) +
   scale_y_continuous(breaks = c(0.5, 0.75, 1), labels = c("0.50", "0.75", "1.00"), limits = c(0.5, 1.1)) +
   theme_bw(base_size = base_size) +
-  labs(x = "Sample Size", colour = "Approach", y = "Relative rMS(P)E") +
+  labs(x = "Sample Size", colour = "Approach", y = "Relative RMSE") +
   # lims(y = c(0.5, 1.1)) +
   theme(
     panel.grid.major = element_blank(),

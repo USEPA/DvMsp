@@ -54,7 +54,7 @@ mercury_map <- nla_nomiss_both %>%
   ggplot(aes(x = xcoords, y = ycoords)) +
   geom_point(aes(colour = total_hg)) +
   scale_colour_viridis_c(breaks = c(250, 500, 750)) +
-  labs(x = "", y = "", colour = "Hg") +
+  labs(x = "", y = "", colour = "Hg ppb") +
   coord_quickmap() +
   theme_bw(base_size = 18) +
   theme(
@@ -82,7 +82,7 @@ if (write_out) {
 mercury_hist <- nla_nomiss_both %>%
   ggplot(aes(x = total_hg)) +
   geom_histogram(bins = 20) +
-  labs(x = "Hg", y = "Count") +
+  labs(x = "Hg ppb", y = "Count") +
   theme_bw(base_size = 18) +
   theme(
     panel.grid.major = element_blank(),
@@ -107,7 +107,7 @@ sv_val <- sv(nla_nomiss_both, "xcoords", "ycoords", "total_hg") # same as residu
 sv_plot <- sv_val %>%
   ggplot(aes(x = dist, y = gamma * (1/1000))) +
   geom_point(size = 3) +
-  labs(x = "Distance (Kilometers)", y = "Hg Semi-Variance (Thousands)", title = "") +
+  labs(x = "Distance (Kilometers)", y = "Hg ppb Semi-Var (Thousands)", title = "") +
   ylim(c(0, 15)) +
   # scale_size_continuous(name = "Pairs") +
   theme_bw(base_size = 18) +
@@ -230,7 +230,7 @@ sv_val <- sv(nla_nomiss_both, "xcoords", "ycoords", "MMI_ZOOP_NLA6") # same as r
 sv_plot <- sv_val %>%
   ggplot(aes(x = dist, y = gamma * (1/10))) +
   geom_point(size = 3) +
-  labs(x = "Distance (Kilometers)", y = "ZMMI Semi-Variance (Tens)", title = "") +
+  labs(x = "Distance (Kilometers)", y = "ZMMI Semi-Var (Tens)", title = "") +
   ylim(c(0, 45)) +
   # scale_size_continuous(name = "Pairs") +
   theme_bw(base_size = 18) +
