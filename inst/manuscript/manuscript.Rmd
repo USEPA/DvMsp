@@ -99,7 +99,7 @@ When samples are chosen in a manner such that the layout of sampled units reflec
 
 Fundamentally, the design-based approach combines the randomness of the sampling design with the data collected via the sample to justify the estimation and uncertainty quantification of fixed, unknown parameters of a population (e.g., a population mean). Treating the data as fixed and incorporating randomness through the sampling design yields estimators having very few other assumptions. Confidence intervals for these types of estimators are typically derived using limiting arguments that incorporate all possible samples. Sample means, for example, are asymptotically normal (Gaussian) by the Central Limit Theorem (under some assumptions). If we repeatedly select samples from the population, then 95% of all 95% confidence intervals constructed from a procedure with appropriate coverage will contain the true fixed population mean. @sarndal2003model and @lohr2009sampling provide thorough reviews of the design-based approach.
 
-The model-based approach assumes the population is a random realization of a data-generating stochastic process. Randomness is formally incorporated through distributional assumptions on this process. Strictly speaking, randomness need not be incorporated through random sampling, though @diggle2010geostatistical warn against preferential sampling. Preferential sampling occurs when the process generating the data locations and the process being modeled are not independent of one another. To guard against preferential sampling, model-based approaches can implement some form of random sampling, though it is common for model-based approaches to sample non-randomly. When model-based approaches do implement random sampling, the inclusion probabilities are ignored when analyzing the sample (in contrast to the design-based approach, which relies on these inclusion probabilities to analyze the sample).
+The model-based approach assumes the population is a random realization of a data-generating stochastic process (superpopulation). Randomness is formally incorporated through distributional assumptions on this process. Strictly speaking, randomness need not be incorporated through random sampling, though @diggle2010geostatistical warn against preferential sampling. Preferential sampling occurs when the process generating the data locations and the process being modeled are not independent of one another. To guard against preferential sampling, model-based approaches can implement some form of random sampling, though it is common for model-based approaches to sample non-randomly. When model-based approaches do implement random sampling, the inclusion probabilities are ignored when analyzing the sample (in contrast to the design-based approach, which relies on these inclusion probabilities to analyze the sample).
 
 Instead of estimating fixed, unknown population parameters, as in the design-based approach, often the goal of model-based inference is to predict a realized variable. For example, suppose the realized mean of all population units (the realized population mean) is the variable of interest. Instead of a fixed, unknown mean, we are predicting the value of the mean, a random variable. Prediction intervals are then derived using assumptions of the data-generating stochastic process. If we repeatedly generate realizations from the same process and select samples, then 95% of all 95% prediction intervals constructed from a procedure with appropriate coverage will contain their respective realized means. @cressie1993statistics and @schabenberger2017statistical provide thorough reviews of model-based approaches for spatial data. In Fig. \ref{fig:fig1}, we provide a visual comparison of the design-based and model-based approaches (@verhoef2002sampling and @brus2021statistical provide similar figures). This figure contrasts the design-based approach with a fixed population and random sampling to the model-based approach with random populations and non-random sampling.
 
@@ -298,7 +298,7 @@ We define the relative RMSE as a ratio with numerator given by the RMSE for a sa
   \label{fig:rmspe_eff}
 \end{figure} 
 
-Fig. \ref{fig:figconf} shows 95% interval coverage for each of the four sampling-inference combinations in the random location layout. Within each simulation scenario, all sampling-inference combinations tend to have fairly similar interval coverage, though when $n = 50$ or $n = 100$, GRTS-DB coverage is usually a few percentage points lower than the other combinations, which suggests that the local neighborhood variance estimate may be slightly too small for small $n$. Coverage in the normal response scenarios was usually near 95%, while coverage in the skewed response scenarios usually varied from 90% to 95% but increased with the sample size. At a sample size of 200, all four sampling-inference combinations had approximately 95% interval coverage in both response scenarios for all dependent error proportions.  These interval coverage conclusions are similar to those observed in the grid location layout, so we omit a figure and discussion regarding the grid location layout here. Tables for interval coverage in all 36 simulation scenarios are provided in the supporting information.
+95% interval coverage for each of the four sampling-inference combinations in the random location layout is shown in Fig. \ref{fig:figconf}. Within each simulation scenario, all sampling-inference combinations tend to have fairly similar interval coverage, though when $n = 50$ or $n = 100$, GRTS-DB coverage is usually a few percentage points lower than the other combinations, which suggests that the local neighborhood variance estimate may be slightly too small for small $n$. Coverage in the normal response scenarios was usually near 95%, while coverage in the skewed response scenarios usually varied from 90% to 95% but increased with the sample size. At a sample size of 200, all four sampling-inference combinations had approximately 95% interval coverage in both response scenarios for all dependent error proportions.  These interval coverage conclusions are similar to those observed in the grid location layout, so we omit a figure and discussion regarding the grid location layout here. Tables for interval coverage in all 36 simulation scenarios are provided in the supporting information.
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/coverage.jpeg}
@@ -310,10 +310,23 @@ Fig. \ref{fig:figconf} shows 95% interval coverage for each of the four sampling
 
 Mean bias was nearly zero for all four sampling-inference combinations in all six scenarios, so we omit a more detailed summary of those results here. Tables for mean bias in all six simulations scenarios are provided in the supporting information.
 
-Talk about RMSE
+The relative RMSE of both ZMMI (symmetric response) and Hg ppb (skewed response) for all four sampling-inference combinations are shown in Fig.$~$\ref{fig:data_rmspe_eff}. GRTS-MB has the lowest RMSE, followed by GRTS-DB, SRS-MB, and then SRS-DB. The difference in RMSE among GRTS-MB and GRTS-DB tends to be quite small. When $n = 50$, SRS-MB RMSE is approximately evenly between IRS-DB RMSE and GRTS-MB RMSE, but for the larger sample sizes ($n = 100$, $n = 200$), SRS-MB RMSE is closer to GRTS-MB RMSE. Lastly we note that GRTS-MB, GRTS-DB, and SRS-MB all have noticeably lower RMSE than SRS-DB.
 
-Talk about interval coverage -- mention how the model-based assumptions of coverage are not really satisfied here, but they can be thought of as "approximate".
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/data_rmspe_eff.jpeg}
+  \caption{Relative RMSE in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
+  \label{fig:data_rmspe_eff}
+\end{figure}
 
+95% interval coverage of both ZMMI and Hg ppb for all four sampling-inference combinations is shown in Fig. \ref{fig:figconf}. When $n = 50$, interval coverage for both responses is too low, though interval coverage is higher for ZMMI (symmetric response) than for Hg ppb (skewed response). When $n = 100$, ZMMI interval coverage is approximately 95% except for GRTS-DB, which has coverage around 92%, while Hg ppb interval coverage ranges from approximately 90% (GRTS-DB) to 93% (GRTS-MB). When $n = 200$, ZMMI interval coverage is approximately 95% while Hg ppb interval coverage ranges from approximately 93% (GRTS-DB) to 95% (GRTS-MB).  As with the simulated data, coverages for the NLA data tended to increase with the sample sizes, coverages tended to be higher symmteric responses than skewed responses, and regularly the local neighborhood variance was slightly too small for small $n$, yielding slightly lower interval coverages than the other sampling-inference combinations. Recall that model-based inference defines interval coverage properties across realized populations. With the simulated data, we evaluated interval coverage across realization populations, but for the NLA data, we evaluated interval coverage within a single realization for different samples. We did find that model-based coverages were similar to the design-based coverages, however, suggesting that in many cases it is reasonable to heuristically view data from separate samples as being from approximately separate realized populations. But generally, if model-based intervals constructed from many random samples of a single realized population show improper coverage, this does not necessarily imply a deficiency in model-based inference.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 1\linewidth]{figures/data_coverage.jpeg}
+  \caption{Interval coverage in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.}
+  \label{fig:data_figconf}
+\end{figure}
 
 
 
@@ -326,25 +339,6 @@ Talk about interval coverage -- mention how the model-based assumptions of cover
 # xtab_app <- xtable(res_df_drop, digits = 1, caption = "\\label{tab:appliedtab} For each sampling-inference combination (Approach), the true mean mercury concentration (True Mean), estimates/predictions (Est/Pred), standard errors (SE), lower 95\\% interval bounds (95\\% LB), and upper 95\\% interval bounds (95\\% UB) for mean mercury concentration computed using a sample of 100 lakes in the NLA data.")
 # print(xtab_app, include.rownames = FALSE, comment = FALSE)
 ```
-
-## New Application
-
-
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/data_rmspe_eff.jpeg}
-  \caption{Relative RMSE in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
-  \label{fig:data_rmspe_eff}
-\end{figure}
-
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 1\linewidth]{figures/data_coverage.jpeg}
-  \caption{Interval coverage in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.}
-  \label{fig:data_figconf}
-\end{figure}
 
 # Discussion {#sec:discussion}
 
