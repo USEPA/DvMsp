@@ -752,7 +752,7 @@ simulation scenarios are provided in the supporting information.
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/rmspe_eff.jpeg}
-  \caption{Relative RMSE in the simulation study for the four sampling-inference combinations and three sample sizes in the random location layout. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black lines separate the sample sizes}
+  \caption{Relative RMSE in the simulation study for the four sampling-inference combinations and three sample sizes in the random location layout. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black lines separate the sample sizes.}
   \label{fig:rmspe_eff}
 \end{figure}
 
@@ -802,7 +802,7 @@ all have noticeably lower RMSE than SRS-DB.
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/data_rmspe_eff.jpeg}
-  \caption{Relative RMSE in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.}
+  \caption{Relative RMSE in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black lines separate the sample sizes.}
   \label{fig:data_rmspe_eff}
 \end{figure}
 
@@ -836,7 +836,7 @@ imply a deficiency in model-based inference.
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/data_coverage.jpeg}
-  \caption{Interval coverage in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black line represents 95\% coverage.}
+  \caption{Interval coverage in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.The solid black lines separate the sample sizes and the dashed black lines represent 95\% coverage.}
   \label{fig:data_figconf}
 \end{figure}
 
@@ -846,71 +846,81 @@ imply a deficiency in model-based inference.
 ADD EXTRAS LIKE ANISOTROPY AND UNEQUAL INCLUSION PROBABILITIES
 
 The design-based and model-based approaches to statistical inference are
-fundamentally different paradigms. The design-based approach relies on
-random sampling to estimate population parameters. The model-based
-approach relies on distributional assumptions to predict realized values
-of a stochastic process. Though the model-based approach does not rely
-on random sampling, it can still be beneficial as a way to guard against
-preferential sampling. While the design-based and model-based approaches
-have often been compared in the literature from theoretical and
-analytical perspectives, our contribution lies in studying them in a
-spatial context while implementing spatially balanced sampling and the
-design-based, local neighborhood variance estimator. Aside from the
-theoretical differences described, a few analytical findings from the
-simulation study are particularly notable. First, independent of the
-analysis approach, we found no reason to prefer IRS over GRTS when
-sampling spatial data -- GRTS-DB and GRTS-MB generally had similar RMSE
-as their IRS counterparts when there was no spatial covariance and lower
-RMSE than their IRS counterparts when there was spatial covariance.
-Second, the sampling decision (IRS vs GRTS) is most important when using
-a design-based analysis. Though GRTS-MB still had lower RMSE than
-SRS-MB, the model-based analysis mitigated most of the RMSE
-inefficiencies that result from the IRS samples lacking spatial balance.
-Third, as the strength of spatial covariance increases, the gap in RMSE
-and MStdE between SRS-DB and the other sampling-inference combinations
-also increases, likely because SRS-DB is the only combination that
-ignores spatial locations in sampling and analysis. Fourth and finally,
-when the response was normal, interval coverage for all
-sampling-inference combinations was usually close to 95\% for all sample
-sizes; when the response was lognormal, interval coverage for all
-sampling-inference combinations was usually between 90\% and 95\% and
-closest to 95\% when \(n = 200\).
-
-AT LEAST HAVE DISCUSSION ABOUT MODEL BASED ASSUMPTIONS AND MOVE VALIDITY
-COMMENTS TO RESULTS SECTION.
+fundamentally different paradigms. Design-based inference relies on
+random sampling to estimate population parameters. Model-based inference
+relies on distributional assumptions to predict realized values of a
+data-generating stochastic process. Though model-based inference does
+not rely on random sampling, it can still be beneficial as a way to
+guard against preferential sampling. While design-based inference and
+model-based inference have often been compared in the literature from
+theoretical and analytical perspectives, our contribution lies in
+studying them for finite population spatial data while implementing GRTS
+sampling and the local neighborhood variance estimator. Aside from the
+theoretical differences described throughout the manuscript, a few
+analytical findings from the simulated and real data studies were
+particularly notable. All sampling-inference combinations had
+approximately zero mean bias. Independent of the inference approach,
+GRTS-DB and GRTS-MB had lower RMSE than their SRS counterparts. Though
+GRTS-DB and GRTS-MB generally had very similar RMSE, SRS-MB tended to
+have much lower RMSE than SRS-DB, suggesting that the model-based
+inference mitigated much of the inefficiency in RMSE from SRS. As the
+proportion of dependent random error in the simulated data increased,
+SRS-MB, GRTS-DB, and GRTS-MB become increasingly more efficient (lower
+RMSE) than SRS-DB. Interval coverage tended to be higher for the
+symmetric responses than skewed responses and tended to increase with
+the sample size. At a sample size of \(n = 200\), generally all interval
+coverages were near the desired value of 95\%.
 
 There are several benefits and drawbacks of the design-based and
 model-based approaches for finite population spatial data. Some we have
 discussed, but others we have not, and they are worthy of consideration
-in future research. Design-based approaches are often computationally
-efficient, while model-based approaches can be computationally
-burdensome, especially for likelihood-based estimation methods like REML
-that rely on inverting a covariance matrix. The design-based approach
-easily handles binary data through a straightforward application of the
-Horvitz-Thompson estimator. In contrast, analyzing binary data using a
-model-based approach generally requires a logistic mixed regression
-model, which can be challenging to estimate and interpret (Bolker et
-al., 2009). The design-based approach yields valid results because the
-sampling plan and inclusion probabilities are specified directly by the
-researcher, while the model-based approach may not yield valid results
-if the assumptions made do not not accurately capture reality. The
-model-based approach, however, can more naturally quantify the
-relationship between covariates (predictor variables) and the response
-variable. The model-based approach also yields estimated spatial
-covariance parameters, which help better understand the dependence
-structure in the process in study. Model selection is also possible
-using model-based approaches and criteria such as cross validation,
-likelihood ratio tests, or AIC (Akaike, 1974). Model-based approaches
-are capable of more efficient small-area estimation than design-based
-approaches by leveraging distributional assumptions in areas with few
-observed units. Model-based approaches can also compute unit-by-unit
-predictions at unobserved locations and use them to construct
-informative visualizations like smoothed maps. Brus and De Gruijter
-(1997) provide a more thorough discussion regarding the benefits and
-drawbacks of the two approaches. In short, when deciding whether the
-design-based or model-based approach is more appropriate to implement,
-the benefits and drawbacks of each approach should be considered
-alongside the particular goals of the study.
+in future research. First we discuss advantages of design-based
+inference. Design-based inference is often computationally efficient,
+while model-based inference can be computationally burdensome,
+especially for likelihood-based estimation methods like REML that rely
+on inverting a covariance matrix. Design-based inference easily handles
+binary data through a straightforward application of the
+Horvitz-Thompson estimator. In contrast, analyzing binary data using
+model-based inference generally requires a logistic mixed regression
+model, which can be difficult to estimate and interpret (Bolker et al.,
+2009). An advantage of design-based inference is that interval coverage
+is valid (has the proper coverage rate) as long as 1) the sample is
+sufficiently large to ensure the statistic's sampling distribution is
+approximately normal and 2) the variance estimator is consistent (Brus
+and De Gruijter, 1997; Särndal et al., 2003). This is because with
+design-based inference, the sampling plan and inclusion probabilities
+are specified directly by the researcher. With the model-based approach,
+however, interval coverage is unlikely to be valid if the model's
+assumptions made do not not accurately reflect reality. Whether a
+model's assumptions accurately reflect reality can be a challenging and
+sometimes impossible question to answer definitively. Now we discuss
+advantages of model-based inference. Model-based inference can more
+naturally quantify the relationship between covariates (predictor
+variables) and the response variable than design-based inference.
+Model-based inference also yields estimated spatial covariance
+parameters, which help better understand the dependence structure of the
+process in study. Model selection is also possible using model-based
+inference and criteria such as cross validation, likelihood ratio tests,
+or AIC (Akaike, 1974). Model-based inference is capable of more
+efficient small-area estimation than design-based inference because
+model-based inference can leverage distributional assumptions in areas
+with few observed population units. Model-based inference can also
+compute unit-by-unit predictions at unobserved locations and use them to
+construct informative visualizations like smoothed maps. Brus and De
+Gruijter (1997) provide a more thorough discussion regarding the
+benefits and drawbacks of the two approaches. In short, when deciding
+whether the design-based or model-based approach is more appropriate to
+implement, the benefits and drawbacks of each approach should be
+considered alongside the particular goals of the study.
+
+There are many extensions of this research worthy of future
+consideration, some of which we discuss next. Some extensions to study
+include sampling with unequal inclusion probabilities, different
+spatially balanced sampling approaches (instead of GRTS), different
+spatial data configurations, different spatial domains like stream
+networks (Ver Hoef and Peterson, 2010), different response or covariance
+structures, the effect of spatial or external mean trends (which can be
+defined through covariates), and more.
 
 \hypertarget{acknowledgments}{%
 \section*{Acknowledgments}\label{acknowledgments}}
@@ -1145,6 +1155,11 @@ Ecoscience 9, 152--161.
 \leavevmode\hypertarget{ref-verhoef2008spatial}{}%
 Ver Hoef, J.M., 2008. Spatial methods for plot-based sampling of
 wildlife populations. Environmental and Ecological Statistics 15, 3--13.
+
+\leavevmode\hypertarget{ref-ver2010moving}{}%
+Ver Hoef, J.M., Peterson, E.E., 2010. A moving average approach for
+spatial statistical models of stream networks. Journal of the American
+Statistical Association 105, 6--18.
 
 \leavevmode\hypertarget{ref-ver2013comparison}{}%
 Ver Hoef, J.M., Temesgen, H., 2013. A comparison of the spatial linear
