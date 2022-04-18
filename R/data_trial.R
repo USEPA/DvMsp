@@ -51,10 +51,10 @@ data_trial <- function(seed = sample.int(1e7, size = 1), data, var,
 
   # subset data
   data <- data %>%
-  dplyr::select(SITE_ID, response = var, x = INDEX_LON_DD, y = INDEX_LAT_DD) %>%
+  dplyr::select(.data$SITE_ID, response = var, x = .data$INDEX_LON_DD, y = .data$INDEX_LAT_DD) %>%
     na.omit() %>%
-    dplyr::group_by(SITE_ID) %>%
-    dplyr::summarize(response = mean(response), x = mean(x), y = mean(y)) %>%
+    dplyr::group_by(.data$SITE_ID) %>%
+    dplyr::summarize(response = mean(.data$response), x = mean(.data$x), y = mean(.data$y)) %>%
     dplyr::ungroup()
 
   # set N
