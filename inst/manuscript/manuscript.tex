@@ -100,7 +100,7 @@ Corvallis, Oregon, 97331}
     inference rest on fundamentally different foundations. In the
     design-based approach, inference relies on random sampling. In the
     model-based approach, inference relies on distributional assumptions.
-    We compare the approaches for finite population spatial data.
+    We compare the approaches in a finite population spatial context.
   \item
     We provide relevant background for the design-based and model-based
     approaches and then study their performance using simulated and real
@@ -149,19 +149,19 @@ Spatial covariance
 \hypertarget{sec:introduction}{%
 \section{Introduction}\label{sec:introduction}}
 
-When data cannot be collected for all units in a population (i.e.,
-population units), data are collected on a subset of the population
-units -- this subset is called a sample. There are two general
-approaches for using samples to make frequentist statistical inferences
-about a population: design-based and model-based. In the design-based
-approach, inference relies on randomly assigning some population units
-to be in the sample (random sampling). Alternatively, in the model-based
-approach, inference relies on distributional assumptions about the
-underlying data-generating stochastic process (superpopulation). Each
-paradigm has a deep historical context (Sterba, 2009) and its own set of
-benefits and drawbacks (Brus and De Gruijter, 1997; Hansen et al.,
-1983). In this manuscript, we compare design-based and model-based
-approaches for finite population spatial sampling and inference.
+When data cannot be collected for all units in a population (population
+units), data are collected on a subset of the population units -- this
+subset is called a sample. There are two general approaches for using
+samples to make frequentist statistical inferences about a population:
+design-based and model-based. In the design-based approach, inference
+relies on randomly assigning some population units to be in the sample
+(random sampling). Alternatively, in the model-based approach, inference
+relies on distributional assumptions about the underlying
+data-generating stochastic process (superpopulation). Each paradigm has
+a deep historical context (Sterba, 2009) and its own set of benefits and
+drawbacks (Brus and De Gruijter, 1997; Hansen et al., 1983). In this
+manuscript, we compare design-based and model-based approaches for
+finite population spatial sampling and inference.
 
 Spatial data are data that have some sort of spatial index (usually
 specified via coordinates). De Gruijter and Ter Braak (1990) and Brus
@@ -196,11 +196,11 @@ The rest of the manuscript is organized as follows. In Section
 design-based and model-based approaches to finite population spatial
 sampling and inference. In Section \ref{sec:mm}, we describe how we
 intend to compare performance of the approaches using simulated and real
-data. In Section \ref{sec:results}, we present analysis reslts for the
-simulated data and real data from the United States Environmental
-Protection Agency's 2012 National Lakes Assessment (USEPA, 2012). And in
-Section \ref{sec:discussion}, we end with a discussion and provide
-directions for future research.
+data. The real data is from the United States Environmental Protection
+Agency's 2012 National Lakes Assessment (NLA) (USEPA, 2012). In Section
+\ref{sec:results}, we present analysis results for the simulated data
+and NLA data. And in Section \ref{sec:discussion}, we end with a
+discussion and provide directions for future research.
 
 \hypertarget{sec:background}{%
 \subsection{Background}\label{sec:background}}
@@ -222,8 +222,8 @@ sampling designs include simple random sampling, stratified random
 sampling, and cluster sampling. The inclusion probability of a
 population unit is calculated by summing each sample's probability of
 selection over all samples that contain the population unit. Inclusion
-probabilities are often when selecting samples and estimating population
-parameters.
+probabilities are often used when selecting samples and estimating
+population parameters.
 
 When samples are chosen in a manner such that the layout of sampled
 units reflects the layout of the population units, we call the resulting
@@ -247,7 +247,7 @@ and incorporating randomness through the sampling design yields
 estimators having very few other assumptions. Confidence intervals for
 these types of estimators are typically derived using limiting arguments
 that incorporate all possible samples. Sample means, for example, are
-asymptotically normal (Gaussian) by the Central Limit Theorem (under
+asymptotically normal (Gaussian) by the central limit theorem (under
 some assumptions). If we repeatedly select samples from the population,
 then 95\% of all 95\% confidence intervals constructed from a procedure
 with appropriate coverage will contain the true fixed population mean.
@@ -399,25 +399,27 @@ of the population mean is obtained by dividing \(\hat{\tau}_{ht}\) by
 \(N\), the number of population units.
 
 It is also important to quantify the uncertainty in \(\hat{\tau}_{ht}\).
-Horvitz and Thompson (1952) and Sen (1953) provide variance estimators
-for \(\hat{\tau}_{ht}\), but these estimators have two drawbacks. First,
-they rely on calculating \(\pi_{ij}\), the probability that population
-unit \(i\) and population unit \(j\) are both in the sample -- this
-quantity can be challenging if not impossible to calculate analytically
-for GRTS samples. Second, these estimators tend to ignore the spatial
-locations of the population units. To address these two drawbacks
-simultaneously, Stevens and Olsen (2003) proposed the local neighborhood
-variance estimator. The local neighborhood variance estimator does not
-rely on \(\pi_{ij}\) and estimates the variance of \(\hat{\tau}\)
-conditional on the random properties of the GRTS sample -- the idea
-being that this conditioning should yield a more precise estimate of
-\(\hat{\tau}\). They show that the contribution from each sample unit
-(population unit in the sample) to the overall variance is dominated by
+The Horvitz-Thompson (Horvitz and Thompson, 1952) and Sen-Yates-Grundy
+(Sen, 1953; Yates and Grundy, 1953) variance estimators are often used
+to estimate \(\text{Var}(\hat{\tau}_{ht})\), but these estimators have
+two drawbacks. First, they rely on calculating \(\pi_{ij}\), the
+probability that population unit \(i\) and population unit \(j\) are
+both in the sample -- this quantity can be challenging if not impossible
+to calculate analytically for GRTS samples. Second, these estimators
+tend to ignore the spatial locations of the population units. To address
+these two drawbacks simultaneously, Stevens and Olsen (2003) proposed
+the local neighborhood variance estimator. The local neighborhood
+variance estimator does not rely on \(\pi_{ij}\) and estimates the
+variance of \(\hat{\tau}\) conditional on the random properties of the
+GRTS sample -- the idea being that this conditioning should yield a more
+precise estimate of \(\hat{\tau}\). They show that the contribution from
+each sampled population unit to the overall variance is dominated by
 local variation. Thus the local neighborhood variance estimator is a
-weighted sum of variance estimates from each sample unit's local
-neighborhood. These local neighborhoods contain the sample unit itself
-and its three nearest neighbors among all other sample units. For more
-details, see Stevens and Olsen (2003).
+weighted sum of variance estimates from each sampled population unit's
+local neighborhood. These local neighborhoods contain the sampled
+population unit itself and its three nearest neighbors (among all other
+sampled population units). For more details, see Stevens and Olsen
+(2003).
 
 \hypertarget{finite-population-block-kriging}{%
 \subsubsection{Finite Population Block
@@ -428,9 +430,9 @@ expands the geostatistical Kriging framework to the finite population
 setting (Ver Hoef, 2008). Instead of developing inference based on a
 specific sampling design, we assume the data are generated by a spatial
 stochastic process. We summarize some of the basic principles of FPBK
-next -- see Ver Hoef (2008) for technical details and see Higham et al.
-(2021) for an extension to cases of imperfect detection among population
-units. Let
+next -- see Ver Hoef (2008) for technical details and see Higham, J. Ver
+Hoef, et al. (2021) for an extension to cases of imperfect detection
+among population units. Let
 \({\mathbf{z} \equiv \{\text{z}(s_1), \text{z}(s_2), . . . , \text{z}(s_N) \}}\)
 be an \(N \times 1\) response vector at locations \(s_1\), \(s_2\), . .
 . , \(s_N\) that can be measured at the \(N\) population units. Suppose
@@ -475,9 +477,9 @@ made these same assumptions regarding \(\bm{\delta}\). Chiles and
 Delfiner (1999), pp.~80-93 discuss covariance functions that are not
 second-order stationary, not isotropic, or not either. A variety of
 flexible covariance functions can be used to model \(\bm{\delta}\)
-(Cressie, 1993); one example is the exponential covariance function
-(Cressie (1993) provides a thorough list of spatial covariance
-functions). The \(i,j\)th element of the exponential covariance matrix,
+(Cressie, 1993) -- one example is the exponential covariance function.
+Cressie (1993) provides a thorough list of spatial covariance functions.
+The \(i,j\)th element of the exponential covariance matrix,
 \(\mathop{\mathrm{{cov}}}(\bm{\delta})\), is \mbox{}
 \begin{align}\label{equation:expcov}
 \mathop{\mathrm{{cov}}}(\delta_i, \delta_j) = 
@@ -505,7 +507,7 @@ likelihood (REML) (Harville, 1977; Patterson and Thompson, 1971;
 Wolfinger et al., 1994). REML is preferred over maximum likelihood (ML)
 because ML estimates can be badly biased for small sample sizes, due to
 the fact that ML makes no adjustment for the simultaneous estimation of
-\(\bm{\beta}\) and \(\bm{\delta}\) (Patterson and Thompson, 1971). Minus
+\(\bm{\beta}\) and \(\bm{\theta}\) (Patterson and Thompson, 1971). Minus
 twice the REML log-likelihood of the sampled sites is given by
 \begin{equation}\label{equation:reml}
   \ln|\bm{\Sigma}| + (\bm{z}_s - \bm{X}_s \bm{\tilde{\beta}})^T \bm{\Sigma}_{ss}^{-1}(\bm{z}_s - \bm{X}_s \bm{\tilde{\beta}}) + \ln|\bm{X}_s^T \bm{\Sigma}_{ss}^{-1} \bm{X}_s| + (n - p) \ln(2 \pi) ,
@@ -513,7 +515,7 @@ twice the REML log-likelihood of the sampled sites is given by
 \(\bm{\tilde{\beta}} = (\bm{X}_s^T \bm{\Sigma}_{ss}^{-1} \bm{X}_s)^{-1} \bm{X}_s^T \bm{\Sigma}_{ss}^{-1} \bm{z}_s\)
 and \(\bm{\Sigma}_{ss}\) is the covariance matrix of the sampled sites.
 Minimizing Equation\(~\)\ref{equation:reml} yields
-\(\bm{\hat{\theta}}_{reml}\), the REML estimates of \(\bm{\delta}\).
+\(\bm{\hat{\theta}}_{reml}\), the REML estimates of \(\bm{\theta}\).
 Then \(\bm{\hat{\beta}}_{reml}\), the REML estimate of \(\bm{\beta}\),
 is given by
 \((\bm{X}_s^T \bm{\hat{\Sigma}}_{ss}^{-1} \bm{X})^{-1} \bm{X}_s^T \bm{\hat{\Sigma}}_{ss}^{-1} \bm{z}_s\),
@@ -562,19 +564,22 @@ formula is given by \begin{equation}\label{equation:srs_var}
 is the mean of all \(z_i\), \(n\) is the sample size, \(N\) is the
 population size, and \(f = (1 - n / N)\) (\(f\) is often called the
 finite population correction factor). For GRTS-DB, the Horvitz-Thompson
-esetimator was used to estimate means and the local neighborhood
-variance was used to estimate variances. For SRS-MB and GRTS-MB, FPBK
-was used to estimate means and variances using restricted maximum
-likelihood.
+estimator was used to estimate means and the local neighborhood variance
+was used to estimate variances. For SRS-MB and GRTS-MB, FPBK was used to
+estimate means and variances using restricted maximum likelihood. SRS,
+GRTS sampling, and design-based inference were implemented using the
+\texttt{spsurvey} \textbf{\textsf{R}} package (Dumelle et al., 2022).
+FPBK was implemented using the \texttt{sptotal} \textbf{\textsf{R}}
+package (Higham, Ver Hoef, et al., 2021).
 
 We used simulated data to compare the sampling-inference combinations
 across many realized populations from the same data-generating
-stochastic process. With the simulated data, we were in control of the
-data-generating stochastic process and the random sampling process. We
-then used real data from the 2012 National Lakes Assessment to compare
-the sampling-inference combinations within a single realized population
-(which is typically the case in reality). With the real data, we were in
-control of only the random sampling process.
+stochastic process. We then used real data from the 2012 National Lakes
+Assessment to compare the sampling-inference combinations within a
+single realized population (which is typically the case in reality).
+With the simulated data, we were in control of the data-generating
+stochastic process and the random sampling process. With the real data,
+we were in control of only the random sampling process.
 
 \hypertarget{sec:mm_sim}{%
 \subsection{Simulated Data}\label{sec:mm_sim}}
@@ -656,11 +661,11 @@ accuracy (mean bias), spread (RMSE), and validity (interval coverage) of
 the sampling-inference combinations.
 
 \hypertarget{sec:mm_app}{%
-\subsection{National Lakes Assessment (Real) Data}\label{sec:mm_app}}
+\subsection{National Lakes Assessment Data}\label{sec:mm_app}}
 
 The United States Environmental Protection Agency (USEPA), states, and
 tribes periodically conduct National Aquatic Research Surveys (NARS) to
-assess the water quality of various bodies of water in the contiguous
+assess the water quality of various bodies of water in the conterminous
 United States. One component of NARS is the National Lakes Assessment
 (NLA), which measures various aspects of lake health and water quality.
 We focus on analyzing zooplankton multi-metric indices (ZMMI) and
@@ -697,7 +702,7 @@ another).
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/mercury_map.jpeg}
-  \caption{Spatial map of mercury (Hg ppb) population.}
+  \caption{Spatial map of the Hg ppb population.}
   \label{fig:mercury_map}
 \end{subfigure} \\
 \begin{subfigure}{0.49\textwidth}
@@ -709,7 +714,7 @@ another).
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/mercury_hist.jpeg}
-  \caption{Histogram of the mercury (Hg ppb) population.}
+  \caption{Histogram of the Hg ppb population.}
   \label{fig:mercury_hist}
 \end{subfigure} \\
 \begin{subfigure}{0.49\textwidth}
@@ -721,7 +726,7 @@ another).
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/mercury_sv.jpeg}
-  \caption{Semivariogram of the mercury (Hg ppb) population.}
+  \caption{Semivariogram of the Hg ppb population.}
   \label{fig:mercury_sv_plot}
 \end{subfigure}
 \caption{Exploratory graphics representing populations for the zooplankton multi-metric indices (ZMMI) and mercury concentration in parts per billion (Hg ppb) in the 2012 National Lakes Assessment (NLA) data.}
@@ -733,14 +738,16 @@ selecting 2000 random IRS and GRTS samples of size \(n = 50\),
 \(n = 100\), and \(n = 200\) from the realized ZMMI and Hg ppb
 populations and then analyzing the samples using MB and DB inference. In
 total, there were six separate scenarios (two responses crossed with
-three sample sizes). We used the same evaluation metrics as for the
-simulated data: mean bias, RMSE, and interval coverage. Mean bias is
-taken as the average deviation between each sample's estimated (or
-predicted) mean (\(\hat{\mu}_i\)) and the population mean (\(\mu\)) (of
-ZMMI or Hg ppb): \(\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu)\),
-where \(i\) indexes simulation trials. Root-mean-squared error is taken
-as the square root of the average squared deviation between each
-sample's estimated (or predicted) mean and its population mean:
+three sample sizes). For each sample from each scenario, parameters were
+estimated using the same approaches as described for simulated data. We
+also used the same evaluation metrics as for the simulated data: mean
+bias, RMSE, and interval coverage. Mean bias is taken as the average
+deviation between each sample's estimated (or predicted) mean
+(\(\hat{\mu}_i\)) and the population mean (\(\mu\)) (of ZMMI or Hg ppb):
+\(\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu)\), where \(i\)
+indexes simulation trials. Root-mean-squared error is taken as the
+square root of the average squared deviation between each sample's
+estimated (or predicted) mean and its population mean:
 \(\sqrt{\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu)^2}\).
 Interval coverage is taken as the proportion of simulation trials where
 the population mean is contained in its 95\% confidence (or prediction)
@@ -780,7 +787,7 @@ simulation scenarios are provided in the supporting information.
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/rmspe_eff.jpeg}
-  \caption{Relative RMSE in the simulation study for the four sampling-inference combinations and three sample sizes in the random location layout. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black lines separate the sample sizes.}
+  \caption{Simulated data relative RMSE for the four sampling-inference combinations and three sample sizes in the random location layout. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black lines separate the sample sizes.}
   \label{fig:rmspe_eff}
 \end{figure}
 
@@ -796,21 +803,21 @@ usually near 95\%, while coverage in the skewed response scenarios
 usually varies from 90\% to 95\% but increases with the sample size. At
 a sample size of 200, all four sampling-inference combinations have
 approximately 95\% interval coverage in both response scenarios for all
-dependent random error proportions. These interval coverage conclusions
-are similar to those observed in the grid location layout, so we omit a
-figure and discussion regarding the grid location layout here. Tables
-for interval coverage in all 36 simulation scenarios are provided in the
-supporting information.
+DRE proportions. These interval coverage conclusions are similar to
+those observed in the grid location layout, so we omit a figure and
+discussion regarding the grid location layout here. Tables for interval
+coverage in all 36 simulation scenarios are provided in the supporting
+information.
 
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/coverage.jpeg}
-  \caption{Interval coverage in the simulation study for the four sampling-inference combinations and three sample sizes in the random location layout. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid black lines separate the sample sizes and the dashed black lines represent 95\% coverage.}
+  \caption{Simulated data interval coverage for the four sampling-inference combinations and three sample sizes in the random location layout. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid black lines separate the sample sizes and the dashed black lines represent 95\% coverage.}
   \label{fig:figconf}
 \end{figure}
 
 \hypertarget{sec:r_app}{%
-\subsection{National Lakes Assessment (Real) Data}\label{sec:r_app}}
+\subsection{National Lakes Assessment Data}\label{sec:r_app}}
 
 Mean bias is nearly zero for all four sampling-inference combinations in
 all six scenarios, so we omit a more detailed summary of those results
@@ -826,12 +833,12 @@ RMSE is approximately evenly between IRS-DB RMSE and GRTS-MB RMSE, but
 for the larger sample sizes (\(n = 100\), \(n = 200\)), SRS-MB RMSE is
 closer to GRTS-MB RMSE. Lastly we note that GRTS-MB, GRTS-DB, and SRS-MB
 all have noticeably lower RMSE than SRS-DB. Tables for RMSE in all six
-simulation scenarios are provided in the supporting information.
+scenarios are provided in the supporting information.
 
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/data_rmspe_eff.jpeg}
-  \caption{Relative RMSE in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black lines separate the sample sizes.}
+  \caption{NLA data relative RMSE for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black lines separate the sample sizes.}
   \label{fig:data_rmspe_eff}
 \end{figure}
 
@@ -851,7 +858,7 @@ responses, and the local neighborhood variance was slightly too small
 for small \(n\), yielding slightly lower interval coverages than the
 other sampling-inference combinations. Recall that model-based inference
 defines interval coverage properties across realized populations. With
-the simulated data, we evaluated interval coverage across realization
+the simulated data, we evaluated interval coverage across realized
 populations, but for the NLA data, we evaluated interval coverage within
 a single realized population for different samples. We did find that
 model-based coverages were similar to the design-based coverages,
@@ -867,38 +874,38 @@ information.
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/data_coverage.jpeg}
-  \caption{Interval coverage in the data study for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type.The solid black lines separate the sample sizes and the dashed black lines represent 95\% coverage.}
+  \caption{NLA data interval coverage for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid black lines separate the sample sizes and the dashed black lines represent 95\% coverage.}
   \label{fig:data_figconf}
 \end{figure}
 
 \hypertarget{sec:discussion}{%
 \section{Discussion}\label{sec:discussion}}
 
-The design-based and model-based approaches to statistical inference are
-fundamentally different paradigms. Design-based approaches rely on
-random sampling to estimate population parameters. Model-based
-approaches rely on distributional assumptions to predict realized values
-of a data-generating stochastic process. Though model-based approaches
-do not rely on random sampling, it can still be beneficial as a way to
-guard against preferential sampling. While design-based and model-based
-approaches have often been compared in the literature from theoretical
-and analytical perspectives, our contribution lies in studying them for
-finite population spatial data while implementing GRTS sampling and the
-local neighborhood variance estimator. Aside from the theoretical
-differences described throughout the manuscript, a few analytical
-findings from the simulated and real data studies were particularly
-notable. All sampling-inference combinations had approximately zero mean
-bias. Independent of the inference approach, GRTS-DB and GRTS-MB had
-lower RMSE than their SRS counterparts. Though GRTS-DB and GRTS-MB
-generally had very similar RMSE, SRS-MB tended to have much lower RMSE
-than SRS-DB, suggesting that the model-based inference mitigated much of
-the inefficiency in RMSE from SRS. As the proportion of dependent random
-error in the simulated data increased, SRS-MB, GRTS-DB, and GRTS-MB
-become increasingly more efficient (lower RMSE) than SRS-DB. Interval
-coverage tended to be higher for the symmetric responses than skewed
-responses and tended to increase with the sample size. At a sample size
-of \(n = 200\), generally all interval coverages were near the desired
-value of 95\%.
+The design-based and model-based approaches to frequentist statistical
+inference rest on fundamentally different foundations. Design-based
+approaches rely on random sampling to estimate population parameters.
+Model-based approaches rely on distributional assumptions to predict
+realized values of a data-generating stochastic process. Though
+model-based approaches do not rely on random sampling, it can still be
+beneficial as a way to guard against preferential sampling. While
+design-based and model-based approaches have often been compared in the
+literature from theoretical and analytical perspectives, our
+contribution lies in studying them for finite population spatial data
+while implementing GRTS sampling and the local neighborhood variance
+estimator. Aside from the theoretical differences described throughout
+the manuscript, a few analytical findings from the simulated and real
+data studies were particularly notable. All sampling-inference
+combinations had approximately zero mean bias. Independent of the
+inference approach, GRTS-DB and GRTS-MB had lower RMSE than their SRS
+counterparts. Though GRTS-DB and GRTS-MB generally had very similar
+RMSE, SRS-MB tended to have much lower RMSE than SRS-DB, suggesting that
+the model-based inference mitigated much of the inefficiency in RMSE
+from SRS. As the proportion of dependent random error in the simulated
+data increased, SRS-MB, GRTS-DB, and GRTS-MB become increasingly more
+efficient (lower RMSE) than SRS-DB. Interval coverage tended to be
+higher for the symmetric responses than skewed responses and tended to
+increase with the sample size. At a sample size of \(n = 200\),
+generally all interval coverages were near the desired value of 95\%.
 
 There are several benefits and drawbacks of the design-based and
 model-based approaches for finite population spatial sampling and
@@ -907,25 +914,25 @@ worthy of consideration in future research. First, we discuss advantages
 of the design-based approach. Design-based inference is often
 computationally efficient, while model-based inference can be
 computationally burdensome, especially for likelihood-based estimation
-methods like REML that rely on inverting a covariance matrix.
+methods like REML that rely on the inverse of a covariance matrix.
 Design-based inference easily handles binary data through a
 straightforward application of the Horvitz-Thompson estimator. In
 contrast, analyzing binary data using model-based inference generally
-requires a logistic mixed regression model, which can be difficult to
-estimate and interpret (Bolker et al., 2009). An advantage of
-design-based inference is that interval coverage is valid (has the
-proper coverage rate) as long as 1) the sample is sufficiently large to
-ensure the statistic's sampling distribution is approximately normal and
-2) the variance estimator is consistent (Brus and De Gruijter, 1997;
-Särndal et al., 2003). This is because with the design-based approach,
-the sampling plan and inclusion probabilities are specified directly by
-the researcher. An advantage of SRS-DB not previously mentioned is that
-it is likely to be valid given the consistency of its variance estimator
-(Särndal et al., 2003). With the model-based approach, however, interval
-coverage is unlikely to be valid if the model assumptions made do not
-not accurately reflect reality. Whether model assumptions accurately
-reflect reality can be a challenging and sometimes impossible question
-to answer definitively.
+requires a logistic mixed regression model, the parameters of which can
+be difficult to estimate and interpret (Bolker et al., 2009). An
+advantage of design-based inference is that interval coverage is valid
+(has the proper coverage rate) as long as 1) the sample is sufficiently
+large to ensure the statistic's sampling distribution is approximately
+normal and 2) the variance estimator is consistent (Brus and De
+Gruijter, 1997; Särndal et al., 2003). This is because with the
+design-based approach, the sampling plan and inclusion probabilities are
+specified directly by the researcher. An advantage of SRS-DB not
+previously mentioned is that it is likely to be valid given the
+consistency of its variance estimator (Särndal et al., 2003). With the
+model-based approach, however, interval coverage is unlikely to be valid
+if the model assumptions made do not not accurately reflect reality.
+Whether model assumptions accurately reflect reality can be a
+challenging and sometimes impossible question to answer definitively.
 
 Now, we discuss advantages of the model-based approach. The model-based
 approach can more naturally quantify the relationship between covariates
@@ -998,7 +1005,7 @@ drafts and gave final approval for publication.
 This manuscript has a supplementary \textbf{\textsf{R}} package that
 contains all of the data and code used in its creation. The
 supplementary \textbf{\textsf{R}} package is hosted on GitHub.
-Instructions for download at available at
+Instructions for download are available at
 
 \url{https://github.com/michaeldumelle/DvMsp}.
 
@@ -1125,6 +1132,10 @@ Harville, D.A., 1977. Maximum likelihood approaches to variance
 component estimation and to related problems. Journal of the American
 Statistical Association 72, 320--338.
 
+\leavevmode\hypertarget{ref-higham2021sptotal}{}%
+Higham, M., Ver Hoef, J., Frank, B., Dumelle, M., 2021. Sptotal:
+Predicting totals and weighted sums from spatial data.
+
 \leavevmode\hypertarget{ref-higham2021adjusting}{}%
 Higham, M., Ver Hoef, J., Madsen, L., Aderman, A., 2021. Adjusting a
 finite population block kriging estimator for imperfect detection.
@@ -1220,6 +1231,11 @@ implementation. Environmental Modelling \& Software 40, 280--288.
 Wolfinger, R., Tobias, R., Sall, J., 1994. Computing gaussian
 likelihoods and their derivatives for general linear mixed models. SIAM
 Journal on Scientific Computing 15, 1294--1310.
+
+\leavevmode\hypertarget{ref-yates1953selection}{}%
+Yates, F., Grundy, P.M., 1953. Selection without replacement from within
+strata with probability proportional to size. Journal of the Royal
+Statistical Society: Series B (Methodological) 15, 253--261.
 
 
 \end{document}

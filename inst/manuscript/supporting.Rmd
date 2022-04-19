@@ -144,9 +144,11 @@ for (i in 1:36) {
 }
 ```
 
-# National Lakes Assessment (Real) Data {#sec:datatabs}
+\clearpage
 
-Next we present tables summarizing mean bias, RMSE, and interval coverage for ZMMI and Hg ppb data.
+# National Lakes Assessment Data {#sec:datatabs}
+
+Next we present tables summarizing mean bias, RMSE, and interval coverage for all six data scenarios.
 ```{r}
 make_data_table <- function(table_value) {
   # browser()
