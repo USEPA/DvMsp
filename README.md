@@ -38,9 +38,9 @@ After installing the package, the script used to perform the simulations present
 system.file("scripts/sim_runs.R", package = "DvMsp")
 ```
 
-The script used to perform the analysis of mercury concentration data is located on your machine at the file path found by running
+The script used to perform the data analyses is located on your machine the file path found by running
 ```r
-system.file("scripts/application.R", package = "DvMsp")
+system.file("scripts/data_runs.R", package = "DvMsp")
 ```
 
 Scripts used to generate figures are located on your machine at the file path found by running
@@ -50,17 +50,19 @@ system.file("scripts/figures", package = "DvMsp")
 
 ### Output
 
-Summaries of the 36 simulation trials are located on your machine at the file path found by running
+Summaries of the 36 simulation scenarios are located on your machine at the file path found by running
 ```r
 system.file("output/simulation_summary", package = "DvMsp")
 ```
 
 Raw simulation output is not included when installing the supplementary package but is available [here](https://github.com/michaeldumelle/DvMsp/tree/main/inst/output/simulation_raw).
 
-Summary output from the analysis of mercury concentration data is located on your machine at the file path found by running
+Summaries of the six data scenarios are located on your machine at the file path found by running
 ```r
-system.file("output/application/application.csv", package = "DvMsp")
+system.file("output/data_summary", package = "DvMsp")
 ```
+
+Raw simulation output is not included when installing the supplementary package but is available [here](https://github.com/michaeldumelle/DvMsp/tree/main/inst/output/data_raw).
 
 ### Manuscript
 
@@ -83,6 +85,13 @@ system.file("manuscript/figures", package = "DvMsp")
 We have provided a vignette that describes how to use the functions in the supplementary R package to perform additional simulations that may be of interest. This vignette can be viewed by running
 ```r
 vignette("simulations", "DvMsp")
+```
+
+### Session Information
+
+To view session information used when creating supplementary R scripts, see
+```r
+system.file("scripts/sessionInfo.R", package = "DvMsp")
 ```
 
 ### Citation

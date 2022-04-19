@@ -142,4 +142,4 @@ out5 %>%
 
 Because of the randomness involved in simulating a population, the tables will not match up exactly. However, with a large number of `n_trials`, the results should be quite close.
 
-
+Similar approaches are used to analyze the NLA 2012 data via the `data_trial()` function (see `?data_trial` for more).
