@@ -55,14 +55,14 @@ Summaries of the 36 simulation scenarios are located on your machine at the file
 system.file("output/simulation_summary", package = "DvMsp")
 ```
 
-Raw simulation output is not included when installing the supplementary package but is available [here](https://github.com/michaeldumelle/DvMsp/tree/main/inst/output/simulation_raw).
+Raw simulated data output is not included when installing the supplementary package but is available [here](https://github.com/michaeldumelle/DvMsp/tree/main/inst/output/simulation_raw).
 
 Summaries of the six data scenarios are located on your machine at the file path found by running
 ```r
 system.file("output/data_summary", package = "DvMsp")
 ```
 
-Raw simulation output is not included when installing the supplementary package but is available [here](https://github.com/michaeldumelle/DvMsp/tree/main/inst/output/data_raw).
+Raw NLA data output is not included when installing the supplementary package but is available [here](https://github.com/michaeldumelle/DvMsp/tree/main/inst/output/data_raw).
 
 ### Manuscript
 
@@ -71,7 +71,7 @@ The manuscript and supporting information (and auxiliary files used to build the
 system.file("manuscript", package = "DvMsp")
 ```
 
-To view the manuscript, open `manuscript.pdf` (or visit [here](https://github.com/michaeldumelle/DvMsp/blob/main/inst/manuscript/manuscript.pdf)). To view the supplementary material, open `supplementary.pdf` (or visit [here](https://github.com/michaeldumelle/DvMsp/blob/main/inst/manuscript/supporting.pdf)).
+To view the manuscript, open `manuscript.pdf` (or visit [here](https://github.com/michaeldumelle/DvMsp/blob/main/inst/manuscript/manuscript.pdf)). To view the supporting information, open `supporting.pdf` (or visit [here](https://github.com/michaeldumelle/DvMsp/blob/main/inst/manuscript/supporting.pdf)).
 
 ### Figures
 
@@ -113,7 +113,7 @@ A BibTeX entry for LaTeX users is
     title = {A comparison of design-based and model-based approaches for finite population spatial data},
     author = {Michael Dumelle and Matt Higham and Jay M. Ver Hoef and Anthony R. Olsen and Lisa Madsen},
     journal = {In submission},
-    year = {2021},
+    year = {2022},
     volume = {0},
     number = {0},
     pages = {0-0},
