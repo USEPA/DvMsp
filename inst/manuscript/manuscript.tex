@@ -635,17 +635,18 @@ using the random layout and 50\% DRE.
 \end{figure}
 
 In each of the 36 simulation scenarios, there were 2000 independent
-simulation trials. Within each simulation scenario and trial, IRS and
+simulation trials. Within each simulation scenario and trial, SRS and
 GRTS samples were selected and then design-based and model-based
 inferences were used to estimate (design-based) or predict (model-based)
-the mean and construct 95\% confidence (design-based) or 95\% prediction
-(model-based) intervals. With model-based inference, covariance
-parameters and the mean were estimated (using REML) separately for each
-trial. After all 2000 trials, we summarized the long-run performance of
-the sampling-inference combination in each scenario by calculating mean
-bias, root-mean-squared error, and interval coverage. Mean bias is taken
-as the average deviation between each trial's estimated (or predicted)
-mean (\(\hat{\mu}_i\)) and its realized mean (\(\mu_i\)):
+the realized mean and construct 95\% confidence (design-based) or 95\%
+prediction (model-based) intervals. With model-based inference,
+covariance parameters and the realized mean were estimated (using REML)
+separately for each trial. After all 2000 trials, we summarized the
+long-run performance of the sampling-inference combination in each
+scenario by calculating mean bias, root-mean-squared error, and interval
+coverage. Mean bias is taken as the average deviation between each
+trial's estimated (or predicted) mean (\(\hat{\mu}_i\)) and its realized
+mean (\(\mu_i\)):
 \(\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu_i)\), where \(i\)
 indexes simulation trials. Root-mean-squared error is taken as the
 square root of the average squared deviation between each trial's
@@ -734,20 +735,23 @@ another).
 \end{figure}
 
 We studied performance of the four sampling-inference combinations by
-selecting 2000 random IRS and GRTS samples of size \(n = 50\),
+selecting 2000 random SRS and GRTS samples of size \(n = 50\),
 \(n = 100\), and \(n = 200\) from the realized ZMMI and Hg ppb
 populations and then analyzing the samples using MB and DB inference. In
 total, there were six separate scenarios (two responses crossed with
-three sample sizes). For each sample from each scenario, parameters were
-estimated using the same approaches as described for simulated data. We
-also used the same evaluation metrics as for the simulated data: mean
-bias, RMSE, and interval coverage. Mean bias is taken as the average
-deviation between each sample's estimated (or predicted) mean
-(\(\hat{\mu}_i\)) and the population mean (\(\mu\)) (of ZMMI or Hg ppb):
-\(\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu)\), where \(i\)
-indexes simulation trials. Root-mean-squared error is taken as the
-square root of the average squared deviation between each sample's
-estimated (or predicted) mean and its population mean:
+three sample sizes). Within each SRS and GRTS sample, design-based and
+model-based inferences were used to estimate or predict the population
+mean and construct 95\% coverage intervals. With model-based inference,
+the exponential covariance was assumed, and covariance parameters and
+the population mean were estimated (using REML) (separately for each SRS
+and GRTS sample). We used the same evaluation metrics as for the
+simulated data: mean bias, RMSE, and interval coverage. Mean bias is
+taken as the average deviation between each sample's estimated (or
+predicted) mean (\(\hat{\mu}_i\)) and the population mean (\(\mu\)) (of
+ZMMI or Hg ppb): \(\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu)\),
+where \(i\) indexes simulation trials. Root-mean-squared error is taken
+as the square root of the average squared deviation between each
+sample's estimated (or predicted) mean and its population mean:
 \(\sqrt{\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu)^2}\).
 Interval coverage is taken as the proportion of simulation trials where
 the population mean is contained in its 95\% confidence (or prediction)
@@ -829,7 +833,7 @@ response) for all four sampling-inference combinations are shown in
 Fig.\(~\)\ref{fig:data_rmspe_eff}. GRTS-MB has the lowest RMSE, followed
 by GRTS-DB, SRS-MB, and then SRS-DB. The difference in RMSE among
 GRTS-MB and GRTS-DB tends to be quite small. When \(n = 50\), SRS-MB
-RMSE is approximately evenly between IRS-DB RMSE and GRTS-MB RMSE, but
+RMSE is approximately evenly between SRS-DB RMSE and GRTS-MB RMSE, but
 for the larger sample sizes (\(n = 100\), \(n = 200\)), SRS-MB RMSE is
 closer to GRTS-MB RMSE. Lastly we note that GRTS-MB, GRTS-DB, and SRS-MB
 all have noticeably lower RMSE than SRS-DB. Tables for RMSE in all six
