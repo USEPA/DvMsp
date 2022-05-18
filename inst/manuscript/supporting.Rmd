@@ -16,7 +16,7 @@ address:
   - code: USEPA
     address: United States Environmental Protection Agency, 200 SW 35th St, Corvallis, Oregon, 97333
   - code: STLAW
-    address: Saint Lawrence University Department of Mathematics, Computer Science, and Statistics, 23 Romoda Drive, Canton, New York, 13617
+    address: St. Lawrence University Department of Mathematics, Computer Science, and Statistics, 23 Romoda Drive, Canton, New York, 13617
   - code: OSU
     address: Oregon State University Department of Statistics, 239 Weniger Hall, Corvallis, Oregon, 97331
   - code: NOAA

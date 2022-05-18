@@ -16,7 +16,7 @@ address:
   - code: USEPA
     address: United States Environmental Protection Agency, 200 SW 35th St, Corvallis, Oregon, 97333
   - code: STLAW
-    address: Saint Lawrence University Department of Mathematics, Computer Science, and Statistics, 23 Romoda Drive, Canton, New York, 13617
+    address: St. Lawrence University Department of Mathematics, Computer Science, and Statistics, 23 Romoda Drive, Canton, New York, 13617
   - code: NOAA
     address: Marine Mammal Laboratory, Alaska Fisheries Science Center, National Oceanic and Atmospheric Administration, Seattle, Washington, 98115
   - code: OSU
@@ -196,7 +196,7 @@ In this section we describe how we used simulated and real data to investigate p
 \end{equation}
 where $z_i$ is the response value of the $i$th sampled population unit, $\bar{z}$ is the mean of all $z_i$, $n$ is the sample size, $N$ is the population size, and $f = (1 - n / N)$ ($f$ is often called the finite population correction factor). For GRTS-DB, the Horvitz-Thompson estimator was used to estimate means and the local neighborhood variance was used to estimate variances. For SRS-MB and GRTS-MB, FPBK was used to estimate means and variances using restricted maximum likelihood. SRS, GRTS sampling, and design-based inference were implemented using the `spsurvey` \textbf{\textsf{R}} package [@dumelle2022spsurvey]. FPBK was implemented using the `sptotal` \textbf{\textsf{R}} package [@higham2021sptotal].
 
-The simulated and real data were used in distinct ways to answer distinct questions. We used the simulated data to compare the sampling-inference combinations across many realized populations (from the same data-generating stochastic process) and random samples. We used the real data to compare the sampling-inference combinations within a single realized population but across random samples. With the simulated data, we were in control of the data-generating stochastic process and the random sampling process. With the real data, we were only in control of the random sampling process, which is typically the case in reality.
+The simulated and real data were used for distinct objectives. The simulated data was used to compare the sampling-inference combinations across many realized populations (from the same data-generating stochastic process) and random samples. The real data was used to compare the sampling-inference combinations within a single realized population but across random samples. With the simulated data, we were in control of the data-generating stochastic process and the random sampling process. With the real data, we were only in control of the random sampling process (which is typically the case in practice).
 
 ## Simulated Data {#sec:mm_sim}
 
