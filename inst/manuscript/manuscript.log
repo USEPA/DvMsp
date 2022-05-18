@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.18)  19 APR 2022 08:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.5)  17 MAY 2022 20:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **manuscript.tex
 (./manuscript.tex
 LaTeX2e <2021-11-15> patch level 1
-L3 programming layer <2022-04-10> (./elsarticle.cls
+L3 programming layer <2022-04-29> (./elsarticle.cls
 Document Class: elsarticle 2008/05/22, 1.0.1: Elsevier Science
 \@bls=\dimen138
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -413,7 +413,7 @@ LaTeX Font Info:    Trying to load font information for T1+lmr on input line 67.
 (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-04-14 L3 backend support: PDF output (pdfTeX)
+File: l3backend-pdftex.def 2022-04-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count302
 \l__pdf_internal_box=\box58
 ) (./manuscript.aux)
@@ -563,74 +563,74 @@ Package pdftex.def Info: figures/grts_level2.jpeg  used on input line 360.
 <figures/symm_pop_hist.jpeg, id=209, 366.4089pt x 317.2653pt>
 File: figures/symm_pop_hist.jpeg Graphic file (type jpg)
 <use figures/symm_pop_hist.jpeg>
-Package pdftex.def Info: figures/symm_pop_hist.jpeg  used on input line 623.
+Package pdftex.def Info: figures/symm_pop_hist.jpeg  used on input line 624.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
 <figures/skew_pop_hist.jpeg, id=210, 366.4089pt x 317.2653pt>
 File: figures/skew_pop_hist.jpeg Graphic file (type jpg)
 <use figures/skew_pop_hist.jpeg>
-Package pdftex.def Info: figures/skew_pop_hist.jpeg  used on input line 629.
+Package pdftex.def Info: figures/skew_pop_hist.jpeg  used on input line 630.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
 [16 <./figures/symm_pop_hist.jpeg> <./figures/skew_pop_hist.jpeg>] [17]
-<figures/zmmi_map.jpeg, id=225, 366.4089pt x 317.2653pt>
+<figures/zmmi_map.jpeg, id=224, 366.4089pt x 317.2653pt>
 File: figures/zmmi_map.jpeg Graphic file (type jpg)
 <use figures/zmmi_map.jpeg>
-Package pdftex.def Info: figures/zmmi_map.jpeg  used on input line 699.
+Package pdftex.def Info: figures/zmmi_map.jpeg  used on input line 703.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/mercury_map.jpeg, id=226, 366.4089pt x 317.2653pt>
+<figures/mercury_map.jpeg, id=225, 366.4089pt x 317.2653pt>
 File: figures/mercury_map.jpeg Graphic file (type jpg)
 <use figures/mercury_map.jpeg>
-Package pdftex.def Info: figures/mercury_map.jpeg  used on input line 705.
+Package pdftex.def Info: figures/mercury_map.jpeg  used on input line 709.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/zmmi_hist.jpeg, id=227, 366.4089pt x 317.2653pt>
+<figures/zmmi_hist.jpeg, id=226, 366.4089pt x 317.2653pt>
 File: figures/zmmi_hist.jpeg Graphic file (type jpg)
 <use figures/zmmi_hist.jpeg>
-Package pdftex.def Info: figures/zmmi_hist.jpeg  used on input line 711.
+Package pdftex.def Info: figures/zmmi_hist.jpeg  used on input line 715.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/mercury_hist.jpeg, id=228, 366.4089pt x 317.2653pt>
+<figures/mercury_hist.jpeg, id=227, 366.4089pt x 317.2653pt>
 File: figures/mercury_hist.jpeg Graphic file (type jpg)
 <use figures/mercury_hist.jpeg>
-Package pdftex.def Info: figures/mercury_hist.jpeg  used on input line 717.
+Package pdftex.def Info: figures/mercury_hist.jpeg  used on input line 721.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/zmmi_sv.jpeg, id=229, 366.4089pt x 317.2653pt>
+<figures/zmmi_sv.jpeg, id=228, 366.4089pt x 317.2653pt>
 File: figures/zmmi_sv.jpeg Graphic file (type jpg)
 <use figures/zmmi_sv.jpeg>
-Package pdftex.def Info: figures/zmmi_sv.jpeg  used on input line 723.
+Package pdftex.def Info: figures/zmmi_sv.jpeg  used on input line 727.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-<figures/mercury_sv.jpeg, id=230, 366.4089pt x 317.2653pt>
+<figures/mercury_sv.jpeg, id=229, 366.4089pt x 317.2653pt>
 File: figures/mercury_sv.jpeg Graphic file (type jpg)
 <use figures/mercury_sv.jpeg>
-Package pdftex.def Info: figures/mercury_sv.jpeg  used on input line 729.
+Package pdftex.def Info: figures/mercury_sv.jpeg  used on input line 733.
 (pdftex.def)             Requested size: 169.0519pt x 146.37466pt.
-[18] [19 <./figures/zmmi_map.jpeg> <./figures/mercury_map.jpeg> <./figures/zmmi_hist.jpeg> <./figures/mercury_hist.jpeg> <./figures/zmmi_sv.jpeg> <./figures/mercury_sv.jpeg>]
-<figures/rmspe_eff.jpeg, id=243, 366.4089pt x 317.2653pt>
+[18] [19 <./figures/zmmi_map.jpeg> <./figures/mercury_map.jpeg> <./figures/zmmi_hist.jpeg> <./figures/mercury_hist.jpeg> <./figures/zmmi_sv.jpeg> <./figures/mercury_sv.jpeg>] [20]
+<figures/rmspe_eff.jpeg, id=250, 366.4089pt x 317.2653pt>
 File: figures/rmspe_eff.jpeg Graphic file (type jpg)
 <use figures/rmspe_eff.jpeg>
-Package pdftex.def Info: figures/rmspe_eff.jpeg  used on input line 793.
+Package pdftex.def Info: figures/rmspe_eff.jpeg  used on input line 801.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
-[20] [21 <./figures/rmspe_eff.jpeg>]
-<figures/coverage.jpeg, id=256, 366.4089pt x 317.2653pt>
+[21 <./figures/rmspe_eff.jpeg>]
+<figures/coverage.jpeg, id=257, 366.4089pt x 317.2653pt>
 File: figures/coverage.jpeg Graphic file (type jpg)
 <use figures/coverage.jpeg>
-Package pdftex.def Info: figures/coverage.jpeg  used on input line 818.
+Package pdftex.def Info: figures/coverage.jpeg  used on input line 826.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
-<figures/data_rmspe_eff.jpeg, id=258, 366.4089pt x 136.5903pt>
+<figures/data_rmspe_eff.jpeg, id=259, 366.4089pt x 136.5903pt>
 File: figures/data_rmspe_eff.jpeg Graphic file (type jpg)
 <use figures/data_rmspe_eff.jpeg>
-Package pdftex.def Info: figures/data_rmspe_eff.jpeg  used on input line 844.
+Package pdftex.def Info: figures/data_rmspe_eff.jpeg  used on input line 852.
 (pdftex.def)             Requested size: 345.0pt x 128.60956pt.
 [22] [23 <./figures/coverage.jpeg> <./figures/data_rmspe_eff.jpeg>]
-<figures/data_coverage.jpeg, id=271, 366.4089pt x 136.5903pt>
+<figures/data_coverage.jpeg, id=272, 366.4089pt x 136.5903pt>
 File: figures/data_coverage.jpeg Graphic file (type jpg)
 <use figures/data_coverage.jpeg>
-Package pdftex.def Info: figures/data_coverage.jpeg  used on input line 880.
+Package pdftex.def Info: figures/data_coverage.jpeg  used on input line 887.
 (pdftex.def)             Requested size: 345.0pt x 128.60956pt.
 [24] [25 <./figures/data_coverage.jpeg>] [26] [27] [28] [29] [30] [31]
-Overfull \hbox (2.79321pt too wide) in paragraph at lines 1202--1205
+Overfull \hbox (2.79321pt too wide) in paragraph at lines 1208--1211
 [][]\T1/lmr/m/n/10 (-20) USEPA, 2012. Na-tional lakes as-sess-ment 2012. https://www.epa.gov/national-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1202--1205
+Underfull \hbox (badness 10000) in paragraph at lines 1208--1211
 \T1/lmr/m/n/10 (-6) aquatic-resource-surveys/national-results-and-regional-highlights-national-lakes-
  []
 
@@ -639,15 +639,15 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 9BBD6B1871F8069C2FC69D39AB72A20F;3102.
  ) 
 Here is how much of TeX's memory you used:
- 14848 strings out of 480178
- 245881 string characters out of 5890432
- 555930 words of memory out of 5000000
- 32209 multiletter control sequences out of 15000+600000
- 557679 words of font info for 189 fonts, out of 8000000 for 9000
+ 14859 strings out of 480245
+ 245950 string characters out of 5891740
+ 555634 words of memory out of 5000000
+ 32141 multiletter control sequences out of 15000+600000
+ 558251 words of font info for 195 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  70i,14n,76p,1007b,544s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmib10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on manuscript.pdf (33 pages, 1772643 bytes).
+Output written on manuscript.pdf (33 pages, 1773575 bytes).
 PDF statistics:
  490 PDF objects out of 1000 (max. 8388607)
  397 compressed objects within 4 object streams
