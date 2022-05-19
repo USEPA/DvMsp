@@ -199,7 +199,7 @@ intend to compare performance of the approaches using simulated and real
 data. The real data is from the United States Environmental Protection
 Agency's 2012 National Lakes Assessment (NLA) (USEPA, 2012). In Section
 \ref{sec:results}, we present analysis results for the simulated data
-and NLA data. And in Section \ref{sec:discussion}, we end with a
+and real data. And in Section \ref{sec:discussion}, we end with a
 discussion and provide directions for future research.
 
 \hypertarget{sec:background}{%
@@ -300,21 +300,22 @@ Analysis}\label{subsec:spb_design}}
 
 We previously mentioned that the design-based approach can be used to
 select spatially balanced samples. Spatially balanced samples are useful
-because parameter estimates from these samples tend to vary less than
-parameter estimates from samples lacking spatial balance (Barabesi and
-Franceschi, 2011; Benedetti et al., 2017; Grafström and Lundström, 2013;
-Robertson et al., 2013; Stevens and Olsen, 2004; Wang et al., 2013). The
-first spatially balanced sampling algorithm to see widespread use was
-the generalized random tessellation stratified (GRTS) algorithm (Stevens
-and Olsen, 2004). After the GRTS algorithm was developed, several other
-spatially balanced sampling algorithms emerged, including stratified
-sampling with compact geographical strata (Walvoort et al., 2010), the
-local pivotal method (Grafström et al., 2012; Grafström and Matei,
-2018), spatially correlated Poisson sampling (Grafström, 2012), balanced
-acceptance sampling (Robertson et al., 2013), within-sample-distance
-sampling (Benedetti and Piersimoni, 2017), and Halton iterative
-partitioning sampling (Robertson et al., 2018). In this manuscript, we
-select spatially balanced samples using the GRTS algorithm because it is
+because parameter estimates from these samples tend to vary less (be
+more precise) than parameter estimates from samples lacking spatial
+balance (Barabesi and Franceschi, 2011; Benedetti et al., 2017;
+Grafström and Lundström, 2013; Robertson et al., 2013; Stevens and
+Olsen, 2004; Wang et al., 2013). The first spatially balanced sampling
+algorithm to see widespread use was the generalized random tessellation
+stratified (GRTS) algorithm (Stevens and Olsen, 2004). After the GRTS
+algorithm was developed, several other spatially balanced sampling
+algorithms emerged, including stratified sampling with compact
+geographical strata (Walvoort et al., 2010), the local pivotal method
+(Grafström et al., 2012; Grafström and Matei, 2018), spatially
+correlated Poisson sampling (Grafström, 2012), balanced acceptance
+sampling (Robertson et al., 2013), within-sample-distance sampling
+(Benedetti and Piersimoni, 2017), and Halton iterative partitioning
+sampling (Robertson et al., 2018). In this manuscript, we select
+spatially balanced samples using the GRTS algorithm because it is
 readily available in the \texttt{spsurvey} \textbf{\textsf{R}} package
 (Dumelle et al., 2022) and naturally accommodates finite and infinite
 sampling frames, unequal inclusion probabilities, and replacement units.
@@ -639,22 +640,23 @@ In each of the 36 simulation scenarios, there were 2000 independent
 simulation trials. Within each trial, a population was simulated
 according to the specifications of the particular simulation scenario
 (for the random location layout, locations were simulated separately for
-each trial). Next, SRS and GRTS samples were selected. Then,
-design-based and model-based inferences were used to estimate
-(design-based) or predict (model-based) the realized mean and construct
-95\% confidence (design-based) or 95\% prediction (model-based)
-intervals. With model-based inference, covariance parameters and the
-realized mean were estimated (using REML) separately for each trial.
-After all 2000 trials, we summarized the long-run performance of the
-sampling-inference combination in each scenario by calculating mean
-bias, root-mean-squared error, and interval coverage. Mean bias was
-taken as the average deviation between each trial's estimated (or
-predicted) mean (\(\hat{\mu}_i\)) and its realized mean (\(\mu_i\)):
-\(\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu_i)\), where \(i\)
-indexes the simulation trials. Because each trial had different realized
-populations, \(\mu_i\) changed with \(i\). Root-mean-squared error was
-taken as the square root of the average squared deviation between each
-trial's estimated (or predicted) mean and its realized mean:
+each trial). Next, a random SRS sample and a random GRTS sample were
+selected. Then, design-based and model-based inferences were used to
+estimate (design-based) or predict (model-based) the realized mean and
+construct 95\% confidence (design-based) or 95\% prediction
+(model-based) intervals. With model-based inference, covariance
+parameters and the realized mean were estimated (using REML) separately
+for each trial. After all 2000 trials, we summarized the long-run
+performance of the sampling-inference combination in each scenario by
+calculating mean bias, root-mean-squared error, and interval coverage.
+Mean bias was taken as the average deviation between each trial's
+estimated (or predicted) mean (\(\hat{\mu}_i\)) and its realized mean
+(\(\mu_i\)): \(\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu_i)\),
+where \(i\) indexes the simulation trials. Because each trial had a
+different realized population, \(\mu_i\) changed with \(i\).
+Root-mean-squared error was taken as the square root of the average
+squared deviation between each trial's estimated (or predicted) mean and
+its realized mean:
 \(\sqrt{\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu_i)^2}\).
 Interval coverage was taken as the proportion of simulation trials where
 the realized mean was contained in its 95\% confidence (or prediction)
