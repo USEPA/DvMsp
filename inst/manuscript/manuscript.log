@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.5)  19 MAY 2022 09:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.5)  19 MAY 2022 11:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -613,13 +613,12 @@ File: figures/coverage.jpeg Graphic file (type jpg)
 <use figures/coverage.jpeg>
 Package pdftex.def Info: figures/coverage.jpeg  used on input line 828.
 (pdftex.def)             Requested size: 345.0pt x 298.72806pt.
-[22 <./figures/coverage.jpeg>]
-<figures/data_rmspe_eff.jpeg, id=264, 366.4089pt x 136.5903pt>
+<figures/data_rmspe_eff.jpeg, id=259, 366.4089pt x 136.5903pt>
 File: figures/data_rmspe_eff.jpeg Graphic file (type jpg)
 <use figures/data_rmspe_eff.jpeg>
 Package pdftex.def Info: figures/data_rmspe_eff.jpeg  used on input line 854.
 (pdftex.def)             Requested size: 345.0pt x 128.60956pt.
-[23 <./figures/data_rmspe_eff.jpeg>]
+[22] [23 <./figures/coverage.jpeg> <./figures/data_rmspe_eff.jpeg>]
 <figures/data_coverage.jpeg, id=272, 366.4089pt x 136.5903pt>
 File: figures/data_coverage.jpeg Graphic file (type jpg)
 <use figures/data_coverage.jpeg>
@@ -640,15 +639,15 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 9BBD6B1871F8069C2FC69D39AB72A20F;3102.
  ) 
 Here is how much of TeX's memory you used:
- 14859 strings out of 480245
- 245950 string characters out of 5891740
- 555634 words of memory out of 5000000
+ 14861 strings out of 480245
+ 245970 string characters out of 5891740
+ 555562 words of memory out of 5000000
  32141 multiletter control sequences out of 15000+600000
- 558251 words of font info for 195 fonts, out of 8000000 for 9000
+ 558333 words of font info for 196 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  70i,14n,76p,1007b,544s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmib10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/Users/mdumelle/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on manuscript.pdf (33 pages, 1774023 bytes).
+Output written on manuscript.pdf (33 pages, 1773916 bytes).
 PDF statistics:
  490 PDF objects out of 1000 (max. 8388607)
  397 compressed objects within 4 object streams

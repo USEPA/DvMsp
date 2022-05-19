@@ -333,17 +333,17 @@ Each level-one cell is randomly assigned a level-one address of 0, 1, 2,
 or 3. The set of level-one cells is denoted by \(\mathcal{A}_1\) and
 defined as \(\mathcal{A}_1 \equiv \{a_1: a_1 = 0, 1, 2, 3\}\). Within
 each level-one cell, the inclusion probability for each population unit
-(which is pre-specified) is summed, and if any of these sums exceed one,
-a second level of cells is added. Then each level-one cell is split into
-four distinct, equally sized squares called level-two cells. Each
-level-two cell is randomly assigned a level-two address of 0, 1, 2, or
-3. The set of level-two cells is denoted by \(\mathcal{A}_2\) and
+(which is pre-specified) is summed, and if any of these sums are one or
+greater, a second level of cells is added. Then each level-one cell is
+split into four distinct, equally sized squares called level-two cells.
+Each level-two cell is randomly assigned a level-two address of 0, 1, 2,
+or 3. The set of level-two cells is denoted by \(\mathcal{A}_2\) and
 defined as
 \(\mathcal{A}_2 \equiv \{a_1a_2: a_1 = 0, 1, 2, 3; a_2 = 0, 1, 2, 3\}\).
 The inclusion probabilities within each level-two cell are summed, and
-if any of these sums exceed one, a third level of cells is added. This
-process continues for \(k\) steps, until all level-\(k\) cells have
-inclusion probability sums no larger than one. Then
+if any of these sums are one or greater, a third level of cells is
+added. This process continues for \(k\) steps, until all level-\(k\)
+cells have inclusion probability sums less than one. Then
 \(\mathcal{A}_k \equiv \{a_1...a_k : a_1 = 0, 1, 2, 3; ...; a_k = 0, 1, 2, 3\}\).
 Figure\(~\)\ref{fig:grts} provides some intuition regarding the
 assignment of level-one and level-two cells.
@@ -413,14 +413,13 @@ the local neighborhood variance estimator. The local neighborhood
 variance estimator does not rely on \(\pi_{ij}\) and estimates the
 variance of \(\hat{\tau}\) conditional on the random properties of the
 GRTS sample -- the idea being that this conditioning should yield a more
-precise estimate of \(\hat{\tau}\). They show that the contribution from
-each sampled population unit to the overall variance is dominated by
-local variation. Thus the local neighborhood variance estimator is a
-weighted sum of variance estimates from each sampled population unit's
-local neighborhood. These local neighborhoods contain the sampled
-population unit itself and its three nearest neighbors (among all other
-sampled population units). For more details, see Stevens and Olsen
-(2003).
+precise estimate of \(\tau\). They show that the contribution from each
+sampled population unit to the overall variance is dominated by local
+variation. Thus the local neighborhood variance estimator is a weighted
+sum of variance estimates from each sampled population unit's local
+neighborhood. These local neighborhoods contain the sampled population
+unit itself and its three nearest neighbors (among all other sampled
+population units). For more details, see Stevens and Olsen (2003).
 
 \hypertarget{finite-population-block-kriging}{%
 \subsubsection{Finite Population Block
@@ -613,10 +612,11 @@ as for the normal response type, except that the total variance was
 0.6931 instead of 2. The response was then exponentiated, yielding a
 skewed random variable whose total variance was 2. The skewed responses
 were used to evaluate performance of the sampling-inference approaches
-for data that were not normal but were still estimated using REML, which
-relies on a normal log-likelihood. Figure \ref{fig:sim_pops} shows an
-example of a realized population for the normal and skewed responses
-using the random layout and 50\% DRE.
+for data that were not normally distributed but were still estimated
+using REML, which relies on a normal log-likelihood. Figure
+\ref{fig:sim_pops} shows an example of a realized population for the
+normal and skewed responses using the random location layout and 50\%
+DRE.
 
 \begin{figure}
 \centering
@@ -693,10 +693,10 @@ responses whose separation (distance) falls within a separation class.
 The spatial semivariance is closely related to the spatial covariance,
 and spatial semivariograms are often used to gauge the strength of
 spatial dependence in data. Both ZMMI and Hg ppb seem to have moderately
-strong spatial dependence (Figure \ref{fig:zmmi}), as the semivariance
-increases steadily with distance (meaning that observations nearby one
-another tend to be more similar than observations far apart from one
-another).
+strong spatial dependence (Figure \ref{fig:zmmi}), as the empirical
+semivariance increases steadily with distance (meaning that observations
+near one another tend to be more similar than observations far apart
+from one another).
 
 \begin{figure}
 \centering
@@ -727,13 +727,13 @@ another).
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/zmmi_sv.jpeg}
-  \caption{Semivariogram of the ZMMI population.}
+  \caption{Empirical semivariogram of the ZMMI population.}
   \label{fig:zmmi_sv_plot}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
   \centering
   \includegraphics[width = 1\linewidth]{figures/mercury_sv.jpeg}
-  \caption{Semivariogram of the Hg ppb population.}
+  \caption{Empirical semivariogram of the Hg ppb population.}
   \label{fig:mercury_sv_plot}
 \end{subfigure}
 \caption{Exploratory graphics representing populations for the zooplankton multi-metric indices (ZMMI) and mercury concentration in parts per billion (Hg ppb) in the 2012 National Lakes Assessment (NLA) data.}
@@ -852,7 +852,7 @@ scenarios are provided in the supporting information.
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/data_rmspe_eff.jpeg}
-  \caption{NLA data relative RMSE for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid, black lines separate the sample sizes.}
+  \caption{NLA data relative RMSE for the four sampling-inference combinations. The columns indicate the response type. The solid, black lines separate the sample sizes.}
   \label{fig:data_rmspe_eff}
 \end{figure}
 
@@ -887,7 +887,7 @@ simulation scenarios are provided in the supporting information.
 \begin{figure}
   \centering
   \includegraphics[width = 1\linewidth]{figures/data_coverage.jpeg}
-  \caption{NLA data interval coverage for the four sampling-inference combinations. The rows indicate the proportion of dependent error and the columns indicate the response type. The solid black lines separate the sample sizes and the dashed black lines represent 95\% coverage.}
+  \caption{NLA data interval coverage for the four sampling-inference combinations. The columns indicate the response type. The solid black lines separate the sample sizes and the dashed black lines represent 95\% coverage.}
   \label{fig:data_figconf}
 \end{figure}
 
@@ -923,29 +923,29 @@ generally all interval coverages were near the desired value of 95\%.
 There are several benefits and drawbacks of the design-based and
 model-based approaches for finite population spatial sampling and
 inference. Some we have discussed, but others we have not, and they are
-worthy of consideration in future research. First, we discuss advantages
-of the design-based approach. Design-based inference is often
-computationally efficient, while model-based inference can be
-computationally burdensome, especially for likelihood-based estimation
-methods like REML that rely on the inverse of a covariance matrix.
-Design-based inference easily handles binary data through a
-straightforward application of the Horvitz-Thompson estimator. In
-contrast, analyzing binary data using model-based inference generally
-requires a logistic mixed regression model, the parameters of which can
-be difficult to estimate and interpret (Bolker et al., 2009). An
-advantage of design-based inference is that interval coverage is valid
-(has the proper coverage rate) as long as 1) the sample is sufficiently
-large to ensure the statistic's sampling distribution is approximately
-normal and 2) the variance estimator is consistent (Brus and De
-Gruijter, 1997; Särndal et al., 2003). This is because with the
-design-based approach, the sampling plan and inclusion probabilities are
-specified directly by the researcher. An advantage of SRS-DB not
-previously mentioned is that it is likely to be valid given the
-consistency of its variance estimator (Särndal et al., 2003). With the
-model-based approach, however, interval coverage is unlikely to be valid
-if the model assumptions made do not not accurately reflect reality.
-Whether model assumptions accurately reflect reality can be a
-challenging and sometimes impossible question to answer definitively.
+worthy of discussion. First, we discuss advantages of the design-based
+approach. Design-based inference is often computationally efficient,
+while model-based inference can be computationally burdensome,
+especially for likelihood-based estimation methods like REML that rely
+on the inverse of a covariance matrix. Design-based inference easily
+handles binary data through a straightforward application of the
+Horvitz-Thompson estimator. In contrast, analyzing binary data using
+model-based inference generally requires a logistic mixed regression
+model, the parameters of which can be difficult to estimate and
+interpret (Bolker et al., 2009). An advantage of design-based inference
+is that interval coverage is valid (has the proper coverage rate) as
+long as 1) the sample is sufficiently large to ensure the statistic's
+sampling distribution is approximately normal and 2) the variance
+estimator is consistent (Brus and De Gruijter, 1997; Särndal et al.,
+2003). This is because with the design-based approach, the sampling plan
+and inclusion probabilities are specified directly by the researcher. An
+advantage of SRS-DB not previously mentioned is that it is likely to be
+valid given the consistency of its variance estimator (Särndal et al.,
+2003). With the model-based approach, however, interval coverage is
+unlikely to be valid if the model assumptions made do not not accurately
+reflect reality. Whether model assumptions accurately reflect reality
+can be a challenging and sometimes impossible question to answer
+definitively.
 
 Now, we discuss advantages of the model-based approach. The model-based
 approach can more naturally quantify the relationship between covariates
