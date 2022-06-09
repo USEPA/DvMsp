@@ -60,31 +60,6 @@ combo_data <- combo_data %>%
   ) %>% factor(levels = c("SRS-DB", "SRS-MB", "GRTS-DB", "GRTS-MB")))
 
 
-# combo_data <- combo_data %>%
-#   pivot_longer(cols = c(rel_efficiency, coverage), names_to = "stat", values_to = "value")
-# colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
-# resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
-# stat_labs <- c(rel_efficiency = "Relative rMS(P)E", coverage = "Interval Coverage")
-# rmspe_eff <- combo_data %>%
-#   ggplot(aes(x = n_factor_adj, y = value, colour = approach)) +
-#   facet_grid(
-#     stat ~ var,
-#     labeller = labeller(var = resptype_labs, stat = stat_labs)
-#   ) +
-#   scale_colour_manual(values = colour_scale) +
-#   geom_point(size = 2) +
-#   geom_vline(xintercept = c(75, 125), lty = "solid") +
-#   scale_x_continuous(breaks = c(50, 100, 150), labels = c("50", "100", "200")) +
-#   theme_bw(base_size = base_size) +
-#   labs(x = "Sample Size", colour = "Approach", y = "Relative rMS(P)E") +
-#   # lims(y = c(0.4, 1.1)) +
-#   theme(
-#     panel.grid.major = element_blank(),
-#     panel.grid.minor = element_blank(),
-#   )
-
-
-
 # figure 2
 # colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
 # colour_scale <- palette(hcl.colors(4, "viridis"))
@@ -110,26 +85,6 @@ rmspe_eff <- combo_data %>%
   )
 
 
-
-# figure 2
-# colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
-# resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
-# rmspe_eff <- combo_data %>%
-#   ggplot(aes(x = n_factor, y = rel_efficiency, colour = approach)) +
-#   facet_grid(
-#     rows = vars(var),
-#     labeller = labeller(var = resptype_labs)
-#   ) +
-#   geom_jitter(width = 0.24, size = 2) +
-#   scale_colour_manual(values = colour_scale) +
-#   theme_bw(base_size = base_size) +
-#   labs(x = "Sample Size", colour = "Approach", y = "Relative rMS(P)E") +
-#   lims(y = c(0.4, 1.1)) +
-#   theme(
-#     panel.grid.major = element_blank(),
-#     panel.grid.minor = element_blank(),
-#   )
-
 ### rmspe_eff
 if (write_out) {
   ggsave(
@@ -142,35 +97,6 @@ if (write_out) {
 }
 
 
-# figure 3
-# colour_scale <- c("goldenrod1", "goldenrod4", "mediumpurple1", "mediumpurple4")
-# resptype_labs <- c(MMI_ZOOP_NLA6 = "Response: Zooplankton MMI", TOTALHG_RESULT = "Response: Mercury")
-# mse_eff <- combo_data %>%
-#   ggplot(aes(x = n_factor, y = mse_efficiency, colour = approach)) +
-#   facet_grid(
-#     rows = vars(var),
-#     labeller = labeller(var = resptype_labs)
-#   ) +
-#   geom_jitter(width = 0.24, size = 2) +
-#   scale_colour_manual(values = colour_scale) +
-#   theme_bw(base_size = base_size) +
-#   labs(x = "Sample Size", colour = "Approach", y = "Relative MStdE") +
-#   lims(y = c(0.4, 1.1)) +
-#   theme(
-#     panel.grid.major = element_blank(),
-#     panel.grid.minor = element_blank(),
-#   )
-#
-# ### mse_eff
-# if (write_out) {
-#   ggsave(
-#     plot = mse_eff,
-#     file = here("inst", "manuscript", "figures", "data_mse_eff.jpeg"),
-#     dpi = 300,
-#     width = 5.07,
-#     height = 4.39
-#   )
-# }
 
 
 # figure 4

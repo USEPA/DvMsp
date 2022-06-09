@@ -63,7 +63,7 @@ if (write_out) {
 }
 
 
-# # population simulations
+# # population simulations for single observation
 #
 # ## normal
 # df_norm <- data.frame(x = seq(-5, 5, length.out = 1000))

@@ -1,5 +1,5 @@
 Package: DvMsp
-Title: A supplementary R package for the manuscript titled "A comparison of design-based and model-based approaches for finite population spatial data"
+Title: A supplementary R package for the manuscript titled A comparison of design-based and model-based approaches for finite population spatial sampling and inference.
 Version: 0.1.0
 Authors@R: c(
     person(given = "Michael",
@@ -20,7 +20,7 @@ Authors@R: c(
            given = "Lisa",
            role = c("aut"))
     )
-Description: This R package accompanies the manuscript titled "A comparison of design-based and model-based approaches for finite population spatial data" by Michael Dumelle, Matt Higham, Jay M. Ver Hoef, Anthony R. Olsen, and Lisa Madsen. Functions within the package are used to analyze both the simulated and the real data.
+Description: This R package accompanies the manuscript titled A comparison of design-based and model-based approaches for finite population spatial sampling and inference by Michael Dumelle, Matt Higham, Jay M. Ver Hoef, Anthony R. Olsen, and Lisa Madsen. Functions within the package are used to analyze both the simulated and the real data.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
