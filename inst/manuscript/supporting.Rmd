@@ -59,39 +59,6 @@ Recall the four sampling-analysis combinations from the simulated and real data:
 
 For the simulated data, we considered 36 parameter configurations -- the crossing of three sample sizes ($n = 50$, $n = 100$, $n = 200)$, two location layouts (random and gridded), three proportions of dependent random error (DRE) (0%, 50%, 90%), and two response types (normal and skewed). 
 
-```{r, echo = FALSE, results = "asis"}
-# tab <- matrix(c("IRS-Design", "IRS-Model", "GRTS-Design", "GRTS-Model"),
-#        nrow = 2, byrow = TRUE) %>%
-#   as.table()
-# row.names(tab) <- c("IRS", "GRTS")
-# xtab1 <- xtable(tab, col.names = c("Design", "Model"), caption = "\\label{tab:designanalysis} Sampling-analysis combinations in the simulation study. The rows give the two types of sampling designs and the columns give the two types of analyses.")
-# align(xtab1) <- "r|ll"
-# names(xtab1) <- c("Design", "Model")
-# print(xtab1, comment = FALSE)
-# ## I really want "Analysis" to appear as a row header and "Sampling Design" 
-# ## to appear as a column header, but this isn't easy to figure out.
-# ## I couldn't figure this out with xtable either so it might need to be
-# ## made "by hand."
-```
-
-
-```{r, echo = FALSE, results = "asis"}
-# n <- c("50", "100", "200")
-# site_locations <- c("Random", "Gridded", "")
-# psill_ratio <- c("0", "0.5", "0.9")
-# resp_type <- c("Normal", "Lognormal", "")
-# parm_tab <- rbind(n, site_locations, psill_ratio, resp_type)
-# parm_tab[c(2, 4), 3] <- "-"
-# row.names(parm_tab) <- c("Sample Size (n)", "Layout", 
-#                          "Proportion of Dependent Error", "Response Type")
-# # library(knitr) kable with htlm has trouble with page breaks -- kable with latex harder for me than xtable
-# # kable(parm_tab, col.names = c("", "", ""),
-# #       caption = "\\label{tab:parmtab} Simulation parameters. Total variability for all scenarios was 2 so that the partial sill was 0, 1, or 1.8.")
-# parm_xtab <- xtable(parm_tab, caption = "\\label{tab:parmtab} Simulation scenario options. All combinations of sample size, location layout, response type, and proportion of dependent random error composed the 36 simulation scenarios. In each simualtion scenario, the total variance was 2.")
-# align(parm_xtab) <- "r|lll"
-# print(parm_xtab, include.colnames = FALSE, hline.after = c(0, nrow(parm_xtab)), comment = FALSE)
-```
-
 Next we present tables summarizing mean bias, RMSE, and interval coverage for all 36 simulation scenarios.
 ```{r}
 make_sim_table <- function(table_value) {

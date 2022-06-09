@@ -32,7 +32,7 @@ abstract: |
 journal: "Methods in Ecology and Evolution"
 date: "`r Sys.Date()`"
 bibliography: mybibfile.bib
-linenumbers: true
+linenumbers: false
 numbersections: true
 csl: elsevier-harvard.csl
 preamble: >
@@ -200,21 +200,6 @@ The simulated and real data were used for distinct objectives. The simulated dat
 
 ## Simulated Data {#sec:mm_sim}
 
-```{r, echo = FALSE, results = "asis"}
-# tab <- matrix(c("SRS-DB", "SRS-MB", "GRTS-DB", "GRTS-MB"),
-#        nrow = 2, byrow = TRUE) %>%
-#   as.table()
-# row.names(tab) <- c("IRS", "GRTS")
-# xtab1 <- xtable(tab, col.names = c("Design", "Model"), caption = "\\label{tab:designanalysis} Sampling-inference combinations in the simulation study. The rows give the two types of sampling designs and the columns give the two types of analyses.")
-# align(xtab1) <- "r|ll"
-# names(xtab1) <- c("Design", "Model")
-# print(xtab1, comment = FALSE)
-# ## I really want "Analysis" to appear as a row header and "Sampling Design" 
-# ## to appear as a column header, but this isn't easy to figure out.
-# ## I couldn't figure this out with xtable either so it might need to be
-# ## made "by hand."
-```
-
 We evaluated performance of the four sampling-inference combinations in 36 different simulation scenarios. The 36 scenarios resulted from the crossing of three sample sizes, two location layouts (of the population units), two response types, and three proportions of dependent random error (DRE). The three sample sizes ($n$) were $n = 50, n = 100,$ and $n = 200$. Samples were always selected from a population size ($N$) of $N = 900$. The two location layouts were random and gridded. Locations in the random layout were randomly generated inside the unit square ($[0, 1] \times [0, 1]$). Locations in the gridded layout were placed on a fixed, equally spaced grid inside the unit square. The two response types were normal and skewed. For the normal response type, the response was simulated using mean-zero random errors with the exponential covariance (Equation$~$\ref{equation:expcov}) for three proportions of dependent random error (DRE): 0% DRE, 50% DRE, and 90% DRE. Recall the proportion of DRE is represented by $\sigma^2_1 / (\sigma^2_1 + \sigma^2_2)$, where $\sigma^2_1$ and $\sigma^2_2$ are the DRE variance and independent random error (IRE) variance from Equation$~$\ref{equation:expcov}, respectively. The total variance, $\sigma^2_1 + \sigma^2_2$, was always 2. The distance parameter was always $\sqrt{2} / 3$, chosen so that the correlation in the DRE decayed to nearly zero at $\sqrt{2}$, the largest possible distance between two population units in the domain. For the skewed response type, the response was first simulated using the same approach as for the normal response type, except that the total variance was 0.6931 instead of 2. The response was then exponentiated, yielding a skewed random variable whose total variance was 2. The skewed responses were used to evaluate performance of the sampling-inference approaches for data that were not normally distributed but were still estimated using REML, which relies on a normal log-likelihood. Figure \ref{fig:sim_pops} shows an example of a realized population for the normal and skewed responses using the random location layout and 50% DRE. 
 
 \begin{figure}
@@ -234,21 +219,6 @@ We evaluated performance of the four sampling-inference combinations in 36 diffe
 \caption{Histograms of single realized populations simulated for the normal and skewed respones using the random layout and 50\% DRE.}
 \label{fig:sim_pops}
 \end{figure}
-
-```{r, echo = FALSE, results = "asis"}
-# n <- c("50", "100", "200")
-# site_locations <- c("Random", "Gridded", "")
-# psill_ratio <- c("0", "0.5", "0.9")
-# resp_type <- c("Normal", "Lognormal", "")
-# parm_tab <- rbind(n, site_locations, psill_ratio, resp_type)
-# parm_tab[c(2, 4), 3] <- "-"
-# row.names(parm_tab) <- c("Sample Size (n)", "Location Layout", 
-#                          "Proportion of Dependent Error", "Response Type")
-# # parm_tab <- parm_tab[c(1, 2, 4, 3), ]
-# parm_xtab <- xtable(parm_tab, caption = "\\label{tab:parmtab} Simulation scenario options. All combinations of sample size, location layout, response type, and proportion of dependent random error composed the 36 simulation scenarios. In each simualtion scenario, the total variance was 2.")
-# align(parm_xtab) <- "r|lll"
-# print(parm_xtab, include.colnames = FALSE, hline.after = c(0, nrow(parm_xtab)), comment = FALSE)
-```
 
 In each of the 36 simulation scenarios, there were 2000 independent simulation trials. Within each trial, a population was simulated according to the specifications of the particular simulation scenario (for the random location layout, locations were simulated separately for each trial). Next, a random SRS sample and a random GRTS sample were selected. Then, design-based and model-based inferences were used to estimate (design-based) or predict (model-based) the realized mean and construct 95% confidence (design-based) or 95% prediction (model-based) intervals. With model-based inference, covariance parameters and the realized mean were estimated (using REML) separately for each trial.  After all 2000 trials, we summarized the long-run performance of the sampling-inference combination in each scenario by calculating mean bias, root-mean-squared error, and interval coverage. Mean bias was taken as the average deviation between each trial's estimated (or predicted) mean ($\hat{\mu}_i$) and its realized mean ($\mu_i$): $\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu_i)$, where $i$ indexes the simulation trials. Because each trial had a different realized population, $\mu_i$ changed with $i$. Root-mean-squared error was taken as the square root of the average squared deviation between each trial's estimated (or predicted) mean and its realized mean: $\sqrt{\frac{1}{n}\sum_{i = 1}^{2000} (\hat{\mu}_i - \mu_i)^2}$. Interval coverage was taken as the proportion of simulation trials where the realized mean was contained in its 95% confidence (or prediction) interval. These intervals were constructed using the normal distribution -- justification comes from the asymptotic normality of means via the central limit theorem (under some assumptions). Quantifying these metrics is important because together, they give us an idea of the accuracy (mean bias), spread (RMSE), and validity (interval coverage) of the sampling-inference combinations.
 
@@ -348,18 +318,6 @@ The relative RMSE of both ZMMI (symmetric response) and Hg ppb (skewed response)
   \label{fig:data_figconf}
 \end{figure}
 
-
-
-```{r apptab, results = "asis"}
-# res_df <- readr::read_csv(here("inst", "output", "application", "application.csv"))
-# # res_df$bias <- res_df$realized_mean - res_df$estimate
-# # res_df_drop <- res_df[ , c("approach", "estimate", "bias", "se", "lb", "ub")]
-# res_df_drop <- res_df[, ]
-# names(res_df_drop) <- c("Approach", "True Mean", "Est/Pred", "SE", "95% LB", "95% UB")
-# xtab_app <- xtable(res_df_drop, digits = 1, caption = "\\label{tab:appliedtab} For each sampling-inference combination (Approach), the true mean mercury concentration (True Mean), estimates/predictions (Est/Pred), standard errors (SE), lower 95\\% interval bounds (95\\% LB), and upper 95\\% interval bounds (95\\% UB) for mean mercury concentration computed using a sample of 100 lakes in the NLA data.")
-# print(xtab_app, include.rownames = FALSE, comment = FALSE)
-```
-
 # Discussion {#sec:discussion}
 
 The design-based and model-based approaches to frequentist statistical inference rest on fundamentally different foundations. Design-based approaches rely on random sampling to estimate population parameters. Model-based approaches rely on distributional assumptions to predict realized values of a data-generating stochastic process. Though model-based approaches do not rely on random sampling, random sampling can still be beneficial as a way to guard against preferential sampling. While design-based and model-based approaches have often been compared in the literature from theoretical and analytical perspectives, our contribution lies in studying them for finite population spatial data while implementing GRTS sampling and the local neighborhood variance estimator. Aside from the theoretical differences described throughout the manuscript, a few analytical findings from the simulated and real data studies were particularly notable. All sampling-inference combinations had approximately zero mean bias. Independent of the inference approach, the GRTS samples yielded lower RMSE than their SRS counterparts. Though GRTS-DB and GRTS-MB generally had very similar RMSE, SRS-MB tended to have much lower RMSE than SRS-DB, suggesting that the model-based inference mitigated much of the inefficiency in RMSE from SRS. As the proportion of dependent random error in the simulated data increased, SRS-MB, GRTS-DB, and GRTS-MB become increasingly more efficient (lower RMSE) than SRS-DB. Interval coverage tended to be higher for the symmetric responses than skewed responses and tended to increase with the sample size. At a sample size of $n = 200$, generally all interval coverages were near the desired value of 95%. 
@@ -376,14 +334,6 @@ We would like to thank the editors and anonymous reviewers for their hard work a
 
 The views expressed in this manuscript are those of the authors and do not necessarily represent the views or policies of the U.S. Environmental Protection Agency or the National Oceanic and Atmospheric Administration. Any mention of trade names, products, or services does not imply an endorsement by the U.S. government, the U.S. Environmental Protection Agency, or the National Oceanic and Atmospheric Administration. The U.S. Environmental Protection Agency and National Oceanic and Atmospheric Administration do not endorse any commercial products, services, or enterprises.
 
-# Conflict of Interest Statement {.unnumbered}
-
-There are no conflicts of interest for any of the authors.
-
-# Author Contribution Statement {.unnumbered}
-
-All authors conceived the ideas; All authors designed the methodology; MD and MH performed the simulations and analyzed the data; MD and MH led the writing of the manuscript; All authors contributed critically to the drafts and gave final approval for publication.
-
 # Data and Code Availability {.unnumbered}
 
 This manuscript has a supplementary \textbf{\textsf{R}} package that contains all of the data and code used in its creation. The supplementary \textbf{\textsf{R}} package is hosted on GitHub. Instructions for download are available at
@@ -391,6 +341,14 @@ This manuscript has a supplementary \textbf{\textsf{R}} package that contains al
 [https://github.com/michaeldumelle/DvMsp](https://github.com/michaeldumelle/DvMsp).
 
 If the manuscript is accepted, this repository will be archived in Zenodo.
+
+# Conflict of Interest Statement {.unnumbered}
+
+There are no conflicts of interest for any of the authors.
+
+# Author Contribution Statement {.unnumbered}
+
+All authors conceived the ideas; All authors designed the methodology; Michael Dumelle and Matt Higham performed the simulations and analyzed the data; Michael Dumelle and Matt Higham led the writing of the manuscript; All authors contributed critically to the drafts and gave final approval for publication.
 
 # Supporting Information {.unnumbered}
 
