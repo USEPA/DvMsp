@@ -1,6 +1,6 @@
 Package: DvMsp
-Title: A supplementary R package for the manuscript titled A comparison of design-based and model-based approaches for finite population spatial sampling and inference.
-Version: 0.1.0
+Title: A supplementary R package for the manuscript titled A comparison of design-based and model-based approaches for finite population spatial sampling and inference
+Version: 1.0.0
 Authors@R: c(
     person(given = "Michael",
            family = "Dumelle",
