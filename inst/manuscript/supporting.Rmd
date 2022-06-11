@@ -71,7 +71,7 @@ make_sim_table <- function(table_value) {
                   Response = resptype,
                   `DRE%` = psill_ratio,
                   n = n,
-                  MB = mpbias,
+                  MBias = mpbias,
                   RMSE = rmspe,
                   Coverage = coverage
                   ) %>%
@@ -96,7 +96,7 @@ sim_table <- sim_table[c(2, 4, 1, 3), ]
 sim_table_out <- xtable(
   sim_table,
   digits = 4,
-  caption = paste0("Sampling-inference combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DRE\\%), sample size (n), mean bias (MB), root-mean-squared error (RMSE), and 95\\% interval coverage (Coverage) in simulation scenario ", table_value, "."),
+  caption = paste0("Sampling-inference combination (Approach), population layout (Layout), response type (Response), proportion of dependent random error (DRE\\%), sample size (n), mean bias (MBias), root-mean-squared error (RMSE), and 95\\% interval coverage (Coverage) in simulation scenario ", table_value, "."),
    type = "latex",
   latex.environments = "center",
   align = c("llllrrrrr")
@@ -124,7 +124,7 @@ make_data_table <- function(table_value) {
     dplyr::select(Approach = approach,
                   Response = var,
                   n = n,
-                  MB = mpbias,
+                  MBias = mpbias,
                   RMSE = rmspe,
                   Coverage = coverage
                   ) %>%
@@ -145,7 +145,7 @@ data_table <- data_table[c(2, 4, 1, 3), ]
 data_table_out <- xtable(
   data_table,
   digits = 4,
-  caption = paste0("Sampling-inference combination (Approach), response type (Response), sample size (n), mean bias (MB), root-mean-squared error (RMSE), and 95\\% interval coverage (Coverage) in a data application scenario ", table_value, "."),
+  caption = paste0("Sampling-inference combination (Approach), response type (Response), sample size (n), mean bias (MBias), root-mean-squared error (RMSE), and 95\\% interval coverage (Coverage) in a data application scenario ", table_value, "."),
    type = "latex",
   latex.environments = "center",
   align = c("lllrrrr")
