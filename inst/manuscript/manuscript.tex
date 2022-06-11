@@ -341,7 +341,7 @@ sampling (Robertson et al., 2013), within-sample-distance sampling
 sampling (Robertson et al., 2018). In this manuscript, we select
 spatially balanced samples using the GRTS algorithm because it is
 readily available in the spsurvey \textbf{\textsf{R}} package (Dumelle
-et al., 2022) and naturally accommodates finite and infinite sampling
+et al., 2022b) and naturally accommodates finite and infinite sampling
 frames, unequal inclusion probabilities, and replacement units.
 Replacement units are additional population units that can be sampled
 when a population unit originally selected can no longer be sampled. A
@@ -592,8 +592,9 @@ to estimate means and the local neighborhood variance was used to
 estimate variances. For SRS-MB and GRTS-MB, FPBK was used to estimate
 means and variances using restricted maximum likelihood. SRS, GRTS
 sampling, and design-based inference were implemented using the spsurvey
-\textbf{\textsf{R}} package (Dumelle et al., 2022). FPBK was implemented
-using the sptotal \textbf{\textsf{R}} package (Higham et al., 2021a).
+\textbf{\textsf{R}} package (Dumelle et al., 2022b). FPBK was
+implemented using the sptotal \textbf{\textsf{R}} package (Higham et
+al., 2021a).
 
 The simulated and real data were used for distinct objectives. The
 simulated data was used to compare the sampling-inference combinations
@@ -1026,8 +1027,8 @@ This manuscript has a supplementary \textbf{\textsf{R}} package that
 contains all of the data, code, and figures used in its creation. All
 figures were created using the ggplot2 \textbf{\textsf{R}} package
 (Wickham, 2016). The supplementary \textbf{\textsf{R}} package is hosted
-on GitHub and archived on Zenodo. The Zenodo DOI is located here and in
-the references.
+on GitHub and archived on Zenodo. The Zenodo DOI link is
+https://doi.org/10.5281/zenodo.6633805 (Dumelle et al., 2022a).
 
 \hypertarget{conflict-of-interest-statement}{%
 \section*{Conflict of Interest
@@ -1133,8 +1134,13 @@ Diggle, P.J., Menezes, R., Su, T., 2010. Geostatistical inference under
 preferential sampling. Journal of the Royal Statistical Society: Series
 C (Applied Statistics) 59, 191--232.
 
+\leavevmode\hypertarget{ref-dumelle2022DvMsp}{}%
+Dumelle, M., Higham, M., Hoef, J.M.V., Olsen, A.R., Madsen, L., 2022a.
+USEPA/DvMsp: Publication release. Zenodo.
+doi:\href{https://doi.org/10.5281/zenodo.6633805}{10.5281/zenodo.6633805}
+
 \leavevmode\hypertarget{ref-dumelle2022spsurvey}{}%
-Dumelle, M., Kincaid, T.M., Olsen, A.R., Weber, M.H., 2022. Spsurvey:
+Dumelle, M., Kincaid, T.M., Olsen, A.R., Weber, M.H., 2022b. Spsurvey:
 Spatial sampling design and analysis.
 
 \leavevmode\hypertarget{ref-fix1989discriminatory}{}%

@@ -338,7 +338,7 @@ The views expressed in this manuscript are those of the authors and do not neces
 
 # Data and Code Availability {.unnumbered}
 
-This manuscript has a supplementary \textbf{\textsf{R}} package that contains all of the data, code, and figures used in its creation. All figures were created using the ggplot2 \textbf{\textsf{R}} package [@wickham2016ggplot2]. The supplementary \textbf{\textsf{R}} package is hosted on GitHub and archived on Zenodo. The Zenodo DOI is located here and in the references.
+This manuscript has a supplementary \textbf{\textsf{R}} package that contains all of the data, code, and figures used in its creation. All figures were created using the ggplot2 \textbf{\textsf{R}} package [@wickham2016ggplot2]. The supplementary \textbf{\textsf{R}} package is hosted on GitHub and archived on Zenodo. The Zenodo DOI link is https://doi.org/10.5281/zenodo.6633805 [@dumelle2022DvMsp].
 
 # Conflict of Interest Statement {.unnumbered}
 
