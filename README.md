@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/332001897.svg)](https://zenodo.org/badge/latestdoi/332001897)
+
 # DvMsp
 
 ### A Supplementary R Package to "A comparison of design-based and model-based approaches for finite population spatial sampling and inferece"
