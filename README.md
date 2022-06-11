@@ -106,19 +106,19 @@ citation("DvMsp")
 ```
 To cite this work in publications use:
 
-  Dumelle, Michael., Higham, Matt., Ver Hoef, Jay M., Olsen, Anthony R., and Madsen, Lisa. (2021). A comparison
-  of design-based and model-based approaches for finite population spatial data. In submission.
+  Dumelle, Michael., Higham, Matt., Ver Hoef, Jay M., Olsen, Anthony R., and Madsen, Lisa. (2022). A comparison
+  of design-based and model-based approaches for finite population spatial sampling and inference. Methods in Ecology and Evolution.
 
 A BibTeX entry for LaTeX users is
 
   @Article{,
-    title = {A comparison of design-based and model-based approaches for finite population spatial data},
+    title = {A comparison of design-based and model-based approaches for finite population spatial sampling and inference},
     author = {Michael Dumelle and Matt Higham and Jay M. Ver Hoef and Anthony R. Olsen and Lisa Madsen},
-    journal = {In submission},
+    journal = {Methods in Ecology and Evolution},
     year = {2022},
-    volume = {0},
-    number = {0},
-    pages = {0-0},
+    volume = {NA},
+    number = {NA},
+    pages = {NA-NA},
     url = {NA},
   }
 
