@@ -26,7 +26,7 @@ footnote:
     text: "Corresponding Author: Michael Dumelle (Dumelle.Michael@epa.gov)"
 journal: "Methods in Ecology and Evolution"
 date: "`r Sys.Date()`"
-linenumbers: true
+linenumbers: false
 numbersections: true
 csl: elsevier-harvard.csl
 preamble: >
